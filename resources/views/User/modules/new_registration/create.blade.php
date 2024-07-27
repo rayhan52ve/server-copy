@@ -211,7 +211,7 @@
                 <input type="text" id="permanentAddrEn" name="permanentAddrEn" required>
             </div>
             <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-            @if (auth()->user()->premium == 2)
+            @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
                 <input type="hidden" name="price" value="{{ $message->premium_birth_price }}">
             @else
                 <input type="hidden" name="price" value="{{ $message->birth_price }}">
@@ -220,7 +220,7 @@
             @if ($submitStatus->birth == 0)
                 <h6 class="text-danger text-center">ফর্ম সাবমিট বন্ধ আছে। পরবর্তীতে চেষ্টা করুন।</h6>
             @else
-                @if (auth()->user()->premium == 2)
+                @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
                     <h6 class="text-primary">{{ $message->premium_birth }}</h6>
                 @else
                     <h6 class="text-primary">{{ $message->birth }}</h6>
@@ -233,7 +233,7 @@
         </form>
     </div>
     @php
-      $priceAlert =   auth()->user()->premium == 2 ? $message->premium_birth_price:$message->birth_price;
+      $priceAlert =   auth()->user()->premium == 2 && $now < auth()->user()->premium_end ? $message->premium_birth_price:$message->birth_price;
     @endphp
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

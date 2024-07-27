@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Premium;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -100,7 +101,8 @@ class PremiumController extends Controller
     public function userIndex(Premium $premium)
     {
         $premium = Premium::first();
-        return view('User.modules.premium.index', compact('premium'));
+        $now = Carbon::now();
+        return view('User.modules.premium.index', compact('premium', 'now'));
     }
 
     public function userPremiumRequest(Request $request, Premium $premium)
@@ -108,11 +110,31 @@ class PremiumController extends Controller
         $user = User::findOrFail($request->user_id);
 
         $userBalance = $user->balance;
-        $price = (int)$request->price;
+        $premium = Premium::first();
+        $subscription_days =  $premium->subscription_days;
+        $acceptManually =  $premium->accept_request;
+
+        if ($user->premium == 0) {
+            $price = (int)$request->price;
+        } elseif ($user->premium == 2) {
+            $price = (int)$premium->renew_price;
+        }
+
         if ($userBalance >= $price) {
             $user->balance -= $price;
 
-            $user->premium = $request->status;
+            if ($user->premium == 0) {
+                if ($acceptManually == 1) {
+                    $user->premium = 1;
+                } else {
+                    $user->premium = 2;
+                    $user->premium_start = Carbon::now();
+                    $user->premium_end = Carbon::now()->addDays($subscription_days);
+                }
+            } elseif ($user->premium == 2) {
+                $user->premium_start = Carbon::now();
+                $user->premium_end = Carbon::now()->addDays($subscription_days);
+            }
             $user->save();
             Alert::toast("Premium Feature Requested.", 'success');
         } else {
@@ -125,17 +147,28 @@ class PremiumController extends Controller
     {
         $user = User::find($id);
         $userBalance = $user->balance;
-        $price = (int) Premium::first()->price;
-        if ($user->premium == 1 || $user->premium == 0) {
+        $premium = Premium::first();
+        $subscription_days =  $premium->subscription_days;
+        $price = (int)$premium->price;
+
+        if ($user->premium == 0) {
             if ($userBalance >= $price) {
                 $user->balance -= $price;
                 $user->premium = 2;
+                $user->premium_start = Carbon::now();
+                $user->premium_end = Carbon::now()->addDays($subscription_days);
                 $user->save();
                 Alert::toast("Premium Feature Activated.", 'success');
             } else {
-                Alert::toast("ইউজার অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই.", 'error');
+                Alert::toast("ইউজার অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই।", 'error');
                 return redirect()->back();
             }
+        } elseif ($user->premium == 1) {
+            $user->premium = 2;
+            $user->premium_start = Carbon::now();
+            $user->premium_end = Carbon::now()->addDays($subscription_days);
+            $user->save();
+            Alert::toast("Premium Feature Activated.", 'success');
         } elseif ($user->premium == 2) {
             $user->premium = 0;
             $user->save();
@@ -147,10 +180,27 @@ class PremiumController extends Controller
     public function userPremiumRequestAccept($id)
     {
         $user = User::find($id);
+        $userBalance = $user->balance;
+        $premium = Premium::first();
+        $subscription_days =  $premium->subscription_days;
+        $price = (int)$premium->renew_price;
         if ($user->premium == 1) {
             $user->premium = 2;
+            $user->premium_start = Carbon::now();
+            $user->premium_end = Carbon::now()->addDays($subscription_days);
             $user->save();
             Alert::toast("Premium Feature Activated.", 'success');
+        } elseif ($user->premium == 2) {
+            if ($userBalance >= $price) {
+                $user->balance -= $price;
+                $user->premium_start = Carbon::now();
+                $user->premium_end = Carbon::now()->addDays($subscription_days);
+                $user->save();
+                Alert::toast("Premium Feature Renewed.", 'success');
+            } else {
+                Alert::toast("ইউজার অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই।", 'error');
+                return redirect()->back();
+            }
         }
         return redirect()->back();
     }

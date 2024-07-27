@@ -39,9 +39,9 @@ class ModeratorAccessController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $data = $request->except('moderator_access_id');
 
-        $moderatorAccess = ModeratorAccess::first();
+        $moderatorAccess = ModeratorAccess::find($request->moderator_access_id);
 
         if ($moderatorAccess) {
             $moderatorAccess->update($data);

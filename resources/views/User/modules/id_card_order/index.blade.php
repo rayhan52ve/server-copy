@@ -27,69 +27,71 @@
                 </div>
             </div>
             <div class="card-body">
-                <table id="config-table" class="table display table-striped border no-wrap">
-                    <thead>
-                        <tr>
-                            <th>সিরিয়াল</th>
-                            <th>টাইপ</th>
-                            <th>নাম</th>
-                            <th>ফর্ম/আইডি/ভোটার নাম্বার</th>
-                            <th>স্ট্যাটাস</th>
-                            <th>অ্যাডমিনের মন্তব্য</th>
-                            <th>ডাউনলোড</th>
-                            <th>অ্যাকশান</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($idCardOrders as $key => $item)
+                <div class="table-responsive">
+                    <table id="config-table" class="table display table-striped border no-wrap">
+                        <thead>
                             <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $item->type }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->nid_voter_birth_form_no ?? null }}</td>
-                                <td>
-                                    @if ($item->status == 0)
-                                        <button class="btn btn-sm btn-warning">পেন্ডিং</button>
-                                    @elseif($item->status == 1)
-                                        <button class="btn btn-sm btn-primary">রিসিভড</button>
-                                    @elseif($item->status == 2)
-                                        <button class="btn btn-sm btn-success">পাওয়া গেছে</button>
-                                    @elseif($item->status == 3)
-                                        <button class="btn btn-sm btn-success">ম্যাচ ফাউন্ড</button>
-                                    @elseif($item->status == 4)
-                                        <button class="btn btn-sm btn-danger">ফাইল ডিলিট</button>
-                                    @elseif($item->status == 5)
-                                        <button class="btn btn-sm btn-danger">ব্যক্তি মৃত</button>
-                                    @elseif($item->status == 6)
-                                        <button class="btn btn-sm btn-danger">ফাইল লক</button>
-                                    @elseif($item->status == 7)
-                                        <button class="btn btn-sm btn-danger">পাওয়া যায়নি</button>
-                                    @endif
-                                </td>
-                                <td>{{ @$item->admin_comment }}</td>
-                                <td>
-                                    @if ($item->file)
-                                        <a href="{{ route('idCard-file.download', $item->id) }}"
-                                            class="btn btn-success btn-sm"><i class="fa-solid fa-download"></i></a>
-                                    @else
-                                        <span class="text-danger">File Not Found</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if ($item->status == 1 || $item->status == 2)
-                                        <i class="fa-solid fa-check fa-xl" style="color: #7fdb4d;"></i>
-                                    @elseif ($item->status == 0)
-                                        অপেক্ষা করুন.....
-                                    @elseif ($item->status != 0 || $item->status != 1 || $item->status != 2)
-                                        <i class="fa-solid fa-xmark fa-xl" style="color: #6e0d0d;"></i>
-                                    @endif
-                                </td>
+                                <th>সিরিয়াল</th>
+                                <th>টাইপ</th>
+                                <th>নাম</th>
+                                <th>ফর্ম/আইডি/ভোটার নাম্বার</th>
+                                <th>স্ট্যাটাস</th>
+                                <th>অ্যাডমিনের মন্তব্য</th>
+                                <th>ডাউনলোড</th>
+                                <th>অ্যাকশান</th>
                             </tr>
-                        @endforeach
+                        </thead>
+                        <tbody>
+                            @foreach ($idCardOrders as $key => $item)
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $item->type }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->nid_voter_birth_form_no ?? null }}</td>
+                                    <td>
+                                        @if ($item->status == 0)
+                                            <button class="btn btn-sm btn-warning">পেন্ডিং</button>
+                                        @elseif($item->status == 1)
+                                            <button class="btn btn-sm btn-primary">রিসিভড</button>
+                                        @elseif($item->status == 2)
+                                            <button class="btn btn-sm btn-success">পাওয়া গেছে</button>
+                                        @elseif($item->status == 3)
+                                            <button class="btn btn-sm btn-success">ম্যাচ ফাউন্ড</button>
+                                        @elseif($item->status == 4)
+                                            <button class="btn btn-sm btn-danger">ফাইল ডিলিট</button>
+                                        @elseif($item->status == 5)
+                                            <button class="btn btn-sm btn-danger">ব্যক্তি মৃত</button>
+                                        @elseif($item->status == 6)
+                                            <button class="btn btn-sm btn-danger">ফাইল লক</button>
+                                        @elseif($item->status == 7)
+                                            <button class="btn btn-sm btn-danger">পাওয়া যায়নি</button>
+                                        @endif
+                                    </td>
+                                    <td>{{ @$item->admin_comment }}</td>
+                                    <td>
+                                        @if ($item->file)
+                                            <a href="{{ route('idCard-file.download', $item->id) }}"
+                                                class="btn btn-success btn-sm"><i class="fa-solid fa-download"></i></a>
+                                        @else
+                                            <span class="text-danger">File Not Found</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($item->status == 1 || $item->status == 2)
+                                            <i class="fa-solid fa-check fa-xl" style="color: #7fdb4d;"></i>
+                                        @elseif ($item->status == 0)
+                                            অপেক্ষা করুন.....
+                                        @elseif ($item->status != 0 || $item->status != 1 || $item->status != 2)
+                                            <i class="fa-solid fa-xmark fa-xl" style="color: #6e0d0d;"></i>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
 
-                    </tbody>
+                        </tbody>
 
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -152,7 +154,7 @@
                                     <textarea class="editor form-control" col="10" row="3" name="comment"
                                         placeholder="সাইন কপি সম্পর্কে কিছু বলার থাকলে বলুন"></textarea>
                                     @if ($submitStatus->id_card == 1)
-                                        @if (auth()->user()->premium == 2)
+                                        @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
                                             <h6 class="text-danger">{{ $message->premium_id_card }}</h6>
                                         @else
                                             <h6 class="text-danger">{{ $message->id_card }}</h6>
@@ -163,8 +165,9 @@
                                 </div>
 
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                @if (auth()->user()->premium == 2)
-                                    <input type="hidden" name="price" value="{{ $message->premium_id_card_price ?? null }}">
+                                @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
+                                    <input type="hidden" name="price"
+                                        value="{{ $message->premium_id_card_price ?? null }}">
                                 @else
                                     <input type="hidden" name="price" value="{{ $message->id_card_price ?? null }}">
                                 @endif

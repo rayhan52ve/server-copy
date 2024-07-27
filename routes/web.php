@@ -54,6 +54,9 @@ use App\Http\Controllers\WebsiteSettingsController;
 
 // Route::get('/fhggfh', [WebsiteController::class, 'home'])->name('front.page');
 
+// Route::get('/pusher', function () {
+//     return view('admin.pusher');
+// });
 
 
 Auth::routes();
@@ -64,7 +67,7 @@ Auth::routes();
 | Backend
 |--------------------------------------------------------------------------
 */
-Route::get('/', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_moderator');
+Route::get('/', [HomeController::class, 'adminHome'])->name('admin.home')->middleware(['auth', 'is_moderator']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::post('/new-nid-sign-copy-upload', [NewNidController::class, 'signCopyUpload'])->name('newNidSignCopyUpload');
@@ -81,6 +84,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user'])->group(fun
     Route::get('/home', [UserdashboardController::class, 'userDashboard'])->name('home');
     Route::get('/about/admin', [UserdashboardController::class, 'about_admin'])->name('about_admin');
     Route::get('/video', [UserdashboardController::class, 'video'])->name('video.index');
+    Route::get('/file-list/{id}', [UserdashboardController::class, 'userFile'])->name('userFile');
     Route::resource('sign-copy', SignCopyOrderController::class)->only('index', 'store');
     Route::resource('server-copy', ServerCopyOrderController::class)->only('index', 'store');
     Route::resource('id-card', IdCardOrderController::class)->only('index', 'store');
@@ -94,11 +98,17 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user'])->group(fun
 
     Route::get('premium', [PremiumController::class, 'userIndex'])->name('premium.index');
     Route::post('premium-request', [PremiumController::class, 'userPremiumRequest'])->name('userPremiumRequest');
+
+    Route::get('/user-notification-list', [UserdashboardController::class, 'userNotification'])->name('userNotification');
+    Route::get('/clear-admin-notification-list', [UserdashboardController::class, 'clearAllUserNotification'])->name('clearAllUserNotification');
+    Route::delete('/delete-notification/{id}', [UserdashboardController::class, 'destroy'])->name('notification.destroy');
+
 });
 
-Route::controller(ServerCopyUnofficialController::class)->group(function () {
+Route::controller(ServerCopyUnofficialController::class)->middleware(['auth'])->group(function () {
     Route::get('/nid-server-copy', 'tech_web_nid_server_copy')->name('nid.server.copy');
     Route::post('/print-nid-server-copy', 'tech_web_print_nid_server_copy')->name('print.nid.server.copy');
+    Route::get('/print-saved-server-copy/{id}', 'print_saved_server_copy')->name('print.saved_server_copy');
 });
 
 /*
@@ -124,6 +134,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::resource('manage-user', ManageUserController::class);
     Route::get('/moderator-list', [ManageUserController::class, 'moderatorList'])->name('moderatorList')->middleware('is_admin');
     Route::get('/premium-request', [ManageUserController::class, 'premiumRequest'])->name('premiumRequest');
+    Route::get('/premium-user-list', [ManageUserController::class, 'premiumUser'])->name('premiumUser');
 
 
     Route::resource('sign-copy', AdminSignCopyOrderController::class)->only('index', 'destroy');
@@ -185,6 +196,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::post('button-create', [VideoController::class,'buttonStore'])->name('buttonStore');
 
     Route::resource('moderator-access', ModeratorAccessController::class)->middleware('is_admin');
+
+    Route::get('/file-list', [HomeController::class, 'fileList'])->name('fileList');
+    Route::get('/clear-server-copy-unofficial-list', [HomeController::class, 'clearAll'])->name('clearAll');
+
+    Route::get('/admin-notification-list', [HomeController::class, 'adminNotification'])->name('adminNotification');
+    Route::get('/clear-admin-notification-list', [HomeController::class, 'clearAllAdminNotification'])->name('clearAllAdminNotification');
+    Route::delete('/delete-notification/{id}', [HomeController::class, 'destroy'])->name('notification.destroy');
+
 });
 
 

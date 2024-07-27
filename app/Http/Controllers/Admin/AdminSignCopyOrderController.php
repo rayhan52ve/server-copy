@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\DeliveryNotification;
 use App\Http\Controllers\Controller;
 use App\Models\SignCopyOrder;
 use App\Models\User;
+use App\Models\UserNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -151,6 +153,16 @@ class AdminSignCopyOrderController extends Controller
         $entity->admin_comment = $request->admin_comment;
         $entity->save();
 
+        $user_id = $entity->user_id;
+        $message = 'Sign Copy Uploaded.Please Reload.';
+
+        $userNotification = new UserNotification();
+        $userNotification->user_id = $user_id;
+        $userNotification->msg = $message;
+        $userNotification->save();
+
+        event(new DeliveryNotification($user_id, $message));
+
         Alert::toast('File Uploaded Successfully.', 'success');
 
         return redirect()->back();
@@ -176,14 +188,25 @@ class AdminSignCopyOrderController extends Controller
         $data->status = $request->status;
         $data->save();
 
+        $user_id = $data->user_id;
+        $message = 'Sign Copy Order Refunded.Please Reload.';
+        
+        $userNotification = new UserNotification();
+        $userNotification->user_id = $user_id;
+        $userNotification->msg = $message;
+        $userNotification->save();
+
+        event(new DeliveryNotification($user_id, $message));
+
         $user = User::find($request->user_id);
         $userBalance = $user->balance;
-        
+
         $price = (int)$request->price;
 
-            $user->balance += $price;
-            $user->save();
-            Alert::toast("Refund Successfull.", 'success');
+        $user->balance += $price;
+        $user->save();
+
+        Alert::toast("Refund Successfull.", 'success');
 
         return redirect()->back();
     }

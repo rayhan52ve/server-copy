@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Events\OrderNotification;
 use App\Http\Controllers\Controller;
+use App\Models\AdminNotification;
 use App\Models\Message;
 use App\Models\Notice;
 use App\Models\SubmitStatus;
 use App\Models\BiometricInfo;
 use App\Models\BiometricType;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -47,13 +50,12 @@ class BiometricInfoController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
         $user = User::find($request->user_id);
         $userBalance = $user->balance;
+        $now = Carbon::now();
 
         $biometricType = BiometricType::find($request->type);
-        if ($user->premium == 2) {
+        if ($user->premium == 2 && $now < $user->premium_end) {
             $price = (int)$biometricType->premium_price;
         } else {
             $price = (int)$biometricType->price;
@@ -63,6 +65,17 @@ class BiometricInfoController extends Controller
             BiometricInfo::create($request->except('price'));
             $user->balance -= $price;
             $user->save();
+
+            //Real Time Notification
+            $message = 'Biometric Info Ordered By ' . $user->name;
+
+            $adminNotification = new AdminNotification();
+            $adminNotification->user_id = $user->id;
+            $adminNotification->msg = $message;
+            $adminNotification->save();
+
+            event(new OrderNotification($message));
+
             Alert::toast("Biometric Info Created Successfully.", 'success');
         } else {
             Alert::toast("আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');

@@ -28,6 +28,7 @@ class WebsiteLinks extends Model
             self::$data->nagad =$request->nagad;
             self::$data->bkash_type =$request->bkash_type;
             self::$data->nagad_type =$request->nagad_type;
+            self::$data->whatsapp_group_link =$request->whatsapp_group_link;
             self::$data->save();
         }
         else{
@@ -45,6 +46,7 @@ class WebsiteLinks extends Model
             self::$data->nagad =$request->nagad;
             self::$data->bkash_type =$request->bkash_type;
             self::$data->nagad_type =$request->nagad_type;
+            self::$data->whatsapp_group_link =$request->whatsapp_group_link;
             self::$data->save();
         }
 

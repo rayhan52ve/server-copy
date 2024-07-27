@@ -108,8 +108,8 @@
                             @csrf
                             <div class="form-group">
                                 <label for="amount">Recharge Amount</label>
-                                <input type="number" min="{{ $message->recharge_bkash_price ?? 0 }}" name="amount" class="form-control"
-                                    placeholder="Enter Recharge Amount" required>
+                                <input type="number" min="{{ $message->recharge_bkash_price ?? 0 }}" name="amount"
+                                    class="form-control" placeholder="Enter Recharge Amount" required>
                             </div>
                             <div class="text-center">
                                 <h6 class="text-danger">{{ $message->recharge_bkash ?? null }}</h6>
@@ -129,65 +129,69 @@
 
     </div>
 
-    <div class="col-lg-12 mt-5">
-        <div class="card">
-            <div class="card-header">
-                <div class="d-flex justify-content-between">
-                    <h3>Payment History</h3>
-                    <button class="btn btn-primary" onclick="reloadPage()">পেজ রিলোড করুন</button>
-                    <script>
-                        function reloadPage() {
-                            location.reload();
-                        }
-                    </script>
+    <div class="container-fluid">
+        <div class="col-lg-12 mt-5">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <h3>Payment History</h3>
+                        <button class="btn btn-primary" onclick="reloadPage()">পেজ রিলোড করুন</button>
+                        <script>
+                            function reloadPage() {
+                                location.reload();
+                            }
+                        </script>
 
 
+                    </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <table id="config-table" class="table display table-striped border no-wrap">
-                    <thead>
-                        <tr>
-                            <th>সিরিয়াল</th>
-                            <th>পেমেন্ট মেথড</th>
-                            <th>পেমেন্ট নাম্বার</th>
-                            <th>পরিমাণ</th>
-                            <th>তারিখ</th>
-                            <th>স্ট্যাটাস</th>
-                            <th>অ্যাকশান</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($recharges as $key => $item)
+                <div class="card-body">
+                    <div class="table-responsive">
+                    <table id="config-table" class="table display table-striped border no-wrap">
+                        <thead>
                             <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $item->method }}</td>
-                                <td>{{ $item->payment_number }}</td>
-                                <td>{{ $item->amount }} ৳</td>
-                                <td>{{ @$item->created_at->format('d-m-Y, h:i A') }}</td>
-                                {{-- <td>{{ @$item->created_at->toDayDateTimeString() }}</td> --}}
-                                <td>
-                                    @if ($item->status == 0)
-                                        <button class="btn btn-sm btn-warning">পেন্ডিং</button>
-                                    @elseif($item->status == 1)
-                                        <button class="btn btn-sm btn-primary">একসেপ্টেড</button>
-                                    @else
-                                        <button class="btn btn-sm btn-danger">ক্যানসেলড</button>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if ($item->status == 1)
-                                        <i class="fa-solid fa-check fa-xl" style="color: #7fdb4d;"></i>
-                                    @elseif ($item->status == 0)
-                                        Please wait....
-                                    @endif
-                                </td>
+                                <th>সিরিয়াল</th>
+                                <th>পেমেন্ট মেথড</th>
+                                <th>পেমেন্ট নাম্বার</th>
+                                <th>পরিমাণ</th>
+                                <th>তারিখ</th>
+                                <th>স্ট্যাটাস</th>
+                                <th>অ্যাকশান</th>
                             </tr>
-                        @endforeach
+                        </thead>
+                        <tbody>
+                            @foreach ($recharges as $key => $item)
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $item->method }}</td>
+                                    <td>{{ $item->payment_number }}</td>
+                                    <td>{{ $item->amount }} ৳</td>
+                                    <td>{{ @$item->created_at->format('d-m-Y, h:i A') }}</td>
+                                    {{-- <td>{{ @$item->created_at->toDayDateTimeString() }}</td> --}}
+                                    <td>
+                                        @if ($item->status == 0)
+                                            <button class="btn btn-sm btn-warning">পেন্ডিং</button>
+                                        @elseif($item->status == 1)
+                                            <button class="btn btn-sm btn-primary">একসেপ্টেড</button>
+                                        @else
+                                            <button class="btn btn-sm btn-danger">ক্যানসেলড</button>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($item->status == 1)
+                                            <i class="fa-solid fa-check fa-xl" style="color: #7fdb4d;"></i>
+                                        @elseif ($item->status == 0)
+                                            Please wait....
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
 
-                    </tbody>
+                        </tbody>
 
-                </table>
+                    </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

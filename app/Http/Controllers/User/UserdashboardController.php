@@ -6,11 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\BiometricInfo;
 use App\Models\IdCardOrder;
 use App\Models\ServerCopyOrder;
+use App\Models\ServerCopyUnofficial;
 use App\Models\SignCopyOrder;
 use App\Models\User;
+use App\Models\UserNotification;
 use App\Models\Video;
 use App\Models\VideoLink;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserdashboardController extends Controller
 {
@@ -31,6 +35,36 @@ class UserdashboardController extends Controller
         $videolink = VideoLink::first();
 
         return view('User.modules.video',compact('videos','videolink'));
+    }
+
+    public function userFile($id)
+    {
+        $serverCopyUnoficial = ServerCopyUnofficial::where('user_id',$id)->latest()->get();
+
+        return view('User.modules.file_list',compact('serverCopyUnoficial'));
+    }
+
+    
+    public function userNotification()
+    {
+        $userNotification = UserNotification::where('user_id',auth()->user()->id)->latest()->get();
+        return view('User.modules.notification',compact('userNotification'));
+    }
+
+    public function clearAllUserNotification()
+    {
+        UserNotification::where('user_id',Auth::user()->id)->delete();
+        Alert::toast("All Notification Cleared Successfully.", 'success');
+        return redirect()->back();
+    }
+
+    public function destroy($id)
+    {
+        $notification = UserNotification::find($id);
+
+        $notification->delete();
+        Alert::toast('Notification Deleted.', 'success');
+        return redirect()->back();
     }
 
 }

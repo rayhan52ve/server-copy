@@ -23,6 +23,6 @@ class IsModerator
 
         Alert::toast("You don't have admin access.", 'error');
 
-        return redirect()->back();
+        return redirect('/home');
     }
 }

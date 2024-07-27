@@ -76,9 +76,10 @@
         <!-- ============================================================== -->
 
         <!-- Msg button Start -->
-        <a href="https://wa.me/+8801607509068" class="msg-button bounce" title="Live Chat">
+        {{-- <a href="https://wa.me/+8801607509068" class="msg-button bounce" title="Live Chat">
             <i class="fa-solid fa-comment-dots" style="color: #74C0FC;"></i>
-        </a> <!-- Msg button End -->
+        </a> --}}
+        <!-- Msg button End -->
 
         <!-- ============================================================== -->
         <!-- footer -->
@@ -97,15 +98,22 @@
     @include('User.layout.include.script')
     @include('sweetalert::alert')
     {{-- @include('sweetalert::alert') --}}
+    @include('User.layout.include.pusher')
 
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {},
+            Tawk_LoadStart = new Date();
+        (function() {
+            var s1 = document.createElement("script"),
+                s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/6683811eeaf3bd8d4d170973/1i1or0omn';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
 </body>
-
-<script>
-    tinymce.init({
-        selector: 'textarea#tinymce',
-        height: 500
-    });
-</script>
-
-
 </html>

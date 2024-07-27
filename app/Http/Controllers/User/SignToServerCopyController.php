@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Smalot\PdfParser\Parser;
@@ -20,7 +21,8 @@ class SignToServerCopyController extends Controller
      */
     public function index()
     {
-        return view('User.modules.sign_to_server.create');
+        $now = Carbon::now();
+        return view('User.modules.sign_to_server.create',compact('now'));
     }
 
     /**

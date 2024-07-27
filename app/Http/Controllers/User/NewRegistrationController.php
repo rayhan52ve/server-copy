@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\NewRegistration;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Smalot\PdfParser\Parser;
@@ -19,7 +20,8 @@ class NewRegistrationController extends Controller
      */
     public function index()
     {
-        return view('User.modules.new_registration.create');
+        $now = Carbon::now();
+        return view('User.modules.new_registration.create',compact('now'));
     }
 
     /**

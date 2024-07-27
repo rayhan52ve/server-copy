@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ServerCopyUnofficial;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Endroid\QrCode\QrCode;
@@ -14,7 +16,8 @@ class ServerCopyUnofficialController extends Controller
     // NID server copy search page start
     public function tech_web_nid_server_copy()
     {
-        return view('User.modules.server_copy_unofficial.index');
+        $now = Carbon::now();
+        return view('User.modules.server_copy_unofficial.index',compact('now'));
     }
     // NID server copy search page end
 
@@ -69,6 +72,8 @@ class ServerCopyUnofficialController extends Controller
         // Extract NID information
         $nid_info = $responseArray['data']['data'];
 
+        // dd($nid_info);
+
         // Generate QR code with required data
         $dataForQR = "Name: " . $nid_info['nameEn'] . "\nNID: " . $nid . "\nDOB: " . $dob;
         $qrCode = new QrCode($dataForQR);
@@ -86,10 +91,81 @@ class ServerCopyUnofficialController extends Controller
         $user->balance -= $price;
         $user->save();
 
+        // Save the data to ServerCopyUnofficial
+        ServerCopyUnofficial::create([
+            'user_id' => $request->user_id,
+            'name' => $nid_info['name'],
+            'nameEn' => $nid_info['nameEn'],
+            'gender' => $nid_info['gender'],
+            'bloodGroup' => $nid_info['bloodGroup'],
+            'father' => $nid_info['father'],
+            'mother' => $nid_info['mother'],
+            'spouse' => $nid_info['spouse'],
+            'nationalId' => $nid_info['nationalId'],
+            'permanentAddress' => $nid_info['permanentAddress'],
+            'presentAddress' => $nid_info['presentAddress'],
+            'photo' => $nid_info['photo'],
+            'mobile' => $nid_info['mobile'],
+            'religion' => $nid_info['religion'],
+            'nidFather' => $nid_info['nidFather'],
+            'nidMother' => $nid_info['nidMother'],
+            'voterArea' => $nid_info['voterArea'],
+            'dateOfBirth' => $nid_info['dateOfBirth'],
+            'birthPlace' => $nid_info['birthPlace'],
+            'pin' => $nid_info['pin'],
+            'qr_code' => $request->qr_code,
+        ]);
+
         // Return the view with NID info and QR code data
-        // return view('pdf.server_copy_unofficial', compact('nid_info', 'base64Image'));
-        return view('pdf.new_server_copy_unofficial', compact('nid_info', 'base64Image'));
+        if ($request->qr_code == 1) {
+            return view('pdf.new_server_copy_unofficial', compact('nid_info', 'base64Image'));
+        } else {
+            return view('pdf.server_copy_unofficial_without_qr_code', compact('nid_info'));
+        }
     }
+
+    public function print_saved_server_copy($id)
+    {
+        // Find the saved server copy by ID
+        $serverCopy = ServerCopyUnofficial::find($id);
+
+        if (!$serverCopy) {
+            return back()->with('error_message', 'No data found for the given ID.');
+        }
+
+        // Construct the nid_info array
+        $nid_info = [
+            'name' => $serverCopy->name,
+            'nameEn' => $serverCopy->nameEn,
+            'gender' => $serverCopy->gender,
+            'bloodGroup' => $serverCopy->bloodGroup,
+            'father' => $serverCopy->father,
+            'mother' => $serverCopy->mother,
+            'spouse' => $serverCopy->spouse,
+            'nationalId' => $serverCopy->nationalId,
+            'permanentAddress' => $serverCopy->permanentAddress,
+            'presentAddress' => $serverCopy->presentAddress,
+            'photo' => $serverCopy->photo,
+            'mobile' => $serverCopy->mobile,
+            'religion' => $serverCopy->religion,
+            'nidFather' => $serverCopy->nidFather,
+            'nidMother' => $serverCopy->nidMother,
+            'voterArea' => $serverCopy->voterArea,
+            'dateOfBirth' => $serverCopy->dateOfBirth,
+            'birthPlace' => $serverCopy->birthPlace,
+            'pin' => $serverCopy->pin,
+        ];
+
+        // dd($nid_info);
+
+        // Return the view with NID info
+        if ($serverCopy->qr_code == 1) {
+            return view('pdf.new_server_copy_unofficial', compact('nid_info'));
+        } else {
+            return view('pdf.server_copy_unofficial_without_qr_code', compact('nid_info'));
+        }
+    }
+
 
     // Print NID server copy end
 }

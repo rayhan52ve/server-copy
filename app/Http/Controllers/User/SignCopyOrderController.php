@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Events\OrderNotification;
 use App\Http\Controllers\Controller;
+use App\Models\AdminNotification;
 use App\Models\Message;
 use App\Models\Notice;
 use App\Models\SubmitStatus;
 use App\Models\SignCopyOrder;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -21,11 +24,12 @@ class SignCopyOrderController extends Controller
      */
     public function index()
     {
+        $now = Carbon::now();
         $notice = Notice::first();
         $message = Message::first();
         $submitStatus = SubmitStatus::first();
         $signCopyOrders = SignCopyOrder::where('user_id', auth()->user()->id)->get();
-        return view('User.modules.sign_copy_order.index', compact('signCopyOrders', 'notice', 'message', 'submitStatus'));
+        return view('User.modules.sign_copy_order.index', compact('signCopyOrders', 'notice', 'message', 'submitStatus','now'));
     }
 
     /**
@@ -55,7 +59,19 @@ class SignCopyOrderController extends Controller
             SignCopyOrder::create($request->except('price'));
             $user->balance -= $price;
             $user->save();
+
+            //Real Time Notification
+            $message = 'Sign Copy Ordered By ' . $user->name;
+
+            $adminNotification = new AdminNotification;
+            $adminNotification->user_id = $user->id;
+            $adminNotification->msg = $message;
+            $adminNotification->save();
+
+            event(new OrderNotification($message));
+
             Alert::toast("Sign Copy Order Created Successfully.", 'success');
+
         }else{
             Alert::toast("আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
         }

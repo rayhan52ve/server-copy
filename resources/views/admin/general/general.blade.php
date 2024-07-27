@@ -13,15 +13,23 @@
                     <div class="d-flex align-items-start">
                         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
                             aria-orientation="vertical">
+
                             <button class="nav-link active" id="v-pills-settings-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-submit" type="button" role="tab"
                                 aria-controls="v-pills-settings" aria-selected="true">Form Submit On/Off</button>
+
                             <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-logo" type="button" role="tab" aria-controls="v-pills-profile"
                                 aria-selected="true">Logo Settings</button>
+
                             <button class="nav-link" id="v-pills-links-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-links" type="button" role="tab"
                                 aria-controls="v-pills-messages" aria-selected="false">Payment Numbers</button>
+
+                            <button class="nav-link" id="v-pills-whatsapp-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-whatsapp" type="button" role="tab"
+                                aria-controls="v-pills-messages" aria-selected="false">WhatsApp Group Link</button>
+
                             <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-footer" type="button" role="tab"
                                 aria-controls="v-pills-settings" aria-selected="false">Footer</button>
@@ -79,8 +87,9 @@
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->biometric == 1 ? 'ON' : 'OFF' }}</label>
                                                             <input type="hidden" name="biometric" value="0">
-                                                            <input class="form-check-input" onclick="submitHideUnhideForm()"
-                                                                value="1" name="biometric" type="checkbox"
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="biometric" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$hideUnhide->biometric == 1 ? 'checked' : '' }}>
                                                         </div>
@@ -103,8 +112,9 @@
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->old_nid == 1 ? 'ON' : 'OFF' }}</label>
                                                             <input type="hidden" name="old_nid" value="0">
-                                                            <input class="form-check-input" onclick="submitHideUnhideForm()"
-                                                                value="1" name="old_nid" type="checkbox"
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="old_nid" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$hideUnhide->old_nid == 1 ? 'checked' : '' }}>
                                                         </div>
@@ -115,8 +125,9 @@
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->birth == 1 ? 'ON' : 'OFF' }}</label>
                                                             <input type="hidden" name="birth" value="0">
-                                                            <input class="form-check-input" onclick="submitHideUnhideForm()"
-                                                                value="1" name="birth" type="checkbox"
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="birth" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$hideUnhide->birth == 1 ? 'checked' : '' }}>
                                                         </div>
@@ -128,8 +139,9 @@
                                                                 {{ @$hideUnhide->server_unofficial == 1 ? 'ON' : 'OFF' }}</label>
                                                             <input type="hidden" name="server_unofficial"
                                                                 value="0">
-                                                            <input class="form-check-input" onclick="submitHideUnhideForm()"
-                                                                value="1" name="server_unofficial" type="checkbox"
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="server_unofficial" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$hideUnhide->server_unofficial == 1 ? 'checked' : '' }}>
                                                         </div>
@@ -140,8 +152,9 @@
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->sign_to_server == 1 ? 'ON' : 'OFF' }}</label>
                                                             <input type="hidden" name="sign_to_server" value="0">
-                                                            <input class="form-check-input" onclick="submitHideUnhideForm()"
-                                                                value="1" name="sign_to_server" type="checkbox"
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="sign_to_server" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$hideUnhide->sign_to_server == 1 ? 'checked' : '' }}>
                                                         </div>
@@ -152,8 +165,9 @@
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->premium == 1 ? 'ON' : 'OFF' }}</label>
                                                             <input type="hidden" name="premium" value="0">
-                                                            <input class="form-check-input" onclick="submitHideUnhideForm()"
-                                                                value="1" name="premium" type="checkbox"
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="premium" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$hideUnhide->premium == 1 ? 'checked' : '' }}>
                                                         </div>
@@ -164,8 +178,9 @@
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->admin == 1 ? 'ON' : 'OFF' }}</label>
                                                             <input type="hidden" name="admin" value="0">
-                                                            <input class="form-check-input" onclick="submitHideUnhideForm()"
-                                                                value="1" name="admin" type="checkbox"
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="admin" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$hideUnhide->admin == 1 ? 'checked' : '' }}>
                                                         </div>
@@ -176,8 +191,9 @@
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->video == 1 ? 'ON' : 'OFF' }}</label>
                                                             <input type="hidden" name="video" value="0">
-                                                            <input class="form-check-input" onclick="submitHideUnhideForm()"
-                                                                value="1" name="video" type="checkbox"
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="video" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$hideUnhide->video == 1 ? 'checked' : '' }}>
                                                         </div>
@@ -188,8 +204,9 @@
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->recharge == 1 ? 'ON' : 'OFF' }}</label>
                                                             <input type="hidden" name="recharge" value="0">
-                                                            <input class="form-check-input" onclick="submitHideUnhideForm()"
-                                                                value="1" name="recharge" type="checkbox"
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="recharge" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$hideUnhide->recharge == 1 ? 'checked' : '' }}>
                                                         </div>
@@ -200,8 +217,9 @@
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->recharge_bkash == 1 ? 'ON' : 'OFF' }}</label>
                                                             <input type="hidden" name="recharge_bkash" value="0">
-                                                            <input class="form-check-input" onclick="submitHideUnhideForm()"
-                                                                value="1" name="recharge_bkash" type="checkbox"
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="recharge_bkash" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$hideUnhide->recharge_bkash == 1 ? 'checked' : '' }}>
                                                         </div>
@@ -386,6 +404,10 @@
                                 <div class="tab-pane fade" id="v-pills-links" role="tabpanel"
                                     aria-labelledby="v-pills-messages-tab">
                                     @include('admin.general.general-pages.website_links')
+                                </div>
+                                <div class="tab-pane fade" id="v-pills-whatsapp" role="tabpanel"
+                                    aria-labelledby="v-pills-whatsapp-tab">
+                                    @include('admin.general.general-pages.whatsapp_group')
                                 </div>
                                 <div class="tab-pane fade" id="v-pills-footer" role="tabpanel"
                                     aria-labelledby="v-pills-settings-tab">

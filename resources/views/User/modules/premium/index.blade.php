@@ -28,11 +28,15 @@
                                 @if (auth()->user()->premium == 0)
                                     <h4>Price: {{ $premium->price ?? null }} ৳</h4>
                                 @elseif (auth()->user()->premium == 2)
-                                    <h4 class="text-success">স্বাগতম!আপনার অ্যাকাউন্ট টি প্রিমিয়াম।</h4>
+                                    @if ($now < auth()->user()->premium_end)
+                                        <h4 class="text-success">স্বাগতম!আপনার অ্যাকাউন্ট টি প্রিমিয়াম।</h4>
+                                    @elseif ($now > auth()->user()->premium_end)
+                                        <h4>Renew Price: {{ $premium->renew_price ?? null }} ৳</h4>
+                                    @endif
                                 @endif
                             </div>
                             <div>
-                                @if (auth()->user()->premium == 2)
+                                @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
                                     <h3 class="mt-2"><i class="fa-solid fa-crown fa-2xl" style="color: #FFD43B;"></i></h3>
                                 @endif
                             </div>
@@ -62,10 +66,23 @@
                                     <p class="text-success">Dear User you have requested for premium.Please wait for our
                                         admin to respond.</p>
                                 @elseif (auth()->user()->premium == 2)
-                                    <button class="btn btn-success" disabled>You are A Premium Menmer</button>
-                                @else
+                                    @if ($now < auth()->user()->premium_end)
+                                        <p class="text-success">Your premium plan is active from
+                                            {{ auth()->user()->premium_start->format('d-m-Y') }}
+                                            to {{ auth()->user()->premium_end->format('d-m-Y') }}.</p>
+                                        <button class="btn btn-success" disabled>You are A Premium Member</button>
+                                    @else
+                                        <p class="text-danger">Your premium plan is expired on
+                                            {{ auth()->user()->premium_end ? auth()->user()->premium_end->format('d-m-Y'):''}}. Please renew premium plans.
+                                        </p>
+                                        <button class="submit btn btn-success" type="button">Renew Premium</button>
+                                    @endif
+                                @elseif (auth()->user()->premium == 0)
                                     <div class="form-group mt-2">
-                                        <button class="submit btn btn-success" type="button" {{ $premium->submit == 0 ? 'disabled':'' }}>Upgrade to Premium</button>
+                                        <p class="text-success">Buy Premium for ({{ $now->format('d.m.Y') }} -
+                                            {{ $now->addDays($premium->subscription_days)->format('d.m.Y') }}).</p>
+                                        <button class="submit btn btn-success" type="button"
+                                            {{ $premium->submit == 0 ? 'disabled' : '' }}>{{ $premium->submit == 0 ? 'Premium Request Off' : 'Upgrade to Premium' }}</button>
                                     </div>
                                 @endif
                         </form>

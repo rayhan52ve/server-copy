@@ -154,48 +154,50 @@
                 </div>
             </div>
             <div class="card-body">
-                <table id="config-table" class="table display table-striped border no-wrap">
-                    <thead>
-                        <tr>
-                            <th>সিরিয়াল</th>
-                            <th>পেমেন্ট মেথড</th>
-                            <th>পেমেন্ট নাম্বার</th>
-                            <th>পরিমাণ</th>
-                            <th>তারিখ</th>
-                            <th>স্ট্যাটাস</th>
-                            <th>অ্যাকশান</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($recharges as $key => $item)
+                <div class="table-responsive">
+                    <table id="config-table" class="table display table-striped border no-wrap">
+                        <thead>
                             <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $item->method }}</td>
-                                <td>{{ $item->payment_number }}</td>
-                                <td>{{ $item->amount }} ৳</td>
-                                <td>{{ @$item->created_at->format('d-m-Y, h:i A') }}</td>
-                                <td>
-                                    @if ($item->status == 0)
-                                        <button class="btn btn-sm btn-warning">পেন্ডিং</button>
-                                    @elseif($item->status == 1)
-                                        <button class="btn btn-sm btn-primary">একসেপ্টেড</button>
-                                    @else
-                                        <button class="btn btn-sm btn-danger">ক্যানসেলড</button>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if ($item->status == 1)
-                                        <i class="fa-solid fa-check fa-xl" style="color: #7fdb4d;"></i>
-                                    @elseif ($item->status == 0)
-                                        Please wait....
-                                    @endif
-                                </td>
+                                <th>সিরিয়াল</th>
+                                <th>পেমেন্ট মেথড</th>
+                                <th>পেমেন্ট নাম্বার</th>
+                                <th>পরিমাণ</th>
+                                <th>তারিখ</th>
+                                <th>স্ট্যাটাস</th>
+                                <th>অ্যাকশান</th>
                             </tr>
-                        @endforeach
+                        </thead>
+                        <tbody>
+                            @foreach ($recharges as $key => $item)
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $item->method }}</td>
+                                    <td>{{ $item->payment_number }}</td>
+                                    <td>{{ $item->amount }} ৳</td>
+                                    <td>{{ @$item->created_at->format('d-m-Y, h:i A') }}</td>
+                                    <td>
+                                        @if ($item->status == 0)
+                                            <button class="btn btn-sm btn-warning">পেন্ডিং</button>
+                                        @elseif($item->status == 1)
+                                            <button class="btn btn-sm btn-primary">একসেপ্টেড</button>
+                                        @else
+                                            <button class="btn btn-sm btn-danger">ক্যানসেলড</button>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($item->status == 1)
+                                            <i class="fa-solid fa-check fa-xl" style="color: #7fdb4d;"></i>
+                                        @elseif ($item->status == 0)
+                                            Please wait....
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
 
-                    </tbody>
+                        </tbody>
 
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

@@ -1,3 +1,6 @@
+@php
+    $notification = \App\Models\AdminNotification::count();
+@endphp
 <header class="topbar">
     <nav class="navbar top-navbar navbar-expand-md navbar-dark">
         <!-- ============================================================== -->
@@ -40,6 +43,29 @@
             <!-- ============================================================== -->
             <ul class="navbar-nav my-lg-0">
                 <!-- ============================================================== -->
+
+                <li class="nav-item dropdown u-pro">
+                    <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="{{route('admin.adminNotification')}}">
+                        <span class="hidden-md-down">
+                            <i class="fa-solid fa-bell fa-xl" style="color: #FFD43B; position: relative;">
+                                <sup class="notification-count">{{$notification}}</sup> <!-- Add this line -->
+                            </i>
+                        </span>
+                    </a>
+                </li>
+                <style>
+                    .notification-count {
+                        position: absolute;
+                        top: -18px;
+                        right: -13px;
+                        background-color: red;
+                        color: white;
+                        border-radius: 50%;
+                        padding: 6px 6px;
+                        font-size: 8px;
+                    }
+                </style>
+
                 <li class="nav-item dropdown u-pro">
                     <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="#"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span

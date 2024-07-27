@@ -15,6 +15,7 @@
                         @csrf
                         <div class="d-flex p-3">
                             <div class="container">
+                                <input type="hidden" name="moderator_access_id" value="{{ $moderatorAccess->id ?? null }}">
                                 <div class="form-group py-2">
                                     সাইন কপি
                                     <div class="form-check form-switch">

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Crypt;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
-    public static $data,$image, $imageName, $imageDirectory, $imageUrl;
+    public static $data, $image, $imageName, $imageDirectory, $imageUrl;
 
     /**
      * The attributes that are mass assignable.
@@ -20,9 +20,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'is_admin','premium'
+        'name', 'email', 'password', 'is_admin', 'premium', 'premium_start', 'premium_end'
     ];
 
+
+    protected $dates = [
+        'premium_start',
+        'premium_end',
+    ];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -45,30 +50,30 @@ class User extends Authenticatable
     {
 
         self::$data = User::find($request->id);
-//        dd(Hash::check($request->old_password, self::$data->password));
+        //        dd(Hash::check($request->old_password, self::$data->password));
 
 
-//        if(Hash::check($request->old_password, self::$data->password)){
-            self::$data->name= $request->name;
-            self::$data->email= $request->email;
-            self::$data->details= $request->details;
-            if ($request->new_password){
+        //        if(Hash::check($request->old_password, self::$data->password)){
+        self::$data->name = $request->name;
+        self::$data->email = $request->email;
+        self::$data->details = $request->details;
+        if ($request->new_password) {
 
-                self::$data->password= Crypt::encryptString($request->new_password);
-            }
+            self::$data->password = Crypt::encryptString($request->new_password);
+        }
 
-            if ($request->file('image')) {
-                if (self::$data->image) {
-                    if (file_exists(self::$data->image)) {
-                        unlink(self::$data->image);
-                        self::$data->image = self::saveImage($request);
-                    }
-                } else {
+        if ($request->file('image')) {
+            if (self::$data->image) {
+                if (file_exists(self::$data->image)) {
+                    unlink(self::$data->image);
                     self::$data->image = self::saveImage($request);
                 }
+            } else {
+                self::$data->image = self::saveImage($request);
             }
-            self::$data->save();
-//        }
+        }
+        self::$data->save();
+        //        }
 
 
 
@@ -80,12 +85,13 @@ class User extends Authenticatable
             self::$imageName = 'user-' . rand() . '.' . self::$image->Extension();
             self::$imageDirectory = 'user/';
             self::$imageUrl = self::$imageDirectory . self::$imageName;
-            self::$image->move(self::$imageDirectory,self::$imageName);
+            self::$image->move(self::$imageDirectory, self::$imageName);
             return self::$imageUrl;
         }
     }
 
-    public function moderatorAccess(){
+    public function moderatorAccess()
+    {
         return $this->hasOne(ModeratorAccess::class);
     }
 }

@@ -1,6 +1,6 @@
 @extends('admin.master')
 @section('body')
-    <div class="container-fluid pt-4 px-4">
+    <div class="container pt-4">
         <div class="row rounded justify-content-center mx-0">
 
             <div class="col-md-6">
@@ -51,7 +51,7 @@
         </div>
     </div>
     <!-- Recent Sales Start -->
-    <div class="container-fluid pt-4 px-4">
+    <div class=" pt-4">
         <div class="bg-secondary text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <h6 class="mb-0">All Videos</h6>
@@ -77,7 +77,7 @@
 
                         @foreach ($posts as $item)
                             <tr>
-                                <td><iframe width="500" height="300"
+                                <td><iframe width="500" height="250"
                                         src="https://www.youtube.com/embed/{{ $item->video }}">
                                     </iframe></td>
                                 <td>{{ $item->title }}</td>

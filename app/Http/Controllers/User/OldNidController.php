@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\OldNid;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -16,8 +17,9 @@ class OldNidController extends Controller
      */
     public function index()
     {
+        $now = Carbon::now();
         $oldNid = OldNid::where('user_id',auth()->user()->id)->first();
-        return view('User.modules.old_nid.create', compact('oldNid'));
+        return view('User.modules.old_nid.create', compact('oldNid','now'));
     }
 
     /**

@@ -70,9 +70,10 @@
         <!-- ============================================================== -->
 
         <!-- Msg button Start -->
-        <a href="https://wa.me/+8801329497106" class="msg-button bounce" title="Live Chat">
+        {{-- <a href="https://wa.me/+8801329497106" class="msg-button bounce" title="Live Chat">
             <i class="fa-solid fa-comment-dots" style="color: #74C0FC;"></i>
-        </a> <!-- Msg button End -->
+        </a> --}}
+         <!-- Msg button End -->
 
         <!-- ============================================================== -->
         <!-- footer -->
@@ -92,14 +93,8 @@
     @include('sweetalert::alert')
     {{-- @include('sweetalert::alert') --}}
 
+    @include('admin.include.pusher')
+
 </body>
-
-<script>
-    tinymce.init({
-        selector: 'textarea#tinymce',
-        height: 500
-    });
-</script>
-
 
 </html>

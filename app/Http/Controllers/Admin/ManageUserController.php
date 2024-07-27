@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
@@ -41,13 +42,15 @@ class ManageUserController extends Controller
         return view('admin.manage_user.premium_user', compact('users', 'pagetitle'));
     }
 
-    // public function premiumUser()
-    // {
-    //     $pagetitle = 'প্রিমিয়াম ইউজার লিস্ট';
+    public function premiumUser()
+    {
+        $pagetitle = 'প্রিমিয়াম ইউজার লিস্ট';
 
-    //     $users = User::where('is_admin', 0)->where('premium', 2)->latest()->get();
-    //     return view('admin.manage_user.premium_user', compact('users','pagetitle'));
-    // }
+        $now = Carbon::now();
+
+        $users = User::where('is_admin', 0)->where('premium', 2)->latest()->get();
+        return view('admin.manage_user.premium_user', compact('users','pagetitle','now'));
+    }
 
     public function moderatorList()
     {

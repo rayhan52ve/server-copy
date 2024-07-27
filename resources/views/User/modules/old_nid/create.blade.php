@@ -271,7 +271,7 @@
 
 
                             <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                            @if (auth()->user()->premium == 2)
+                            @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
                                 <input type="hidden" name="price" value="{{ $message->premium_old_nid_price }}">
                             @else
                                 <input type="hidden" name="price" value="{{ $message->old_nid_price }}">
@@ -280,7 +280,7 @@
                         </div>
                         <div class="text-center pb-3">
                             @if ($submitStatus->old_nid == 1)
-                                @if (auth()->user()->premium == 2)
+                                @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
                                     <h6 class="text-primary">{{ $message->premium_old_nid }}</h6>
                                 @else
                                     <h6 class="text-primary">{{ $message->old_nid }}</h6>
@@ -302,7 +302,7 @@
         </div>
     </div>
     @php
-        $priceAlert = auth()->user()->premium == 2 ? $message->premium_old_nid_price : $message->old_nid_price;
+        $priceAlert = auth()->user()->premium == 2 && $now < auth()->user()->premium_end ? $message->premium_old_nid_price : $message->old_nid_price;
     @endphp
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>

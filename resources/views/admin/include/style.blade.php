@@ -55,10 +55,15 @@
         font-family: 'AdorshoLipi', sans-serif !important;
     }
 
-    /* h1,
+    h1,
     h2,
-    h3 {
+    h3,
+    h4,
+    h5,
+    p,
+    li,
+    a {
         font-family: 'AdorshoLipi', sans-serif !important;
-    } */
+    }
 </style>
 {{-- bangla web font --}}

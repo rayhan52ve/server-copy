@@ -23,6 +23,6 @@ class isUser
 
         Alert::toast("You don't have access to user dashboard.", 'error');
 
-        return redirect()->back();
+        return redirect('/home');
     }
 }

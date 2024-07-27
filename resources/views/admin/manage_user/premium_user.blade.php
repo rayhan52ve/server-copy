@@ -11,34 +11,47 @@
                 </div>
             </div>
             <div class="card-body">
-                <table id="config-table" class="table display table-striped border no-wrap">
-                    <thead>
-                        <tr>
-                            <th>সিরিয়াল</th>
-                            <th>নাম</th>
-                            <th>ইমেইল</th>
-                            <th>ব্যালেন্স(টাকা)</th>
-                            <th>অ্যাকশান</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $key => $item)
+                <div class="table-responsive">
+                    <table id="config-table" class="table display table-striped border no-wrap">
+                        <thead>
                             <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $item->name ?? null }}</td>
-                                <td>{{ $item->email ?? null }}</td>
-                                <td>{{ $item->balance ?? 0 }}</td>
-                                <td>
-                                    <a href="{{ route('admin.userPremiumRequestAccept',$item->id) }}" type="button" class="btn btn-sm btn-info m-2">Accept</a>
-
-
-                                </td>
+                                <th>সিরিয়াল</th>
+                                <th>নাম</th>
+                                <th>ইমেইল</th>
+                                <th>ব্যালেন্স(টাকা)</th>
+                                <th>অ্যাকশান</th>
                             </tr>
-                        @endforeach
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $key => $item)
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $item->name ?? null }}</td>
+                                    <td>{{ $item->email ?? null }}</td>
+                                    <td>{{ $item->balance ?? 0 }}</td>
+                                    <td>
+                                        @if ($item->premium == 1)
+                                            <a href="{{ route('admin.userPremiumRequestAccept', $item->id) }}" type="button"
+                                                class="btn btn-sm btn-outline-info m-2">Accept</a>
+                                        @elseif ($item->premium == 2 && $now > $item->premium_end)
+                                            <a href="{{ route('admin.userPremiumRequestAccept', $item->id) }}" onclick="return confirm('Are you sure?')"
+                                                type="button" class="btn btn-sm btn-success m-2">Renew</a>
+                                        @elseif ($item->premium == 2 && $now < $item->premium_end)
+                                            <p class="text-success">Valid Till ({{ $item->premium_end->format('d-m-Y') }})</p>
+                                        @endif
 
-                    </tbody>
+                                        {{-- <a href="{{ route('admin.userPremiumRequestAccept', $item->id) }}" type="button"
+                                                class="btn btn-sm btn-outline-{{$item->premium == 2 ? 'success':'info'}} m-2">{{ $item->premium == 2 ? 'Renew':'Accept'}}</a> --}}
 
-                </table>
+
+                                    </td>
+                                </tr>
+                            @endforeach
+
+                        </tbody>
+
+                    </table>
+                </div>
             </div>
         </div>
     </div>

@@ -133,6 +133,10 @@
             padding-bottom: 15px;
         }
 
+        .padding-bottom--10 {
+            padding-bottom: 10px;
+        }
+
 
         .flex-justifyContent--center {
             -ms-flex-pack: center;
@@ -339,8 +343,8 @@
                     </div>
                     <div class="box-root padding-top--24 flex-flex flex-direction--column"
                         style="flex-grow: 1; z-index: 9;">
-                        <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
-                            <h1><a href="#" rel="dofollow">SERVER COPY </a></h1>
+                        <div class="box-root padding-top--48 padding-bottom--15 flex-flex flex-justifyContent--center">
+                            <h1 style="font-weight: 900;"><a href="#" rel="dofollow">SERVER COPY</a></h1>
                         </div>
                         <div class="formbg-outer">
                             <div class="formbg">
@@ -358,21 +362,33 @@
                                         @endif
                                     </div>
                                     <form id="stripe-login" action="" onsubmit="return false;">
-                                        <div class="field padding-bottom--24">
+                                        <div class="field padding-bottom--15">
                                             <label for="nid">NID Number</label>
                                             <input type="text" name="" id="nid" placeholder="Input Your NID" required>
                                         </div>
-                                        <div class="field padding-bottom--24">
+                                        <div class="field padding-bottom--10">
                                             <div class="grid--50-50">
                                                 <label for="password">Date of Birth</label>
                                             </div>
                                             <input type="text" name="" id="dob" placeholder="DOB [YYYY-MM-DD]" required>
                                         </div>
-                                        <div class="text-center pb-3">
+
+                                        <div class="field padding-bottom--10 text-center">
+                                            <label for="radioOptions">Select server copy type:</label>
+                                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                                <input type="radio" class="btn-check" name="qr_code" id="option1" autocomplete="off" value="1" checked>
+                                                <label class="btn btn-sm btn-outline-success" for="option1">With QR Code</label>
+                                    
+                                                <input type="radio" class="btn-check" name="qr_code" id="option2" value="0" autocomplete="off">
+                                                <label class="btn btn-sm btn-outline-success" for="option2">Without QR Code</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center pb-1">
                                             @if ($submitStatus->server_unofficial == 0)
                                                 <h6 class="text-danger">ফর্ম সাবমিট বন্ধ আছে। পরবর্তীতে চেষ্টা করুন।</h6>
                                             @else
-                                                @if (auth()->user()->premium == 2)
+                                                @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
                                                     <h6 class="text-primary">{{ $message->premium_server_unofficial }}</h6>
                                                 @else
                                                     <h6 class="text-primary">{{ $message->server_unofficial }}</h6>
@@ -415,7 +431,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        @if (auth()->user()->premium == 2)
+                        @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
                             <h4>{{ App\Models\Message::first()->premium_server_unofficial_price ?? '0' }} Tk will be
                                 deducted from
                                 your
@@ -429,8 +445,9 @@
                             @csrf
                             <input type="hidden" name="nid" id="modal_nid">
                             <input type="hidden" name="dob" id="modal_dob">
+                            <input type="hidden" name="qr_code" id="modal_qr_code">
                             <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                            @if (auth()->user()->premium == 2)
+                            @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
                                 <input type="hidden" name="price"
                                     value="{{ App\Models\Message::first()->premium_server_unofficial_price ?? '0' }}">
                             @else
@@ -469,9 +486,11 @@
 
                 var nid = $('#nid').val();
                 var dob = $('#dob').val();
+                var qr_code = $('input[name=qr_code]:checked').val();
 
                 $('#modal_nid').val(nid);
                 $('#modal_dob').val(dob);
+                $('#modal_qr_code').val(qr_code);
 
                 var myForm = $('#modal_form');
 
