@@ -18,9 +18,9 @@
         }
 
         /* body {
-                                                            min-height: 100%;
-                                                            background-color: #ffffff;
-                                                        } */
+                                                                min-height: 100%;
+                                                                background-color: #ffffff;
+                                                            } */
 
         h1 {
             letter-spacing: -1px;
@@ -364,23 +364,30 @@
                                     <form id="stripe-login" action="" onsubmit="return false;">
                                         <div class="field padding-bottom--15">
                                             <label for="nid">NID Number</label>
-                                            <input type="text" name="" id="nid" placeholder="Input Your NID" required>
+                                            <input type="text" name="" id="nid" placeholder="Input Your NID"
+                                                required>
                                         </div>
                                         <div class="field padding-bottom--10">
                                             <div class="grid--50-50">
                                                 <label for="password">Date of Birth</label>
                                             </div>
-                                            <input type="text" name="" id="dob" placeholder="DOB [YYYY-MM-DD]" required>
+                                            <input type="text" name="" id="dob"
+                                                placeholder="DOB [YYYY-MM-DD]" required>
                                         </div>
 
                                         <div class="field padding-bottom--10 text-center">
                                             <label for="radioOptions">Select server copy type:</label>
-                                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                                <input type="radio" class="btn-check" name="qr_code" id="option1" autocomplete="off" value="1" checked>
-                                                <label class="btn btn-sm btn-outline-success" for="option1">With QR Code</label>
-                                    
-                                                <input type="radio" class="btn-check" name="qr_code" id="option2" value="0" autocomplete="off">
-                                                <label class="btn btn-sm btn-outline-success" for="option2">Without QR Code</label>
+                                            <div class="btn-group" role="group"
+                                                aria-label="Basic radio toggle button group">
+                                                <input type="radio" class="btn-check" name="qr_code" id="option1"
+                                                    autocomplete="off" value="1" checked>
+                                                <label class="btn btn-sm btn-outline-success" for="option1">With QR
+                                                    Code</label>
+
+                                                <input type="radio" class="btn-check" name="qr_code" id="option2"
+                                                    value="0" autocomplete="off">
+                                                <label class="btn btn-sm btn-outline-success" for="option2">Without QR
+                                                    Code</label>
                                             </div>
                                         </div>
 
@@ -421,9 +428,67 @@
 
 
         </div> <!-- container -->
+        {{-- <style>
+            /* Custom styles for the modal */
+            .modal-content {
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+                background-color: #f7f7f7;
+            }
+
+            .modal-header {
+                background-color: #007bff;
+                color: white;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+
+            .modal-title {
+                font-weight: bold;
+            }
+
+            .modal-body {
+                padding: 20px;
+                text-align: center;
+            }
+
+            .modal-footer {
+                border-top: 1px solid #e9ecef;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            #deductionMessage {
+                margin-bottom: 20px;
+                font-size: 1.2em;
+                color: #333;
+            }
+
+            .btn-primary {
+                background-color: #007bff;
+                border-color: #007bff;
+            }
+
+            .btn-secondary {
+                background-color: #6c757d;
+                border-color: #6c757d;
+            }
+
+            /* Hover effects for buttons */
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #004085;
+            }
+
+            .btn-secondary:hover {
+                background-color: #5a6268;
+                border-color: #4e555b;
+            }
+        </style> --}}
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">

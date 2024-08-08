@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 21, 2024 at 10:21 AM
--- Server version: 8.0.36
--- PHP Version: 8.1.27
+-- Generation Time: Aug 03, 2024 at 05:50 AM
+-- Server version: 8.0.37
+-- PHP Version: 8.1.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,21 @@ SET time_zone = "+00:00";
 --
 -- Database: `amdadbalaghor_webmetrix`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_notifications`
+--
+
+CREATE TABLE `admin_notifications` (
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `order_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `msg` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -259,7 +274,7 @@ CREATE TABLE `hide_unhides` (
 --
 
 INSERT INTO `hide_unhides` (`id`, `sign_copy`, `server_copy`, `id_card`, `biometric`, `new_nid`, `old_nid`, `birth`, `server_unofficial`, `sign_to_server`, `premium`, `admin`, `video`, `recharge`, `recharge_bkash`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, '2024-06-09 01:42:23', '2024-06-14 23:50:16');
+(1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, '2024-06-09 01:42:23', '2024-07-06 20:57:22');
 
 -- --------------------------------------------------------
 
@@ -358,7 +373,7 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`id`, `sign_copy`, `sign_copy_price`, `server_copy`, `server_copy_price`, `id_card`, `id_card_price`, `biometric`, `biometric_price`, `new_nid`, `new_nid_price`, `old_nid`, `old_nid_price`, `birth`, `birth_price`, `server_unofficial`, `server_unofficial_price`, `sign_to_server`, `sign_to_server_price`, `recharge_bkash`, `recharge_bkash_price`, `created_at`, `updated_at`, `premium_sign_copy`, `premium_sign_copy_price`, `premium_server_copy`, `premium_server_copy_price`, `premium_id_card`, `premium_id_card_price`, `premium_biometric`, `premium_biometric_price`, `premium_new_nid`, `premium_new_nid_price`, `premium_old_nid`, `premium_old_nid_price`, `premium_birth`, `premium_birth_price`, `premium_server_unofficial`, `premium_server_unofficial_price`, `premium_sign_to_server`, `premium_sign_to_server_price`) VALUES
-(1, 'প্রতি সাইন কপি রেট ২০ টাকা।', '20', 'প্রতি সার্ভার কপি রেট ২০টাকা।', '20', 'প্রতি NID Copy রেট ১০০ টাকা।', '100', NULL, NULL, 'প্রতি NID CARD মেক ৫ টাকা', '5', 'প্রতি মেক ৫ টাকা', '5', 'প্রতি নিবন্ধন তৈরিতে খরচ হবে ২০ টাকা', '20', 'প্রতি কপির মূল্য ২১ টাকা', '21', 'প্রতি মেক ১০ টাকা', 10, 'সর্বনিম্ন রিচার্জ 200 টাকা।', 200, '2024-05-01 02:17:55', '2024-06-16 17:18:35', 'প্রতি সাইন কপি রেট ১৭০ টাকা।', '170', 'প্রতি সার্ভার কপি রেট ১৭০ টাকা।', '170', 'প্রতি NID Copy রেট ২৯০ টাকা।', '290', NULL, NULL, 'Premium Member প্রতি মেক ২ টাকা', '2', 'Premium Member প্রতি মেক ২ টাকা', '2', 'প্রতি নিবন্ধন তৈরিতে খরচ হবে ১০ টাকা', '10', 'প্রতি কপির মূল্য ১০ টাকা', '10', 'প্রতি মেক ৫ টাকা', '5');
+(1, 'প্রতি সাইন কপি রেট ২০ টাকা।', '20', 'প্রতি সার্ভার কপি রেট ২০টাকা।', '20', 'প্রতি NID Copy রেট ২১০ টাকা।', '210', NULL, NULL, 'প্রতি NID CARD মেক ৫ টাকা', '5', 'প্রতি মেক ১০ টাকা', '10', 'প্রতি নিবন্ধন তৈরিতে খরচ হবে ২০ টাকা', '20', NULL, '25', 'প্রতি মেক ১০ টাকা', 10, 'সর্বনিম্ন রিচার্জ 200 টাকা।', 200, '2024-05-01 02:17:55', '2024-08-03 09:40:11', 'প্রতি সাইন কপি রেট ১৭০ টাকা।', '170', 'প্রতি সার্ভার কপি রেট ১৭০ টাকা।', '170', 'প্রতি NID Copy রেট ২০০ টাকা।', '200', NULL, NULL, 'Premium Member প্রতি মেক ২ টাকা', '2', 'প্রতি মেক ৮ টাকা', '8', 'প্রতি নিবন্ধন তৈরিতে খরচ হবে ১০ টাকা', '10', 'প্রতি কপির মূল্য ১১ টাকা', '11', 'প্রতি মেক ৫ টাকা', '5');
 
 -- --------------------------------------------------------
 
@@ -459,8 +474,8 @@ CREATE TABLE `moderator_accesses` (
 --
 
 INSERT INTO `moderator_accesses` (`id`, `user_id`, `sign_copy`, `server_copy`, `id_card`, `biometric`, `biometric_type`, `recharge`, `video`, `user_list`, `user_edit`, `premium_request`, `general_settings`, `notice_settings`, `message_settings`, `premium_settings`, `created_at`, `updated_at`) VALUES
-(1, 32, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, '2024-06-08 23:47:07', '2024-06-16 16:08:43'),
-(33, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2024-06-09 15:19:52', '2024-06-09 15:19:52');
+(35, 174, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2024-07-06 22:20:27', '2024-07-15 19:30:46'),
+(36, 190, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2024-07-15 18:48:03', '2024-07-15 19:32:31');
 
 -- --------------------------------------------------------
 
@@ -525,6 +540,39 @@ CREATE TABLE `new_registrations` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `nid_makes`
+--
+
+CREATE TABLE `nid_makes` (
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `nid_image` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `sign_image` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `name_bn` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nid_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `husband_father` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fathers_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mothers_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `birth_place` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `birthday` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `issue_date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `nid_makes`
+--
+
+INSERT INTO `nid_makes` (`id`, `user_id`, `nid_image`, `sign_image`, `name_bn`, `name_en`, `nid_number`, `pin`, `husband_father`, `fathers_name`, `mothers_name`, `birth_place`, `birthday`, `issue_date`, `address`, `created_at`, `updated_at`) VALUES
+(3, 73, NULL, NULL, NULL, NULL, NULL, NULL, 'পিতা', NULL, NULL, NULL, '2024-08-03', '2024-08-03', NULL, '2024-08-03 09:40:39', '2024-08-03 09:40:39');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `notices`
 --
 
@@ -540,6 +588,7 @@ CREATE TABLE `notices` (
   `server_unofficial` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `sign_to_server` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `recharge` longtext COLLATE utf8mb4_unicode_ci,
+  `recharge_bkash` text COLLATE utf8mb4_unicode_ci,
   `dashboard` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -549,8 +598,8 @@ CREATE TABLE `notices` (
 -- Dumping data for table `notices`
 --
 
-INSERT INTO `notices` (`id`, `sign_copy`, `server_copy`, `id_card`, `biometric`, `new_nid`, `old_nid`, `birth`, `server_unofficial`, `sign_to_server`, `recharge`, `dashboard`, `created_at`, `updated_at`) VALUES
-(1, 'সাইন কপি ইনশাআল্লাহ্ আগামী মাস থেকে চালু হবে/ আমাদের সাথে থাকার জন্য ধন্যবাদ', 'আপাতত সার্ভার কপি বন্ধ (সার্ভার কপি আনঅফিসিয়াল অপশন ব্যবহার করুন) ♥ ধন্যবাদ ♥', 'ইনশাআল্লাহ্ আগামী মাস থেকে চালু হবে/ আমাদের সাথে থাকার জন্য ধন্যবাদ', 'ইনশাআল্লাহ্ আগামী মাস থেকে চালু হবে/ আমাদের সাথে থাকার জন্য ধন্যবাদ', 'NID Make রাত/দিন ২৪ ঘণ্টা চালু ♥ ধন্যবাদ ♥', 'NID Make রাত/দিন ২৪ ঘণ্টা চালু ♥ ধন্যবাদ ♥', 'জন্ম নিবন্ধন নতুন ভার্সন pdf তৈরি করতে পারবেন  ♥ ধন্যবাদ ♥', 'সার্ভার চালু ♥', 'সাইন কপি থেকে সার্ভার কপি তৈরি । ♥ ধন্যবাদ ♥', 'অটোমেটিক রিচার্জ করুন, আপনার একাউন্টে টাকা অটোমেটিক এড হয়ে যাবে  ♥ ধন্যবাদ ♥', 'রিচার্জ করে আপনার একাউন্ট সচল রাখুন।', '2024-05-01 01:43:28', '2024-06-21 08:31:58');
+INSERT INTO `notices` (`id`, `sign_copy`, `server_copy`, `id_card`, `biometric`, `new_nid`, `old_nid`, `birth`, `server_unofficial`, `sign_to_server`, `recharge`, `recharge_bkash`, `dashboard`, `created_at`, `updated_at`) VALUES
+(1, 'সাইন কপি ইনশাআল্লাহ্ আগামী মাস থেকে চালু হবে/ সবাই whatsapp গ্রুপ অপশন থেকে whatsapp গ্রুপে জয়েন হয়ে যান। আমাদের সাথে থাকার জন্য ধন্যবাদ', 'আপাতত সার্ভার কপি বন্ধ (সার্ভার কপি আনঅফিসিয়াল অপশন ব্যবহার করুন) সবাই whatsapp গ্রুপ অপশন থেকে whatsapp গ্রুপে জয়েন হয়ে যান। ♥ ধন্যবাদ ♥', 'ইনশাআল্লাহ্ আগামী মাস থেকে চালু হবে/সবাই whatsapp গ্রুপ অপশন থেকে whatsapp গ্রুপে জয়েন হয়ে যান। আমাদের সাথে থাকার জন্য ধন্যবাদ', 'ইনশাআল্লাহ্ আগামী মাস থেকে চালু হবে/সবাই whatsapp গ্রুপ অপশন থেকে whatsapp গ্রুপে জয়েন হয়ে যান। আমাদের সাথে থাকার জন্য ধন্যবাদ', 'NID Make রাত/দিন ২৪ ঘণ্টা চালু ♥ ধন্যবাদ ♥', 'NID Make রাত/দিন ২৪ ঘণ্টা চালু/সবাই whatsapp গ্রুপ অপশন থেকে whatsapp গ্রুপে জয়েন হয়ে যান। ♥ ধন্যবাদ ♥', 'জন্ম নিবন্ধন নতুন ভার্সন pdf তৈরি করতে পারবেন/সবাই whatsapp গ্রুপ অপশন থেকে whatsapp গ্রুপে জয়েন হয়ে যান।  ♥ ধন্যবাদ ♥', 'সার্ভার ডাউন (এডমিন টিম সার্ভার ঠিক করার জন্য কাজ করছে)', 'সাইন কপি থেকে সার্ভার কপি তৈরি । ♥ ধন্যবাদ ♥', 'রিচার্জের জন্য প্রথমে নিচের নাম্বারে বিকাশ পেমেন্ট করুন, তারপর নিচের ফরমটি সঠিকভাবে পূরণ করে সাবমিট করে অপেক্ষা করুন ♥ ধন্যবাদ ♥', 'বিকাশের মাধ্যমে অটোমেটিক রিচার্জ করুন, আপনার একাউন্টে টাকা অটোমেটিক এড হয়ে যাবে/সবাই whatsapp গ্রুপ অপশন থেকে whatsapp গ্রুপে জয়েন হয়ে যান।  ♥ ধন্যবাদ ♥', 'রিচার্জ করে আপনার একাউন্ট সচল রাখুন। সবাই whatsapp গ্রুপ অপশন থেকে whatsapp গ্রুপে জয়েন হয়ে যান।', '2024-05-01 01:43:28', '2024-07-30 11:58:19');
 
 -- --------------------------------------------------------
 
@@ -600,10 +649,13 @@ CREATE TABLE `password_resets` (
 CREATE TABLE `premia` (
   `id` bigint UNSIGNED NOT NULL,
   `price` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '0',
+  `renew_price` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '0',
   `notice` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `submit` int DEFAULT '0',
   `details` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `accept_request` int DEFAULT '0',
+  `subscription_days` int DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -612,8 +664,8 @@ CREATE TABLE `premia` (
 -- Dumping data for table `premia`
 --
 
-INSERT INTO `premia` (`id`, `price`, `notice`, `message`, `submit`, `details`, `created_at`, `updated_at`) VALUES
-(1, '300', 'আমরা ২০ জন প্রিমিয়াম মেম্বার নিব, দ্রুত আপনি প্রিমিয়াম মেম্বার হয়ে যান। পরে সুযোগ পাবেন না।', 'আপনার একাউন্ট থেকে ৩০০ টাকা কর্তন করা হবে', 1, '<h3><strong>প্রিমিয়ারম মেম্বারসীপ</strong></h3><p><strong>-----------------------------------</strong></p><h4><strong>শর্তাবলী-</strong></h4><p><strong>১। প্রিমিয়াম মেম্বারসীপের আবেদন করার জন্য আপনার একাউন্টে ৩০০ টাকা থাকতে হবে।</strong><br><strong>২। একটি নিদিষ্ট পরিমান টাকা আপনার একাউন্ট থেকে কেটে নেয়া হবে।</strong><br><strong>৩। প্রিমিয়াম মেম্বারসীপ প্রতি দুই মাস অন্তর অন্তর রেন্যু করাতে হবে। রেন্যু ফি ২০০ টাকা।</strong></p><h4><strong>যেসব সুযোগ সুবিদা পাবেন-</strong></h4><p><strong>১। প্রতি সার্ভার কপি মূল্য হবে ১০ টাকা।</strong><br><strong>২। NID Card/Sign Copy/ Official Server Copy সর্বোচ্চ কম মূল্যে প্রদান।</strong><br><strong>৩। সর্বক্ষেত্রে VIP সুযোগ সুবিধা পাবেন।</strong></p>', '2024-06-01 06:29:24', '2024-06-16 09:25:01');
+INSERT INTO `premia` (`id`, `price`, `renew_price`, `notice`, `message`, `submit`, `details`, `accept_request`, `subscription_days`, `created_at`, `updated_at`) VALUES
+(1, '499', '399', '১১টাকায় সার্ভার কপি আরো বিভিন্ন সুযোগ সুবিধা পাবেন। দ্রুত প্রিমিয়াম মেম্বারসীপ নিয়ে নেন।', 'আপনার একাউন্ট থেকে ৫০০ টাকা কর্তন করা হবে।', 1, '<h3>প্রিমিয়াম মেম্বারসীপ</h3><p>-----------------------------------</p><h4>শর্তাবলী-</h4><p>১। প্রিমিয়াম মেম্বারসীপের আবেদন করার জন্য আপনার একাউন্টে সর্বনিন্ম ৫০০ টাকা থাকতে হবে।<br>২। আপনার একাউন্ট থেকে ৪৯৯ টাকা কেটে নেয়া হবে।<br>৩। প্রিমিয়াম মেম্বারসীপের মেয়াদ থাকবে ৩০ দিন।<br>৪। প্রিমিয়াম মেম্বার হবার ৩০ দিন পর &nbsp;রেন্যু করাতে হবে।&nbsp;<br>৫। মনে রাখবেন- যদি ৩০দিন পরেও আপনি আপনার একাউন্ট রেন্যু না করান তবে আপনার যাবতীয় সকল চার্জ ক্যাজুয়াল মেম্বারদের মত হবে।<br>৬। রেন্যু ফি ৩৯৯ টাকা।<br>৭। অ্যাডমিনকে এই ব্যাপারে মেসেজ দিতে হবেনা, যাবতীয় সকল কার্যাবলী অটোমেটিক হবে।</p><h4>যেসব সুযোগ সুবিদা পাবেন-</h4><p>১। প্রতি সার্ভার কপি মূল্য হবে ১১ টাকা।<br>২। NID Card/Sign Copy/ Official Server Copy সর্বোচ্চ কম মূল্যে প্রদান।<br>৩। সর্বক্ষেত্রে VIP সুযোগ সুবিধা পাবেন।</p>', 0, 30, '2024-06-01 06:29:24', '2024-07-17 19:15:00');
 
 -- --------------------------------------------------------
 
@@ -809,7 +861,119 @@ INSERT INTO `recharges` (`id`, `user_id`, `method`, `payment_number`, `transacti
 (110, '121', 'Bkash Gateway', '01315934363', 'BFE2A0PR14', '210', 1, '2024-06-14 12:23:19', '2024-06-14 12:23:19'),
 (111, '124', 'Bkash Gateway', '01911619001', 'BFG5C1NWPR', '200', 1, '2024-06-16 10:01:28', '2024-06-16 10:01:28'),
 (112, '98', 'Bkash Gateway', '01756262274', 'BFK5FC5ZV7', '200', 1, '2024-06-20 12:47:57', '2024-06-20 12:47:57'),
-(113, '127', 'Bkash Gateway', '01795107916', 'BFL8G13M2O', '200', 1, '2024-06-21 10:59:23', '2024-06-21 10:59:23');
+(113, '127', 'Bkash Gateway', '01795107916', 'BFL8G13M2O', '200', 1, '2024-06-21 10:59:23', '2024-06-21 10:59:23'),
+(114, '133', 'Bkash Gateway', '01995146105', 'BFN1HL5FF3', '1', 1, '2024-06-23 10:25:01', '2024-06-23 10:25:01'),
+(115, '92', 'Bkash Gateway', '01725869157', 'BFN5HN13ND', '200', 1, '2024-06-23 11:12:14', '2024-06-23 11:12:14'),
+(116, '42', 'Bkash Gateway', '01624267575', 'BFN8HNWIHG', '200', 1, '2024-06-23 11:33:07', '2024-06-23 11:33:07'),
+(117, '43', 'Bkash Gateway', '01789032450', 'BFN7HODFGH', '200', 1, '2024-06-23 11:44:45', '2024-06-23 11:44:45'),
+(118, '97', 'Bkash Gateway', '01768501087', 'BFN8HOKKEI', '200', 1, '2024-06-23 11:49:39', '2024-06-23 11:49:39'),
+(119, '135', 'Bkash Gateway', '01829833536', 'BFN0HPOF7M', '200', 1, '2024-06-23 12:15:46', '2024-06-23 12:15:46'),
+(120, '78', 'Bkash Gateway', '01784519887', 'BFN7HRZO8L', '200', 1, '2024-06-23 13:15:09', '2024-06-23 13:15:09'),
+(121, '51', 'Bkash Gateway', '01971169606', 'BFN9I2W7F5', '200', 1, '2024-06-23 19:04:02', '2024-06-23 19:04:02'),
+(122, '43', 'Bkash Gateway', '01789032450', 'BFO4IR4CKS', '200', 1, '2024-06-24 13:32:34', '2024-06-24 13:32:34'),
+(123, '98', 'Bkash Gateway', '01756262274', 'BFO5ISADDN', '200', 1, '2024-06-24 14:11:16', '2024-06-24 14:11:16'),
+(124, '43', 'Bkash Gateway', '01789032450', 'BFO8ISI93C', '200', 1, '2024-06-24 14:19:04', '2024-06-24 14:19:04'),
+(125, '43', 'Bkash Gateway', '01789032450', 'BFO0J1XDIG', '200', 1, '2024-06-25 01:12:31', '2024-06-25 01:12:31'),
+(126, '68', 'Bkash Gateway', '01703719062', 'BFO2J2UOES', '200', 1, '2024-06-25 01:31:21', '2024-06-25 01:31:21'),
+(127, '140', 'Bkash Gateway', '01325162111', 'BFP4JDIY4Q', '200', 1, '2024-06-25 07:29:42', '2024-06-25 07:29:42'),
+(128, '97', 'Bkash Gateway', '01768501087', 'BFP4JM4CFM', '500', 1, '2024-06-25 17:57:13', '2024-06-25 17:57:13'),
+(129, '126', 'Bkash Gateway', '01314401430', 'BFP1JMIWJL', '200', 1, '2024-06-25 18:06:06', '2024-06-25 18:06:06'),
+(130, '67', 'Bkash Gateway', '01825709177', 'BFP1JUJUMV', '200', 1, '2024-06-25 22:14:12', '2024-06-25 22:14:12'),
+(131, '96', 'Bkash Gateway', '01852923430', 'BFQ0KJP6QY', '200', 1, '2024-06-26 17:22:31', '2024-06-26 17:22:31'),
+(132, '42', 'Bkash Gateway', '01624267575', 'BFQ5KMJKSV', '200', 1, '2024-06-26 18:32:48', '2024-06-26 18:32:48'),
+(133, '63', 'Bkash Gateway', '01882477272', 'BFQ3KN5V6D', '200', 1, '2024-06-26 18:48:33', '2024-06-26 18:48:33'),
+(134, '51', 'Bkash Gateway', '01971169606', 'BFQ9KP5EUF', '500', 1, '2024-06-26 19:45:31', '2024-06-26 19:45:31'),
+(135, '143', 'Bkash Gateway', '01815452758', 'BFQ1KR2IC7', '200', 1, '2024-06-26 20:53:25', '2024-06-26 20:53:25'),
+(136, '67', 'Bkash Gateway', '01825709177', 'BFR2LKYPVG', '200', 1, '2024-06-27 18:14:54', '2024-06-27 18:14:54'),
+(137, '66', 'Bkash Gateway', '01866858834', 'BFR9LQIUTF', '200', 1, '2024-06-27 20:53:28', '2024-06-27 20:53:28'),
+(138, '78', 'Bkash Gateway', '01784519887', 'BFR0LQSVJU', '200', 1, '2024-06-27 21:02:57', '2024-06-27 21:02:57'),
+(139, '92', 'Bkash Gateway', '01725869157', 'BFR7LUBW7L', '200', 1, '2024-06-27 23:00:34', '2024-06-27 23:00:34'),
+(140, '146', 'Bkash Gateway', '01829441518', 'BFS1MDYNYZ', '200', 1, '2024-06-28 13:24:54', '2024-06-28 13:24:54'),
+(141, '149', 'Bkash Gateway', '01921577581', 'BFS4MQ43I6', '200', 1, '2024-06-28 21:38:01', '2024-06-28 21:38:01'),
+(142, '151', 'Bkash Gateway', '01926221835', 'BFT3NC2C1N', '200', 1, '2024-06-29 16:21:51', '2024-06-29 16:21:51'),
+(143, '98', 'Bkash Gateway', '01756262274', 'BFT1NDJRTP', '200', 1, '2024-06-29 17:08:51', '2024-06-29 17:08:51'),
+(144, '92', 'Bkash Gateway', '01725869157', 'BFT1NDL3CJ', '200', 1, '2024-06-29 17:09:38', '2024-06-29 17:09:38'),
+(145, '153', 'Bkash Gateway', '01763151343', 'BFU0O4ZZF2', '200', 1, '2024-06-30 07:24:12', '2024-06-30 07:24:12'),
+(146, '43', 'Bkash Gateway', '01789032450', 'BFU0O9L5GA', '200', 1, '2024-06-30 16:19:33', '2024-06-30 16:19:33'),
+(147, '140', 'Bkash Gateway', '01325162111', 'BFU9OCM8LR', '200', 1, '2024-06-30 17:32:34', '2024-06-30 17:32:34'),
+(148, '67', 'Bkash Gateway', '01825709177', 'BFU7OGHOT7', '200', 1, '2024-06-30 19:00:50', '2024-06-30 19:00:50'),
+(149, '67', 'Bkash Gateway', '01825709177', 'BFU4OGTTKG', '200', 1, '2024-06-30 19:09:02', '2024-06-30 19:09:02'),
+(150, '43', 'Bkash Gateway', '01789032450', 'BFU8OLUUJ4', '200', 1, '2024-06-30 21:38:37', '2024-06-30 21:38:37'),
+(151, '151', 'Bkash Gateway', '01780063697', 'BG12PDIRRM', '200', 1, '2024-07-01 17:05:10', '2024-07-01 17:05:10'),
+(152, '92', 'Bkash Gateway', '01725869157', 'BG18PJY10O', '200', 1, '2024-07-01 19:54:05', '2024-07-01 19:54:05'),
+(153, '156', 'Bkash Gateway', '01728381929', 'BG15PLNKDD', '200', 1, '2024-07-01 20:54:10', '2024-07-01 20:54:10'),
+(154, '92', 'Bkash Gateway', '01725869157', 'BG25QMLCZJ', '200', 1, '2024-07-02 16:49:27', '2024-07-02 16:49:27'),
+(155, '152', 'Bkash Gateway', '01552430604', 'BG23QW2EZT', '200', 1, '2024-07-02 20:20:15', '2024-07-02 20:20:15'),
+(156, '151', 'Bkash Gateway', '01780063697', 'BG33R42H85', '300', 1, '2024-07-03 07:02:26', '2024-07-03 07:02:26'),
+(157, '158', 'Bkash Gateway', '01714265202', 'BG31R6ZRIX', '200', 1, '2024-07-03 09:56:36', '2024-07-03 09:56:36'),
+(158, '115', 'Bkash Gateway', '01881864324', 'BG39RCNQHT', '200', 1, '2024-07-03 12:25:10', '2024-07-03 12:25:10'),
+(159, '67', 'Bkash Gateway', '01825709177', 'BG39RDNPIX', '200', 1, '2024-07-03 12:50:14', '2024-07-03 12:50:14'),
+(160, '159', 'Bkash Gateway', '01872564966', 'BG32RFIQB0', '200', 1, '2024-07-03 13:42:33', '2024-07-03 13:42:33'),
+(161, '43', 'Bkash Gateway', '01789032450', 'BG38RFZ5AG', '200', 1, '2024-07-03 13:56:37', '2024-07-03 13:56:37'),
+(162, '158', 'Bkash Gateway', '01714265202', 'BG46S91N4G', '200', 1, '2024-07-04 11:52:17', '2024-07-04 11:52:17'),
+(163, '173', 'Bkash Gateway', '01825709177', 'BG42SX217G', '400', 1, '2024-07-04 22:28:52', '2024-07-04 22:28:52'),
+(164, '146', 'Bkash Gateway', '01829441518', 'BG64U21HF4', '200', 1, '2024-07-06 11:50:26', '2024-07-06 11:50:26'),
+(165, '141', 'Bkash Gateway', '01948829965', 'BG62U2XOZI', '200', 1, '2024-07-06 12:14:51', '2024-07-06 12:14:51'),
+(166, '175', 'Bkash Gateway', '01799405003', 'BG70USKIA4', '200', 1, '2024-07-07 07:49:58', '2024-07-07 07:49:58'),
+(167, '66', 'Bkash Gateway', '01866858834', 'BG74V0E446', '200', 1, '2024-07-07 12:15:07', '2024-07-07 12:15:07'),
+(168, '158', 'Bkash Gateway', '01714265202', 'BG76V1AZOK', '200', 1, '2024-07-07 12:37:22', '2024-07-07 12:37:22'),
+(169, '43', 'Bkash Gateway', '01789032450', 'BG73V28AXT', '200', 1, '2024-07-07 13:00:58', '2024-07-07 13:00:58'),
+(170, '42', 'Bkash Gateway', '01624267575', 'BG71V5JTGV', '200', 1, '2024-07-07 14:44:13', '2024-07-07 14:44:13'),
+(171, '171', 'Bkash Gateway', '01788527836', 'BG75V8AWKT', '200', 1, '2024-07-07 16:20:47', '2024-07-07 16:20:47'),
+(172, '42', 'Bkash Gateway', '01624267575', 'BG78VECFU6', '350', 1, '2024-07-07 18:55:42', '2024-07-07 18:55:42'),
+(173, '78', 'Bkash Gateway', '01784519887', 'BG83VVMJ69', '400', 1, '2024-07-08 10:24:31', '2024-07-08 10:24:31'),
+(174, '66', 'Bkash Gateway', '01874034585', 'BG89VXGNE7', '200', 1, '2024-07-08 11:12:57', '2024-07-08 11:12:57'),
+(175, '67', 'Bkash Gateway', '01825709177', 'BG88VYGV7O', '200', 1, '2024-07-08 11:37:42', '2024-07-08 11:37:42'),
+(176, '63', 'Bkash Gateway', '01729805942', 'BG82VYTAJ4', '200', 1, '2024-07-08 11:46:00', '2024-07-08 11:46:00'),
+(177, '134', 'Bkash Gateway', '01829833536', 'BG87W36KHT', '200', 1, '2024-07-08 13:37:09', '2024-07-08 13:37:09'),
+(178, '135', 'Bkash Gateway', '01829833536', 'BG83W6CBMZ', '200', 1, '2024-07-08 15:25:38', '2024-07-08 15:25:38'),
+(179, '92', 'Bkash Gateway', '01725869157', 'BG84W9RYDO', '200', 1, '2024-07-08 17:20:53', '2024-07-08 17:20:53'),
+(180, '97', 'Bkash Gateway', '01738598656', 'BG99WXIVZZ', '200', 1, '2024-07-09 11:12:35', '2024-07-09 11:12:35'),
+(181, '175', 'Bkash Gateway', '01799405003', 'BG97WYJ51B', '200', 1, '2024-07-09 11:38:24', '2024-07-09 11:38:24'),
+(182, '66', 'Bkash Gateway', '01866858834', 'BG96X2Q4BK', '200', 1, '2024-07-09 13:26:31', '2024-07-09 13:26:31'),
+(183, '67', 'Bkash Gateway', '01825709177', 'BG910G21CZ', '200', 1, '2024-07-09 20:32:01', '2024-07-09 20:32:01'),
+(184, '42', 'Bkash Gateway', '01624267575', 'BGA40QJQRG', '200', 1, '2024-07-10 08:34:56', '2024-07-10 08:34:56'),
+(185, '180', 'Bkash Gateway', '01956079791', 'BGA80TKJKA', '200', 1, '2024-07-10 10:25:47', '2024-07-10 10:25:47'),
+(186, '158', 'Bkash Gateway', '01714265202', 'BGA80ZOVLM', '200', 1, '2024-07-10 13:02:15', '2024-07-10 13:02:15'),
+(187, '66', 'Bkash Gateway', '01866858834', 'BGA3131GVV', '200', 1, '2024-07-10 14:49:00', '2024-07-10 14:49:00'),
+(188, '182', 'Bkash Gateway', '01872564966', 'BGA414ODFW', '200', 1, '2024-07-10 15:49:11', '2024-07-10 15:49:11'),
+(189, '66', 'Bkash Gateway', '01686524190', 'BGB81R3MFU', '200', 1, '2024-07-11 09:42:55', '2024-07-11 09:42:55'),
+(190, '43', 'Bkash Gateway', '01789032450', 'BGB91SIQJ7', '200', 1, '2024-07-11 10:28:49', '2024-07-11 10:28:49'),
+(191, '51', 'Bkash Gateway', '01971169606', 'BGB31U3Z4P', '500', 1, '2024-07-11 11:11:00', '2024-07-11 11:11:00'),
+(192, '170', 'Bkash Gateway', '01729179588', 'BGB01UD83A', '200', 1, '2024-07-11 11:17:14', '2024-07-11 11:17:14'),
+(193, '78', 'Bkash Gateway', '01784519887', 'BGB51UXBJL', '200', 1, '2024-07-11 11:31:55', '2024-07-11 11:31:55'),
+(194, '92', 'Bkash Gateway', '01725869157', 'BGB11ZW5H1', '200', 1, '2024-07-11 13:42:22', '2024-07-11 13:42:22'),
+(195, '175', 'Bkash Gateway', '01799405003', 'BGB724WMGB', '200', 1, '2024-07-11 16:38:28', '2024-07-11 16:38:28'),
+(196, '44', 'Bkash Gateway', '01889200695', 'BGC22OTF7K', '1', 1, '2024-07-12 09:45:15', '2024-07-12 09:45:15'),
+(197, '98', 'Bkash Gateway', '01756262274', 'BGC83DPUXE', '200', 1, '2024-07-12 22:55:06', '2024-07-12 22:55:06'),
+(198, '143', 'Bkash Gateway', '01815452758', 'BGD03W119O', '200', 1, '2024-07-13 17:00:33', '2024-07-13 17:00:33'),
+(199, '92', 'Bkash Gateway', '01725869157', 'BGD03WZ4MY', '200', 1, '2024-07-13 17:30:40', '2024-07-13 17:30:40'),
+(200, '146', 'Bkash Gateway', '01829441518', 'BGE54NPD5F', '200', 1, '2024-07-14 13:24:09', '2024-07-14 13:24:09'),
+(201, '51', 'Bkash Gateway', '01971169606', 'BGE14REU3X', '200', 1, '2024-07-14 15:30:30', '2024-07-14 15:30:30'),
+(202, '66', 'Bkash Gateway', '01866858834', 'BGE757D8QD', '200', 1, '2024-07-14 22:03:19', '2024-07-14 22:03:19'),
+(203, '98', 'Bkash Gateway', '01756262274', 'BGF05HOQP8', '400', 1, '2024-07-15 11:13:08', '2024-07-15 11:13:08'),
+(204, '98', 'Bkash Gateway', '01756262274', 'BGF85HRAY0', '200', 1, '2024-07-15 11:15:17', '2024-07-15 11:15:17'),
+(205, '134', 'Bkash Gateway', '01829833536', 'BGF95J4A1F', '200', 1, '2024-07-15 11:50:30', '2024-07-15 11:50:30'),
+(206, '182', 'Bkash Gateway', '01872564966', 'BGF05JVS4I', '200', 1, '2024-07-15 12:10:18', '2024-07-15 12:10:18'),
+(207, '92', 'Bkash Gateway', '01725869157', 'BGF15LI40X', '200', 1, '2024-07-15 12:52:12', '2024-07-15 12:52:12'),
+(208, '43', 'Bkash Gateway', '01789032450', 'BGF25M5I2K', '200', 1, '2024-07-15 13:10:17', '2024-07-15 13:10:17'),
+(209, '193', 'Bkash Gateway', '01850132653', 'BGF861YKKC', '200', 1, '2024-07-15 20:41:04', '2024-07-15 20:41:04'),
+(210, '42', 'Bkash Gateway', '01313500116', 'BGG46DDDAY', '200', 1, '2024-07-16 10:31:10', '2024-07-16 10:31:10'),
+(211, '158', 'Bkash Gateway', '01714265202', 'BGG86DRFVG', '200', 1, '2024-07-16 10:42:43', '2024-07-16 10:42:43'),
+(212, '67', 'Bkash Gateway', '01825709177', 'BGG86E9EA0', '500', 1, '2024-07-16 10:56:23', '2024-07-16 10:56:23'),
+(213, '180', 'Bkash Gateway', '01956079791', 'BGG96FTVE9', '200', 1, '2024-07-16 11:37:55', '2024-07-16 11:37:55'),
+(214, '66', 'Bkash Gateway', '01866858834', 'BGG06GMCJ0', '200', 1, '2024-07-16 11:59:33', '2024-07-16 11:59:33'),
+(215, '151', 'Bkash Gateway', '01780063697', 'BGG86I17RO', '300', 1, '2024-07-16 12:34:46', '2024-07-16 12:34:46'),
+(216, '177', 'Bkash Gateway', '01793635027', 'BGG36ITQBX', '200', 1, '2024-07-16 12:56:26', '2024-07-16 12:56:26'),
+(217, '140', 'Bkash Gateway', '01325162111', 'BGG06JS8OA', '200', 1, '2024-07-16 13:23:54', '2024-07-16 13:23:54'),
+(218, '194', 'Bkash Gateway', '01738091592', 'BGG66JUQ00', '300', 1, '2024-07-16 13:25:49', '2024-07-16 13:25:49'),
+(219, '196', 'Bkash Gateway', '01758288195', 'BGG56N1TFB', '200', 1, '2024-07-16 15:22:20', '2024-07-16 15:22:20'),
+(220, '92', 'Bkash Gateway', '01725869157', 'BGG46NO90C', '200', 1, '2024-07-16 15:48:09', '2024-07-16 15:48:09'),
+(221, '63', 'Bkash Gateway', '01714871357', 'BGH37EX9AF', '200', 1, '2024-07-17 13:10:44', '2024-07-17 13:10:44'),
+(222, '200', 'Bkash Gateway', '01722624180', 'BGI588F8WT', '200', 1, '2024-07-18 16:05:38', '2024-07-18 16:05:38'),
+(223, '202', 'Bkash Gateway', '01956079791', 'BGS8BCWNN2', '200', 1, '2024-07-28 13:06:11', '2024-07-28 13:06:11'),
+(224, '127', 'Bkash Gateway', '01795107916', 'BGV4DKGE2Y', '200', 1, '2024-07-31 07:51:23', '2024-07-31 07:51:23'),
+(225, '151', 'Bkash Gateway', '01780063697', 'BH21F552N1', '200', 1, '2024-08-02 06:55:12', '2024-08-02 06:55:12');
 
 -- --------------------------------------------------------
 
@@ -827,6 +991,39 @@ CREATE TABLE `server_copy_orders` (
   `status` int DEFAULT '0' COMMENT '0=Pending,1=Accepted',
   `comment` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `admin_comment` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `server_copy_unofficials`
+--
+
+CREATE TABLE `server_copy_unofficials` (
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nameEn` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `gender` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bloodGroup` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `father` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mother` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `spouse` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nationalId` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `permanentAddress` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `presentAddress` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `religion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nidFather` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nidMother` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `voterArea` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dateOfBirth` date DEFAULT NULL,
+  `birthPlace` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `qr_code` int NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -911,7 +1108,7 @@ CREATE TABLE `submit_statuses` (
 --
 
 INSERT INTO `submit_statuses` (`id`, `sign_copy`, `server_copy`, `id_card`, `biometric`, `new_nid`, `old_nid`, `birth`, `server_unofficial`, `sign_to_server`, `registration`, `login`, `recharge`, `created_at`, `updated_at`) VALUES
-(1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, '2024-05-01 04:00:33', '2024-06-15 08:51:49');
+(1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, '2024-05-01 04:00:33', '2024-07-15 19:07:21');
 
 -- --------------------------------------------------------
 
@@ -928,6 +1125,8 @@ CREATE TABLE `users` (
   `is_admin` tinyint(1) DEFAULT '0',
   `details` text COLLATE utf8mb4_unicode_ci,
   `premium` int DEFAULT '0',
+  `premium_start` timestamp NULL DEFAULT NULL,
+  `premium_end` timestamp NULL DEFAULT NULL,
   `balance` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT '0',
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -939,50 +1138,121 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `image`, `email_verified_at`, `is_admin`, `details`, `premium`, `balance`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(13, 'Admin', 'admin@admin.com', 'user/user-1883643859.jpg', NULL, 1, '<h4><strong>হ্যালো মেম্বারস</strong></h4><p>আমি এই ওয়েবসাইটের অ্যাডমিন আপনাদের উদ্দেশ্য করে কিছু কথা বলছি।</p><p>আমি আপনাদের মধ্যে যে সাইটটি নিয়ে এসেছি, এর মাধ্যমে আপনারা NID CARD/সাইন কপি/সার্ভার কপি থেকে শুরু করে আন-অফিসিয়াল সার্ভার কপি ডাউনলোড করতে পারবেন।</p><p>আপনার নিজের নিরাপত্তা ও সকলের নিরাপত্তার স্বার্থে &nbsp;Website এর লিংক অন্য কারো সাথে শেয়ার করা থেকে বিরত থাকুন। যদি কারো সাথে Website এর লিংক শেয়ার অথবা টাকার বিনিময়ে বিক্রি করেন তবে আপনার বিরুদ্ধে যথাযথ ব্যবস্থা গ্রহন করা হবে।</p><h4><strong>হ্যালো মেম্বারস</strong></h4><p>আপনারা কখনো অপ্রয়োজনে আমাকে ইনবক্সে মেসেজ করবেন না। সর্বদা নোটিশ ফলো করবেন, নোটিশে যা লেখা থাকবে তাই কার্যকর হবে। অনেক সময় সার্ভার কপি ডাউনলোড না হলে ২/৩ টা বাহির করার চেষ্টা করুন, যদি তারপরেও ডাউনলোড না হয়, এবং নোটিশে “সার্ভার কপি চালু” লেখা থাকে, তবে অ্যাডমিনকে মেসেজের মাধ্যমে অবগত করুন।</p><p>সবাইকে ধন্যবাদ</p>', 0, '0', 'eyJpdiI6IkY2V0hUU3l2VlZOeGtieVFVc0gyN1E9PSIsInZhbHVlIjoiNkhGUjltS3VtU2Z1YloxYnN4cGZBdz09IiwibWFjIjoiYTQyZWY5MDZkYjNiYzM5MzE1Y2Q2MDM5YTAyMzFjZTNkYTY4NGVmOThkMDExMGY5ODUxOGRhMDM4MzZmN2FmZiIsInRhZyI6IiJ9', NULL, '2023-06-08 05:32:42', '2024-06-15 08:42:18'),
-(32, 'moderator', 'moderator@gmail.com', NULL, NULL, 2, NULL, 0, '0', 'eyJpdiI6Ik4zb3ZMZEVvZ3Q5STJGYVVvUlhrRlE9PSIsInZhbHVlIjoibksxZE43UHpsYnkvSGgxTU95TXlTdz09IiwibWFjIjoiMDEyNGE1MjAzMGI1OWNkZjFhNWI1OWE1ZDY2MDc2ZmM4NDRhMjZjMGEyOGFlNDNkZDczODA2M2JmOWM2NGY4NCIsInRhZyI6IiJ9', NULL, '2024-05-19 12:41:02', '2024-06-15 08:52:53'),
-(33, '@Rifatmiah7770', 'muhammadrifat7770@gmail.com', NULL, NULL, 0, NULL, 0, '5', 'eyJpdiI6IjRoanlFQyt5TjNEaEFYbnFhTWN3Rnc9PSIsInZhbHVlIjoiZDlkcDhGUFZsZ2JTbzNsL2tOb2FGQT09IiwibWFjIjoiNTRlZTBlNDViMTUxNTE2YWM5YTEyYmZmMTc0MmI5ZWVlNjc1Y2E0ZjMxMTZkOWE3MjBjM2I0NzVlNmM2M2Y2MiIsInRhZyI6IiJ9', NULL, '2024-05-19 12:57:00', '2024-06-09 10:56:48'),
-(42, 'KhalidHasan', 'sssagor299@gmail.com', NULL, NULL, 0, NULL, 2, '10', 'eyJpdiI6ImhIM3lYZkdiZ2RYVE1OOE13czdOa0E9PSIsInZhbHVlIjoibjdSY1ZFQTNOd0s1QVE0b3BXcTZjUT09IiwibWFjIjoiNzc1MzdiOWQ1ZmFkMDUwMTA0ZTc3NWVmNmE4NjBmMDNmMzQ0ODRmMDdlZDRhOGJjODA1ZjQ4MmM3YTRhN2Q3OCIsInRhZyI6IiJ9', NULL, '2024-05-20 07:06:18', '2024-06-19 10:48:12'),
-(43, 'MD. RASEL MIA', 'Vaihot81@gmail.com', NULL, NULL, 0, NULL, 0, '101', 'eyJpdiI6IlNQQURMY3daSTVTNXpxTmhzVkJyekE9PSIsInZhbHVlIjoiTjZpS1VZaGk2KzBwOC93NHB5STVxUT09IiwibWFjIjoiMmJlNWRmMjhjMWUyYzdmYjgxNjYyN2VjODAzYzZkZGE3MjQ5NzQ1ZWYyMjUyZTJhYzE5ZDYxYWM0NDJlZTRkZCIsInRhZyI6IiJ9', NULL, '2024-05-20 07:41:40', '2024-06-13 15:15:14'),
-(44, 'Admin', 'bismillacomputer.kha30@gmail.com', NULL, NULL, 0, NULL, 0, '179', 'eyJpdiI6Ii9KMDYyUm92NFFYaHdYODJVZG1qMlE9PSIsInZhbHVlIjoiSW1pNjNZM2tEM3dERDgwU09qaHd4Zz09IiwibWFjIjoiMzAzODJjNTdhMmMyYmI2YTE2Njk4ODcyOTdmYmU4OTg3YTEyOTc4ZWZlOGE3MmY5NDk5YTg2YTQ3ODg3MWQ4NCIsInRhZyI6IiJ9', NULL, '2024-05-20 07:53:39', '2024-06-21 11:01:46'),
-(51, 'SHIHAB', 'nahiyanshihab201@gmail.com', NULL, NULL, 0, NULL, 0, '34', 'eyJpdiI6IjRoanlFQyt5TjNEaEFYbnFhTWN3Rnc9PSIsInZhbHVlIjoiZDlkcDhGUFZsZ2JTbzNsL2tOb2FGQT09IiwibWFjIjoiNTRlZTBlNDViMTUxNTE2YWM5YTEyYmZmMTc0MmI5ZWVlNjc1Y2E0ZjMxMTZkOWE3MjBjM2I0NzVlNmM2M2Y2MiIsInRhZyI6IiJ9', NULL, '2024-05-22 12:02:24', '2024-06-12 15:55:45'),
-(57, 'JAKIR HOSSAIN', 'Mdjakirhossaim3@gmail.com', NULL, NULL, 0, NULL, 0, '324', 'eyJpdiI6IjRoanlFQyt5TjNEaEFYbnFhTWN3Rnc9PSIsInZhbHVlIjoiZDlkcDhGUFZsZ2JTbzNsL2tOb2FGQT09IiwibWFjIjoiNTRlZTBlNDViMTUxNTE2YWM5YTEyYmZmMTc0MmI5ZWVlNjc1Y2E0ZjMxMTZkOWE3MjBjM2I0NzVlNmM2M2Y2MiIsInRhZyI6IiJ9', NULL, '2024-05-23 10:52:09', '2024-06-12 14:03:44'),
-(63, 'rajuahmed', 'rajuahmed3718@gmail.com', NULL, NULL, 0, NULL, 0, '119', 'eyJpdiI6IjRoanlFQyt5TjNEaEFYbnFhTWN3Rnc9PSIsInZhbHVlIjoiZDlkcDhGUFZsZ2JTbzNsL2tOb2FGQT09IiwibWFjIjoiNTRlZTBlNDViMTUxNTE2YWM5YTEyYmZmMTc0MmI5ZWVlNjc1Y2E0ZjMxMTZkOWE3MjBjM2I0NzVlNmM2M2Y2MiIsInRhZyI6IiJ9', NULL, '2024-05-26 09:59:00', '2024-06-13 13:49:28'),
-(64, 'minhajulnizam74', 'minhajulnizam74@gmail.com', NULL, NULL, 0, NULL, 0, '119', 'eyJpdiI6IjRoanlFQyt5TjNEaEFYbnFhTWN3Rnc9PSIsInZhbHVlIjoiZDlkcDhGUFZsZ2JTbzNsL2tOb2FGQT09IiwibWFjIjoiNTRlZTBlNDViMTUxNTE2YWM5YTEyYmZmMTc0MmI5ZWVlNjc1Y2E0ZjMxMTZkOWE3MjBjM2I0NzVlNmM2M2Y2MiIsInRhZyI6IiJ9', NULL, '2024-05-26 11:06:27', '2024-06-09 12:55:59'),
-(66, 'S.M SOJIB', 'sojibgazi21@gmail.com', NULL, NULL, 0, NULL, 0, '168', 'eyJpdiI6ImJFM05jT2FPaGJzdTNDTm1vZE04TXc9PSIsInZhbHVlIjoiNHJ3dWF6Mk9UVEFFRGNNemxaZ1lBUT09IiwibWFjIjoiYTgwNzkyZWYwZDUwNmJlZWEzNWFhZDhhZTBiOWMyY2U4ZDZjNjJiM2ZjZGI4YWY5MDZlZTVmZWQ5YzEzYjE0MCIsInRhZyI6IiJ9', NULL, '2024-05-26 17:50:37', '2024-06-13 15:57:11'),
-(67, 'Md Abu Faisal', 'faislcxb@gmail.com', NULL, NULL, 0, NULL, 0, '309', 'eyJpdiI6Im5aKzlSaEpHT0dKTk9vR2dMNTZ3aWc9PSIsInZhbHVlIjoiMnZQenBaK3hRV2ZRV2w0dzFudURlZz09IiwibWFjIjoiY2JkMTJjYjU2MDY5NGE2Y2U1ZTBiZDczNWJiZmQ0ZjQ5NDJkMDljOTc0Yjk5YmE3OWU5NmQ1NjdhZGIwZjY3ZiIsInRhZyI6IiJ9', NULL, '2024-05-26 23:37:46', '2024-06-13 12:04:51'),
-(68, 'Faharul', 'faharul.fcs@gmail.com', NULL, NULL, 0, NULL, 0, '148', 'eyJpdiI6Ii8rTFZ3VUV4eFBBdEJDWnpabktEQ2c9PSIsInZhbHVlIjoiWDVrY2ZUOVdhd0pRR1N5VmJBY0YxUT09IiwibWFjIjoiOWU3MTE1MmIwY2Y0NjFmYjg0YTY0YjUxNDZiZDM0M2IwMGM3Mjk3ZDk5MWQ5OWZjMzEzMDdhYjc5MmJjNzJjZSIsInRhZyI6IiJ9', NULL, '2024-05-27 12:00:05', '2024-06-12 11:05:15'),
-(69, 'ahsan.msi', 'dhaka.msi@gmail.com', NULL, NULL, 0, NULL, 0, '19', 'eyJpdiI6IjRoanlFQyt5TjNEaEFYbnFhTWN3Rnc9PSIsInZhbHVlIjoiZDlkcDhGUFZsZ2JTbzNsL2tOb2FGQT09IiwibWFjIjoiNTRlZTBlNDViMTUxNTE2YWM5YTEyYmZmMTc0MmI5ZWVlNjc1Y2E0ZjMxMTZkOWE3MjBjM2I0NzVlNmM2M2Y2MiIsInRhZyI6IiJ9', NULL, '2024-05-29 09:58:06', '2024-06-08 14:06:19'),
-(71, 'hasanupbd@gmail.com', 'hasanupbd@gmail.com', NULL, NULL, 0, NULL, 2, '86', 'eyJpdiI6IjRoanlFQyt5TjNEaEFYbnFhTWN3Rnc9PSIsInZhbHVlIjoiZDlkcDhGUFZsZ2JTbzNsL2tOb2FGQT09IiwibWFjIjoiNTRlZTBlNDViMTUxNTE2YWM5YTEyYmZmMTc0MmI5ZWVlNjc1Y2E0ZjMxMTZkOWE3MjBjM2I0NzVlNmM2M2Y2MiIsInRhZyI6IiJ9', NULL, '2024-05-29 13:09:35', '2024-06-11 14:21:32'),
-(73, 'Rubel Sikder', 'premium@gmail.com', NULL, NULL, 0, NULL, 2, '1000', 'eyJpdiI6IklhYytqSnQxbWZXaGlSNlZJS1NYWUE9PSIsInZhbHVlIjoiWnFHVlFZbjU0dmVWdXRoMS9Pa1Evdz09IiwibWFjIjoiODczMjU1ZjViMmFiNjAyY2VkNmI1YmQ2NGI3MWRlZGU4M2MwOTZmMjA3MTI1NzUyODg4YjIzNWQ2M2E5YWYwMCIsInRhZyI6IiJ9', NULL, '2024-06-01 19:15:32', '2024-06-15 18:54:49'),
-(74, 'Alivai', 'raihanmiziit@gmail.com', NULL, NULL, 0, NULL, 0, '10', 'eyJpdiI6IjRoanlFQyt5TjNEaEFYbnFhTWN3Rnc9PSIsInZhbHVlIjoiZDlkcDhGUFZsZ2JTbzNsL2tOb2FGQT09IiwibWFjIjoiNTRlZTBlNDViMTUxNTE2YWM5YTEyYmZmMTc0MmI5ZWVlNjc1Y2E0ZjMxMTZkOWE3MjBjM2I0NzVlNmM2M2Y2MiIsInRhZyI6IiJ9', NULL, '2024-06-01 22:23:17', '2024-06-05 16:47:46'),
-(77, 'Ab1234##', 'mssanictraders2021@gmail.com', NULL, NULL, 0, NULL, 0, '100', 'eyJpdiI6IjRoanlFQyt5TjNEaEFYbnFhTWN3Rnc9PSIsInZhbHVlIjoiZDlkcDhGUFZsZ2JTbzNsL2tOb2FGQT09IiwibWFjIjoiNTRlZTBlNDViMTUxNTE2YWM5YTEyYmZmMTc0MmI5ZWVlNjc1Y2E0ZjMxMTZkOWE3MjBjM2I0NzVlNmM2M2Y2MiIsInRhZyI6IiJ9', NULL, '2024-06-02 12:39:39', '2024-06-02 16:55:59'),
-(78, 'suvro', 'saikatsarkar1122@gmail.com', NULL, NULL, 0, NULL, 2, '20', 'eyJpdiI6ImVIZVpObEljOWV5d3dOY0R5WnQ1K0E9PSIsInZhbHVlIjoiZTVuUEIzTkt6VksvOUQ5MkwwRHorUT09IiwibWFjIjoiYmJmMGE1NmE0MmYzNTdkZmM0ZTRkYzJjY2U0YTRhMDNhNTNlZDE4MWY2ZDNjZDRlNzllNGIwZjY4ZmI3YzI0ZCIsInRhZyI6IiJ9', NULL, '2024-06-02 17:43:26', '2024-06-13 15:34:11'),
-(83, 'Hemangshu bala', 'hmbala1144@gmail.com', NULL, NULL, 0, NULL, 0, '99', 'eyJpdiI6IjRoanlFQyt5TjNEaEFYbnFhTWN3Rnc9PSIsInZhbHVlIjoiZDlkcDhGUFZsZ2JTbzNsL2tOb2FGQT09IiwibWFjIjoiNTRlZTBlNDViMTUxNTE2YWM5YTEyYmZmMTc0MmI5ZWVlNjc1Y2E0ZjMxMTZkOWE3MjBjM2I0NzVlNmM2M2Y2MiIsInRhZyI6IiJ9', NULL, '2024-06-03 12:11:42', '2024-06-10 14:32:26'),
-(87, 'asis', 'asisr1542@gmail.com', NULL, NULL, 0, NULL, 0, '17', 'eyJpdiI6InlKQWVmU0pZT3k3UHFVUktsRG0vU0E9PSIsInZhbHVlIjoiaGF2enZCbDFTN1EwZVFJNks2byt2dz09IiwibWFjIjoiMTQ5MDA4NjBhZGI3NGRmMmJkZDNhNmE3MjJiZmM0ZjNiNTNlMDVmMjdkZTFkZWE3MjczZjk3ZmU2NmZkMzM5ZSIsInRhZyI6IiJ9', NULL, '2024-06-03 19:52:37', '2024-06-12 11:28:22'),
-(89, 'ABDULLAH AL MAHMUD', 'abdullahalnahmud@gmail.com', NULL, NULL, 0, NULL, 0, '33', 'eyJpdiI6IjRoanlFQyt5TjNEaEFYbnFhTWN3Rnc9PSIsInZhbHVlIjoiZDlkcDhGUFZsZ2JTbzNsL2tOb2FGQT09IiwibWFjIjoiNTRlZTBlNDViMTUxNTE2YWM5YTEyYmZmMTc0MmI5ZWVlNjc1Y2E0ZjMxMTZkOWE3MjBjM2I0NzVlNmM2M2Y2MiIsInRhZyI6IiJ9', NULL, '2024-06-04 12:59:36', '2024-06-12 13:17:23'),
-(92, 'mahabul', 'mahabulalam71@gmail.com', NULL, NULL, 0, NULL, 0, '143', 'eyJpdiI6IjYvbXJOVFRuUVVuWDR5Y1c1UXhVT3c9PSIsInZhbHVlIjoiM21ML2Y4bzAvYysrVldBdk54a2JTQT09IiwibWFjIjoiNzBkMWNlMzg0YjBmYWIyMWQzOTk3NzMyYjYwZTcyNTIyZDIwZjNlNGNhZWU1YWVjN2Q4NDlhN2JkMTYyNGQ5YiIsInRhZyI6IiJ9', NULL, '2024-06-05 10:47:36', '2024-06-13 12:57:49'),
-(96, 'Osman', 'osman55tjn@gmail.com', NULL, NULL, 0, NULL, 0, '8', 'eyJpdiI6IjRoanlFQyt5TjNEaEFYbnFhTWN3Rnc9PSIsInZhbHVlIjoiZDlkcDhGUFZsZ2JTbzNsL2tOb2FGQT09IiwibWFjIjoiNTRlZTBlNDViMTUxNTE2YWM5YTEyYmZmMTc0MmI5ZWVlNjc1Y2E0ZjMxMTZkOWE3MjBjM2I0NzVlNmM2M2Y2MiIsInRhZyI6IiJ9', NULL, '2024-06-05 21:45:36', '2024-06-13 14:19:16'),
-(97, 'Mdkayes3859', 'cbmasud1@gmail.com', NULL, NULL, 0, NULL, 0, '26', 'eyJpdiI6IjhJTm5hVk1TWThKYkxBdkxZeEtHbEE9PSIsInZhbHVlIjoiTm1ULzFobTJETEU5QUJqVHEvQ0U1dz09IiwibWFjIjoiNThlMjAwZGFmYTg4ZWRkM2Y0MzUyOWE4ZmI1ZTViNjFiOWE3NzFmMzFjMThkZDUzZWJjMWIxZjYwNThlNzZhZCIsInRhZyI6IiJ9', NULL, '2024-06-06 13:08:28', '2024-06-20 10:17:43'),
-(98, 'ncomputer', 'ncomputer74@gmail.com', NULL, NULL, 0, NULL, 0, '407', 'eyJpdiI6IkFjbWppaFZWUEF2VFp1NWx2T213NVE9PSIsInZhbHVlIjoiL1dmQ0VyUGQyRWYxOEdLMUVhQmp4UT09IiwibWFjIjoiZGZiMzA5M2IzZmQ4ZGMzZjQzMDZkZDFmNGJjMjE3OWNmNTUwZWVkZTAxZDNiOWZiYTY2OTlkNDBhNzIwMzU0NSIsInRhZyI6IiJ9', NULL, '2024-06-06 13:25:34', '2024-06-20 12:49:14'),
-(100, 'Md Asadul Mia', 'asadulgraphics@gmail.com', NULL, NULL, 0, NULL, 0, '10', 'eyJpdiI6IjRoanlFQyt5TjNEaEFYbnFhTWN3Rnc9PSIsInZhbHVlIjoiZDlkcDhGUFZsZ2JTbzNsL2tOb2FGQT09IiwibWFjIjoiNTRlZTBlNDViMTUxNTE2YWM5YTEyYmZmMTc0MmI5ZWVlNjc1Y2E0ZjMxMTZkOWE3MjBjM2I0NzVlNmM2M2Y2MiIsInRhZyI6IiJ9', NULL, '2024-06-08 17:58:23', '2024-06-10 14:53:36'),
-(105, 'IQBAL', 'Djlederiqbalbai@gmail.com', NULL, NULL, 0, NULL, 0, '40', 'eyJpdiI6Ilp3YWlyUzZGQTJHdFk0aTJsZXlZanc9PSIsInZhbHVlIjoiMFhNSWZ4RnRVaFFBOXZ5TkF3WTBVQT09IiwibWFjIjoiZTZlNDAyYzhiNjhhYjZhMGJiYWUyYWE0ZTA1OTA2M2NlZjg0Yzc0MTI0NDk5ODBiNDlhZGM3NGFjYjdjZGJkYSIsInRhZyI6IiJ9', NULL, '2024-06-10 20:35:23', '2024-06-12 12:30:52'),
-(109, 'Rashel Islam', 'irashel51@gmail.com', NULL, NULL, 0, NULL, 0, '100', 'eyJpdiI6IlQ5ZXdRWU9pUXdXS1hzSGlNeHUxVnc9PSIsInZhbHVlIjoiaGpJOTV4dVZRR0xhUWNoUkxLNFN1QT09IiwibWFjIjoiMmVjYTBkN2VmYzJjYTFkMzRkNmI4MDYzMWM3YmU4ZTNiNzRhMTJhMDQxZDE4MGUzZmFmMjlkMzVmYjRiMzA3ZCIsInRhZyI6IiJ9', NULL, '2024-06-11 13:40:54', '2024-06-11 15:00:43'),
-(113, 'madhobpal10', 'madhobpal10@gmail.com', NULL, NULL, 0, NULL, 2, '142', 'eyJpdiI6IkM3UzA5cmc1eGg3cUFIdHRsTENjcVE9PSIsInZhbHVlIjoiL0NPWUtqWXRtTmV3ajZPT0I4YTVodz09IiwibWFjIjoiYjRhMGE2ODFiYjc0NzE0NTNjZmFlZmQyZDUyYzYwZWQ1Mjg5MzZlYWQxOWE4MDM5NzE2NDdiNDIxMTM2M2Y2YiIsInRhZyI6IiJ9', NULL, '2024-06-11 17:15:39', '2024-06-20 13:12:36'),
-(115, 'sapan', 'sapan.cec@gmail.com', NULL, NULL, 0, NULL, 0, '114', 'eyJpdiI6ImRwNGZqQ1ZsMHBhRzFpdWFpQVBmK0E9PSIsInZhbHVlIjoiUnhiRDkvTjhVemlIeFlGZGNoYWoyZz09IiwibWFjIjoiMDRiYTk1ZDA1OThiYWIxZDdkYjY2ZTM3NjEzNWIwZTQxNzc2ZDIwOWEwNGIyOWE1MmY2MWNlMjlmZWZkYTgzYSIsInRhZyI6IiJ9', NULL, '2024-06-12 12:44:54', '2024-06-19 12:44:54'),
-(118, 'ariyan', 'ariyanmasum66@gamil.com', NULL, NULL, 0, NULL, 0, '0', 'eyJpdiI6ImNrUXFha3IvamMrVWZEMEdlM1VsUHc9PSIsInZhbHVlIjoiQ2FMZ1ZDd3FzOE5Xa3krdHdOTExtdz09IiwibWFjIjoiMTIxNGExYjYyYzIxMzhkMjI0N2JhMzYyNjE2NjcwYTViNjNmMTg4MDljNWZiYWFlNGIxZDMzNzVkYzk0ODdjYiIsInRhZyI6IiJ9', NULL, '2024-06-12 19:07:04', '2024-06-12 19:07:04'),
-(119, 'md sohan', 'sohanreal567@gmail.com', NULL, NULL, 0, NULL, 0, '0', 'eyJpdiI6IlNQUzd6c25RSVM2enh4eFplMlBIUFE9PSIsInZhbHVlIjoic3ZkNVIxRXg3eDd2MC80MUMyenIzQT09IiwibWFjIjoiZTJjZWFiNGVjZDZjNTNiYzY1NmRlMTc3Y2QwMmFmZDA4YTk0MTQ5NmQ3ZDAwZGZhODQ4NjgxYzQzYjQ1NTI5ZCIsInRhZyI6IiJ9', NULL, '2024-06-12 20:55:06', '2024-06-12 20:55:06'),
-(121, 'Hridoy Paul', 'paulhridoy861@gmail.com', NULL, NULL, 0, NULL, 0, '189', 'eyJpdiI6Ik9SbU04S3l0VDBFZGtTUFgrTU5BVVE9PSIsInZhbHVlIjoiYnVQQTVJQm01bEZkemRJOTdCQVZ2Zz09IiwibWFjIjoiZTg0NmQ2YzNhMWUwZGE5MjQ1YTI5MGYwYjcxOGUzY2FiNWNjZTg5NzM4MTYyODg3NjRhYTk5ZTEyMDMwOTIyYiIsInRhZyI6IiJ9', NULL, '2024-06-13 16:11:38', '2024-06-14 12:24:38'),
-(122, 'Bashar Sarkar', 'bashardbgramup@gmail.com', NULL, NULL, 0, NULL, 0, '0', 'eyJpdiI6ImM2RnFUY0g4UVVadkhCN1ZHTXptM3c9PSIsInZhbHVlIjoiVXZMcDRjMUxQUWxhaE9tVGZuMnVudz09IiwibWFjIjoiN2Y1YzUzNjYwZmI2MjUzMGQyODI0NzQyNDExNjQyZGFiMDc3ZWFhOTRiNDAwODNmMzM5MjYwNjQzYWEzOTE5NCIsInRhZyI6IiJ9', NULL, '2024-06-13 20:08:46', '2024-06-13 20:08:46'),
-(123, 'masum', 'masum22@gamil.com', NULL, NULL, 0, NULL, 0, '0', 'eyJpdiI6InBwRE5zZTIvVERIMjJ1REhPeWJyVVE9PSIsInZhbHVlIjoidGRrK2FSOHl4MTRETTNrMWVNaEpBUT09IiwibWFjIjoiMDViMzE2MWVkYWMxZjNjY2ZlMDJjYTFkNTBiNzJmMDY3YWMxNTdhMjE3MjQwMzM4NjUwMWI4ODgxMjExOTNjMCIsInRhZyI6IiJ9', NULL, '2024-06-14 17:57:27', '2024-06-14 17:57:27'),
-(124, 'Ra5252', 'gog41765@gmail.com', NULL, NULL, 0, NULL, 0, '179', 'eyJpdiI6IjZQRUhSU1ZObU5NVGtHa0ZmL3RFVlE9PSIsInZhbHVlIjoiOVo2akoySkhUSENZQ2pGK3gwdWMzUT09IiwibWFjIjoiZGZiYWU2MGVjMzg3Y2RlYzg3MzM5MzEyMmEwM2JlZDc3NGVmMjQ5MWVlYmU5OGQ2MWIwZjEyYWZhYjNhOGQ2ZSIsInRhZyI6IiJ9', NULL, '2024-06-16 09:58:07', '2024-06-16 10:03:21'),
-(125, 'mdredon', 'mdredonofficial@gmail.com', NULL, NULL, 0, NULL, 0, '0', 'eyJpdiI6Im5UNFF2QUg4dEtHbmZHRmo0Q3Q5Q0E9PSIsInZhbHVlIjoiSFQ5WERjZ1EvSFNYZDBubzVDVEQ1dz09IiwibWFjIjoiNjYyMzllODVkMGQyOTM3ODA2ZmVlOTNhZDljNWMyZGRjOTU0YTcwODZiYWE2M2ExZTUxOWIzMzEyZGZiN2FkMiIsInRhZyI6IiJ9', NULL, '2024-06-16 13:48:34', '2024-06-16 13:48:34'),
-(126, 'Lalchan Sarker', 'lalchansarker136@gmail.com', NULL, NULL, 0, NULL, 0, '0', 'eyJpdiI6ImIvaExpdkR1QVJJaUtIR2JaZkRKV3c9PSIsInZhbHVlIjoiMEFhUnkvS2p0bTBVZUhaQjZZMnF0QT09IiwibWFjIjoiNjU4MTc0MzNhYjlkMmUzYTg1OTY0ZDczNDk5NmNkMThhNzM3YzIyNWM5NTg3M2E5ZjAxZTZkNGQ3YmYwMjcwOSIsInRhZyI6IiJ9', NULL, '2024-06-16 18:26:18', '2024-06-16 18:26:18'),
-(127, 'Md Asadul Mia', 'asadulgraphic@gmail.com', NULL, NULL, 0, NULL, 0, '59', 'eyJpdiI6IldzYzJENVk5OHNIOEljS2puNGUwYlE9PSIsInZhbHVlIjoiQ2RHUUxTZGZLSjlCckZHblBsSEF0Rmtwd2ttZnF0bXNvYjlRdTViS29Xcz0iLCJtYWMiOiJjN2YwNGQwZjFmYTNhYzE2NGE2Yjc0YTViOTIwY2IyNjUxYzg0OGE2MGZhOWVlYTg3ZjMzYzUyZDQzMjUwYjAxIiwidGFnIjoiIn0=', NULL, '2024-06-19 08:24:25', '2024-06-21 17:16:49'),
-(128, 'MOHAMMAD SHAHARAZ', 'shaharaj689@gmail.com', NULL, NULL, 0, NULL, 0, '0', 'eyJpdiI6Ik5MazhyWnA3amlUYzZ2TEt2Q2s1eEE9PSIsInZhbHVlIjoiU3hYZk5lbTZYVTM3L3ZJd3RReERudz09IiwibWFjIjoiMGJmN2NmZTZkMWRhYTQwZTFmN2FkNmU4YTk4MWJmODcyOThjYTU3NTNkOGY4NjIzNGVjMTE1ZjIwMTdlOGZmYyIsInRhZyI6IiJ9', NULL, '2024-06-19 17:51:48', '2024-06-19 17:51:48'),
-(129, 'Sayed', 'sheikhulsayed214@gmail.com', NULL, NULL, 0, NULL, 0, '0', 'eyJpdiI6Im1FanpuQnlWZFVhOXBOK0JjZUpjZGc9PSIsInZhbHVlIjoiRFBBT0FtcWdkZFF5T1N6NUxtNTRjQT09IiwibWFjIjoiMzZlOGU3NjFiYWFhMGQ1YWNiMjYyNmM4Yzk2NDFkNGQzMWE0OTc2MmE4M2I3MTRkM2Y4OTJkZDA5NDVhYTVhZSIsInRhZyI6IiJ9', NULL, '2024-06-20 10:20:21', '2024-06-20 10:20:21'),
-(131, 'Elias', 'eliastek297@gmail.com', NULL, NULL, 0, NULL, 0, '0', 'eyJpdiI6Ik9hQnE3Vmt2TEs4UXBUSjR6djgxbEE9PSIsInZhbHVlIjoiekQzL1BHaEJJOTZ0NGRpMThsUUh6QT09IiwibWFjIjoiZTgyMjdkYzBiZjNkYmQ4MzQ3MzQ4ZTcwMTFiNTg2NzdlNDIwYmMxYzI4MzEyODI3ZDMyYjNhYWNlMTM2OWNjYSIsInRhZyI6IiJ9', NULL, '2024-06-21 19:01:37', '2024-06-21 19:01:37');
+INSERT INTO `users` (`id`, `name`, `email`, `image`, `email_verified_at`, `is_admin`, `details`, `premium`, `premium_start`, `premium_end`, `balance`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(13, 'Admin', 'admin@admin.com', 'user/user-1883643859.jpg', NULL, 1, '<h4><strong>হ্যালো মেম্বারস</strong></h4><p>আমি এই ওয়েবসাইটের অ্যাডমিন আপনাদের উদ্দেশ্য করে কিছু কথা বলছি।</p><p>আমি আপনাদের মধ্যে যে সাইটটি নিয়ে এসেছি, এর মাধ্যমে আপনারা NID CARD/সাইন কপি/সার্ভার কপি থেকে শুরু করে আন-অফিসিয়াল সার্ভার কপি ডাউনলোড করতে পারবেন।</p><p>আপনার নিজের নিরাপত্তা ও সকলের নিরাপত্তার স্বার্থে &nbsp;Website এর লিংক অন্য কারো সাথে শেয়ার করা থেকে বিরত থাকুন। যদি কারো সাথে Website এর লিংক শেয়ার অথবা টাকার বিনিময়ে বিক্রি করেন তবে আপনার বিরুদ্ধে যথাযথ ব্যবস্থা গ্রহন করা হবে।</p><h4><strong>হ্যালো মেম্বারস</strong></h4><p>আপনারা কখনো অপ্রয়োজনে আমাকে ইনবক্সে মেসেজ করবেন না। সর্বদা নোটিশ ফলো করবেন, নোটিশে যা লেখা থাকবে তাই কার্যকর হবে। অনেক সময় সার্ভার কপি ডাউনলোড না হলে ২/৩ টা বাহির করার চেষ্টা করুন, যদি তারপরেও ডাউনলোড না হয়, এবং নোটিশে “সার্ভার কপি চালু” লেখা থাকে, তবে অ্যাডমিনকে মেসেজের মাধ্যমে অবগত করুন।</p><p>সবাইকে ধন্যবাদ</p>', 0, NULL, NULL, '0', 'eyJpdiI6Im4waUZPeXVyK3ovSXhscWhIM3RZdUE9PSIsInZhbHVlIjoiUWRtU2lUdFlCblB3OW8rK2N4ZHZZQT09IiwibWFjIjoiNGNmYTI3MTM1NTExNTBkNDM4NTRiODM2ZjIyYzRhNDRmODJiMzI0ODY3NjY2ZWU5MWE0NWViZmM3Y2U3NDJjYSIsInRhZyI6IiJ9', NULL, '2023-06-08 05:32:42', '2024-07-04 09:00:50'),
+(42, 'KhalidHasan', 'sssagor299@gmail.com', NULL, NULL, 0, NULL, 2, '2024-07-11 17:23:36', '2024-08-10 17:23:36', '88', 'eyJpdiI6IkJDbmdWdlpzc2pKTWZZMEk1NnN1NkE9PSIsInZhbHVlIjoidSt5VDdZcE1FWHh4Z1hiSUZpRytUQT09IiwibWFjIjoiOTk4ZjcwY2IzZWZkMjZmOWQyNGM3MjQ5MGFhMmYzOWQwMjU0MmZjNTZkOTRlOTcwZjFkMzE3NjFhZjYxODJhZSIsInRhZyI6IiJ9', NULL, '2024-05-20 07:06:18', '2024-07-16 16:05:23'),
+(43, 'MD. RASEL MIA', 'Vaihot81@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '119', 'eyJpdiI6ImxPT0NaM0pNbnpvZ1ZhU3VmYW1mYVE9PSIsInZhbHVlIjoid2xPMi9VejJiNUI2WUNTclZHOUZndz09IiwibWFjIjoiMmY3ZjRkMmQ0YWI4NjNhYzc3ZmVlMmMyMWU0MzQ5YTNlNzFkOWVmZTRhZjUxZTZkYWY1ZmVjMWUxMDJmYTlhNSIsInRhZyI6IiJ9', NULL, '2024-05-20 07:41:40', '2024-07-16 13:54:09'),
+(44, 'Admin', 'bismillacomputer.kha30@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '500', 'eyJpdiI6IlJGVDZJaXF2eXd6VWpGbzFtamc1aFE9PSIsInZhbHVlIjoiYXArcC9VUzYvZlp5U2c4N0RUTXZiQT09IiwibWFjIjoiZjI2YWY4Njc1YjY4NDNkMzgzZjI0ZGEwOWVlMzRmMDdmYjIzMjUwMmQzMGIyMzhkNThkOWE0YTU5YzIyNTQ2ZSIsInRhZyI6IiJ9', NULL, '2024-05-20 07:53:39', '2024-07-16 08:14:34'),
+(51, 'SHIHAB', 'nahiyanshihab201@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '157', 'eyJpdiI6Ik51bEZWR2Myd0JiK2tES0ZMNGNMVGc9PSIsInZhbHVlIjoiY1A4QTB2WWNvUUt4ZFdFVmtQRkNmQT09IiwibWFjIjoiMTlmM2IyZTczNGJhNDFkNDVjNzE2OWU5NmY0NzNiOTFlMGY4NTY0YmY2YTg4ZDg5NjQ3OTZlZWI2MjQ2YmM1NCIsInRhZyI6IiJ9', NULL, '2024-05-22 12:02:24', '2024-07-15 16:21:50'),
+(57, 'JAKIR HOSSAIN', 'Mdjakirhossaim3@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '115', 'eyJpdiI6ImhPMmlvTFJvNm53aWJQNWdkMUlCNFE9PSIsInZhbHVlIjoiZTZKTkIwSzh5amNrVzJMNDNZRU1EZz09IiwibWFjIjoiNDMwOWQzYzE4ODRiZjVlMmEyYzE0ZjUxY2M4Y2E4ZGNlYzZmM2YyODI2NmJkOTRiNmIyMWE2NDc5ZTdjYjhkNyIsInRhZyI6IiJ9', NULL, '2024-05-23 10:52:09', '2024-07-11 18:15:00'),
+(63, 'rajuahmed', 'rajuahmed3718@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '92', 'eyJpdiI6IkRXQVBtZVg4K1hHN1lNSXRuTWdIRHc9PSIsInZhbHVlIjoiL3k4Q2pKQVJodVZQREFQZ1RGcURSZz09IiwibWFjIjoiNTEwNDE5MGFiNjRmZDdmZDgwNGNiNzE0N2IxNWIzYWIzYzk5MjU2MjViMmM2ZTQxN2U1MmMwMmE2YTRjYTM1NyIsInRhZyI6IiJ9', NULL, '2024-05-26 09:59:00', '2024-07-17 13:18:03'),
+(64, 'minhajulnizam74', 'minhajulnizam74@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '27', 'eyJpdiI6IjZIZ2t3aVVlcEM2czlGaU5wdUZ6M1E9PSIsInZhbHVlIjoiUkg5VHFzcjZRei9TVmxwbkMxWXpvZz09IiwibWFjIjoiZDMwZTRjYWI4OWIwZGM5MzQzYTEzNTM4YjY1NTAzZTNhZWNiZTYyZDM2OGQ4YjIxYzE4NjNlNjcwZjFhOGJmMCIsInRhZyI6IiJ9', NULL, '2024-05-26 11:06:27', '2024-07-07 13:48:10'),
+(66, 'S.M SOJIB', 'sojibgazi21@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '21', 'eyJpdiI6InplY3dvb2RmYy81b2ljR28ranpKckE9PSIsInZhbHVlIjoiLzdtMHlzK3VkZ0JhQk10WU1iRjU5dz09IiwibWFjIjoiN2I3NDI5NjdlMmZhOWZiMGY3YTVlMGJlM2JiMWI3Zjk5ZTVmZTE5MjY4YzdmNTNhNDQxZjk5ODdmODQxNTAyNCIsInRhZyI6IiJ9', NULL, '2024-05-26 17:50:37', '2024-08-01 15:26:31'),
+(67, 'Md Abu Faisal', 'faislcxb@gmail.com', NULL, NULL, 0, NULL, 2, '2024-07-16 10:56:34', '2024-08-15 10:56:34', '21', 'eyJpdiI6Ik5SOUxJbDJ2RW9zcWZkZUdONkNyRVE9PSIsInZhbHVlIjoiU1pxZDJvaFc4K2dFSFl2cnFVNUhRZz09IiwibWFjIjoiOTBhN2ZkMzA1ZTU0YTVmMzFmNjBhMWQzYjgzZTMzMDczNDA3NTk4YjY2YjJhZGRlZWQ2MTk3Mzc0NGUxZmU2MSIsInRhZyI6IiJ9', NULL, '2024-05-26 23:37:46', '2024-07-17 21:48:20'),
+(68, 'Faharul', 'faharul.fcs@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '139', 'eyJpdiI6IlBxMGhIM1ZLWDR3Z0RlQ3I5cHgyWVE9PSIsInZhbHVlIjoiSENiQ2JLbi9aNFNzVVRNNTJCNU5UZz09IiwibWFjIjoiOGE0MjhlNWZkM2Y2ODZiZTdiNDFhY2E1MzI1YjU1NDM2MzI4OWNhZmViMzJmMTRjOWMwYzYzZmNmZjdkMDYzMiIsInRhZyI6IiJ9', NULL, '2024-05-27 12:00:05', '2024-07-08 17:26:28'),
+(69, 'ahsan.msi', 'dhaka.msi@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '19', 'eyJpdiI6InA5UFloc0F3cVBYcmdVcVJtVVZ1RUE9PSIsInZhbHVlIjoiUGtLRXhSMDNzdHBTczEyMFdndkZMdz09IiwibWFjIjoiMGQxMDY2MGFjYTM1Y2M4Mjk4OWUwNzVhZmRjZDAzYzc5YTlkNmNlYTk1YjBkNjZlZjVhYTBmMDM3ZDIzMTE1OCIsInRhZyI6IiJ9', NULL, '2024-05-29 09:58:06', '2024-07-04 09:15:35'),
+(71, 'hasanupbd@gmail.com', 'hasanupbd@gmail.com', NULL, NULL, 0, NULL, 2, '2024-07-11 18:05:28', '2024-08-10 18:05:28', '8', 'eyJpdiI6InY5S0FPdkd1NUpuM2hhTUc5VzNCZ0E9PSIsInZhbHVlIjoiMXFxWlJOWlBGcFhYZTJCVVdwZEJlQT09IiwibWFjIjoiYjRjODhhZTc3M2I0YmM4ZThhYmUwM2YxOTZlZDcyZjQxM2NmOThjOTA5ZDI4MmY2YzA4ZWRhMGViN2Q5N2E2ZiIsInRhZyI6IiJ9', NULL, '2024-05-29 13:09:35', '2024-07-18 11:06:19'),
+(73, 'Rubel Sikder', 'premium@gmail.com', NULL, NULL, 0, NULL, 2, '2024-07-11 17:37:03', '2024-08-10 17:37:03', '492', 'eyJpdiI6IkUyaHZ2UDl1YWRicEFsRDZzbEVnTVE9PSIsInZhbHVlIjoiSU9CSkV6RXMvNW1LSnJWTUxybW1GUT09IiwibWFjIjoiNmU4NTBlNGI5OGU5NjE5Yzg5MWFhYTdiMzVmMjc4NjIyYTczOGZjNmQwODMwMzVmMWU5YjBhOGQyMTI3Yjk3ZSIsInRhZyI6IiJ9', NULL, '2024-06-01 19:15:32', '2024-08-03 09:40:39'),
+(74, 'Alivai', 'raihanmiziit@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '10', 'eyJpdiI6InFFNFczZWsyc2NJSkNlSXVRZVJjN0E9PSIsInZhbHVlIjoidElLMGJ6ZktlUzdOVzlOYXNGSWw1QT09IiwibWFjIjoiMmJiMGViYzIzMjRmZWZjMDFmYjBhYTk0YzVlNjVkMzExMDZkZjlhYTIwNmNhOTM3MzM0ZDViNGZlMTM5OTFmNiIsInRhZyI6IiJ9', NULL, '2024-06-01 22:23:17', '2024-07-04 09:49:35'),
+(77, 'Ab1234##', 'mssanictraders2021@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '100', 'eyJpdiI6IkQ2VDBzcWpJTEh5UXdjYWtleE45QlE9PSIsInZhbHVlIjoiSFFOS0FURlp5T3lka0w2QnFmeW1TUT09IiwibWFjIjoiZWJjYTcxY2Q0ZDAwNTUzMmE1NjcxYzYzYzgwYjFlYmIwZGY4MmEwZDYyMzZmNTk5MWNmZjIyNzFkMWI3OGExYyIsInRhZyI6IiJ9', NULL, '2024-06-02 12:39:39', '2024-07-04 09:49:06'),
+(78, 'suvro', 'saikatsarkar1122@gmail.com', NULL, NULL, 0, NULL, 2, '2024-07-11 17:23:54', '2024-08-10 17:23:54', '181', 'eyJpdiI6Ik84d0NHYjFqMVJaemtpQlpzZmFUR2c9PSIsInZhbHVlIjoiT1NHaTFveS81TnlRa00rRlRPSVRIUT09IiwibWFjIjoiYWIzMDNlMTI0YTU0NTJhMzk5YjI4MjUzNmMzNzNkOTdkMDhmOTg4MDI5ZjE3OWVkZjRlOTUxZGNhMzczMGMyOCIsInRhZyI6IiJ9', NULL, '2024-06-02 17:43:26', '2024-07-16 13:55:32'),
+(87, 'asis', 'asisr1542@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '17', 'eyJpdiI6ImkxR2UxMkc1RUNVbTNHZzROa1JpcXc9PSIsInZhbHVlIjoiN01zaWUzTlBwRjR6dkdGeG1OWmdIZz09IiwibWFjIjoiOWZjODc3ODMwNjRlNzlmYTZiNThhOGYwMDhiMmFkMmJhMWNkOGI2YmE3ZTE1ZTEwZTNlNDIzMzIyZmUyZDc4MyIsInRhZyI6IiJ9', NULL, '2024-06-03 19:52:37', '2024-07-04 09:48:19'),
+(89, 'ABDULLAH AL MAHMUD', 'abdullahalnahmud@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '12', 'eyJpdiI6IjRad3daZlArYi92MEEzcnE2a0R4d2c9PSIsInZhbHVlIjoiWkNnV09NZlJqZzFXL05CUjFOVHFPZz09IiwibWFjIjoiMzg2OWU3NGE2MTcxMDIzMjg5ZDVmMjRhODU4YTFlOGJkYWQ1ZjI3ZGE2MmJmMzQ2MTkxMWQ1NDRkOTc5YTVmZCIsInRhZyI6IiJ9', NULL, '2024-06-04 12:59:36', '2024-07-04 09:47:58'),
+(92, 'mahabul', 'mahabulalam71@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '54', 'eyJpdiI6IldKeVlXMTZvZnl2ZFZ3RVRENENWdnc9PSIsInZhbHVlIjoiVmNselFlOHdZL09IRTBVbFpEcHVHQT09IiwibWFjIjoiODUwMDVmNTVlNDg5YTI4MGI3YmJlNDk0NDE0ZjBjNjkyNDBmMDVlNjc4OWZhMjI0ZjljZWY3ZTA3YmZhMzA3MSIsInRhZyI6IiJ9', NULL, '2024-06-05 10:47:36', '2024-07-26 19:52:59'),
+(96, 'Osman', 'osman55tjn@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '183', 'eyJpdiI6IkZSdkVpN01hMXNJOTZ0L1pmUCtBMGc9PSIsInZhbHVlIjoiR1JGK1FDbUZLSXpnajJJN3hOdWJBUT09IiwibWFjIjoiZGRiY2I3ODQ1ZTAzZTRiMGY5NWZlODFmODVkYzBkNThhYmU0MGM5ZDUxZDI0YWYzZGE4MzY0OWUyMTQyNmM3MiIsInRhZyI6IiJ9', NULL, '2024-06-05 21:45:36', '2024-07-04 13:59:49'),
+(97, 'Mdkayes3859', 'cbmasud1@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '183', 'eyJpdiI6IkFvVzZKaHpzenJWb254WFIrdnZzMmc9PSIsInZhbHVlIjoieTI4dCsvaG9heGpMbEgwY2RCS2V1QT09IiwibWFjIjoiNjM0YTNjOWQxNzU2N2M3Y2UzMDhiYzlhNzhjMmE5MzkzMmMwZjNhN2NhZWU0ZWJlN2U3YmQyYmNhNjRkNzcwOSIsInRhZyI6IiJ9', NULL, '2024-06-06 13:08:28', '2024-07-11 14:11:00'),
+(98, 'ncomputer', 'ncomputer74@gmail.com', NULL, NULL, 0, NULL, 2, '2024-07-15 11:13:55', '2024-08-14 11:13:55', '110', 'eyJpdiI6IkY5RWRjRTJITGhXYktlbThSRWZTZGc9PSIsInZhbHVlIjoiTTRYeXRWSmFuWDVQMEhYbVpydC8zdz09IiwibWFjIjoiZmY4MzM1MGIxY2ZiMWI2ZDcxZDM4Yjg2ZDY3YTFmMjhhZjIwMTI0MzRmMzRkNWRmNzNmYTIyMWE5MWUyYzAyNyIsInRhZyI6IiJ9', NULL, '2024-06-06 13:25:34', '2024-07-17 09:26:53'),
+(105, 'IQBAL', 'Djlederiqbalbai@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '40', 'eyJpdiI6IkZnRWRIaFUrT3dvU2Z4T3BtSVc0cFE9PSIsInZhbHVlIjoiYnJJekFPb3EwcFRNNmd5Sk1JRDFndz09IiwibWFjIjoiZTYyMDJkMzY1ZDdmYTRjMWNmMjcwZDU3ZjQxYTE1OWU3MjgxZDE1MjEzYzQwN2UzYmNiYWM5ZWU5MjY1MDU2MyIsInRhZyI6IiJ9', NULL, '2024-06-10 20:35:23', '2024-07-04 09:45:52'),
+(109, 'Rashel Islam', 'irashel51@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '50', 'eyJpdiI6InBSLzQ1anozakNhVTFycGpIejVrSlE9PSIsInZhbHVlIjoiUG1WcGNxZkpXVWpqLzFOQXNuRU12dz09IiwibWFjIjoiMjYzYWIzMzBhNjNlNjhiMzhlMzExZjMyM2M3NWYyNTFmZjlmOTk2ZjRlYmRiZWFmMGVhZGEwMDI5NjM2YmMwMSIsInRhZyI6IiJ9', NULL, '2024-06-11 13:40:54', '2024-07-08 14:28:49'),
+(113, 'madhobpal10', 'madhobpal10@gmail.com', NULL, NULL, 0, NULL, 2, NULL, NULL, '97', 'eyJpdiI6Im9BWnlReVJqa3Frd2NxTGhINy8yalE9PSIsInZhbHVlIjoiRTI0ckJ5K2ErcGNOWnVWeWlRbjNxUT09IiwibWFjIjoiNzk4MDQxYzExYTFkMDYwZDYxNzdkM2MwZWMzYzY2NjliMWZiNWU3MDkxNTI4ZjYwMjdkZWI2MzMzNmRhM2ZjNyIsInRhZyI6IiJ9', NULL, '2024-06-11 17:15:39', '2024-07-30 11:37:03'),
+(115, 'sapan', 'sapan.cec@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '97', 'eyJpdiI6IlgrS3dCeFFrNjdvY3VYZW9oYlNVOWc9PSIsInZhbHVlIjoiK3g2S3dqMHBNSkovbnhERVhXZ0JwQT09IiwibWFjIjoiZmNhMGU1MjAwNTQxOGQwNjk0MWM2MTVhZTlmZDg0MDc3ZDcyODExM2RmMzY5M2Q0MzNiNTI3ZWFlN2ZjZTJiMCIsInRhZyI6IiJ9', NULL, '2024-06-12 12:44:54', '2024-07-08 13:49:07'),
+(118, 'ariyan', 'ariyanmasum66@gamil.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6InJPWHFMOVRqYzRQVmNuZjJIdDQvZUE9PSIsInZhbHVlIjoiSklKamR5dGxzUU1MdHA0b1JiQ2Y2UT09IiwibWFjIjoiYTVmNjg4YmI3MWYyZDU0MzkzMjVlNTliZjk4NjZlNTU2ZmY1MmZjODhjN2M4MDQ0NzhiZDBjYjNhM2ZmNWRjNyIsInRhZyI6IiJ9', NULL, '2024-06-12 19:07:04', '2024-07-04 09:43:42'),
+(119, 'md sohan', 'sohanreal567@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IndFVGpQNlhieEFrOXZxYVI0Y0lXaEE9PSIsInZhbHVlIjoicmZ3WHR5MjR5b052cFVwYW9oK1ZTZz09IiwibWFjIjoiYzU1ZGZmOWMyNzllZWMwNDhlNmQyMWZmZWQ1ZDM0MjQ5ZmEzOGViZjc1NTQ5ZDkyMmNmZTg0ZWQwZGM4YjFhYyIsInRhZyI6IiJ9', NULL, '2024-06-12 20:55:06', '2024-07-04 09:43:11'),
+(121, 'Hridoy Paul', 'paulhridoy861@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '97', 'eyJpdiI6InZrcUVWMmh4M3lqLzI3NkVncjd5L1E9PSIsInZhbHVlIjoiNW9BMnJiM2JpVEZ0bTNFYW5FY1NDdz09IiwibWFjIjoiNjgxNjRhMzNkMDA0ZjgxZjY0ZGU4ZmFjNjBjNzAwN2MxNGE3YTM0YTAxMTkwOGViOTZmNGY2ZDZhMjc4MTJlMSIsInRhZyI6IiJ9', NULL, '2024-06-13 16:11:38', '2024-07-07 12:45:53'),
+(122, 'Bashar Sarkar', 'bashardbgramup@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IkQwa3poV2YxTkRaODJBUGNPSE85Nnc9PSIsInZhbHVlIjoiM2R2cHNETlZ5bm9ONlhsRTRPWk5IQT09IiwibWFjIjoiOGVmMzg3NGUyNDBhMDBhMDQ3NzIyMDhmNDRkYWZjN2IzMjcyN2RmZDkxZTM4NTg3NzViNWRkYjQ5NzRlOTVlMyIsInRhZyI6IiJ9', NULL, '2024-06-13 20:08:46', '2024-07-04 09:34:14'),
+(124, 'Ra5252', 'gog41765@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '79', 'eyJpdiI6InFCc095Rlc0SDVrQnhXeUdlWTZqT1E9PSIsInZhbHVlIjoiRDFSMjg3R2JrbDljc2JldFE1YW0vUT09IiwibWFjIjoiNDM2OWU2MDUzZmNhZDc5MDRhM2Y0MTQ1NmI4M2ZiYzg1N2NhMGUzNDI3MzMyZWU1MDcxYWI5YWE2Nzg1Y2QwNyIsInRhZyI6IiJ9', NULL, '2024-06-16 09:58:07', '2024-07-17 21:53:28'),
+(126, 'Lalchan Sarker', 'lalchansarker136@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '1', 'eyJpdiI6Ik1VU2hjZWdEVGIrdkc1N1ArZ2Q2U1E9PSIsInZhbHVlIjoieFRKM0U3bzZpSzVPQ1Vzejk1L0xVQT09IiwibWFjIjoiYzA5MzgxZDk0ZjYzN2ZjMmIwNWI3YzMzOTFjMGM4M2E5ZDM5YWNkNjJiNTgzNzlkMTA2YWVmZDdlM2YxNWFjNyIsInRhZyI6IiJ9', NULL, '2024-06-16 18:26:18', '2024-07-28 17:10:53'),
+(127, 'Md Asadul Mia', 'asadulgraphic@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '197', 'eyJpdiI6Ik83NHB5c1NhSzRLYkhmZGZjQi9FQnc9PSIsInZhbHVlIjoiWm0wZEw4ME43K0xCYTBJUFpGZnVUb2ZJbWdLZm93eXpkYVpJbW5Wak96MD0iLCJtYWMiOiI1NzA1ZmM4NmM0N2Y4Y2EyZmM2NzJkOTY0Y2Y2NzkyMjNjY2QyNmUzODg1ZjM1ZGZlMWNjOWUzMzhkN2ExOTRhIiwidGFnIjoiIn0=', NULL, '2024-06-19 08:24:25', '2024-07-31 09:49:38'),
+(128, 'MOHAMMAD SHAHARAZ', 'shaharaj689@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IklXK3NPMTZidmt5T3AwYUtrWGxra1E9PSIsInZhbHVlIjoieGVQWkpmajIwTmIrcU9Qdjd0NjhJdz09IiwibWFjIjoiMjk4NGI5ZWFkMmFiOTg5ZDY4MTg3ZTgzYTNiMDk3NjFmMDIzOGI1OTFmYjY3NTIwM2YxMDU0ZDUzNGQwMDk2MCIsInRhZyI6IiJ9', NULL, '2024-06-19 17:51:48', '2024-07-04 09:30:46'),
+(129, 'Sayed', 'sheikhulsayed214@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6InYyT05HVkQ4V2tMeUg2VU1rWkJKSXc9PSIsInZhbHVlIjoiZGxWaFFRSHEwaUxhUlBodEZvR0VXUT09IiwibWFjIjoiZGNiZjAxYjRmMzQ3ODI5YzMzNGE3ZTAxZWU1NmM4ZDI3MzdmZTA0Y2QwZWMzZjVjNjM1MTI0YTBhYzUwOTAzMiIsInRhZyI6IiJ9', NULL, '2024-06-20 10:20:21', '2024-07-04 09:30:16'),
+(131, 'Elias', 'eliastek297@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6ImlGazJMb2NEUUlvOUtnRDI3SXVIVUE9PSIsInZhbHVlIjoiRFNLTzBZdlZUa1dQNFRHZlUyR05Mdz09IiwibWFjIjoiYzEzNTVkMzJhYTc1N2Q4NWU3NmZhMGYyNGM0ZDUxYjg2OWY5NmNkMjA2YjY2ZjY5YWRmNmZlZGM1MWNiYWY4YyIsInRhZyI6IiJ9', NULL, '2024-06-21 19:01:37', '2024-07-04 09:29:39'),
+(132, 'sr', 'sr@gmail.com', NULL, NULL, 1, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IkU4a1ZWTVoyc3JiRksxalkwYVVjMEE9PSIsInZhbHVlIjoiN3BxKzE1VjIzRkozTHZkbWRobEx1UT09IiwibWFjIjoiNmNlZDEyOTUwMGEzNjg3YjM2MzNiZjJmODA4MjJmMjZhMzJhMWNjNzgwNzMwMWQxNDA5OTA0NmE2YzlhYjYyNSIsInRhZyI6IiJ9', NULL, '2024-06-23 10:18:34', '2024-07-01 21:56:25'),
+(134, 'mazidhasan12', 'mazidgd12@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '75', 'eyJpdiI6Im1scTd3WThaWDJIMHdjV29Vdkh2a2c9PSIsInZhbHVlIjoiZE9WWEk3RFh6bHV3bEdQMDNKZHM5UT09IiwibWFjIjoiM2QzMmMzZDFmZDFkNjU2ZmMzMWM5Nzc2OTk1NzAwODE2NTZlYTRkNjhkNzA4YjE4NDZmZmZmZDBiNzA1ZDIxZSIsInRhZyI6IiJ9', NULL, '2024-06-23 10:33:43', '2024-07-15 14:30:25'),
+(135, 'Abir Hasan', 'abirbd23242526@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '83', 'eyJpdiI6ImYycjYwM1djUDg0SFMrM2MzZTNXa2c9PSIsInZhbHVlIjoiUjdJQ2dCZkI5NlkwT0dDMDNkNFFyZz09IiwibWFjIjoiZDg5NDUzYTU1N2U0ZjM5YzFjMjI1MjFiNjhkNDU0MDliYTBhNWU3YTZlYzY4MTlmNTk1NzVmNjRkNWI1NDg3MyIsInRhZyI6IiJ9', NULL, '2024-06-23 12:14:24', '2024-07-16 15:05:57'),
+(137, 'titul4197', 'mdtitulahmed@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6ImNMUDJjemh6ZW4xMWVqZGVqS1prMmc9PSIsInZhbHVlIjoiRkYvYWpoamhjZk80MUF2ckdGWmFudz09IiwibWFjIjoiN2JhYzZiNGE1MDM1YTkwMzQzMWNiNzc1OGQxMzQwNjgyYTkzODNkZWQ5N2JmY2I3ZmQ4MTc3ODU0NmFiYzE5MiIsInRhZyI6IiJ9', NULL, '2024-06-23 23:37:40', '2024-07-04 09:26:22'),
+(138, 'HADIUZZAMAN', 'hadiuzzaman286@gmali.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IkoxalpZeC9oSnYwQW5nbFZ1ZURzNkE9PSIsInZhbHVlIjoiZUo0ZDJKUElZamJXOWxIWlNzMFhuZz09IiwibWFjIjoiMGQ1ZmMxYTc2MjgyMjg2YTE0MDk1MDk5NTI4NTJjMjljM2YxMzMxZDMxMzJlNTZkZGY2MWFmNmYxMzI2Mjg0NSIsInRhZyI6IiJ9', NULL, '2024-06-24 09:52:16', '2024-07-04 09:25:56'),
+(140, 'Al5@01325', 'Imd388953@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '164', 'eyJpdiI6IlI2M25HTTVOKzVMcGRDWXpEVGdEL3c9PSIsInZhbHVlIjoielAvb0MyeGhGakFMQ1VUR2RXL3Yxdz09IiwibWFjIjoiOWMyNjU0NGIxNTlkZWFhNWQzMzdjODA5YThmOTk0YzUzZGNjNGM5Nzc2MDM4MmIxMGRiZmM0NDdmOGIwMDBiMiIsInRhZyI6IiJ9', NULL, '2024-06-25 07:18:08', '2024-07-16 15:53:45'),
+(141, 'Bala', 'hmbala1144@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '173', 'eyJpdiI6ImlDd3JrSHFvM2EzampLN0ExMHVucEE9PSIsInZhbHVlIjoiWUZ1M2FUR29Hem9lYkpnMlhQNDVjUT09IiwibWFjIjoiNGMxMDdiZTUxZmI5YWVjNWE5MmM1ZTlmNTRmODFiNzVhMWQ0OGM1MGNlOWM5MzA4Yzc3YzU1ZmU3OTFkNDk2YSIsInRhZyI6IiJ9', NULL, '2024-06-26 03:03:20', '2024-07-16 12:49:30'),
+(143, 'DG Khulna', 'designghor0@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '33', 'eyJpdiI6Ikt6bm5iM0MvTDFDQkQreVVucnp3WkE9PSIsInZhbHVlIjoidElRUmFrMFQ1WlFyM0V5VkRrZ2RLUT09IiwibWFjIjoiOTE1ZmIzZjBjOTgyYmMxZTA3NzYzYmJiZjIwYjAzZTRmZTZiYTc2YmE3NmJiZmFhMDg1N2VhZDZlNDg0ZTYxYyIsInRhZyI6IiJ9', NULL, '2024-06-26 20:49:38', '2024-07-16 15:16:56'),
+(144, 'MD EMRAN', 'hafejemran335@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IjU0RkFjWllqTHRINnVYWm5BbENmWkE9PSIsInZhbHVlIjoieVkvbG5PdjlDTVZsTnp5SDU0ejl3QT09IiwibWFjIjoiMzU3ZWM5Y2UxNGZkNjExYTBmMjhiZDVkMDAxMWQ0OTUyMWJiMzViNTcwYTlkYjk5MThiY2ZmN2E1NTUyYmYyZSIsInRhZyI6IiJ9', NULL, '2024-06-27 15:15:47', '2024-07-04 09:24:01'),
+(145, 'Ananda', 'mdananda4547@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6Ik1VUkJvRmdvTzlSMkRwMmVXQjRETmc9PSIsInZhbHVlIjoiYjJ2WlZnejZTSndsSmJIZUpQUWRMTENhaVIzZE8zbFVNR1hzTWVrRjdFQT0iLCJtYWMiOiJjNDhkZjY0Y2UwNWNiOWU2ODgxYWJmNzAwZWYxZjhlYmI5M2M1ODU2ZDE3MjEzZmYyMGUxZGNiMGM3NTVkMjVkIiwidGFnIjoiIn0=', NULL, '2024-06-27 16:04:46', '2024-07-04 09:23:28'),
+(146, 'Shipon Miah', 'mdshiponcp39@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '37', 'eyJpdiI6InpsdklFdjNuYlk2K1dxQUkxTUNTaUE9PSIsInZhbHVlIjoiTWpqVW9TK3pBaEdTK3kwb0ZUUDkzUT09IiwibWFjIjoiOTc0ZjBhMTY5MjM4NzRmYjExNWE0NTI2MzUxNjA5OTVlYWU0ZTViMDcxNDY2N2NiYTI2YTc2Yzc0Y2QzYTk0YiIsInRhZyI6IiJ9', NULL, '2024-06-27 16:56:31', '2024-07-18 10:24:55'),
+(147, 'akjahanersofi47@gmail.com', 'akjahanersofi47@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IjhjbHIvWWRiYlJpem5IVWwrc0ExT1E9PSIsInZhbHVlIjoiOHdvd000YkhVcU5oZ3FxVDY4c2pOUT09IiwibWFjIjoiYThlNzY5OWE3ZGMxYWFmNDdmNDg3OWNlZjVlNWM2OWM2MTA2NTM2NjdmOTI0ZmFhZWViZWUxZTM5NmVmNjE1OCIsInRhZyI6IiJ9', NULL, '2024-06-27 18:26:25', '2024-07-04 09:22:31'),
+(149, 'hadijesmin@2002', 'hadiuzzaman286@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '29', 'eyJpdiI6IjZqTFIzSDVuUVMzUnVqdVNnRzdZSHc9PSIsInZhbHVlIjoiME5ld2hFbTYwZ2tROHdHUVcvOHlXZz09IiwibWFjIjoiNDRjZmQzNmJjYTBkOTlkODQ0YjZlNjQ2Yjg5ODZhNjI3Y2ExYzhjYzUzZDZjMGQ5OWYzNzVlZTA1MTQ4NmYyOSIsInRhZyI6IiJ9', NULL, '2024-06-28 21:33:33', '2024-07-16 12:48:05'),
+(150, 'Mridha Sumon', 'mridhasumon80@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IkdEZnRGRVRxNFBJNlRxQUc5cEd1TWc9PSIsInZhbHVlIjoiQUVYMUlEaUMxcTVsTHJLU0lRZGdQUT09IiwibWFjIjoiOTIyMjAxNTgzMDM0MGEzMWU4NTkxMWQ2MjdjMGJlMzljMGY0YTYzNTc4YTQ1YjI3NmE0NTBkY2RhYzRiMDZiNyIsInRhZyI6IiJ9', NULL, '2024-06-29 02:18:14', '2024-07-04 09:20:26'),
+(151, 'Hapania', 'hosainj378@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '303', 'eyJpdiI6Ilc2Z0JuT2hudm82TnBMSjRBbnMzdlE9PSIsInZhbHVlIjoiSXlvSTFKclRrVHQwYk9INGhqY3N0Zz09IiwibWFjIjoiOWUxMTdkOWJkMGQ1ZjNjODQxNDA5NmZjNWZlOTZhYjZkNDlkMzgyMTliOGVhZjRmZTRiOTQ2NGNjMzczM2VlOCIsInRhZyI6IiJ9', NULL, '2024-06-29 16:07:50', '2024-08-02 06:55:12'),
+(152, 'তালুকদার ট্রেডার্স, লংগদু বাজার, রাঙ্গামাটি', 'ilovemother970@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '55', 'eyJpdiI6Ilc2NDhIL3BjT3A5eFNhTmc2WDNlSkE9PSIsInZhbHVlIjoiYXJKWmdLcTg3aDcxdnVsNnU4MDl6Zz09IiwibWFjIjoiZTdhNTNkYmI3NmU4Y2Q1MGZkZTg3ZmJmZDI1NmJkYzI3YTY1ZTVlOWY5N2VlNWJjNTQ3MWIxZmJkNDBmNDIxNyIsInRhZyI6IiJ9', NULL, '2024-06-29 18:55:34', '2024-08-02 19:27:02'),
+(153, 'MuNnA Shoker', 'munnafaruk.Bd@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '29', 'eyJpdiI6IlcwRWRCenU4dTkxTkgzSFU3SVJWT2c9PSIsInZhbHVlIjoicnd0QVlEOUpUa2JVbWg3UndqRjM2UT09IiwibWFjIjoiYmM5ZjMzNTY5NGIxZWU1NmQ3NTNiMDc0MjkyZDM3NDA0MjZlMzllOTQ4NDAyYmE3ODQ0NGU5NGI3YjFmM2I5YSIsInRhZyI6IiJ9', NULL, '2024-06-30 03:44:17', '2024-07-14 12:29:55'),
+(156, 'humaun', 'humaunakandha@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '100', 'eyJpdiI6ImZnblkvbEdVcktWaTlUY1lyUXZnbUE9PSIsInZhbHVlIjoienRXTkJZTGROdUowK3RSMXVmWFBsWW5rSkpJblBtK2JhMEliRGVHOFdxcz0iLCJtYWMiOiIyOWQ5NWU4NzBiZWY3MDU5YmU1NDUzYzlkODM0OTE1YzAwNzVhYjJhYzRmNjE4ODk5ODNhNjgxMjMwZTc2YjRiIiwidGFnIjoiIn0=', NULL, '2024-07-01 20:37:22', '2024-07-17 16:06:37'),
+(158, 'Rayhan hossen', 'rayhanrs1819@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '175', 'eyJpdiI6ImJaZzFoSjN2L2FjSG1Ua2w5NExDcUE9PSIsInZhbHVlIjoiWHcvZ1c0QUc4QndISExFRnFHSW43QT09IiwibWFjIjoiMDdmOTk3MGZiNjc5NWI0YzVhMjRkYWUyNjQzZjNlZDhkMzU2YmI0NjY5ZTFjZGNhYzY5Y2UxMjEwNWU0OWE0NyIsInRhZyI6IiJ9', NULL, '2024-07-02 13:35:21', '2024-07-16 11:46:02'),
+(160, 'faysal', 'faysalhasan7734@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IjBOdWFkQVhhLzBlOTg1YnowNHNIWFE9PSIsInZhbHVlIjoick9CWGNjektVdGtJTHpWYTNpMStSQT09IiwibWFjIjoiMGFhMDc5ZTY4ZGZkYjgwYmE3OTc3YWU3ZTk2NjhhMzY0ZTIyNDE2N2VkYzQ2YjY2NjVhMDc1NWQwMDk5MGI1YiIsInRhZyI6IiJ9', NULL, '2024-07-03 18:16:45', '2024-07-04 09:16:22'),
+(163, 'New', 'new@gmail.com', NULL, NULL, 1, NULL, 0, NULL, NULL, '0', 'eyJpdiI6Imh1RzdiNmRKRlRIWWVybSs2S29GQUE9PSIsInZhbHVlIjoiZS9hQXgyOU5ZbEpQOEplOW5RSWdIUT09IiwibWFjIjoiYTJjZWMzYjdkNDRlY2I1M2NmNmI5YTYxYTNmMWQ5NjMxMTdjNWNlMjVkYjkyNDJkZGVjYmQ4MjlkZjEwMjY0YSIsInRhZyI6IiJ9', NULL, '2024-07-04 00:46:50', '2024-07-04 00:46:50'),
+(170, 'NILOY', 'ovimanineel36@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '200', 'eyJpdiI6IkpGT255bkNYL1c0TlNrdnQ5RXJoWXc9PSIsInZhbHVlIjoiNS91blpsVnVPV2xzblNWUUtxbXI4Zz09IiwibWFjIjoiZDJmNjc5NmNiMDNjODI4YzY2MzQzNTFiYzgyMDViYmMwODIwYTNlMWY3ZjQyN2Y3NzQzYzMwMjVjNWQxMjFhOCIsInRhZyI6IiJ9', NULL, '2024-07-04 12:38:27', '2024-07-12 12:39:53'),
+(171, 'armanmia@313', 'arman51214313@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '130', 'eyJpdiI6ImNNdGEvd0ZhREg5QThRbjdYdC9PUVE9PSIsInZhbHVlIjoib2U2RUs5RC9wTW9xWkx6S2xZSEw4QT09IiwibWFjIjoiMTM0NmVkZTlmOTliMzgyNDI5MzY3YWE3NWQ2NjA1NWNhMzA4NWIyNjZmZGMzNzdiMGZiNTllNDI4ZjUyMGRlZSIsInRhZyI6IiJ9', NULL, '2024-07-04 15:01:53', '2024-07-16 22:14:21'),
+(172, 'SAIF HAMZA SIYAM', 'saifhamzasiyam@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IkNSbFZVSTl4NUF1VldGZUN0ZHZnbnc9PSIsInZhbHVlIjoia0RlTmhwY0VpdHJ4cDlqbjFzYlhNdz09IiwibWFjIjoiYWRlMmZjNzNjYjY5OTRmNDAzYmNiNzc5OWQ3NzQzYmY0OTk0Y2M1Mjg1OTI1ZTMzMGVmNTMyMWM2NTgzOTc0OCIsInRhZyI6IiJ9', NULL, '2024-07-04 15:36:33', '2024-07-04 15:36:33'),
+(173, 'Md Elias', 'hamim.cxb@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '275', 'eyJpdiI6IllDcmRlQUMyNk9JaDV3OEduODV4RFE9PSIsInZhbHVlIjoib0RLQ0dYVFB2MFg3L0Y1SnBGVm1xZz09IiwibWFjIjoiMmJmZGRmZWZjNzdlNjFlZTM2MDA1YzAyOWQyYzU5ZTkxZGUyZTQwZGRmMWY0OGFjMGY2ZWU3ZTlkMjM3YzgzMCIsInRhZyI6IiJ9', NULL, '2024-07-04 22:17:14', '2024-07-15 17:45:32'),
+(174, 'moderator', 'moderator@gmail.com', NULL, NULL, 2, NULL, 0, NULL, NULL, '0', 'eyJpdiI6Ik1wZWxyeDZtWjI5RTlCVWh0cVlpL1E9PSIsInZhbHVlIjoiWC9XaldTWVhUZU82R1cxZ01uN01HZz09IiwibWFjIjoiOWE5OThhMGI4NjgzMGQwNDE3NGNhOTUzOWIwNjRlY2I0MmY3YWE5ZGJlNThhYmU5N2JlNzA4MTZlNjFkYjJlYyIsInRhZyI6IiJ9', NULL, '2024-07-06 22:20:27', '2024-07-10 11:46:58'),
+(175, 'MD TITUL MOLLA', 'titul4197@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '150', 'eyJpdiI6Ik5PZHVtRVMzbEF3S1VSc3JDSFpHMmc9PSIsInZhbHVlIjoiSW9HMnlFazBGMFR0ajFEVUpyZGE0UT09IiwibWFjIjoiZGRjOWZkYWIwY2ZmNDk1NjllYThiYjgxMDI1OWVlMzllYjk3MTA5YTE5MDM2Nzc3M2Q4NzJkNDZlOTA1ZmRhMyIsInRhZyI6IiJ9', NULL, '2024-07-07 07:46:03', '2024-07-16 12:19:40'),
+(176, 'ohedus', 'mds009a@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6InBVajVNRGRHRmhrS2NQNSswc3hrR3c9PSIsInZhbHVlIjoiaUdHSHlJalg4dEdWVVdNMXdWSHBxZz09IiwibWFjIjoiMWQ2ZmRlYTA5ODcxNTdjN2JjZDJlOGU1N2U1MjdkNjkxZTE3M2VmNzk1MGU0OGFlZjliYmFmZTAxNzVlNzkxZiIsInRhZyI6IiJ9', NULL, '2024-07-07 11:48:49', '2024-07-07 11:48:49'),
+(177, 'rakanhosen06@gmail.com', 'rakanhosen07@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '175', 'eyJpdiI6IkFsOUdML24yYjBLZjgxNlAvMEpRMXc9PSIsInZhbHVlIjoiS01LVjAyc25zeTRabld3T3QrcXRoTW5VaG9WaUxlOTFWa3ZtcGJnYXZJST0iLCJtYWMiOiIzNDA4MTg4Nzg0ZDNhNjMzNTU1NTdiNzdlNjM4MWQwY2IxMzM5ODk5ZjA5NWIyNmIyOWUzZTczZWEyNjE2NjFjIiwidGFnIjoiIn0=', NULL, '2024-07-07 12:18:57', '2024-07-16 12:57:30'),
+(178, 'Md.Mokbul Hossein', 'hossainmokbul113@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6ImlUOGVGRzJFajZNU0d0SjB0MHJDbkE9PSIsInZhbHVlIjoiVDZjY3FBc0FkU1NKdE5DMmU1c2VEZz09IiwibWFjIjoiYTBiNmFiMWZjN2NiMGJkZThhNzNkNWJiMjFjODkzNzcwZWRiODEyNTljZjQ3MmY4MWRiOWYzNjcyNDkxYTA3OCIsInRhZyI6IiJ9', NULL, '2024-07-07 16:50:35', '2024-07-07 16:50:35'),
+(180, 'tanvir', 'hossan_45@yahoo.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '10', 'eyJpdiI6IjE5VUV3S1kva1ZtK2d0MVhlQUR1ZFE9PSIsInZhbHVlIjoiNGtabS9QVjNiY0hIVWVEVnRoV1Fxdz09IiwibWFjIjoiNjY4ODVkOTBiZmYzNjQyOTNiNGRmMGZmYWZhYzA0MWIxMWU5MDU3ZWYxYmM3NzlmY2E1ZWNkODU1OTAyMTJlNSIsInRhZyI6IiJ9', NULL, '2024-07-09 21:32:04', '2024-07-16 16:31:29'),
+(181, 'Din Mohammad Sharif', 'dinmohammadsharif95@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IlV4V0d6YlYzaUtOUWZ3bzBqZ0tKenc9PSIsInZhbHVlIjoiK3JMMXduV242aUlhMFkyMTJocTVHUT09IiwibWFjIjoiYzhlYThmOTk1ODE0YmI3YWIyOWQzNDQ4NzlhNjliMzRjN2UxMGRiMGUwY2UzNTZmY2M4NTk3MDFiMTcwMDI4ZiIsInRhZyI6IiJ9', NULL, '2024-07-10 12:45:59', '2024-07-10 12:45:59'),
+(182, 'mdshakilkhanbd66', 'mdshakilkhanbd7538@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '175', 'eyJpdiI6IllRMklzdm9KdVNuc2hnejlUUGFQdUE9PSIsInZhbHVlIjoiT0poa1pLQlFJcUpHaU5mMWhlOG4xQT09IiwibWFjIjoiMjhmM2ExOGVhZWNiOWE5Nzc3ZDYyMDAxZWFmM2MzODhlZmUzYjA1ZjA5ZDlhNGVlOWFmNDZkOTE5ZmMyMWFlZiIsInRhZyI6IiJ9', NULL, '2024-07-10 15:05:10', '2024-07-15 16:29:33'),
+(183, 'Ariyan Rakib', 'mdrakibhossain50@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6InJ6UGpXT3RCSm9pMHhjY1NaWlpWcGc9PSIsInZhbHVlIjoiMC9CdXE3U1BhUG1ZNm5SSy9CaitkUT09IiwibWFjIjoiZjk2YzQyZjE4NWJiNWI1MWE4ZjA1OTNjNDg5ZGI4MDgyOGEwN2E5ZjM1YzE0ZDY1Y2YzMjI0ZmViMWFlOWZiMCIsInRhZyI6IiJ9', NULL, '2024-07-10 19:00:28', '2024-07-10 19:00:28'),
+(185, 'Jouel', 'jouelrana12@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IjVGbE1mWDV6aklQdjZTYWM1VjZCeWc9PSIsInZhbHVlIjoiZytwS1djck9JRmFTLzdPK3dFMThVQT09IiwibWFjIjoiM2JkNDNjN2E4ZDY3ZDEwNmFmODQ1ZWNjMWIwZDVkNGVlZGY4ZTFkNjQ5NjA5Zjg0M2E3YTljNDc3YmIyNjI5ZSIsInRhZyI6IiJ9', NULL, '2024-07-12 22:27:40', '2024-07-12 22:27:40'),
+(186, 'pretom', 'taslimul_islam@yahoo.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IlRqaVNDVXFZeVdGdEtuMngvbkg5VEE9PSIsInZhbHVlIjoibzVnZnNQc0NCSEQvczRrRmJ6RW5XUT09IiwibWFjIjoiOWFmOTE1ODU0MGU0ODgxOGM2ODUxNmIyM2UyMDllNTkzMTIzYjhmZTdhZjA5YThmMTQzMDMwYjc1N2NlZWY1NSIsInRhZyI6IiJ9', NULL, '2024-07-13 18:06:15', '2024-07-13 18:06:15'),
+(187, 'MD ASHIK', 'ashikmahmud297@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6Ijc2dlBOV1V4aDcxMzQxRHljd2hzZXc9PSIsInZhbHVlIjoiZ284VHhncWRmbnd5Sk12TXVuRjJLZz09IiwibWFjIjoiYTZkNWY4MWU4ZTA0MTE2OGI0YjFlMzQwZGE5NjVlMzU1ODhlZThhOWUwMjExYWM0MWZjZWIyYjRmNGE5NDAwOCIsInRhZyI6IiJ9', NULL, '2024-07-13 20:01:11', '2024-07-13 20:01:11'),
+(188, 'MOHAMMAD SHAHARAZ', 'mvaiii592@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IkJ4Q3NaRXlnb1BwVnRnWnNPay9ZT1E9PSIsInZhbHVlIjoiRGZmNGF2LzZIaXpjSWFzMFdTaVpndz09IiwibWFjIjoiNDVkNDQyZTczY2YyZjRmZTFjMmQxNzRkZGNiZmM4ZWQ0ZThlZmVkZmQ1ZmFhMzlhOTdkOWY4N2VhZjRmNDZiMyIsInRhZyI6IiJ9', NULL, '2024-07-14 12:54:07', '2024-07-14 12:54:07'),
+(189, 'Md. Sohel', 'mdsohelpersonal2@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6Ik1wVmhiN2dmazZZT1IwbHlTczNzdUE9PSIsInZhbHVlIjoiNHNwWWs3bVg5WU0zUFBtNHlvRCsyZz09IiwibWFjIjoiNTExMTcyYzU4YTEwMjcxZDJiNjNiMDdjMjNkNmVlMWQ3NTk1NzljODE0N2JjM2QzYmZmYTgzM2ZkZDQzMGQxNyIsInRhZyI6IiJ9', NULL, '2024-07-14 14:08:03', '2024-07-14 14:08:03'),
+(190, 'Md Hasan', 'admin@gmail.com', NULL, NULL, 2, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IlNML1ltZ2ZGYjJydkx6OUpPYkl4UkE9PSIsInZhbHVlIjoia2haNjRSSVQwaDNBTzdRRXIra29MQT09IiwibWFjIjoiOWI0MGVhMmViMjE3YTdkYzk0YjdhYWFjYmI2YWY4MzIzYThlODFmMDFhOWRmNWQyZDg5YjUwYmU0OWVkNDU1MiIsInRhZyI6IiJ9', NULL, '2024-07-15 18:48:03', '2024-07-15 20:07:52'),
+(191, 'arif8880', 'helplessperson8880@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IjZVU2NKNEhrVGF4dURYYldKOExJTkE9PSIsInZhbHVlIjoiTjdxeXRFZzVtTmtWUjIyRkw1RUF4dz09IiwibWFjIjoiNzVhMDlhM2VlNzAwYzg3YWRlNjQ0NjFmZTI3N2VlNTZkZWZjZmU2NDdkM2Q0NjQyMDNmMmQ3NjliMWRiOTgzMyIsInRhZyI6IiJ9', NULL, '2024-07-15 20:12:33', '2024-07-15 20:12:33'),
+(192, 'Md Mostafa Kamal', 'mkmostafaudc@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6Ikx4cEIvOS9JWWxieksxb2k1Tm8vbnc9PSIsInZhbHVlIjoiSWg1M3IvS0IyL3A4MDErWnpmdVVlZz09IiwibWFjIjoiMDdhOGU4YTViMDYwZGNhNTVlZTM1MWVmNDcyZTc5NDU2ZTAyODlhODU5Y2MwYzc5YWFhZjk5ZjRmNGJjODA2NSIsInRhZyI6IiJ9', NULL, '2024-07-15 20:15:21', '2024-07-15 20:15:21'),
+(193, 'Kaosar', 'mdkaosar63@yahoo.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '150', 'eyJpdiI6Ik9wQXZub1R2THpUWVFpZ0wrWXB0K1E9PSIsInZhbHVlIjoiOENWaCtrais0bnZrNi9WeGNTK0liZz09IiwibWFjIjoiMTFjNzQ2MTljODBjMzgzYTE0OTlmMjRlZmFlYjlkZGViMzg0NWJkMWMxNjAyZTYwMTUwMmUxMmU2M2Y4N2Y1ZiIsInRhZyI6IiJ9', NULL, '2024-07-15 20:36:00', '2024-07-16 12:58:16'),
+(194, 'wadud', 'wadud123biplob@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '275', 'eyJpdiI6IjFrUzR4VndOV2xYYlJEVlA2M005OUE9PSIsInZhbHVlIjoiSDhxclM0T1hHelBlY3NtYWZjN3BJZz09IiwibWFjIjoiNzI0Yjk1MmRhZTRlNzY4Y2ZhMWI3OTRlMzc1NGMyZTNjMjcwYmQyNDRhMjE1NjljY2U1NmM0ODBkYmVlZjI2NCIsInRhZyI6IiJ9', NULL, '2024-07-16 13:14:48', '2024-07-16 13:27:02'),
+(195, 'eashah', 'eashak.bd84@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IndhSUNxSU9ya1ltdnUrLzlOWHZpYWc9PSIsInZhbHVlIjoiaElWM25RNUJGVzFvWXYxN3dsN2JMdz09IiwibWFjIjoiYzdjNTQ5ZGJlNGM1N2Y0Y2ZhYmYxMmQ0NTY0OTI3ZDgzZTFmMjE5NDJjNmY4MGUxZTQ4ODVjN2ZiZDA0NThiOSIsInRhZyI6IiJ9', NULL, '2024-07-16 13:28:08', '2024-07-16 13:28:08'),
+(196, 'MD.RAKIB HOSEN', 'hosenmdrakib723@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '150', 'eyJpdiI6IlM3RHdUL0dqWlhIbGpoUEEzOFNQVGc9PSIsInZhbHVlIjoiMXJWNUFuOUpwU0IrbDJtTHRtQnZUZz09IiwibWFjIjoiYTU3OTBhMjc4NzNmNjNiNGUyZTFiNWViNmRkNGIzMjRhNjBjOTYwYTFiOWFkYTZmMjEwZWI3YTJkNzQ5MDIwNCIsInRhZyI6IiJ9', NULL, '2024-07-16 14:39:28', '2024-07-16 15:25:10'),
+(197, 'Subel', 'thephenomenon910@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6Im5ET0N5eGVRTGs3SEllRm9CaThMY3c9PSIsInZhbHVlIjoiM0dlRFlKV1M4ankzMjVCa0d4a0N0UT09IiwibWFjIjoiOGJiYTkyMWU0YmFkZTVkN2E5OGNiZDEyZWUyYTg5M2ZkZDk4YTM0ZWZjZGQ2M2I2YzdjMGEzNWMwYTk3YjAxZCIsInRhZyI6IiJ9', NULL, '2024-07-17 17:30:18', '2024-07-17 17:30:18'),
+(198, 'rubel', 'khstudiobd@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IkhDT2xES29sQWJ3eDVoWnRYNGlyZ0E9PSIsInZhbHVlIjoibCtvcUk0QktZeCtBemdzV25NYW1xQT09IiwibWFjIjoiMzA2NmZjMmRmYWFkNjMwMTAwMzRhMjVhMjFjZTI0Y2ZkNGVkOGY2OWU5ZjNiZjljNmMwZDc5YWIyNDQ1YzI2NiIsInRhZyI6IiJ9', NULL, '2024-07-17 22:02:09', '2024-07-17 22:02:09'),
+(199, 'Tek Cox', 'cxbfaisal@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6IjRmNGRaSlBCdFd1QnREVlhVZ01VUkE9PSIsInZhbHVlIjoidzg0WlA4czMvRWxuaW9DNTJUd3JwZz09IiwibWFjIjoiOWVlNTE3ZmQzOGQwMGNjNGI4ZmU1ZWU3ZjU1Nzk3YmU3NDNlZTk0NjRmZjA1M2QzNGU0OWU3ZDg1NmRkNDBkZiIsInRhZyI6IiJ9', NULL, '2024-07-17 22:26:58', '2024-07-17 22:26:58'),
+(200, 'RAKIBUL ISLAM', 'rakibulislam9253@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '200', 'eyJpdiI6IkJkNFp2SUpISTVtSk10czhvQmpPRGc9PSIsInZhbHVlIjoidmZzNnRWYy91Qy9mWjVQTlpEcDJpdz09IiwibWFjIjoiNDNlNDNhOTY5N2U4MzQ0ZDcwOTJhYTVmYzJjNzJhNzYyZGYzZDljMWE2ZjljZmMzMTRjNDExZDY4N2RlMThjMSIsInRhZyI6IiJ9', NULL, '2024-07-18 12:13:35', '2024-07-18 16:05:38'),
+(201, 'mani', 'mani609170@gmail.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '0', 'eyJpdiI6Ik1HZW9XcmtOTE5PRmZBZzdsUmVvNmc9PSIsInZhbHVlIjoiaE1tbTBvMy9pYmVNUlYxMFlDMzlUUT09IiwibWFjIjoiMWNmYTFhMGM1MmQ1MTg3NGZkODMzNDc3MTlmNTdlNTZkNmRlOGZmNGE1ODRiM2JiNWUzNmJjOWZkZjU2ZTA1OSIsInRhZyI6IiJ9', NULL, '2024-07-24 19:34:17', '2024-07-24 19:34:17'),
+(202, 'Tanveer', 'hossan_rana@yahoo.com', NULL, NULL, 0, NULL, 0, NULL, NULL, '200', 'eyJpdiI6IkF6SjRIVkkyV0J4Um41N0pVSTZPZnc9PSIsInZhbHVlIjoiS1NwMnp3N1BGWGRTU21reTVGZGY3QT09IiwibWFjIjoiNzY4OGI4ZWViZDBhMjE2MzYxOWI4MzAxOWRkNzVjYmE1N2VkOTg2ZGFhMTg3MDQwYzQ3NDc3MDU3NmRkOWEwMiIsInRhZyI6IiJ9', NULL, '2024-07-27 17:18:41', '2024-07-28 13:06:11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_notifications`
+--
+
+CREATE TABLE `user_notifications` (
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `order_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `msg` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_notifications`
+--
+
+INSERT INTO `user_notifications` (`id`, `user_id`, `order_type`, `msg`, `created_at`, `updated_at`) VALUES
+(19, 170, NULL, 'Id Card Order Refunded.Please Reload.', '2024-07-12 12:39:53', '2024-07-12 12:39:53'),
+(20, 73, NULL, 'Id Card Uploaded.Please Reload.', '2024-07-15 19:01:47', '2024-07-15 19:01:47'),
+(21, 73, NULL, 'Id Card Order Refunded.Please Reload.', '2024-07-15 19:02:34', '2024-07-15 19:02:34'),
+(22, 73, NULL, 'Id Card Order Refunded.Please Reload.', '2024-07-15 19:03:41', '2024-07-15 19:03:41');
 
 -- --------------------------------------------------------
 
@@ -1015,6 +1285,28 @@ INSERT INTO `videos` (`id`, `title`, `description`, `video`, `created_at`, `upda
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `video_links`
+--
+
+CREATE TABLE `video_links` (
+  `id` bigint UNSIGNED NOT NULL,
+  `button_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `link` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `video_links`
+--
+
+INSERT INTO `video_links` (`id`, `button_name`, `link`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'রিচার্জ করার নিয়ম', 'https://drive.google.com/file/d/1-oMvpGT3bUwxqG12oRVSBP7afLD-_gLo/view?usp=drive_link', NULL, '2024-06-22 23:08:05', '2024-06-23 19:20:51');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `website_links`
 --
 
@@ -1024,6 +1316,7 @@ CREATE TABLE `website_links` (
   `nagad` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `bkash_type` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `nagad_type` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `whatsapp_group_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `facebook` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `instagram` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1041,12 +1334,19 @@ CREATE TABLE `website_links` (
 -- Dumping data for table `website_links`
 --
 
-INSERT INTO `website_links` (`id`, `bkash`, `nagad`, `bkash_type`, `nagad_type`, `email`, `facebook`, `instagram`, `linkedIn`, `twitter`, `youtube`, `number`, `address`, `map_link`, `created_at`, `updated_at`) VALUES
-(1, '01635478683', '00', 'পেমেন্ট', 'আপাতত নাই', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-01 02:07:30', '2024-06-10 17:06:40');
+INSERT INTO `website_links` (`id`, `bkash`, `nagad`, `bkash_type`, `nagad_type`, `whatsapp_group_link`, `email`, `facebook`, `instagram`, `linkedIn`, `twitter`, `youtube`, `number`, `address`, `map_link`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, NULL, NULL, 'https://chat.whatsapp.com/L4qUxWNwM9NL8vodc4TNXN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-01 02:07:30', '2024-07-05 20:38:03');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admin_notifications`
+--
+ALTER TABLE `admin_notifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `admin_notifications_user_id_foreign` (`user_id`);
 
 --
 -- Indexes for table `banners`
@@ -1151,6 +1451,13 @@ ALTER TABLE `new_registrations`
   ADD KEY `new_registrations_user_id_foreign` (`user_id`);
 
 --
+-- Indexes for table `nid_makes`
+--
+ALTER TABLE `nid_makes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `nid_makes_user_id_foreign` (`user_id`);
+
+--
 -- Indexes for table `notices`
 --
 ALTER TABLE `notices`
@@ -1201,6 +1508,13 @@ ALTER TABLE `server_copy_orders`
   ADD KEY `server_copy_orders_user_id_foreign` (`user_id`);
 
 --
+-- Indexes for table `server_copy_unofficials`
+--
+ALTER TABLE `server_copy_unofficials`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `server_copy_unofficials_user_id_foreign` (`user_id`);
+
+--
 -- Indexes for table `sign_copy_orders`
 --
 ALTER TABLE `sign_copy_orders`
@@ -1227,9 +1541,22 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_notifications`
+--
+ALTER TABLE `user_notifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_notifications_user_id_foreign` (`user_id`);
+
+--
 -- Indexes for table `videos`
 --
 ALTER TABLE `videos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `video_links`
+--
+ALTER TABLE `video_links`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1241,6 +1568,12 @@ ALTER TABLE `website_links`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `admin_notifications`
+--
+ALTER TABLE `admin_notifications`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `banners`
@@ -1300,7 +1633,7 @@ ALTER TABLE `hide_unhides`
 -- AUTO_INCREMENT for table `id_card_orders`
 --
 ALTER TABLE `id_card_orders`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `logos`
@@ -1324,7 +1657,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `moderator_accesses`
 --
 ALTER TABLE `moderator_accesses`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `new_nids`
@@ -1336,6 +1669,12 @@ ALTER TABLE `new_nids`
 -- AUTO_INCREMENT for table `new_registrations`
 --
 ALTER TABLE `new_registrations`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `nid_makes`
+--
+ALTER TABLE `nid_makes`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
@@ -1372,7 +1711,7 @@ ALTER TABLE `properties`
 -- AUTO_INCREMENT for table `recharges`
 --
 ALTER TABLE `recharges`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=226;
 
 --
 -- AUTO_INCREMENT for table `server_copy_orders`
@@ -1381,10 +1720,16 @@ ALTER TABLE `server_copy_orders`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT for table `server_copy_unofficials`
+--
+ALTER TABLE `server_copy_unofficials`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `sign_copy_orders`
 --
 ALTER TABLE `sign_copy_orders`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `states`
@@ -1402,13 +1747,25 @@ ALTER TABLE `submit_statuses`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
+
+--
+-- AUTO_INCREMENT for table `user_notifications`
+--
+ALTER TABLE `user_notifications`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `videos`
 --
 ALTER TABLE `videos`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `video_links`
+--
+ALTER TABLE `video_links`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `website_links`
@@ -1419,6 +1776,12 @@ ALTER TABLE `website_links`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `admin_notifications`
+--
+ALTER TABLE `admin_notifications`
+  ADD CONSTRAINT `admin_notifications_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `biometric_infos`
@@ -1461,6 +1824,12 @@ ALTER TABLE `server_copy_orders`
 --
 ALTER TABLE `sign_copy_orders`
   ADD CONSTRAINT `sign_copy_orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user_notifications`
+--
+ALTER TABLE `user_notifications`
+  ADD CONSTRAINT `user_notifications_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

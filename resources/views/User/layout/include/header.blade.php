@@ -1,5 +1,5 @@
 @php
-    $notification = \App\Models\UserNotification::where('user_id', auth()->user()->id)->count();
+    $notification = \App\Models\UserNotification::where('user_id', auth()->user()->id ?? null)->count();
 @endphp
 <header class="topbar">
     <nav class="navbar top-navbar navbar-expand-md navbar-dark">
@@ -34,7 +34,7 @@
                         class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark"
                         href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
                 {{-- <li class="nav-item"> <a class="nav-link" href="{{route('front.page')}}">Frontend</a> </li> --}}
-                <li class="nav-item"> <a class="nav-link" href="#">Balance: {{ Auth::user()->balance }} ৳</a>
+                <li class="nav-item"> <a class="nav-link" href="#">Balance: {{ Auth::user()->balance ?? null }} ৳</a>
                 </li>
 
             </ul>
@@ -68,7 +68,7 @@
                 <li class="nav-item dropdown u-pro">
                     <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="#"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span
-                            class="hidden-md-down">{{ Auth::User()->name }} &nbsp;<svg
+                            class="hidden-md-down">{{ Auth::User()->name ?? null }} &nbsp;<svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                                 <path

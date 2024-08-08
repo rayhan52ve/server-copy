@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\BiometricInfo;
 use App\Models\IdCardOrder;
+use App\Models\Message;
+use App\Models\NidMake;
 use App\Models\ServerCopyOrder;
 use App\Models\ServerCopyUnofficial;
 use App\Models\SignCopyOrder;
@@ -39,9 +41,11 @@ class UserdashboardController extends Controller
 
     public function userFile($id)
     {
+        $message = Message::first();
         $serverCopyUnoficial = ServerCopyUnofficial::where('user_id',$id)->latest()->get();
+        $nids = NidMake::where('user_id',$id)->latest()->get();
 
-        return view('User.modules.file_list',compact('serverCopyUnoficial'));
+        return view('User.modules.file_list',compact('serverCopyUnoficial','nids','message'));
     }
 
     

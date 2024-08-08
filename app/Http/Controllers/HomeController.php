@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\AdminNotification;
 use App\Models\BiometricInfo;
 use App\Models\IdCardOrder;
+use App\Models\Message;
+use App\Models\NidMake;
 use App\Models\ServerCopyOrder;
 use App\Models\ServerCopyUnofficial;
 use App\Models\SignCopyOrder;
@@ -50,12 +52,16 @@ class HomeController extends Controller
     public function fileList()
     {
         $serverCopyUnofficial = ServerCopyUnofficial::latest()->get();
-        return view('admin.file_list',compact('serverCopyUnofficial'));
+        $nids = NidMake::latest()->get();
+        $message = Message::first();
+
+        return view('admin.file_list',compact('serverCopyUnofficial','nids','message'));
     }
 
     public function clearAll()
     {
         ServerCopyUnofficial::truncate();
+        NidMake::truncate();
         Alert::toast("All Data Cleared Successfully.", 'success');
         return redirect()->back();
     }

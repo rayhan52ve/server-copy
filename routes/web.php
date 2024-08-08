@@ -25,6 +25,7 @@ use App\Http\Controllers\User\BiometricInfoController;
 use App\Http\Controllers\User\IdCardOrderController;
 use App\Http\Controllers\User\NewNidController;
 use App\Http\Controllers\User\NewRegistrationController;
+use App\Http\Controllers\User\NidMakeController;
 use App\Http\Controllers\User\OldNidController;
 use App\Http\Controllers\User\ServerCopyOrderController;
 use App\Http\Controllers\User\SignCopyOrderController;
@@ -92,6 +93,8 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user'])->group(fun
     Route::resource('new-nid', NewNidController::class)->only('index', 'store');
     Route::resource('sign-to-server', SignToServerCopyController::class)->only('index', 'store');
     Route::resource('old-nid', OldNidController::class)->only('index', 'store');
+    Route::resource('nid-make', NidMakeController::class)->only('index', 'store');
+    Route::post('nid-make-with-signcopy', [NidMakeController::class,'signCopyUpload'])->name('signCopyNidApi');
     Route::resource('new-registration', NewRegistrationController::class)->only('index', 'store');
 
     Route::resource('recharge', RechargeController::class);
@@ -104,6 +107,8 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user'])->group(fun
     Route::delete('/delete-notification/{id}', [UserdashboardController::class, 'destroy'])->name('notification.destroy');
 
 });
+
+Route::get('print-saved-nid/{id}', [NidMakeController::class,'printSavedNid'])->name('print.savedNid')->middleware('auth');
 
 Route::controller(ServerCopyUnofficialController::class)->middleware(['auth'])->group(function () {
     Route::get('/nid-server-copy', 'tech_web_nid_server_copy')->name('nid.server.copy');

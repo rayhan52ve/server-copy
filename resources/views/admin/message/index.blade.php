@@ -174,6 +174,11 @@
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->premium_old_nid_price ?? null }}" name="premium_old_nid_price"
                                     placeholder="0">
+
+                                <label>এনআইডি মেক মূল্য (Remake)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->nid_remake ?? null }}" name="nid_remake"
+                                    placeholder="0">
                             </div>
                         </div>
 
@@ -235,6 +240,10 @@
                                 <label>Server Copy Unofficial Price (Premium)</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->premium_server_unofficial_price ?? null }}" name="premium_server_unofficial_price"
+                                    placeholder="0">
+                                <label>Server Copy Unofficial Price (Remake)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->servercopy_remake ?? null }}" name="servercopy_remake"
                                     placeholder="0">
                             </div>
                         </div>

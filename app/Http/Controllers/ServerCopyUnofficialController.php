@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
 use App\Models\ServerCopyUnofficial;
 use App\Models\User;
 use Carbon\Carbon;
@@ -17,7 +18,7 @@ class ServerCopyUnofficialController extends Controller
     public function tech_web_nid_server_copy()
     {
         $now = Carbon::now();
-        return view('User.modules.server_copy_unofficial.index',compact('now'));
+        return view('User.modules.server_copy_unofficial.index', compact('now'));
     }
     // NID server copy search page end
 
@@ -133,36 +134,49 @@ class ServerCopyUnofficialController extends Controller
             return back()->with('error_message', 'No data found for the given ID.');
         }
 
-        // Construct the nid_info array
-        $nid_info = [
-            'name' => $serverCopy->name,
-            'nameEn' => $serverCopy->nameEn,
-            'gender' => $serverCopy->gender,
-            'bloodGroup' => $serverCopy->bloodGroup,
-            'father' => $serverCopy->father,
-            'mother' => $serverCopy->mother,
-            'spouse' => $serverCopy->spouse,
-            'nationalId' => $serverCopy->nationalId,
-            'permanentAddress' => $serverCopy->permanentAddress,
-            'presentAddress' => $serverCopy->presentAddress,
-            'photo' => $serverCopy->photo,
-            'mobile' => $serverCopy->mobile,
-            'religion' => $serverCopy->religion,
-            'nidFather' => $serverCopy->nidFather,
-            'nidMother' => $serverCopy->nidMother,
-            'voterArea' => $serverCopy->voterArea,
-            'dateOfBirth' => $serverCopy->dateOfBirth,
-            'birthPlace' => $serverCopy->birthPlace,
-            'pin' => $serverCopy->pin,
-        ];
+        $user = User::find($serverCopy->user_id);
+        $userBalance = $user->balance;
 
-        // dd($nid_info);
+        $message = Message::first();
 
-        // Return the view with NID info
-        if ($serverCopy->qr_code == 1) {
-            return view('pdf.new_server_copy_unofficial', compact('nid_info'));
+        $price = (int)$message->servercopy_remake;
+
+        if ($userBalance >= $price) {
+            $user->balance -= $price;
+            $user->save();
+            // Construct the nid_info array
+            $nid_info = [
+                'name' => $serverCopy->name,
+                'nameEn' => $serverCopy->nameEn,
+                'gender' => $serverCopy->gender,
+                'bloodGroup' => $serverCopy->bloodGroup,
+                'father' => $serverCopy->father,
+                'mother' => $serverCopy->mother,
+                'spouse' => $serverCopy->spouse,
+                'nationalId' => $serverCopy->nationalId,
+                'permanentAddress' => $serverCopy->permanentAddress,
+                'presentAddress' => $serverCopy->presentAddress,
+                'photo' => $serverCopy->photo,
+                'mobile' => $serverCopy->mobile,
+                'religion' => $serverCopy->religion,
+                'nidFather' => $serverCopy->nidFather,
+                'nidMother' => $serverCopy->nidMother,
+                'voterArea' => $serverCopy->voterArea,
+                'dateOfBirth' => $serverCopy->dateOfBirth,
+                'birthPlace' => $serverCopy->birthPlace,
+                'pin' => $serverCopy->pin,
+            ];
+
+
+            // Return the view with NID info
+            if ($serverCopy->qr_code == 1) {
+                return view('pdf.new_server_copy_unofficial', compact('nid_info'));
+            } else {
+                return view('pdf.server_copy_unofficial_without_qr_code', compact('nid_info'));
+            }
         } else {
-            return view('pdf.server_copy_unofficial_without_qr_code', compact('nid_info'));
+            Alert::toast("অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
+            return redirect()->back();
         }
     }
 

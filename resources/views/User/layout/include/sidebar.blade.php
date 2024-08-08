@@ -77,8 +77,14 @@
                 {{-- <li> <a class="waves-effect waves-dark" href="{{ route('user.new-nid.index') }}"
                         aria-expanded="false"><i class="fa-solid fa-id-card"></i><span class="hide-menu">নতুন এনআইডি</span></a>
                 </li> --}}
-                @if ($hideUnhide->old_nid == 1)
+                {{-- @if ($hideUnhide->old_nid == 1)
                     <li> <a class="waves-effect waves-dark" href="{{ route('user.old-nid.index') }}"
+                            aria-expanded="false"><i class="fa-regular fa-id-card"></i><span class="hide-menu">এনআইডি
+                                মেক</span></a>
+                    </li>
+                @endif --}}
+                @if ($hideUnhide->old_nid == 1)
+                    <li> <a class="waves-effect waves-dark" href="{{ route('user.nid-make.index') }}"
                             aria-expanded="false"><i class="fa-regular fa-id-card"></i><span class="hide-menu">এনআইডি
                                 মেক</span></a>
                     </li>

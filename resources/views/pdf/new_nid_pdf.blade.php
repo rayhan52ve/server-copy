@@ -148,21 +148,20 @@
                                                     <div class="relative z-50">
                                                         @if ($data['nid_image'])
                                                             <img style="margin-top:-2px" id="userPhoto"
-                                                                class="w-[68.2px] h-[78px]" alt=""
-                                                                src="data:image/jpeg;base64,{{ $data['nid_image'] }}"
-                                                                alt="NID Image">
+                                                                class="w-[68.2px] h-[78px]" alt="NID Image"
+                                                                src="{{ $data['nid_image'] }}">
                                                         @endif
 
                                                         <div class="text-center text-xs flex items-start justify-center pt-[5px] w-[68.2px] mx-auto h-[38.5px] overflow-hidden"
-                                                            id="card_signature"><span
-                                                                style="font-family:Comic sans ms"></span>
+                                                            id="card_signature">
+                                                            <span style="font-family:Comic sans ms"></span>
                                                             @if ($data['sign_image'])
-                                                                <img id="user_sign"
-                                                                    src="data:image/jpeg;base64,{{ $data['sign_image'] }}"
+                                                                <img id="user_sign" src="{{ $data['sign_image'] }}"
                                                                     alt="Sign Image">
                                                             @endif
                                                         </div>
                                                     </div>
+
                                                     <div class="w-full relative z-50">
                                                         <div style="height:5px"></div>
                                                         <div class="flex flex-col gap-y-[10px]"
@@ -229,9 +228,9 @@
 
                                                             <div style="margin-top: 1px;">
                                                                 <p class="bn space-x-3 leading-3"
-                                                                    style="padding-left:1px"><span
-                                                                        id="fatherOrHusband"
-                                                                        style="font-size:14px">{{ @$data['husband_father'] == 'স্বামী' ? 'স্বামী':'পিতা'}}: </span><span
+                                                                    style="padding-left:1px"><span id="fatherOrHusband"
+                                                                        style="font-size:14px">{{ @$data['husband_father'] == 'স্বামী' ? 'স্বামী' : 'পিতা' }}:
+                                                                    </span><span
                                                                         style="font-size:14px;transform:scaleX(0.724)"
                                                                         id="card_father_name">{{ $data['fathers_name'] }}</span>
                                                                 </p>
@@ -408,7 +407,18 @@
 
                                     </div>
                                 </div>
-                            </div><a href="{{ route('user.new-nid.index') }}" class="back-btn">Back</a>
+                            </div>
+                            @if ($redirectRoute == 'userFileList')
+                                @if (auth()->user()->is_admin == 0)
+                                    <a href="{{ route('user.userFile', auth()->user()->id) }}"
+                                        class="back-btn">Back</a>
+                                @else
+                                    <a href="{{ route('admin.fileList', auth()->user()->id) }}"
+                                        class="back-btn">Back</a>
+                                @endif
+                            @elseif ($redirectRoute == 'nidMake')
+                                <a href="{{ route('user.nid-make.index') }}" class="back-btn">Back</a>
+                            @endif
                         </div>
                 </div>
             </main>
