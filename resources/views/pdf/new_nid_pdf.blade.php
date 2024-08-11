@@ -16,33 +16,56 @@
         <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
         <link rel="stylesheet" href="{{ asset('voter_id/assets/card-css/e521caf613e4ad87.css') }}" data-n-g="" />
         <style>
+            button.PrintBtn {
+                width: 150px;
+                background: #8a00ff;
+                padding: 10px;
+                font-weight: bold;
+                cursor: pointer;
+                display: inline-block;
+                margin-right: 10px;
+                border-radius: 6px;
+                color: #fff;
+                font-size: 16px;
+                position: fixed;
+                top: 400px;
+                left: calc(50% - 170px);
+                transform: translateX(-50%);
+            }
+
+            a.back-btn {
+                background: skyblue;
+                text-align: center;
+                font-weight: bold;
+                padding: 10px 34px;
+                display: inline-block;
+                margin-right: 10px;
+                border-radius: 6px;
+                color: #fff;
+                font-size: 16px;
+                position: fixed;
+                top: 400px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
             @media print {
-                .back-btn {
-                    display: none;
+
+                a.back-btn,
+                button.PrintBtn {
+                    display: none !important;
                 }
+
 
                 @page {
                     margin: 0;
                 }
             }
 
-            a.back-btn {
-                /* width: 150px; */
-                background: skyblue;
-                text-align: center;
-                font-weight: bold;
-                padding: 10px 34px;
-                position: fixed;
-                bottom: 20px;
-                left: 50%;
-                scale: 7;
-            }
-
             @media screen and (max-width: 480px) {
                 .back-btn {
                     transform: scale(2);
-                    /* স্কেল পরিবর্তন */
-                    /* অন্যান্য স্টাইল পরিবর্তন যদি দরকার হয় */
+                    /* Additional style adjustments for smaller screens can be added here */
                 }
             }
         </style>
@@ -408,6 +431,8 @@
                                     </div>
                                 </div>
                             </div>
+                            <button class="PrintBtn" onclick="window.print()">Print</button>
+
                             @if ($redirectRoute == 'userFileList')
                                 @if (auth()->user()->is_admin == 0)
                                     <a href="{{ route('user.userFile', auth()->user()->id) }}"
@@ -428,7 +453,7 @@
         <div class="Toastify"></div>
         </main>
         </div>
-        <script>
+        {{-- <script>
             window.print();
             // Wait for a brief moment before attempting to close the window
             setTimeout(function() {
@@ -446,7 +471,7 @@
             window.addEventListener('afterprint', function() {
                 clickBackButton();
             });
-        </script>
+        </script> --}}
         <script>
             var finalEnlishToBanglaNumber = {
                 '0': '০',
@@ -474,6 +499,9 @@
 
             document.getElementById("card_date").innerHTML = bangla_date_number;
         </script>
+
+
+
     </body>
 
     </html>

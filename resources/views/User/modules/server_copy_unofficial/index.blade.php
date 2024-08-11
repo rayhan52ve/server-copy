@@ -4,8 +4,12 @@
         $notice = \App\Models\Notice::first();
         $message = \App\Models\Message::first();
         $submitStatus = \App\Models\SubmitStatus::first();
+        $priceAlert =
+            auth()->user()->premium == 2 && now() < auth()->user()->premium_end
+                ? $message->premium_server_unofficial_price
+                : $message->server_unofficial_price;
     @endphp
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .login-root {
@@ -16,11 +20,6 @@
             word-wrap: break-word;
             font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Ubuntu, sans-serif;
         }
-
-        /* body {
-                                                                min-height: 100%;
-                                                                background-color: #ffffff;
-                                                            } */
 
         h1 {
             letter-spacing: -1px;
@@ -361,17 +360,17 @@
                                             </div>
                                         @endif
                                     </div>
-                                    <form id="stripe-login" action="" onsubmit="return false;">
+                                    <form id="submit_form" action="{{ route('print.nid.server.copy') }}" method="post">
+                                        @csrf
                                         <div class="field padding-bottom--15">
                                             <label for="nid">NID Number</label>
-                                            <input type="text" name="" id="nid" placeholder="Input Your NID"
+                                            <input type="text" name="nid" id="nid" placeholder="Input Your NID"
                                                 required>
                                         </div>
+
                                         <div class="field padding-bottom--10">
-                                            <div class="grid--50-50">
-                                                <label for="password">Date of Birth</label>
-                                            </div>
-                                            <input type="text" name="" id="dob"
+                                            <label for="dob">Date of Birth</label>
+                                            <input type="text" name="dob" id="dob"
                                                 placeholder="DOB [YYYY-MM-DD]" required>
                                         </div>
 
@@ -380,45 +379,37 @@
                                             <div class="btn-group" role="group"
                                                 aria-label="Basic radio toggle button group">
                                                 <input type="radio" class="btn-check" name="qr_code" id="option1"
-                                                    autocomplete="off" value="1" checked>
+                                                    value="1" checked>
                                                 <label class="btn btn-sm btn-outline-success" for="option1">With QR
                                                     Code</label>
 
                                                 <input type="radio" class="btn-check" name="qr_code" id="option2"
-                                                    value="0" autocomplete="off">
+                                                    value="0">
                                                 <label class="btn btn-sm btn-outline-success" for="option2">Without QR
                                                     Code</label>
                                             </div>
                                         </div>
 
+                                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                        <input type="hidden" name="price" value="{{ $priceAlert }}">
+
                                         <div class="text-center pb-1">
                                             @if ($submitStatus->server_unofficial == 0)
                                                 <h6 class="text-danger">ফর্ম সাবমিট বন্ধ আছে। পরবর্তীতে চেষ্টা করুন।</h6>
                                             @else
-                                                @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
-                                                    <h6 class="text-primary">{{ $message->premium_server_unofficial }}</h6>
-                                                @else
-                                                    <h6 class="text-primary">{{ $message->server_unofficial }}</h6>
-                                                @endif
+                                                <h6 class="text-primary">
+                                                    {{ auth()->user()->premium == 2 && now() < auth()->user()->premium_end ? $message->premium_server_unofficial : $message->server_unofficial }}
+                                                </h6>
                                             @endif
                                         </div>
+
                                         <div class="field padding-bottom--24">
-                                            <input id="searchButton" type="submit" name="submit" value="Search"
-                                                data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            <input id="searchButton" type="submit" value="Search"
                                                 {{ $submitStatus->server_unofficial == 1 ? '' : 'disabled' }}>
                                         </div>
                                     </form>
-                                    <script>
-                                        document.getElementById('searchButton').addEventListener('click', function() {
-                                            this.value = 'Searching....';
-                                            this.disabled = true;
-                                        });
 
-                                        // Listen for modal close event and reset the button value
-                                        document.getElementById('exampleModal').addEventListener('hidden.bs.modal', function() {
-                                            document.getElementById('searchButton').value = 'Search';
-                                        });
-                                    </script>
+
                                 </div>
                             </div>
                         </div>
@@ -428,144 +419,45 @@
 
 
         </div> <!-- container -->
-        {{-- <style>
-            /* Custom styles for the modal */
-            .modal-content {
-                border-radius: 10px;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-                background-color: #f7f7f7;
-            }
 
-            .modal-header {
-                background-color: #007bff;
-                color: white;
-                border-top-left-radius: 10px;
-                border-top-right-radius: 10px;
-            }
-
-            .modal-title {
-                font-weight: bold;
-            }
-
-            .modal-body {
-                padding: 20px;
-                text-align: center;
-            }
-
-            .modal-footer {
-                border-top: 1px solid #e9ecef;
-                display: flex;
-                justify-content: space-between;
-            }
-
-            #deductionMessage {
-                margin-bottom: 20px;
-                font-size: 1.2em;
-                color: #333;
-            }
-
-            .btn-primary {
-                background-color: #007bff;
-                border-color: #007bff;
-            }
-
-            .btn-secondary {
-                background-color: #6c757d;
-                border-color: #6c757d;
-            }
-
-            /* Hover effects for buttons */
-            .btn-primary:hover {
-                background-color: #0056b3;
-                border-color: #004085;
-            }
-
-            .btn-secondary:hover {
-                background-color: #5a6268;
-                border-color: #4e555b;
-            }
-        </style> --}}
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Click Ok to proceed...</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
-                            <h4>{{ App\Models\Message::first()->premium_server_unofficial_price ?? '0' }} Tk will be
-                                deducted from
-                                your
-                                account.</h4>
-                        @else
-                            <h4>{{ App\Models\Message::first()->server_unofficial_price ?? '0' }} Tk will be deducted from
-                                your
-                                account.</h4>
-                        @endif
-                        <form id="modal_form" action="{{ route('print.nid.server.copy') }}" method="post">
-                            @csrf
-                            <input type="hidden" name="nid" id="modal_nid">
-                            <input type="hidden" name="dob" id="modal_dob">
-                            <input type="hidden" name="qr_code" id="modal_qr_code">
-                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                            @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
-                                <input type="hidden" name="price"
-                                    value="{{ App\Models\Message::first()->premium_server_unofficial_price ?? '0' }}">
-                            @else
-                                <input type="hidden" name="price"
-                                    value="{{ App\Models\Message::first()->server_unofficial_price ?? '0' }}">
-                            @endif
-
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="submit_modal_form">Ok</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
     </div> <!-- content -->
     @if (Session::has('error_message'))
-        <script>
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "{{ Session::get('error_message') }}",
-                background: "#000",
-                color: "#fff"
-            });
-        </script>
+    <script>
+        Swal.fire({
+            icon: "error",
+            title: "দুঃখিত...",
+            text: "{{ Session::get('error_message') }}",
+            background: "#000",
+            color: "#fff",
+            iconColor: "#fff"
+        });
+    </script>
+    
     @endif
-
-    {{-- open modal --}}
     <script>
         $(document).ready(function() {
-            $('input[type=submit]').click(function(e) {
-                e.preventDefault();
+            $('#searchButton').on('click', function(event) {
+                event.preventDefault(); // Prevent default form submission
 
-                var nid = $('#nid').val();
-                var dob = $('#dob').val();
-                var qr_code = $('input[name=qr_code]:checked').val();
-
-                $('#modal_nid').val(nid);
-                $('#modal_dob').val(dob);
-                $('#modal_qr_code').val(qr_code);
-
-                var myForm = $('#modal_form');
-
-                $('#submit_modal_form').click(function(e) {
-
-                    myForm.submit();
-                    $('#exampleModal').modal('hide');
+                Swal.fire({
+                    title: 'সার্ভার কপি',
+                    text: "এই ফাইলটি ডাউনলোড করার জন্য আপনার অ্যাকাউন্ট থেকে {{ $priceAlert }} টাকা কর্তন করা হবে।",
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'হ্যাঁ, প্রিন্ট করুন!',
+                    cancelButtonText: 'না, বাতিল করুন!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#searchButton').val('Searching...').prop('disabled', true);
+                        $('#submit_form').off('submit')
+                            .submit(); // Submit the form after confirmation
+                    }
                 });
-
-            })
-        })
+            });
+        });
     </script>
+
 @endsection

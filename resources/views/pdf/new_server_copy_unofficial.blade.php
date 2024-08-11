@@ -339,9 +339,14 @@
         </div>
 
         <div style="position: absolute; left: 16%; top: 25.7%; width: auto; font-size: 12px; color: rgb(3, 3, 3);"><img
-                id="photo" src="{{ $nid_info['photo'] }}" height="140px" width="121px"
+                id="photo" src="data:image/jpeg;base64,{{ @$nid_info['photoBase64'] }}" height="140px" width="121px"
                 style="border-radius: 10px" />
         </div>
+{{-- 
+        <div style="position: absolute; left: 16%; top: 25.7%; width: auto; font-size: 12px; color: rgb(3, 3, 3);"><img
+                id="photo" src="{{ $nid_info['photo'] }}" height="140px" width="121px"
+                style="border-radius: 10px" />
+        </div> --}}
 
         <div style="position: absolute;  left: 17.5%; top: 42%; width: auto; font-size: 12px; color: rgb(3, 3, 3);">
 

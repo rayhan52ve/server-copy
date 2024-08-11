@@ -44,6 +44,23 @@ class NidMakeController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nid_image' => 'required', 
+            'sign_image' => 'required', 
+            'name_bn' => 'required',
+            'name_en' => 'required',
+            'nid_number' => 'required',
+            'pin' => 'required',
+            'husband_father' => 'required',
+            'fathers_name' => 'required',
+            'mothers_name' => 'required',
+            'birth_place' => 'required',
+            'birthday' => 'required',
+            'blood_group' => 'nullable',
+            'issue_date' => 'nullable',
+            'address' => 'required',
+        ]);
+
         $user = User::find($request->user_id);
         $userBalance = $user->balance;
 

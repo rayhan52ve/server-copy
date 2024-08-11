@@ -26,7 +26,9 @@ class CreateNidMakesTable extends Migration
             $table->string('fathers_name')->nullable();
             $table->string('mothers_name')->nullable();
             $table->string('birth_place')->nullable();
+            $table->string('blood_group')->nullable();
             $table->string('birthday')->nullable();
+            $table->string('birth')->nullable();
             $table->string('issue_date')->nullable();
             $table->text('address')->nullable();
             $table->timestamps();

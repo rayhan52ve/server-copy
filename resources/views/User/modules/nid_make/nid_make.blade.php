@@ -83,6 +83,14 @@
                         </div>
                     @endif
 
+                    <div class="text-center">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <h6 class="text-danger">Please Upload a Sign Copy First.</h6>
+                            </div>
+                        @endif
+                    </div>
+
                     <form id="submit_form" class="form-horizontal mt-5" action="{{ route('user.nid-make.store') }}"
                         enctype="multipart/form-data" method="POST">
                         @csrf

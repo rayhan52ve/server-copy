@@ -26,7 +26,7 @@ class CreateServerCopyUnofficialsTable extends Migration
             $table->string('nationalId')->nullable();
             $table->text('permanentAddress')->nullable();
             $table->text('presentAddress')->nullable();
-            $table->string('photo')->nullable();
+            $table->longText('photo')->nullable();
             $table->string('mobile')->nullable();
             $table->string('religion')->nullable();
             $table->string('nidFather')->nullable();

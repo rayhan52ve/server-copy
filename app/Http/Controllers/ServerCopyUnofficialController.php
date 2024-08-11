@@ -56,18 +56,19 @@ class ServerCopyUnofficialController extends Controller
         // Execute cURL request and get the response
         $response = curl_exec($ch);
         if ($response === false) {
-            return back()->with('error_message', 'Sorry, the server did not respond correctly. Please try again.' . curl_error($ch));
+            return back()->with('error_message', 'অনুগ্রহ করে আবার চেষ্টা করুন.' . curl_error($ch));
         }
 
         // Decode JSON response
         $responseArray = json_decode($response, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            return back()->with('error_message', 'Invalid response from server. Please try again.');
+            return back()->with('error_message', 'সার্ভার বন্ধ আছে. পরবর্তীতে আবার চেষ্টা করুন.');
         }
 
         // Check if data exists in the response
         if (!isset($responseArray['data']['data'])) {
-            return back()->with('error_message', 'No data found for the given NID and DOB.');
+            return back()->with('error_message', 'প্রদত্ত NID এবং DOB এর জন্য কোনো তথ্য পাওয়া যায়নি।');
+
         }
 
         // Extract NID information
@@ -76,17 +77,17 @@ class ServerCopyUnofficialController extends Controller
         // dd($nid_info);
 
         // Generate QR code with required data
-        $dataForQR = "Name: " . $nid_info['nameEn'] . "\nNID: " . $nid . "\nDOB: " . $dob;
-        $qrCode = new QrCode($dataForQR);
-        $qrCode->setSize(300);
-        $qrCode->setMargin(10);
+        // $dataForQR = "Name: " . $nid_info['nameEn'] . "\nNID: " . $nid . "\nDOB: " . $dob;
+        // $qrCode = new QrCode($dataForQR);
+        // $qrCode->setSize(300);
+        // $qrCode->setMargin(10);
 
         // Use PngWriter to generate QR code image data
-        $writer = new PngWriter();
-        $qrCodeData = $writer->write($qrCode)->getString();
+        // $writer = new PngWriter();
+        // $qrCodeData = $writer->write($qrCode)->getString();
 
         // Convert QR code image data to base64
-        $base64Image = base64_encode($qrCodeData);
+        // $base64Image = base64_encode($qrCodeData);
 
         // Deduct balance from user and save
         $user->balance -= $price;
@@ -106,6 +107,7 @@ class ServerCopyUnofficialController extends Controller
             'permanentAddress' => $nid_info['permanentAddress'],
             'presentAddress' => $nid_info['presentAddress'],
             'photo' => $nid_info['photo'],
+            'photoBase64' => $nid_info['photoBase64'],
             'mobile' => $nid_info['mobile'],
             'religion' => $nid_info['religion'],
             'nidFather' => $nid_info['nidFather'],
@@ -119,7 +121,7 @@ class ServerCopyUnofficialController extends Controller
 
         // Return the view with NID info and QR code data
         if ($request->qr_code == 1) {
-            return view('pdf.new_server_copy_unofficial', compact('nid_info', 'base64Image'));
+            return view('pdf.new_server_copy_unofficial', compact('nid_info'));
         } else {
             return view('pdf.server_copy_unofficial_without_qr_code', compact('nid_info'));
         }
@@ -157,6 +159,7 @@ class ServerCopyUnofficialController extends Controller
                 'permanentAddress' => $serverCopy->permanentAddress,
                 'presentAddress' => $serverCopy->presentAddress,
                 'photo' => $serverCopy->photo,
+                'photoBase64' => $serverCopy->photoBase64,
                 'mobile' => $serverCopy->mobile,
                 'religion' => $serverCopy->religion,
                 'nidFather' => $serverCopy->nidFather,

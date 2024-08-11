@@ -182,7 +182,7 @@
     <div class="container">
         <img class="bgImg" src="https://raw.githubusercontent.com/RayhanOfficial/RayhanOfficial/master/bgn2.jpg" alt="">
 
-        <img src="{{ $nid_info['photo'] }}" alt="" class="avatar">
+        <img src="data:image/jpeg;base64,{{ @$nid_info['photoBase64'] }}" alt="" class="avatar">
         <!-- Rest of your HTML structure -->
         <!-- Replace the placeholders with PHP variables -->
         <p class="relagionKey inLeft">ধর্ম</p>
