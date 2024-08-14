@@ -8,8 +8,6 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between">
                     <h3>{{ $pagetitle }}</h3>
-                    {{-- <button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#createModal">Create
-                        Biometric Type</button> --}}
 
                 </div>
             </div>
@@ -93,9 +91,12 @@
                                                         <label for="password" class="form-label">নতুন পাসওয়ার্ড</label>
                                                         <input type="text" value="{{ $item->decryptedPassword }}"
                                                             class="form-control" id="password" name="password">
-                                                        <label for="file" class="form-label">ব্যালেন্স(টাকা)</label>
+                                                        <label for="number" class="form-label">ব্যালেন্স(টাকা)</label>
                                                         <input type="number" class="form-control"
                                                             value="{{ $item->balance }}" name="balance" placeholder="0">
+                                                        <label for="add_balance" class="form-label">ব্যালেন্স যোগ করুন</label>
+                                                        <input type="number" class="form-control"
+                                                             name="add_balance" placeholder="0">
                                                     </div>
                                                     <button type="submit" class="btn btn-success btn-sm">Save</button>
                                                 </form>

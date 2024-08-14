@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\ModeratorAccessController;
 use App\Http\Controllers\Admin\NoticeController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SubmitStatusController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\BannerAndTitleController;
@@ -209,6 +210,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::get('/clear-admin-notification-list', [HomeController::class, 'clearAllAdminNotification'])->name('clearAllAdminNotification');
     Route::delete('/delete-notification/{id}', [HomeController::class, 'destroy'])->name('notification.destroy');
 
+    Route::resource('report',ReportController::class)->middleware('is_admin');
+
 });
 
 
@@ -270,8 +273,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/bkash/success', [BkashPaymentController::class, 'success'])->name('bkash.success');
 
     // Refund Routes for bKash
-    Route::get('/bkash/refund', [BkashPaymentController::class, 'refundPage'])->name('bkash.refund');
-    Route::post('/bkash/refund', [BkashPaymentController::class, 'refund'])->name('bkash.refund');
+    // Route::get('/bkash/refund', [BkashPaymentController::class, 'refundPage'])->name('bkash.refund');
+    // Route::post('/bkash/refund', [BkashPaymentController::class, 'refund'])->name('bkash.refund');
 
     // Callback Route for bKash
     Route::match(['get', 'post'], '/bkash/callback', [BkashPaymentController::class, 'callback'])->name('bkash.callback');

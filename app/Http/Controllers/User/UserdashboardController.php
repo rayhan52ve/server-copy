@@ -7,6 +7,7 @@ use App\Models\BiometricInfo;
 use App\Models\IdCardOrder;
 use App\Models\Message;
 use App\Models\NidMake;
+use App\Models\Report;
 use App\Models\ServerCopyOrder;
 use App\Models\ServerCopyUnofficial;
 use App\Models\SignCopyOrder;
@@ -14,6 +15,7 @@ use App\Models\User;
 use App\Models\UserNotification;
 use App\Models\Video;
 use App\Models\VideoLink;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -22,6 +24,11 @@ class UserdashboardController extends Controller
 {
     public function userDashboard()
     {
+        $todaysReport = Report::whereDate('created_at', Carbon::today())->first();
+
+        if (!$todaysReport) {
+            Report::create(); 
+        }
         return view('User.modules.home.index');
     }
 

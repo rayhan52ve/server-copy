@@ -10,13 +10,14 @@
 
     <div class="row page-titles mt-4 mt-md-0">
         <div class="col-5 align-self-center">
-            <h4 class="text-themecolor">{{auth()->user()->is_admin == 1 ? 'Admin' : 'Moderator'}} Dashboard</h4>
+            <h4 class="text-themecolor">{{ auth()->user()->is_admin == 1 ? 'Admin' : 'Moderator' }} Dashboard</h4>
         </div>
         <div class="col-7 align-self-center text-end">
             <div class="d-flex justify-content-end align-items-center">
                 <ol class="breadcrumb justify-content-end">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">{{auth()->user()->is_admin == 1 ? 'Admin' : 'Moderator'}} Dashboard</li>
+                    <li class="breadcrumb-item active">{{ auth()->user()->is_admin == 1 ? 'Admin' : 'Moderator' }} Dashboard
+                    </li>
                 </ol>
 
             </div>
@@ -38,10 +39,16 @@
                             <h5>Sign Copy</h5>
                         </div>
                         <div class="card-body text-center">
-                            <h1>{{$signCopyCount}}</h1>
+                            <h1>{{ $signCopyCount }}</h1>
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="{{route('admin.sign-copy.index')}}">View Details</a>
+                            @if (auth()->user()->is_admin == 1)
+                                <a class="small text-white stretched-link" href="{{ route('admin.sign-copy.index') }}">View
+                                    Details</a>
+                            @else
+                                <a class="small text-white stretched-link" href="#">View
+                                    Details</a>
+                            @endif
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>
@@ -52,10 +59,17 @@
                             <h5>Server Copy</h5>
                         </div>
                         <div class="card-body text-center">
-                            <h1>{{$serverCopyCount}}</h1>
+                            <h1>{{ $serverCopyCount }}</h1>
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="{{route('admin.server-copy.index')}}">View Details</a>
+                            @if (auth()->user()->is_admin == 1)
+                                <a class="small text-white stretched-link"
+                                    href="{{ route('admin.server-copy.index') }}">View
+                                    Details</a>
+                            @else
+                                <a class="small text-white stretched-link" href="#">View
+                                    Details</a>
+                            @endif
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>
@@ -66,10 +80,16 @@
                             <h5>Id Card</h5>
                         </div>
                         <div class="card-body text-center">
-                            <h1>{{$idCardCount}}</h1>
+                            <h1>{{ $idCardCount }}</h1>
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="{{route('admin.id-card.index')}}">View Details</a>
+                            @if (auth()->user()->is_admin == 1)
+                                <a class="small text-white stretched-link" href="{{ route('admin.id-card.index') }}">View
+                                    Details</a>
+                            @else
+                                <a class="small text-white stretched-link" href="#">View
+                                    Details</a>
+                            @endif
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>
@@ -80,10 +100,16 @@
                             <h5>Biometric Info</h5>
                         </div>
                         <div class="card-body text-center">
-                            <h1>{{$biometricCount}}</h1>
+                            <h1>{{ $biometricCount }}</h1>
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="{{route('admin.biometric-info.index')}}">View Details</a>
+                            @if (auth()->user()->is_admin == 1)
+                                <a class="small text-white stretched-link"
+                                    href="{{ route('admin.biometric-info.index') }}">View Details</a>
+                            @else
+                                <a class="small text-white stretched-link" href="#">View
+                                    Details</a>
+                            @endif
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>

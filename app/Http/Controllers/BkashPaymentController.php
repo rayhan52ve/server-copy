@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recharge;
+use App\Models\Report;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +24,7 @@ class BkashPaymentController extends Controller
         // if (get_setting('bkash_sandbox', 1)) {
         // $this->base_url = "https://tokenized.sandbox.bka.sh/v1.2.0-beta/tokenized/";
         // } else {
-            $this->base_url = "https://tokenized.pay.bka.sh/v1.2.0-beta/tokenized/";
+        $this->base_url = "https://tokenized.pay.bka.sh/v1.2.0-beta/tokenized/";
         // }
     }
 
@@ -197,7 +199,7 @@ class BkashPaymentController extends Controller
             }
 
             $user = User::find(Auth::user()->id);
-            $user->balance += $result_data->amount; // Assuming there's a property 'amount' in the response
+            $user->balance += $result_data->amount;
             $user->save();
 
             // Create a new Recharge record
@@ -209,6 +211,21 @@ class BkashPaymentController extends Controller
             $recharge->transaction_id = $result_data->trxID;
             $recharge->status = 1;
             $recharge->save();
+
+            //  report
+            $todaysReport = Report::whereDate('created_at', Carbon::today())->first();
+            if ($todaysReport) {
+                $todaysReport->auto_recharge += $result_data->amount;
+                $todaysReport->income = $todaysReport->manual_recharge + $todaysReport->auto_recharge;
+                $todaysReport->profit = $todaysReport->income - $todaysReport->expense;
+                $todaysReport->save();
+            } else {
+                Report::create([
+                    'auto_recharge' => $result_data->amount,
+                    'income' => $result_data->amount,
+                    'profit' => $result_data->amount,
+                ]);
+            }
 
 
             return redirect()->route('bkash.success');

@@ -41,7 +41,8 @@
             <div class="card">
                 <div class="card-header text-center">
                     <strong><b>মূল্য তালিকা</b></strong><br>
-                    <strong class="mt-1"><b>তারিখ:</b> {{ \Carbon\Carbon::now()->format('Y-m-d') }} </strong>
+                    <strong class="mt-1"><b>তারিখ:</b> {{ \Carbon\Carbon::now()->format('d-m-Y') }} </strong>
+
                 </div>
                 <div class="card-body">
                     <table class="table">

@@ -7,9 +7,11 @@ use App\Models\BiometricInfo;
 use App\Models\IdCardOrder;
 use App\Models\Message;
 use App\Models\NidMake;
+use App\Models\Report;
 use App\Models\ServerCopyOrder;
 use App\Models\ServerCopyUnofficial;
 use App\Models\SignCopyOrder;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -42,6 +44,11 @@ class HomeController extends Controller
      */
     public function adminHome()
     {
+        $todaysReport = Report::whereDate('created_at', Carbon::today())->first();
+
+        if (!$todaysReport) {
+            Report::create(); 
+        }
         $signCopyCount = SignCopyOrder::count();
         $serverCopyCount = ServerCopyOrder::count();
         $idCardCount = IdCardOrder::count();

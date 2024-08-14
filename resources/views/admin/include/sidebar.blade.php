@@ -36,7 +36,8 @@
                             </svg></i><span class="hide-menu">ড্যাশবোর্ড</span></a>
                 </li>
                 <li class="d-md-none">
-                    <a class="waves-effect waves-dark" href="{{route('admin.adminNotification')}}" aria-expanded="false" style="position: relative;">
+                    <a class="waves-effect waves-dark" href="{{ route('admin.adminNotification') }}"
+                        aria-expanded="false" style="position: relative;">
                         <i class="fa-solid fa-bell"></i>
                         <span class="hide-menu">নোটিফিকেশান <sup
                                 class="notification-number">{{ $notification }}</sup></span>
@@ -158,9 +159,17 @@
                 {{-- <li> <a class="waves-effect waves-dark" href="#"
                     aria-expanded="false"><i class="fa-solid fa-file-shield"></i><span class="hide-menu">সুরক্ষা ক্লোন</span></a>
             </li> --}}
-                <li> <a class="waves-effect waves-dark" href="{{ route('admin.fileList') }}" aria-expanded="false"><i
-                            class="fa-solid fa-list-check"></i><span class="hide-menu">ফাইল লিস্ট</span></a>
-                </li>
+                @if (auth()->user()->is_admin == 1)
+                    <li> <a class="waves-effect waves-dark" href="{{ route('admin.fileList') }}"
+                            aria-expanded="false"><i class="fa-solid fa-list-check"></i><span class="hide-menu">ফাইল
+                                লিস্ট</span></a>
+                    </li>
+                @endif
+                @if (auth()->user()->is_admin == 1)
+                    <li> <a class="waves-effect waves-dark" href="{{ route('admin.report.index') }}"
+                            aria-expanded="false"><i class="fa-solid fa-sack-dollar"></i><span class="hide-menu">আয়-ব্যয়</span></a>
+                    </li>
+                @endif
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->video == 1)
                     <li> <a class="waves-effect waves-dark" href="{{ route('admin.video.index') }}"
                             aria-expanded="false"><i class="fa-brands fa-youtube"></i><span

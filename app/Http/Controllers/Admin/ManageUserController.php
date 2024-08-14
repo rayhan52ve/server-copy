@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Report;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -49,7 +50,7 @@ class ManageUserController extends Controller
         $now = Carbon::now();
 
         $users = User::where('is_admin', 0)->where('premium', 2)->latest()->get();
-        return view('admin.manage_user.premium_user', compact('users','pagetitle','now'));
+        return view('admin.manage_user.premium_user', compact('users', 'pagetitle', 'now'));
     }
 
     public function moderatorList()
@@ -139,6 +140,26 @@ class ManageUserController extends Controller
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
         $user->balance = $validatedData['balance'];
+
+        if ($request->has('add_balance')) {
+
+            $user->balance += $request->add_balance;
+
+            $todaysReport = Report::whereDate('created_at', Carbon::today())->first();
+
+            if ($todaysReport) {
+                $todaysReport->manual_recharge += $request->add_balance;
+                $todaysReport->income = $todaysReport->manual_recharge + $todaysReport->auto_recharge;
+                $todaysReport->profit = $todaysReport->income - $todaysReport->expense;
+                $todaysReport->save();
+            } else {
+                Report::create([
+                    'manual_recharge' => $request->add_balance,
+                    'income' => $request->add_balance,
+                    'profit' => $request->add_balance,
+                ]);
+            }
+        }
 
         // Update the password if it's provided
         if ($request->filled('password')) {
