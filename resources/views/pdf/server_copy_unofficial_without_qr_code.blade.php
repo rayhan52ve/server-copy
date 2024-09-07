@@ -182,7 +182,8 @@
     <div class="container">
         <img class="bgImg" src="https://raw.githubusercontent.com/RayhanOfficial/RayhanOfficial/master/bgn2.jpg" alt="">
 
-        <img src="data:image/jpeg;base64,{{ @$nid_info['photoBase64'] }}" alt="" class="avatar">
+        <img src="{{ @$nid_info['photo'] }}" alt="" class="avatar">
+        {{-- <img src="data:image/jpeg;base64,{{ @$nid_info['photoBase64'] }}" alt="" class="avatar"> --}}
         <!-- Rest of your HTML structure -->
         <!-- Replace the placeholders with PHP variables -->
         <p class="relagionKey inLeft">ধর্ম</p>
@@ -193,19 +194,20 @@
         <p class="pin inRight">{{ $nid_info['pin'] }}</p>
         <p class="vno inRight">{{ $nid_info['nationalId'] }}</p>
         <p class="mobile inRight"></p>
-        <p class="vArea inRight">{{ $nid_info['voterArea'] }}</p>
+        <p class="vArea inRight">{{ $nid_info['voterArea'] ?? null }}</p>
         <p class="nameBn inRight">{{ $nid_info['name'] }}</p>
         <p class="nameEn inRight">{{ $nid_info['nameEn'] }}</p>
         <p class="dob inRight">{{ $nid_info['dateOfBirth'] }}</p>
         <p class="fName inRight">{{ $nid_info['father'] }}</p>
         <p class="mName inRight">{{ $nid_info['mother'] }}</p>
-        <p class="husWif inRight">{{ $nid_info['spouse'] }}</p>
+        <p class="husWif inRight">{{ $nid_info['spouseNameBN'] ?? null }}</p>
+        {{-- <p class="husWif inRight">{{ $nid_info['spouse'] }}</p> --}}
         <p class="gender inRight">{{ $nid_info['gender'] }}</p>
         <p class="relagion inRight">{{ $nid_info['religion'] }}</p>
         <p class="phone inRight">{{ $nid_info['bloodGroup'] }}</p>
-        <p class="birthPlace inRight">{{ $nid_info['birthPlace'] }}</p>
-        <p class="address presentAddr">{{ $nid_info['presentAddress'] }}</p>
-        <p class="address permanentAddr">{{ $nid_info['permanentAddress'] }}</p>
+        <p class="birthPlace inRight">{{ $nid_info['birthPlace'] ?? null}}</p>
+        <p class="address presentAddr">{{ $presentAddress ?? $nid_info['presentAddress'] }}</p>
+        <p class="address permanentAddr">{{ $permanentAddress ?? $nid_info['permanentAddress'] }}</p>
     </div>
     <button class="PrintBtn" onclick="window.print()">Print</button>
 </body>

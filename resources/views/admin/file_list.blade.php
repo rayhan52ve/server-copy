@@ -149,55 +149,8 @@
             </div>
         </div>
     </div>
-    @php
-        $servercopyPriceAlert = $message->servercopy_remake;
-        $nidPriceAlert = $message->nid_remake;
-    @endphp
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $(document).ready(function() {
-            $('#nid-table').DataTable();
-
-            $('.printServercopy').on('click', function(event) {
-                event.preventDefault(); // Prevent the default form submission triggered by the button click
-                let url = $(this).attr('href');
-
-                Swal.fire({
-                    title: 'সার্ভার কপি (Unofficial)',
-                    text: "এই ফাইলটি প্রিন্ট করার জন্য আপনার অ্যাকাউন্ট থেকে {{ $servercopyPriceAlert }} টাকা কর্তন করা হবে।",
-                    icon: 'info',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'হ্যাঁ, প্রিন্ট করুন!',
-                    cancelButtonText: 'না, বাতিল করুন!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = url; // Redirect to the link's URL
-                    }
-                });
-            });
-
-            $('.printNid').on('click', function(event) {
-                event.preventDefault(); // Prevent the default form submission triggered by the button click
-                let url = $(this).attr('href');
-
-                Swal.fire({
-                    title: 'এনআইডি',
-                    text: "এই কার্ডটি প্রিন্ট করার জন্য আপনার অ্যাকাউন্ট থেকে {{ $nidPriceAlert }} টাকা কর্তন করা হবে।",
-                    icon: 'info',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'হ্যাঁ, জমা দিন!',
-                    cancelButtonText: 'না, বাতিল করুন!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = url; // Redirect to the link's URL
-                    }
-                });
-            });
-        });
 
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('clearAllBtn').addEventListener('click', function(event) {

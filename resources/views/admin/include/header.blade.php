@@ -1,5 +1,5 @@
 @php
-    $notification = \App\Models\AdminNotification::count();
+    $notification = \App\Models\AdminNotification::where('read_unread', 0)->count();
 @endphp
 <header class="topbar">
     <nav class="navbar top-navbar navbar-expand-md navbar-dark">
@@ -14,7 +14,8 @@
                     @php $logo = \App\Models\Logo::latest()->first() @endphp
                     <img src="{{ asset($logo->logo_image ?? null) }}" alt="homepage" height="80px" class="dark-logo" />
                     <!-- Light Logo icon -->
-                    <img src="{{ asset($logo->logo_image ?? null) }}" alt="homepage" height="80px" class="light-logo" />
+                    <img src="{{ asset($logo->logo_image ?? null) }}" alt="homepage" height="80px"
+                        class="light-logo" />
                 </b>
                 <!--End Logo icon -->
         </div>
@@ -33,11 +34,12 @@
                         class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark"
                         href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
                 {{-- <li class="nav-item"> <a class="nav-link" href="{{route('front.page')}}">Frontend</a> </li> --}}
-                <li class="nav-item"> <a class="nav-link" href="#">Balance: {{Auth::user()->balance }} ৳</a> </li>
-                
+                <li class="nav-item"> <a class="nav-link" href="#">Balance: {{ Auth::user()->balance }} ৳</a>
+                </li>
+
 
             </ul>
-            
+
             <!-- ============================================================== -->
             <!-- User profile and search -->
             <!-- ============================================================== -->
@@ -45,10 +47,13 @@
                 <!-- ============================================================== -->
 
                 <li class="nav-item dropdown u-pro">
-                    <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="{{route('admin.adminNotification')}}">
+                    <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
+                        href="{{ route('admin.adminNotification') }}">
                         <span class="hidden-md-down">
                             <i class="fa-solid fa-bell fa-xl" style="color: #FFD43B; position: relative;">
-                                <sup class="notification-count">{{$notification}}</sup> <!-- Add this line -->
+                                @if ($notification >= 1)
+                                    <sup class="notification-count">{{ $notification }}</sup>
+                                @endif
                             </i>
                         </span>
                     </a>

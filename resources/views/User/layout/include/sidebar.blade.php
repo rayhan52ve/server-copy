@@ -1,6 +1,8 @@
 @php
     $hideUnhide = \App\Models\HideUnhide::first();
-    $notification = \App\Models\UserNotification::where('user_id', auth()->user()->id)->count();
+    $notification = \App\Models\UserNotification::where('user_id', auth()->user()->id)
+        ->where('read_unread', 0)
+        ->count();
     $whatsappGroup = \App\Models\WebsiteLinks::first()->whatsapp_group_link;
 @endphp
 <style>
@@ -40,8 +42,10 @@
                     <a class="waves-effect waves-dark" href="{{ route('user.userNotification') }}" aria-expanded="false"
                         style="position: relative;">
                         <i class="fa-solid fa-bell"></i>
-                        <span class="hide-menu">নোটিফিকেশান <sup
-                                class="notification-number">{{ $notification }}</sup></span>
+                        <span class="hide-menu">নোটিফিকেশান @if ($notification >= 1)
+                                <sup class="notification-number">{{ $notification }}</sup>
+                            @endif
+                        </span>
 
                     </a>
                 </li>

@@ -104,7 +104,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user'])->group(fun
     Route::post('premium-request', [PremiumController::class, 'userPremiumRequest'])->name('userPremiumRequest');
 
     Route::get('/user-notification-list', [UserdashboardController::class, 'userNotification'])->name('userNotification');
-    Route::get('/clear-admin-notification-list', [UserdashboardController::class, 'clearAllUserNotification'])->name('clearAllUserNotification');
+    Route::get('/clear-notification-list', [UserdashboardController::class, 'clearAllUserNotification'])->name('clearAllUserNotification');
     Route::delete('/delete-notification/{id}', [UserdashboardController::class, 'destroy'])->name('notification.destroy');
 
 });
@@ -207,7 +207,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::get('/clear-server-copy-unofficial-list', [HomeController::class, 'clearAll'])->name('clearAll');
 
     Route::get('/admin-notification-list', [HomeController::class, 'adminNotification'])->name('adminNotification');
-    Route::get('/clear-admin-notification-list', [HomeController::class, 'clearAllAdminNotification'])->name('clearAllAdminNotification');
+    Route::get('/clear-admin-notification-list', [HomeController::class, 'clearAllAdminNotification'])->name('clearAllAdminNotification')->middleware('is_admin');
     Route::delete('/delete-notification/{id}', [HomeController::class, 'destroy'])->name('notification.destroy');
 
     Route::resource('report',ReportController::class)->middleware('is_admin');

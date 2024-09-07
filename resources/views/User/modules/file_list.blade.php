@@ -34,7 +34,7 @@
                             <div class="tab-pane fade show active" id="pills-servercopy" role="tabpanel"
                                 aria-labelledby="pills-servercopy-tab">
                                 <div class="table-responsive">
-                                    <table id="config-table" class="table display table-striped border no-wrap">
+                                    <table id="" class="table display table-striped border no-wrap">
                                         <h3 class="text-center">সার্ভার কপি লিস্ট (Unofficial)</h3>
                                         <thead>
                                             <tr>
@@ -50,7 +50,8 @@
                                         <tbody>
                                             @foreach ($serverCopyUnoficial as $key => $item)
                                                 <tr>
-                                                    <td>{{ $key + 1 }}</td>
+                                                    <td>{{ ($serverCopyUnoficial->currentPage() - 1) * $serverCopyUnoficial->perPage() + $key + 1 }}
+                                                    </td>
                                                     <td>{{ $item->qr_code == 1 ? 'Server Copy(Unofficial) With QR Code' : 'Server Copy(Unofficial) Without QR Code' }}
                                                     </td>
                                                     <td>{{ $item->name }}</td>
@@ -68,11 +69,15 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    <!-- Pagination for Server Copy -->
+                                    <div class="d-flex justify-content-center">
+                                        {{ $serverCopyUnoficial->appends(['nidPage' => $nids->currentPage()])->links() }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="pills-nid" role="tabpanel" aria-labelledby="pills-nid-tab">
                                 <div class="table-responsive">
-                                    <table id="nid-table" class="table display table-striped border no-wrap">
+                                    <table id="" class="table display table-striped border no-wrap">
                                         <h3 class="text-center">এনআইডি লিস্ট</h3>
                                         <thead>
                                             <tr>
@@ -87,7 +92,7 @@
                                         <tbody>
                                             @foreach ($nids as $key => $item)
                                                 <tr>
-                                                    <td>{{ $key + 1 }}</td>
+                                                    <td>{{ ($nids->currentPage() - 1) * $nids->perPage() + $key + 1 }}</td>
                                                     <td>{{ $item->name_bn }}</td>
                                                     <td>{{ $item->nid_number }}</td>
                                                     <td>{{ $item->birthday ?? null }}</td>
@@ -103,6 +108,10 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    <!-- Pagination for NIDs -->
+                                    <div class="d-flex justify-content-center">
+                                        {{ $nids->appends(['serverPage' => $serverCopyUnoficial->currentPage()])->links() }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +127,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
-            $('#nid-table').DataTable();
+            // $('#nid-table').DataTable({
+            //     responsive: false,
+            // });
 
             $('.printServercopy').on('click', function(event) {
                 event.preventDefault(); // Prevent the default form submission triggered by the button click

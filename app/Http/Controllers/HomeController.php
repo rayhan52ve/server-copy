@@ -47,13 +47,13 @@ class HomeController extends Controller
         $todaysReport = Report::whereDate('created_at', Carbon::today())->first();
 
         if (!$todaysReport) {
-            Report::create(); 
+            Report::create();
         }
         $signCopyCount = SignCopyOrder::count();
         $serverCopyCount = ServerCopyOrder::count();
         $idCardCount = IdCardOrder::count();
         $biometricCount = BiometricInfo::count();
-        return view('admin.home.index',compact('signCopyCount','serverCopyCount','idCardCount','biometricCount'));
+        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount'));
     }
 
     public function fileList()
@@ -62,7 +62,7 @@ class HomeController extends Controller
         $nids = NidMake::latest()->get();
         $message = Message::first();
 
-        return view('admin.file_list',compact('serverCopyUnofficial','nids','message'));
+        return view('admin.file_list', compact('serverCopyUnofficial', 'nids', 'message'));
     }
 
     public function clearAll()
@@ -75,8 +75,14 @@ class HomeController extends Controller
 
     public function adminNotification()
     {
+        $unreadNotifications = AdminNotification::where('read_unread', 0)->get();
+        foreach ($unreadNotifications as $notification) {
+            $notification->read_unread = 1;
+            $notification->save();
+        }
+
         $adminNotification = AdminNotification::latest()->get();
-        return view('admin.notification',compact('adminNotification'));
+        return view('admin.notification', compact('adminNotification'));
     }
 
     public function clearAlladminNotification()

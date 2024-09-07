@@ -2,6 +2,18 @@
 @section('body')
     @php
         $pageTitle = 'আয়-ব্যয় হিসাব';
+        if ($yearMonth) {
+            $dateMonthPrint = \Carbon\Carbon::parse($yearMonth)->format('F, y');
+        } elseif ($startDate) {
+            $dateMonthPrint = null;
+        } else {
+            $dateMonthPrint = \Carbon\Carbon::now()->format('F, y');
+        }
+        if ($dateMonthPrint) {
+            $printTitle = 'সর্বমোট মুনাফা ' .'(' . $dateMonthPrint . ')' . ' : ' . $reports->sum('profit') . ' ৳';
+        }else {
+             $printTitle = '';
+        }
     @endphp
     <div class="col-lg-12 mt-5">
         <div class="card">
@@ -14,8 +26,28 @@
                     <!-- Date Range Search Inputs -->
                     <div class="row justify-content-between">
                         <div class="col-md-6 col-lg-6">
-                            <h3 class="mt-4">সর্বমোট মুনাফা: <span class="text-info"> {{ $reports->sum('profit') }} ৳</span>
+                            <h3 class="mb-1">সর্বমোট মুনাফা (@if ($yearMonth)
+                                    {{ \Carbon\Carbon::parse($yearMonth)->format('F,y') }}
+                                @elseif ($startDate)
+                                    {{ \carbon\Carbon::parse($startDate)->format('d.m.y') }} @if ($endDate)
+                                        - {{ \carbon\Carbon::parse($endDate)->format('d.m.y') }}
+                                    @endif
+                                    @else
+                                    {{\carbon\Carbon::now()->format('F,y')}}
+                                @endif) : <span class="text-info"> {{ $reports->sum('profit') }}
+                                    ৳</span>
                             </h3>
+                            <div class="">
+                                <div class="d-flex justify-content-start my-3 mx-1">
+                                    <label for="month-select" class="col-form-label me-2">
+                                        <h4>Select Month:</h4>
+                                    </label>
+                                    <input type="month" id="month-select"
+                                        value="{{ $yearMonth ?? \carbon\Carbon::now()->format('Y-m') }}"
+                                        style="width: 135px;" class="form-control text-success border border-primary">
+                                </div>
+
+                            </div>
                         </div>
                         <div class="col-md-6 col-lg-6">
                             <div class="d-flex justify-content-end align-items-end">
@@ -38,7 +70,6 @@
                     </div>
                 </div>
             </div>
-
 
 
             <div class="card-body">
@@ -97,13 +128,13 @@
                                                                 <label for="" class="form-label">আয়</label>
                                                                 <input type="number" class="form-control text-success"
                                                                     value="{{ $item->income }}" name="income"
-                                                                    min="0">
+                                                                    step="0.01">
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label for="" class="form-label">ব্যয়</label>
                                                                 <input type="number" class="form-control text-danger"
                                                                     value="{{ $item->expense }}" name="expense"
-                                                                    placeholder="0" min="0" required>
+                                                                    placeholder="0" required step="0.01">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -128,6 +159,8 @@
             $('#printer-table').DataTable({
                 responsive: true,
                 dom: 'Bfrtip',
+                paging: false, 
+                // pageLength: 31, 
                 buttons: [{
                         extend: 'copy',
                         text: 'Copy',
@@ -160,7 +193,7 @@
                         extend: 'print',
                         text: 'Print',
                         // title: '',
-                        messageTop: '<h1 class="text-center">{{ $pageTitle }}</h1>',
+                        messageTop: '<h1 class="text-center">{{ $pageTitle }}</h1><br><h4 class="text-center">{{$printTitle}}</h4>',
                         exportOptions: {
                             columns: ':visible:not(:last-child)' // Exclude the last column (Input)
                         }
@@ -181,6 +214,13 @@
                 window.location.href = "{{ route('admin.report.index') }}" + "?start_date=" + startDate +
                     "&end_date=" + endDate;
 
+            });
+
+            $('#month-select').on('change', function() {
+                var yearMonth = $(this).val();
+                console.log(yearMonth);
+
+                window.location.href = "{{ route('admin.report.index') }}" + "?year_month=" + yearMonth;
             });
 
         });

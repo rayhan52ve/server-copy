@@ -69,8 +69,14 @@
 {{-- image upload end --}}
 
 <!-- This is data table -->
-<script src="{{ asset('/') }}admin/assets/node_modules/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="{{ asset('/') }}admin/assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js"></script>
+<script src="{{asset('/')}}admin/assets/node_modules/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="{{asset('/')}}admin/assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
 <script>
     $(function() {
         $('#myTable').DataTable();
@@ -111,7 +117,54 @@
         });
         // responsive table
         $('#config-table').DataTable({
-            responsive: true
+            responsive: true,
+            // dom: 'Bfrtip',
+            // buttons: [
+            //     'copy', 'csv', 'excel', 'pdf', 'print'
+            // ]
+        });
+        // $('#printer-table').DataTable({
+        //     responsive: true,
+        //     dom: 'Bfrtip',
+        //     buttons: [
+        //         {
+        //             extend: 'copy',
+        //             exportOptions: {
+        //                 columns: ':visible:not(:last-child)' // Exclude the last column (Input)
+        //             }
+        //         },
+        //         {
+        //             extend: 'csv',
+        //             exportOptions: {
+        //                 columns: ':visible:not(:last-child)' // Exclude the last column (Input)
+        //             }
+        //         },
+        //         {
+        //             extend: 'excel',
+        //             exportOptions: {
+        //                 columns: ':visible:not(:last-child)' // Exclude the last column (Input)
+        //             }
+        //         },
+        //         {
+        //             extend: 'pdf',
+        //             exportOptions: {
+        //                 columns: ':visible:not(:last-child)' // Exclude the last column (Input)
+        //             }
+        //         },
+        //         {
+        //             extend: 'print',
+        //             exportOptions: {
+        //                 columns: ':visible:not(:last-child)' // Exclude the last column (Input)
+        //             }
+        //         }
+        //     ]
+        // });
+        $('#config-table1').DataTable({
+            responsive: true,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
         });
         $('#example23').DataTable({
             dom: 'Bfrtip',

@@ -234,14 +234,14 @@
 
         <div id="spouse"
             style="position: absolute; left: 55%; top: 37.5%; width: auto; font-size: 14px; color: rgb(7, 7, 7);">
-            {{ $nid_info['voterArea'] }}</div>
+            {{ $nid_info['voterArea'] ?? null }}</div>
 
         <div style="position: absolute; left: 37%; top: 40.2%; width: auto; font-size: 14px; color: rgb(7, 7, 7);">
             জন্মস্থান</div>
 
         <div id="birth_place"
             style="position: absolute; left: 55%; top: 40.2%; width: auto; font-size: 14px; color: rgb(7, 7, 7);">
-            {{ $nid_info['birthPlace'] }}</div>
+            {{ $nid_info['birthPlace'] ?? null}}</div>
 
         <div style="position: absolute; left: 37%; top: 43%; width: auto; font-size: 16px; color: rgb(7, 7, 7);">
             <b>ব্যক্তিগত তথ্য</b>
@@ -306,7 +306,9 @@
 
         <div id="occupation"
             style="position: absolute; left: 55%; top: 67.5%; width: auto; font-size: 14px; color: rgb(7, 7, 7);">
-            {{ $nid_info['spouse'] }}</div>
+            {{ $nid_info['spouseNameBN'] ?? null }}
+            {{-- {{ $nid_info['spouse'] }} --}}
+        </div>
 
         <div style="position: absolute; left: 37%; top: 70%; width: auto; font-size: 14px; color: rgb(7, 7, 7);">ধর্ম
         </div>
@@ -321,7 +323,7 @@
 
         <div id="present_addr"
             style="position: absolute; left: 37%; top: 75.5%; width: 48%; font-size: 12px; color: rgb(7, 7, 7);">
-            {{ $nid_info['presentAddress'] }}</div>
+            {{ $presentAddress ?? $nid_info['presentAddress'] }}</div>
 
         <div style="position: absolute; left: 37%; top: 82%; width: auto; font-size: 16px; color: rgb(7, 7, 7);">
             <b>স্থায়ী ঠিকানা</b>
@@ -329,7 +331,7 @@
 
         <div id="permanent_addr"
             style="position: absolute; left: 37%; top: 84.5%; width: 48%; font-size: 12px; color: rgb(7, 7, 7);">
-            {{ $nid_info['permanentAddress'] }}</div>
+            {{ $permanentAddress ?? $nid_info['permanentAddress'] }}</div>
 
         <div style="position: absolute;top: 92%;width: 100%;font-size: 12px;text-align: center;color: rgb(255, 0, 0);">
             উপরে প্রদর্শিত তথ্যসমূহ জাতীয় পরিচয়পত্র সংশ্লিষ্ট, ভোটার তালিকার সাথে সরাসরি সম্পর্কযুক্ত নয়।</div>
@@ -338,15 +340,15 @@
             This is Software Generated Report From Bangladesh Election Commission, Signature &amp; Seal Aren't Required.
         </div>
 
-        <div style="position: absolute; left: 16%; top: 25.7%; width: auto; font-size: 12px; color: rgb(3, 3, 3);"><img
+        {{-- <div style="position: absolute; left: 16%; top: 25.7%; width: auto; font-size: 12px; color: rgb(3, 3, 3);"><img
                 id="photo" src="data:image/jpeg;base64,{{ @$nid_info['photoBase64'] }}" height="140px" width="121px"
                 style="border-radius: 10px" />
-        </div>
-{{-- 
+        </div> --}}
+
         <div style="position: absolute; left: 16%; top: 25.7%; width: auto; font-size: 12px; color: rgb(3, 3, 3);"><img
                 id="photo" src="{{ $nid_info['photo'] }}" height="140px" width="121px"
                 style="border-radius: 10px" />
-        </div> --}}
+        </div>
 
         <div style="position: absolute;  left: 17.5%; top: 42%; width: auto; font-size: 12px; color: rgb(3, 3, 3);">
 

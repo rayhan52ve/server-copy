@@ -1,6 +1,6 @@
 @php
     $moderatorAccess = \App\Models\ModeratorAccess::where('user_id', auth()->user()->id)->first();
-    $notification = \App\Models\AdminNotification::count();
+    $notification = \App\Models\AdminNotification::where('read_unread', 0)->count();
 @endphp
 <style>
     .scroll-sidebar {
@@ -39,8 +39,10 @@
                     <a class="waves-effect waves-dark" href="{{ route('admin.adminNotification') }}"
                         aria-expanded="false" style="position: relative;">
                         <i class="fa-solid fa-bell"></i>
-                        <span class="hide-menu">নোটিফিকেশান <sup
-                                class="notification-number">{{ $notification }}</sup></span>
+                        <span class="hide-menu">নোটিফিকেশান@if ($notification >= 1)
+                                <sup class="notification-number">{{ $notification }}</sup>
+                            @endif
+                        </span>
 
                     </a>
                 </li>
@@ -155,19 +157,23 @@
                         </ul>
                     </li>
                 @endif
-
-                {{-- <li> <a class="waves-effect waves-dark" href="#"
-                    aria-expanded="false"><i class="fa-solid fa-file-shield"></i><span class="hide-menu">সুরক্ষা ক্লোন</span></a>
-            </li> --}}
                 @if (auth()->user()->is_admin == 1)
+                    <li> <a class="waves-effect waves-dark" href="{{ route('user.nid-make.index') }}"
+                            aria-expanded="false"><i class="fa-regular fa-id-card"></i><span class="hide-menu">এনআইডি
+                                মেক</span></a>
+                    </li>
+
+                    <li> <a class="waves-effect waves-dark" href="{{ route('nid.server.copy') }}"
+                            aria-expanded="false"><i class="fa-solid fa-file-contract"></i><span
+                                class="hide-menu">সার্ভার কপি (Unofficial)</span></a>
+                    </li>
                     <li> <a class="waves-effect waves-dark" href="{{ route('admin.fileList') }}"
                             aria-expanded="false"><i class="fa-solid fa-list-check"></i><span class="hide-menu">ফাইল
                                 লিস্ট</span></a>
                     </li>
-                @endif
-                @if (auth()->user()->is_admin == 1)
                     <li> <a class="waves-effect waves-dark" href="{{ route('admin.report.index') }}"
-                            aria-expanded="false"><i class="fa-solid fa-sack-dollar"></i><span class="hide-menu">আয়-ব্যয়</span></a>
+                            aria-expanded="false"><i class="fa-solid fa-sack-dollar"></i><span
+                                class="hide-menu">আয়-ব্যয়</span></a>
                     </li>
                 @endif
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->video == 1)

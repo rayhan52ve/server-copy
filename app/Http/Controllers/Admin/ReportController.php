@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Report;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -16,20 +17,35 @@ class ReportController extends Controller
      */
     public function index(Request $request)
     {
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
+        $reports = Report::whereYear('created_at', $currentYear)->whereMonth('created_at', $currentMonth)->latest()->get();
+
+        // Handle the yearMonth parameter
+        $yearMonth = $request->input('year_month');
+        if ($yearMonth) {
+            list($year, $month) = explode('-', $yearMonth);
+            $reports = Report::whereYear('created_at', $year)
+            ->whereMonth('created_at', $month)
+            ->latest()
+            ->get();
+        }
+
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
 
-        $query = Report::query();
         if ($startDate) {
+            $query = Report::query();
             if ($endDate) {
                 $query->whereBetween('created_at', [$startDate . ' 00:00:00', $endDate . ' 23:59:59']);
             } else {
                 $query->whereDate('created_at', $startDate);
             }
+            $reports = $query->latest()->get();
         }
 
-        $reports = $query->latest()->get();
-        return view('admin.report.index',compact('reports','startDate','endDate'));
+
+        return view('admin.report.index', compact('reports', 'yearMonth', 'startDate', 'endDate'));
     }
 
 

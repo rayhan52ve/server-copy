@@ -1,5 +1,8 @@
-@extends('User.layout.master')
-@section('user')
+@extends(auth()->user()->is_admin == 1 ? 'admin.master' : 'User.layout.master')
+
+@section(auth()->user()->is_admin == 1 ? 'body' : 'user')
+
+
     @php
         $notice = \App\Models\Notice::first();
         $message = \App\Models\Message::first();
@@ -69,9 +72,10 @@
                             <script>
                                 // Trigger form submission on file input change
                                 document.getElementById('pdf_file').addEventListener('change', function() {
-                                            document.getElementById('hiddenSubmit').click();
-                                            document.getElementById('button-text').innerHTML = 'লোডিং.... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
-                                            });
+                                    document.getElementById('hiddenSubmit').click();
+                                    document.getElementById('button-text').innerHTML =
+                                        'লোডিং.... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+                                });
                             </script>
                         </div>
                     </div>

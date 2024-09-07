@@ -1,5 +1,7 @@
 @php
-    $notification = \App\Models\UserNotification::where('user_id', auth()->user()->id ?? null)->count();
+    $notification = \App\Models\UserNotification::where('user_id', auth()->user()->id)
+        ->where('read_unread', 0)
+        ->count();
 @endphp
 <header class="topbar">
     <nav class="navbar top-navbar navbar-expand-md navbar-dark">
@@ -34,7 +36,8 @@
                         class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark"
                         href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
                 {{-- <li class="nav-item"> <a class="nav-link" href="{{route('front.page')}}">Frontend</a> </li> --}}
-                <li class="nav-item"> <a class="nav-link" href="#">Balance: {{ Auth::user()->balance ?? null }} ৳</a>
+                <li class="nav-item"> <a class="nav-link" href="#">Balance: {{ Auth::user()->balance ?? null }}
+                        ৳</a>
                 </li>
 
             </ul>
@@ -44,10 +47,13 @@
             <ul class="navbar-nav my-lg-0">
                 <!-- ============================================================== -->
                 <li class="nav-item dropdown u-pro">
-                    <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="{{route('user.userNotification')}}">
+                    <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
+                        href="{{ route('user.userNotification') }}">
                         <span class="hidden-md-down">
                             <i class="fa-solid fa-bell fa-xl" style="color: #FFD43B; position: relative;">
-                                <sup class="notification-count">{{$notification}}</sup> <!-- Add this line -->
+                                @if ($notification >= 1)
+                                    <sup class="notification-count">{{ $notification }}</sup>
+                                @endif
                             </i>
                         </span>
                     </a>

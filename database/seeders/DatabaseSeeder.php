@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Report;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,5 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // User::factory(10)->create();
+        Report::factory(10)->create();
+
     }
 }

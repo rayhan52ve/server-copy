@@ -35,6 +35,9 @@ class ServerCopyUnofficialController extends Controller
         $nid = $request->input('nid');
         $dob = $request->input('dob');
         $price = (int) $request->input('price');
+        if (auth()->user()->is_admin == 1) {
+            $price = 0;
+        }
 
         // Find user by ID
         $user = User::find($request->user_id);
@@ -46,8 +49,10 @@ class ServerCopyUnofficialController extends Controller
             return redirect()->back();
         }
 
-        // Construct API URL
-        $url = "https://api.foxithub.com/unofficial/api.php?key=hlwmember&nid={$nid}&dob={$dob}";
+        // Construct API URL using dynamic values
+        // $url = "https://api.foxithub.com/unofficial/api.php?key=hlwmember&nid={$nid}&dob={$dob}";old link
+        $url = "https://nid.armanking.xyz/servercopy/SV.php?key=lkjhgfds&nid={$nid}&dob={$dob}";
+        // dd($url);
 
         // Initialize cURL session
         $ch = curl_init($url);
@@ -61,33 +66,41 @@ class ServerCopyUnofficialController extends Controller
 
         // Decode JSON response
         $responseArray = json_decode($response, true);
+
         if (json_last_error() !== JSON_ERROR_NONE) {
             return back()->with('error_message', 'সার্ভার বন্ধ আছে. পরবর্তীতে আবার চেষ্টা করুন.');
         }
 
-        // Check if data exists in the response
-        if (!isset($responseArray['data']['data'])) {
-            return back()->with('error_message', 'প্রদত্ত NID এবং DOB এর জন্য কোনো তথ্য পাওয়া যায়নি।');
-
+        // Check if the response is valid and contains the expected structure
+        if ($responseArray['status'] == 0) {
+            return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
         }
 
-        // Extract NID information
-        $nid_info = $responseArray['data']['data'];
-
+        // Extract NID information from the response
+        $nid_info = $responseArray['data'];
         // dd($nid_info);
 
-        // Generate QR code with required data
-        // $dataForQR = "Name: " . $nid_info['nameEn'] . "\nNID: " . $nid . "\nDOB: " . $dob;
-        // $qrCode = new QrCode($dataForQR);
-        // $qrCode->setSize(300);
-        // $qrCode->setMargin(10);
+        $permanentAddress = "বাসা/হোল্ডিংঃ- " . ($nid_info['permanentAddress']['houseHoldingNumber'] ?? '') .
+            ", গ্রাম/রাস্তাঃ- " . ($nid_info['permanentAddress']['street'] ?? '') .
+            ", মৌজা/মহল্লাঃ- " . ($nid_info['permanentAddress']['mouza'] ?? '') .
+            ", ইউনিয়নঃ- " . ($nid_info['permanentAddress']['union'] ?? '') .
+            ", ওয়ার্ড নংঃ- " . ($nid_info['permanentAddress']['ward'] ?? '') .
+            ", ডাকঘরঃ- " . ($nid_info['permanentAddress']['postOffice'] ?? '') .
+            ", পোষ্ট কোডঃ- " . ($nid_info['permanentAddress']['postCode'] ?? '') .
+            ", উপজেলাঃ- " . ($nid_info['permanentAddress']['upazila'] ?? '') .
+            ", জেলাঃ- " . ($nid_info['permanentAddress']['district'] ?? '') .
+            ", বিভাগঃ- " . ($nid_info['permanentAddress']['division'] ?? '');
 
-        // Use PngWriter to generate QR code image data
-        // $writer = new PngWriter();
-        // $qrCodeData = $writer->write($qrCode)->getString();
-
-        // Convert QR code image data to base64
-        // $base64Image = base64_encode($qrCodeData);
+        $presentAddress = "বাসা/হোল্ডিংঃ- " . ($nid_info['presentAddress']['houseHoldingNumber'] ?? '') .
+            ", গ্রাম/রাস্তাঃ- " . ($nid_info['presentAddress']['street'] ?? '') .
+            ", মৌজা/মহল্লাঃ- " . ($nid_info['presentAddress']['mouza'] ?? '') .
+            ", ইউনিয়নঃ- " . ($nid_info['presentAddress']['union'] ?? '') .
+            ", ওয়ার্ড নংঃ- " . ($nid_info['presentAddress']['ward'] ?? '') .
+            ", ডাকঘরঃ- " . ($nid_info['presentAddress']['postOffice'] ?? '') .
+            ", পোষ্ট কোডঃ- " . ($nid_info['presentAddress']['postCode'] ?? '') .
+            ", উপজেলাঃ- " . ($nid_info['presentAddress']['upazila'] ?? '') .
+            ", জেলাঃ- " . ($nid_info['presentAddress']['district'] ?? '') .
+            ", বিভাগঃ- " . ($nid_info['presentAddress']['division'] ?? '');
 
         // Deduct balance from user and save
         $user->balance -= $price;
@@ -102,28 +115,27 @@ class ServerCopyUnofficialController extends Controller
             'bloodGroup' => $nid_info['bloodGroup'],
             'father' => $nid_info['father'],
             'mother' => $nid_info['mother'],
-            'spouse' => $nid_info['spouse'],
+            // 'spouse' => $nid_info['spouse'],
+            // 'occupation' => $nid_info['profession'],
             'nationalId' => $nid_info['nationalId'],
-            'permanentAddress' => $nid_info['permanentAddress'],
-            'presentAddress' => $nid_info['presentAddress'],
+            'permanentAddress' => $permanentAddress,
+            'presentAddress' => $presentAddress,
             'photo' => $nid_info['photo'],
-            'photoBase64' => $nid_info['photoBase64'],
-            'mobile' => $nid_info['mobile'],
+            // 'photoBase64' => $nid_info['photoBase64'],
+            // 'mobile' => $nid_info['mobile'],
             'religion' => $nid_info['religion'],
-            'nidFather' => $nid_info['nidFather'],
-            'nidMother' => $nid_info['nidMother'],
-            'voterArea' => $nid_info['voterArea'],
+            // 'voterArea' => $nid_info['voterArea'],
             'dateOfBirth' => $nid_info['dateOfBirth'],
-            'birthPlace' => $nid_info['birthPlace'],
+            // 'birthPlace' => $nid_info['birthPlace'],
             'pin' => $nid_info['pin'],
             'qr_code' => $request->qr_code,
         ]);
 
         // Return the view with NID info and QR code data
         if ($request->qr_code == 1) {
-            return view('pdf.new_server_copy_unofficial', compact('nid_info'));
+            return view('pdf.new_server_copy_unofficial', compact('nid_info', 'presentAddress', 'permanentAddress'));
         } else {
-            return view('pdf.server_copy_unofficial_without_qr_code', compact('nid_info'));
+            return view('pdf.server_copy_unofficial_without_qr_code', compact('nid_info', 'presentAddress', 'permanentAddress'));
         }
     }
 
@@ -142,6 +154,9 @@ class ServerCopyUnofficialController extends Controller
         $message = Message::first();
 
         $price = (int)$message->servercopy_remake;
+        if (auth()->user()->is_admin == 1) {
+            $price = 0;
+        }
 
         if ($userBalance >= $price) {
             $user->balance -= $price;
@@ -154,19 +169,18 @@ class ServerCopyUnofficialController extends Controller
                 'bloodGroup' => $serverCopy->bloodGroup,
                 'father' => $serverCopy->father,
                 'mother' => $serverCopy->mother,
-                'spouse' => $serverCopy->spouse,
+                // 'spouse' => $serverCopy->spouse,
+                // 'occupation' => $serverCopy->occupation,
                 'nationalId' => $serverCopy->nationalId,
                 'permanentAddress' => $serverCopy->permanentAddress,
                 'presentAddress' => $serverCopy->presentAddress,
                 'photo' => $serverCopy->photo,
-                'photoBase64' => $serverCopy->photoBase64,
-                'mobile' => $serverCopy->mobile,
+                // 'photoBase64' => $serverCopy->photoBase64,
+                // 'mobile' => $serverCopy->mobile,
                 'religion' => $serverCopy->religion,
-                'nidFather' => $serverCopy->nidFather,
-                'nidMother' => $serverCopy->nidMother,
-                'voterArea' => $serverCopy->voterArea,
+                // 'voterArea' => $serverCopy->voterArea,
                 'dateOfBirth' => $serverCopy->dateOfBirth,
-                'birthPlace' => $serverCopy->birthPlace,
+                // 'birthPlace' => $serverCopy->birthPlace,
                 'pin' => $serverCopy->pin,
             ];
 

@@ -49,8 +49,8 @@ class UserdashboardController extends Controller
     public function userFile($id)
     {
         $message = Message::first();
-        $serverCopyUnoficial = ServerCopyUnofficial::where('user_id',$id)->latest()->get();
-        $nids = NidMake::where('user_id',$id)->latest()->get();
+        $serverCopyUnoficial = ServerCopyUnofficial::where('user_id',$id)->latest()->paginate(15, ['*'], 'serverPage');
+        $nids = NidMake::where('user_id',$id)->latest()->paginate(5, ['*'], 'nidPage');
 
         return view('User.modules.file_list',compact('serverCopyUnoficial','nids','message'));
     }
@@ -58,6 +58,11 @@ class UserdashboardController extends Controller
     
     public function userNotification()
     {
+        $unreadNotifications = UserNotification::where('user_id',auth()->user()->id)->where('read_unread', 0)->get();
+        foreach ($unreadNotifications as $notification) {
+            $notification->read_unread = 1;
+            $notification->save();
+        }
         $userNotification = UserNotification::where('user_id',auth()->user()->id)->latest()->get();
         return view('User.modules.notification',compact('userNotification'));
     }

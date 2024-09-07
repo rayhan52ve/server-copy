@@ -45,8 +45,8 @@ class NidMakeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nid_image' => 'required', 
-            'sign_image' => 'required', 
+            'nid_image' => 'required',
+            'sign_image' => 'required',
             'name_bn' => 'required',
             'name_en' => 'required',
             'nid_number' => 'required',
@@ -65,6 +65,9 @@ class NidMakeController extends Controller
         $userBalance = $user->balance;
 
         $price = (int)$request->price;
+        if (auth()->user()->is_admin == 1) {
+            $price = 0;
+        }
 
         if ($userBalance >= $price) {
             $user->balance -= $price;
@@ -88,6 +91,9 @@ class NidMakeController extends Controller
         $message = Message::first();
 
         $price = (int)$message->nid_remake;
+        if (auth()->user()->is_admin == 1) {
+            $price = 0;
+        }
 
         if ($userBalance >= $price) {
             $user->balance -= $price;
