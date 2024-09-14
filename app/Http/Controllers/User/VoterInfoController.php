@@ -1,29 +1,79 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use App\Models\Message;
+use App\Http\Controllers\Controller;
 use App\Models\ServerCopyUnofficial;
 use App\Models\User;
+use App\Models\VoterInfo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Endroid\QrCode\QrCode;
-use Endroid\QrCode\Writer\PngWriter;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class ServerCopyUnofficialController extends Controller
+class VoterInfoController extends Controller
 {
-    // NID server copy search page start
-    public function tech_web_nid_server_copy()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
         $now = Carbon::now();
-        return view('User.modules.server_copy_unofficial.index', compact('now'));
+        return view('User.modules.voter_info.index', compact('now'));
     }
-    // NID server copy search page end
 
-    // Print NID server copy start
-    public function tech_web_print_nid_server_copy(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    // public function store(Request $request)
+    // {
+    //     // Increase the maximum execution time for this request (in seconds)
+    //     set_time_limit(300); // 300 seconds = 5 minutes
+
+    //     // Validate the request input
+    //     $request->validate([
+    //         'nid' => 'required',
+    //         'dob' => 'required|date',
+    //     ]);
+
+    //     // Capture input data
+    //     $nid = $request->input('nid');
+    //     $dob = $request->input('dob');
+
+    //     return view('pdf.voter_info',compact('nid','dob'));
+
+    //     // Fetch data from the external API
+    //     $url = "http://103.191.240.89/~biometri/verify/nid.php?nid=$nid&dob=$dob";
+    //     $url = "http://103.191.240.89/~biometri/verify/nid.php?nid=7811013619&dob=2001-08-03";
+
+    //     $response = file_get_contents($url);
+    //     $data = json_decode($response, true);
+    //     dd($data);
+
+    //     // Check if the data is valid and return the view with data
+    //     if (isset($data['message']) && $data['message'] === 'OK' && isset($data['name'])) {
+    //         return view('nid-info', ['data' => $data]);
+    //     }
+
+    //     // Return with error message if no data found
+    //     return view('nid-info')->with('error', 'No information found for the provided NID and DOB.');
+    // }
+
+    public function store(Request $request)
     {
         // Validate incoming request data
         $request->validate([
@@ -51,7 +101,7 @@ class ServerCopyUnofficialController extends Controller
 
         // Construct API URL using dynamic values
         // $url = "https://api.foxithub.com/unofficial/api.php?key=hlwmember&nid={$nid}&dob={$dob}";old link
-        $url = "https://publicx.top/servercopy/SV.php?key=lkjhgfds&nid={$nid}&dob={$dob}";
+        $url = "https://rsbdxfire.my.id/svvv.php?nid={$nid}&dob={$dob}";
         // dd($url);
 
         // Initialize cURL session
@@ -66,19 +116,26 @@ class ServerCopyUnofficialController extends Controller
 
         // Decode JSON response
         $responseArray = json_decode($response, true);
+        // dd($responseArray);
+
 
         if (json_last_error() !== JSON_ERROR_NONE) {
             return back()->with('error_message', 'সার্ভার বন্ধ আছে. পরবর্তীতে আবার চেষ্টা করুন.');
         }
 
-        // Check if the response is valid and contains the expected structure
-        if ($responseArray['status'] == 0) {
-            return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
+        // Check if the response indicates failure
+        if (isset($responseArray['Success'])) {
+            if ($responseArray['Success'] === "False" || $responseArray['Message'] === "Data not found") {
+                return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
+            }
         }
 
         // Extract NID information from the response
         $nid_info = $responseArray['data'];
-        // dd($nid_info);
+        // dd($responseArray,$nid_info);
+        if ($nid_info['name'] == null) {
+            return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
+        }
 
         $permanentAddress = "বাসা/হোল্ডিংঃ- " . ($nid_info['permanentAddress']['houseHoldingNumber'] ?? '') .
             ", গ্রাম/রাস্তাঃ- " . ($nid_info['permanentAddress']['street'] ?? '') .
@@ -115,7 +172,7 @@ class ServerCopyUnofficialController extends Controller
             'bloodGroup' => $nid_info['bloodGroup'],
             'father' => $nid_info['father'],
             'mother' => $nid_info['mother'],
-            // 'spouse' => $nid_info['spouse'],
+            'spouse' => $nid_info['spouse'],
             // 'occupation' => $nid_info['profession'],
             'nationalId' => $nid_info['nationalId'],
             'permanentAddress' => $permanentAddress,
@@ -128,75 +185,56 @@ class ServerCopyUnofficialController extends Controller
             'dateOfBirth' => $nid_info['dateOfBirth'],
             // 'birthPlace' => $nid_info['birthPlace'],
             'pin' => $nid_info['pin'],
-            'qr_code' => $request->qr_code,
+            'qr_code' => 1,
         ]);
 
         // Return the view with NID info and QR code data
-        if ($request->qr_code == 1) {
-            return view('pdf.new_server_copy_unofficial', compact('nid_info', 'presentAddress', 'permanentAddress'));
-        } else {
-            return view('pdf.server_copy_unofficial_without_qr_code', compact('nid_info', 'presentAddress', 'permanentAddress'));
-        }
+        return view('pdf.new_server_copy_unofficial', compact('nid_info', 'presentAddress', 'permanentAddress'));
     }
 
-    public function print_saved_server_copy($id)
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\VoterInfo  $voterInfo
+     * @return \Illuminate\Http\Response
+     */
+    public function show(VoterInfo $voterInfo)
     {
-        // Find the saved server copy by ID
-        $serverCopy = ServerCopyUnofficial::find($id);
-
-        if (!$serverCopy) {
-            return back()->with('error_message', 'No data found for the given ID.');
-        }
-
-        $user = User::find($serverCopy->user_id);
-        $userBalance = $user->balance;
-
-        $message = Message::first();
-
-        $price = (int)$message->servercopy_remake;
-        if (auth()->user()->is_admin == 1) {
-            $price = 0;
-        }
-
-        if ($userBalance >= $price) {
-            $user->balance -= $price;
-            $user->save();
-            // Construct the nid_info array
-            $nid_info = [
-                'name' => $serverCopy->name,
-                'nameEn' => $serverCopy->nameEn,
-                'gender' => $serverCopy->gender,
-                'bloodGroup' => $serverCopy->bloodGroup,
-                'father' => $serverCopy->father,
-                'mother' => $serverCopy->mother,
-                'spouse' => $serverCopy->spouse,
-                // 'occupation' => $serverCopy->occupation,
-                'nationalId' => $serverCopy->nationalId,
-                'permanentAddress' => $serverCopy->permanentAddress,
-                'presentAddress' => $serverCopy->presentAddress,
-                'photo' => $serverCopy->photo,
-                // 'photoBase64' => $serverCopy->photoBase64,
-                // 'mobile' => $serverCopy->mobile,
-                'religion' => $serverCopy->religion,
-                // 'voterArea' => $serverCopy->voterArea,
-                'dateOfBirth' => $serverCopy->dateOfBirth,
-                // 'birthPlace' => $serverCopy->birthPlace,
-                'pin' => $serverCopy->pin,
-            ];
-
-
-            // Return the view with NID info
-            if ($serverCopy->qr_code == 1) {
-                return view('pdf.new_server_copy_unofficial', compact('nid_info'));
-            } else {
-                return view('pdf.server_copy_unofficial_without_qr_code', compact('nid_info'));
-            }
-        } else {
-            Alert::toast("অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
-            return redirect()->back();
-        }
+        //
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\VoterInfo  $voterInfo
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(VoterInfo $voterInfo)
+    {
+        //
+    }
 
-    // Print NID server copy end
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\VoterInfo  $voterInfo
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, VoterInfo $voterInfo)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\VoterInfo  $voterInfo
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(VoterInfo $voterInfo)
+    {
+        //
+    }
 }

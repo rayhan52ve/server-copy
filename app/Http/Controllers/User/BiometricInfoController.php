@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Events\OrderNotification;
 use App\Http\Controllers\Controller;
+use App\Events\OrderNotification;
 use App\Models\AdminNotification;
 use App\Models\Message;
 use App\Models\Notice;

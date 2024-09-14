@@ -32,6 +32,7 @@ use App\Http\Controllers\User\ServerCopyOrderController;
 use App\Http\Controllers\User\SignCopyOrderController;
 use App\Http\Controllers\User\SignToServerCopyController;
 use App\Http\Controllers\User\UserdashboardController;
+use App\Http\Controllers\User\VoterInfoController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WebsiteSettingsController;
 
@@ -97,6 +98,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user'])->group(fun
     Route::resource('nid-make', NidMakeController::class)->only('index', 'store');
     Route::post('nid-make-with-signcopy', [NidMakeController::class,'signCopyUpload'])->name('signCopyNidApi');
     Route::resource('new-registration', NewRegistrationController::class)->only('index', 'store');
+    Route::resource('voter-info', VoterInfoController::class)->only('index', 'store');
 
     Route::resource('recharge', RechargeController::class);
 

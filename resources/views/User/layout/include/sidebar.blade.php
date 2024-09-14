@@ -105,7 +105,16 @@
                 @if ($hideUnhide->server_unofficial == 1)
                     <li> <a class="waves-effect waves-dark" href="{{ route('nid.server.copy') }}"
                             aria-expanded="false"><i class="fa-solid fa-file-contract"></i><span
-                                class="hide-menu">সার্ভার কপি (Unofficial)</span></a>
+                                class="hide-menu">সার্ভার কপি (Unofficial-1)</span></a>
+                    </li>
+                @endif
+                @if ($hideUnhide->voter_info == 1)
+                    <li> <a class="waves-effect waves-dark" href="{{ route('user.voter-info.index') }}"
+                            aria-expanded="false"><i class="fa-solid fa-id-card"></i><span
+                                class="hide-menu">
+                                {{-- ভোটার ইনফো --}}
+                                সার্ভার কপি (Unofficial-2)
+                            </span></a>
                     </li>
                 @endif
                 @if ($hideUnhide->sign_to_server == 1)

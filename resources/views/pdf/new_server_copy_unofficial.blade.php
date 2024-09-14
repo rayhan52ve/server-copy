@@ -306,8 +306,8 @@
 
         <div id="occupation"
             style="position: absolute; left: 55%; top: 67.5%; width: auto; font-size: 14px; color: rgb(7, 7, 7);">
-            {{ $nid_info['spouseNameBN'] ?? null }}
-            {{-- {{ $nid_info['spouse'] }} --}}
+            {{-- {{ $nid_info['spouseNameBN'] ?? null }} --}}
+            {{ $nid_info['spouse'] }}
         </div>
 
         <div style="position: absolute; left: 37%; top: 70%; width: auto; font-size: 14px; color: rgb(7, 7, 7);">ধর্ম

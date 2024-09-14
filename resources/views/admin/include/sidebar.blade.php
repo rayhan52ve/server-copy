@@ -167,6 +167,10 @@
                             aria-expanded="false"><i class="fa-solid fa-file-contract"></i><span
                                 class="hide-menu">সার্ভার কপি (Unofficial)</span></a>
                     </li>
+                    <li> <a class="waves-effect waves-dark" href="{{ route('user.voter-info.index') }}"
+                            aria-expanded="false"><i class="fa-solid fa-id-card"></i><span
+                                class="hide-menu">ভোটার ইনফো</span></a>
+                    </li>
                     <li> <a class="waves-effect waves-dark" href="{{ route('admin.fileList') }}"
                             aria-expanded="false"><i class="fa-solid fa-list-check"></i><span class="hide-menu">ফাইল
                                 লিস্ট</span></a>

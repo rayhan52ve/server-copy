@@ -216,7 +216,7 @@
                                 <div class="form-group">
                                     <label> জন্ম তারিখ</label>
                                     <input type="date" class="form-control datepicker" name="birthday"
-                                        value="{{ $birthday ?? \Carbon\Carbon::now()->format('Y-m-d') }}" required>
+                                    value="{{ isset($birthday) ? \Carbon\Carbon::parse($birthday)->format('Y-m-d') : \Carbon\Carbon::now()->format('Y-m-d') }}" required>
                                 </div>
                             </div>
 

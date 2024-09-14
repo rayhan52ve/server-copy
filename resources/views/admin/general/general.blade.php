@@ -147,6 +147,20 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">
+                                                        ভোটার ইনফো
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$hideUnhide->voter_info == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="voter_info"
+                                                                value="0">
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="voter_info" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$hideUnhide->voter_info == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group py-2">
                                                         সাইন টু সার্ভার কপি
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
@@ -333,6 +347,19 @@
                                                                 value="1" name="server_unofficial" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$submitStatus->server_unofficial == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group py-2">
+                                                        ভোটার ইনফো
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$submitStatus->voter_info == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="voter_info"
+                                                                value="0">
+                                                            <input class="form-check-input" onclick="submitForm()"
+                                                                value="1" name="voter_info" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$submitStatus->voter_info == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">

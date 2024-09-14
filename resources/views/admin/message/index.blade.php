@@ -252,6 +252,41 @@
                     <div class="form-group py-2">
                         <div class="row">
                             <div class="col-md-8">
+                                <label>Voter Info</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->voter_info ?? null }}" name="voter_info"
+                                    placeholder="Voter Info">
+                            </div>
+                            <div class="col-md-4">
+                                <label>Voter Info Price</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->voter_info_price ?? null }}" name="voter_info_price"
+                                    placeholder="0">
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-md-8">
+                                <label>Voter Info (Premium)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->voter_info_premium ?? null }}" name="voter_info_premium"
+                                    placeholder="Voter Info">
+                            </div>
+                            <div class="col-md-4">
+                                <label>Voter Info Price (Premium)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->voter_info_premium_price ?? null }}" name="voter_info_premium_price"
+                                    placeholder="0">
+                                {{-- <label>Voter Info Price (Remake)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->voter_info_remake_price ?? null }}" name="	voter_info_remake_price"
+                                    placeholder="0"> --}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group py-2">
+                        <div class="row">
+                            <div class="col-md-8">
                                 <label>Sign To Server Copy</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->sign_to_server ?? null }}" name="sign_to_server"

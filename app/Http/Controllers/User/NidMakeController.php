@@ -177,7 +177,7 @@ class NidMakeController extends Controller
                     'name_bn' => $data['nameBen'] ?? null,
                     'name_en' => $data['nameEng'] ?? null,
                     'pin' => $data['pin'] ?? null,
-                    'birthday' => $data['sign_birth'] ?? null,
+                    'birthday' => $data['birth'] ?? null,
                     'birth' => $data['birth'] ?? null,
                     'birth_place' => $data['birth_place'] ?? null,
                     'fathers_name' => $data['father'] ?? null,

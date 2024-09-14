@@ -57,6 +57,11 @@
                             name="server_unofficial" placeholder="">
                     </div>
                     <div class="form-group py-2">
+                        <label>ভোটার ইনফো </label>
+                        <input type="text" class="form-control" rows="5" value="{{ $notice->voter_info ?? null }}"
+                            name="voter_info" placeholder="">
+                    </div>
+                    <div class="form-group py-2">
                         <label>সাইন টু সার্ভার কপি </label>
                         <input type="text" class="form-control" rows="5" value="{{ $notice->sign_to_server ?? null }}"
                             name="sign_to_server" placeholder="">
