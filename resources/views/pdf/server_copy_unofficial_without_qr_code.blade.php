@@ -200,11 +200,11 @@
         <p class="dob inRight">{{ $nid_info['dateOfBirth'] }}</p>
         <p class="fName inRight">{{ $nid_info['father'] }}</p>
         <p class="mName inRight">{{ $nid_info['mother'] }}</p>
-        <p class="husWif inRight">{{ $nid_info['spouseNameBN'] ?? null }}</p>
-        {{-- <p class="husWif inRight">{{ $nid_info['spouse'] }}</p> --}}
-        <p class="gender inRight">{{ $nid_info['gender'] }}</p>
-        <p class="relagion inRight">{{ $nid_info['religion'] }}</p>
-        <p class="phone inRight">{{ $nid_info['bloodGroup'] }}</p>
+        {{-- <p class="husWif inRight">{{ $nid_info['spouseNameBN'] ?? null }}</p> --}}
+        <p class="husWif inRight">{{ $nid_info['spouse'] ?? null }}</p>
+        <p class="gender inRight">{{ $nid_info['gender'] ?? null }}</p>
+        <p class="relagion inRight">{{ $nid_info['religion'] ?? null }}</p>
+        <p class="phone inRight">{{ $nid_info['bloodGroup'] ?? null }}</p>
         <p class="birthPlace inRight">{{ $nid_info['birthPlace'] ?? null}}</p>
         <p class="address presentAddr">{{ $presentAddress ?? $nid_info['presentAddress'] }}</p>
         <p class="address permanentAddr">{{ $permanentAddress ?? $nid_info['permanentAddress'] }}</p>

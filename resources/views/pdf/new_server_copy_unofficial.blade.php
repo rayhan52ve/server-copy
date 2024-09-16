@@ -292,14 +292,14 @@
 
         <div id="gender"
             style="position: absolute; left: 55%; top: 62.2%; width: auto; font-size: 14px; color: rgb(7, 7, 7);">
-            {{ $nid_info['gender'] }}</div>
+            {{ $nid_info['gender'] ?? null }}</div>
 
         <div style="position: absolute; left: 37%; top: 64.8%; width: auto; font-size: 14px; color: rgb(7, 7, 7);">
             রক্তের গ্রুপ</div>
 
         <div id="mobile_no"
             style="position: absolute; left: 55%; top: 64.8%; width: auto; font-size: 14px; color: rgb(255, 0, 0);">
-            {{ $nid_info['bloodGroup'] }}</div>
+            {{ $nid_info['bloodGroup'] ?? null }}</div>
 
         <div style="position: absolute; left: 37%; top: 67.5%; width: auto; font-size: 14px; color: rgb(7, 7, 7);">
             স্বামী/স্ত্রীর নাম</div>
@@ -307,7 +307,7 @@
         <div id="occupation"
             style="position: absolute; left: 55%; top: 67.5%; width: auto; font-size: 14px; color: rgb(7, 7, 7);">
             {{-- {{ $nid_info['spouseNameBN'] ?? null }} --}}
-            {{ $nid_info['spouse'] }}
+            {{ $nid_info['spouse'] ?? null }}
         </div>
 
         <div style="position: absolute; left: 37%; top: 70%; width: auto; font-size: 14px; color: rgb(7, 7, 7);">ধর্ম
@@ -315,7 +315,7 @@
 
         <div id="religion"
             style="position: absolute; left: 55%; top: 70%; width: auto; font-size: 14px; color: rgb(7, 7, 7);">
-            {{ $nid_info['religion'] }}</div>
+            {{ $nid_info['religion'] ?? null }}</div>
 
         <div style="position: absolute; left: 37%; top: 73%; width: auto; font-size: 16px; color: rgb(7, 7, 7);">
             <b>বর্তমান ঠিকানা</b>

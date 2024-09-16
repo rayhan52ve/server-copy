@@ -110,6 +110,7 @@ class VoterInfoController extends Controller
 
         // Execute cURL request and get the response
         $response = curl_exec($ch);
+        // dd($response);
         if ($response === false) {
             return back()->with('error_message', 'অনুগ্রহ করে আবার চেষ্টা করুন.' . curl_error($ch));
         }
@@ -168,22 +169,22 @@ class VoterInfoController extends Controller
             'user_id' => $request->user_id,
             'name' => $nid_info['name'],
             'nameEn' => $nid_info['nameEn'],
-            'gender' => $nid_info['gender'],
-            'bloodGroup' => $nid_info['bloodGroup'],
+            'gender' => $nid_info['gender'] ?? null,
+            'bloodGroup' => $nid_info['bloodGroup'] ?? null,
             'father' => $nid_info['father'],
             'mother' => $nid_info['mother'],
-            'spouse' => $nid_info['spouse'],
-            // 'occupation' => $nid_info['profession'],
+            'spouse' => $nid_info['spouse'] ?? null,
+            'occupation' => $nid_info['occupation'] ?? null,
             'nationalId' => $nid_info['nationalId'],
             'permanentAddress' => $permanentAddress,
             'presentAddress' => $presentAddress,
             'photo' => $nid_info['photo'],
             // 'photoBase64' => $nid_info['photoBase64'],
             // 'mobile' => $nid_info['mobile'],
-            'religion' => $nid_info['religion'],
-            // 'voterArea' => $nid_info['voterArea'],
+            'religion' => $nid_info['religion'] ?? null,
+            'voterArea' => $nid_info['voterArea'] ?? null,
             'dateOfBirth' => $nid_info['dateOfBirth'],
-            // 'birthPlace' => $nid_info['birthPlace'],
+            'birthPlace' => $nid_info['birthPlace']  ?? null,
             'pin' => $nid_info['pin'],
             'qr_code' => 1,
         ]);
