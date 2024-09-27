@@ -333,6 +333,24 @@
 
                     </div>
 
+                    <div class="form-group py-2">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label>অ্যাকাউন্ট অ্যাকটিভেশন</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->active_status ?? null }}" name="active_status"
+                                    placeholder="অ্যাকাউন্ট অ্যাকটিভেশন মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>অ্যাকাউন্ট অ্যাকটিভেশন মূল্য</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->active_status_price ?? null }}" name="active_status_price"
+                                    placeholder="0">
+                            </div>
+                        </div>
+
+                    </div>
+
                     <div class="table-responsive">
                         <button type="submit" class="btn btn-info form-control">Save</button>
                     </div>

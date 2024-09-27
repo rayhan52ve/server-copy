@@ -86,7 +86,8 @@
                                 class="fa-solid fa-file-powerpoint"></i><span class="hide-menu">ম্যানেজ ইউজার</span></a>
                         <ul aria-expanded="false" class="collapse">
                             @if (auth()->user()->is_admin == 1 || @$moderatorAccess->user_list == 1)
-                                <li><a href="{{ route('admin.manage-user.index') }}">ইউজার লিস্ট</a></li>
+                                <li><a href="{{ route('admin.manage-user.index') }}">ইউজার (Active)</a></li>
+                                <li><a href="{{ route('admin.inactiveUser') }}">ইউজার (Inactive)</a></li>
                             @endif
 
                             @if (auth()->user()->is_admin == 1 || @$moderatorAccess->premium_request == 1)

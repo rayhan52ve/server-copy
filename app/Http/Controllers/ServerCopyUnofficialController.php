@@ -25,13 +25,11 @@ class ServerCopyUnofficialController extends Controller
     // Print NID server copy start
     public function tech_web_print_nid_server_copy(Request $request)
     {
-        // Validate incoming request data
         $request->validate([
             'nid' => 'required|string',
             'dob' => 'required|date',
         ]);
 
-        // Retrieve necessary data from request
         $nid = $request->input('nid');
         $dob = $request->input('dob');
         $price = (int) $request->input('price');
@@ -39,7 +37,6 @@ class ServerCopyUnofficialController extends Controller
             $price = 0;
         }
 
-        // Find user by ID
         $user = User::find($request->user_id);
         $userBalance = $user->balance;
 
@@ -50,9 +47,8 @@ class ServerCopyUnofficialController extends Controller
         }
 
         // Construct API URL using dynamic values
-        $url = "https://api.foxithub.com/unofficial/api.php?key=hlwmember&nid={$nid}&dob={$dob}";
-        // $url = "https://publicx.top/servercopy/SV.php?key=lkjhgfds&nid={$nid}&dob={$dob}";
-        // dd($url);
+        $url = "https://api.foxithub.com/unofficial/scUpdate/api.php?key=ownx&nid={$nid}&dob={$dob}";
+        // $url = "https://api.foxithub.com/unofficial/scUpdate/api.php?key=ownx&nid=1499108379&dob=1994-08-15";
 
         // Initialize cURL session
         $ch = curl_init($url);
@@ -66,44 +62,37 @@ class ServerCopyUnofficialController extends Controller
         }
 
         // Decode JSON response
-        $responseArray = json_decode($response, true);
+        $data = json_decode($response, true);
+        // dd($data);
 
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            return back()->with('error_message', 'সার্ভার বন্ধ আছে. পরবর্তীতে আবার চেষ্টা করুন.');
-        }
+        $nid_info['nationalId'] = $data['national']['R1'];
+        $nid_info['pin'] = $data['national']['R2'];
+        $nid_info['voter_no'] = $data['national']['R3'];
+        $nid_info['voterArea'] = $data['national']['R4'];
+        $nid_info['birthPlace'] = $data['national']['R5'];
+
+        $nid_info['name'] = $data['personal']['R1'];
+        $nid_info['nameEn'] = $data['personal']['R2'];
+        $nid_info['dateOfBirth'] = $data['personal']['R3'];
+        $nid_info['father'] = $data['personal']['R4'];
+        $nid_info['mother'] = $data['personal']['R5'];
+        $nid_info['spouse'] = $data['personal']['R6'];
+        // $nid_info['occupation'] = $data['personal']['R1'];
+
+        $nid_info['gender'] = $data['other']['R1'];
+        $nid_info['bloodGroup'] = $data['other']['R2'];
+        $nid_info['religion'] = $data['other']['R4'];
+        
+        $nid_info['presentAddress'] = $data['presentAddress'];
+        $nid_info['permanentAddress'] = $data['permanentAddress'];
+
+        $nid_info['photo'] = $data['photo'];
 
         // Check if the response is valid
-        if (!isset($responseArray['data']['status']) || $responseArray['data']['status'] != 200) {
+        if ($nid_info['nationalId'] == null) {
             return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
         }
 
-
-
-        // Extract NID information from the response
-        $nid_info = $responseArray['data']['data'];
-        // dd($nid_info);
-
-        // $permanentAddress = "বাসা/হোল্ডিংঃ- " . ($nid_info['permanentAddress']['houseHoldingNumber'] ?? '') .
-        //     ", গ্রাম/রাস্তাঃ- " . ($nid_info['permanentAddress']['street'] ?? '') .
-        //     ", মৌজা/মহল্লাঃ- " . ($nid_info['permanentAddress']['mouza'] ?? '') .
-        //     ", ইউনিয়নঃ- " . ($nid_info['permanentAddress']['union'] ?? '') .
-        //     ", ওয়ার্ড নংঃ- " . ($nid_info['permanentAddress']['ward'] ?? '') .
-        //     ", ডাকঘরঃ- " . ($nid_info['permanentAddress']['postOffice'] ?? '') .
-        //     ", পোষ্ট কোডঃ- " . ($nid_info['permanentAddress']['postCode'] ?? '') .
-        //     ", উপজেলাঃ- " . ($nid_info['permanentAddress']['upazila'] ?? '') .
-        //     ", জেলাঃ- " . ($nid_info['permanentAddress']['district'] ?? '') .
-        //     ", বিভাগঃ- " . ($nid_info['permanentAddress']['division'] ?? '');
-
-        // $presentAddress = "বাসা/হোল্ডিংঃ- " . ($nid_info['presentAddress']['houseHoldingNumber'] ?? '') .
-        //     ", গ্রাম/রাস্তাঃ- " . ($nid_info['presentAddress']['street'] ?? '') .
-        //     ", মৌজা/মহল্লাঃ- " . ($nid_info['presentAddress']['mouza'] ?? '') .
-        //     ", ইউনিয়নঃ- " . ($nid_info['presentAddress']['union'] ?? '') .
-        //     ", ওয়ার্ড নংঃ- " . ($nid_info['presentAddress']['ward'] ?? '') .
-        //     ", ডাকঘরঃ- " . ($nid_info['presentAddress']['postOffice'] ?? '') .
-        //     ", পোষ্ট কোডঃ- " . ($nid_info['presentAddress']['postCode'] ?? '') .
-        //     ", উপজেলাঃ- " . ($nid_info['presentAddress']['upazila'] ?? '') .
-        //     ", জেলাঃ- " . ($nid_info['presentAddress']['district'] ?? '') .
-        //     ", বিভাগঃ- " . ($nid_info['presentAddress']['division'] ?? '');
 
         // Deduct balance from user and save
         $user->balance -= $price;
@@ -112,6 +101,9 @@ class ServerCopyUnofficialController extends Controller
         // Save the data to ServerCopyUnofficial
         ServerCopyUnofficial::create([
             'user_id' => $request->user_id,
+            'nationalId' => $nid_info['nationalId'],
+            'pin' => $nid_info['pin'],
+            'voter_no' => $nid_info['voter_no'],
             'name' => $nid_info['name'],
             'nameEn' => $nid_info['nameEn'],
             'gender' => $nid_info['gender'] ?? null,
@@ -119,18 +111,14 @@ class ServerCopyUnofficialController extends Controller
             'father' => $nid_info['father'],
             'mother' => $nid_info['mother'],
             'spouse' => $nid_info['spouse'] ?? null,
-            'occupation' => $nid_info['profession'] ?? null,
-            'nationalId' => $nid_info['nationalId'],
+            // 'occupation' => $nid_info['occupation'] ?? null,
             'permanentAddress' => $nid_info['permanentAddress'],
             'presentAddress' => $nid_info['presentAddress'],
             'photo' => $nid_info['photo'],
-            // 'photoBase64' => $nid_info['photoBase64'],
-            // 'mobile' => $nid_info['mobile'],
             'religion' => $nid_info['religion'] ?? null,
             'voterArea' => $nid_info['voterArea'] ?? null,
             'dateOfBirth' => $nid_info['dateOfBirth'],
             'birthPlace' => $nid_info['birthPlace'] ?? null,
-            'pin' => $nid_info['pin'],
             'qr_code' => $request->qr_code,
         ]);
 
@@ -175,6 +163,7 @@ class ServerCopyUnofficialController extends Controller
                 'spouse' => $serverCopy->spouse,
                 'occupation' => $serverCopy->occupation,
                 'nationalId' => $serverCopy->nationalId,
+                'voter_no' => $serverCopy->voter_no,
                 'permanentAddress' => $serverCopy->permanentAddress,
                 'presentAddress' => $serverCopy->presentAddress,
                 'photo' => $serverCopy->photo,
@@ -202,4 +191,124 @@ class ServerCopyUnofficialController extends Controller
 
 
     // Print NID server copy end
+
+    // public function tech_web_print_nid_server_copy(Request $request)
+    // {
+    //     // Validate incoming request data
+    //     $request->validate([
+    //         'nid' => 'required|string',
+    //         'dob' => 'required|date',
+    //     ]);
+
+    //     // Retrieve necessary data from request
+    //     $nid = $request->input('nid');
+    //     $dob = $request->input('dob');
+    //     $price = (int) $request->input('price');
+    //     if (auth()->user()->is_admin == 1) {
+    //         $price = 0;
+    //     }
+
+    //     // Find user by ID
+    //     $user = User::find($request->user_id);
+    //     $userBalance = $user->balance;
+
+    //     // Check if user has sufficient balance
+    //     if ($userBalance < $price) {
+    //         Alert::toast("আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
+    //         return redirect()->back();
+    //     }
+
+    //     // Construct API URL using dynamic values
+    //     // $url = "https://api.foxithub.com/unofficial/api.php?key=hlwmember&nid={$nid}&dob={$dob}";
+    //     // $url = "https://publicx.top/servercopy/SV.php?key=lkjhgfds&nid={$nid}&dob={$dob}";
+    //     $url = "https://api.foxithub.com/unofficial/scUpdate/api.php?key=ownx&nid={$nid}&dob={$dob}";
+
+    //     // Initialize cURL session
+    //     $ch = curl_init($url);
+    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    //     // Execute cURL request and get the response
+    //     $response = curl_exec($ch);
+    //     // dd($response);
+    //     if ($response === false) {
+    //         return back()->with('error_message', 'অনুগ্রহ করে আবার চেষ্টা করুন.' . curl_error($ch));
+    //     }
+
+    //     // Decode JSON response
+    //     $responseArray = json_decode($response, true);
+
+    //     if (json_last_error() !== JSON_ERROR_NONE) {
+    //         return back()->with('error_message', 'সার্ভার বন্ধ আছে. পরবর্তীতে আবার চেষ্টা করুন.');
+    //     }
+
+    //     // Check if the response is valid
+    //     if (!isset($responseArray['data']['status']) || $responseArray['data']['status'] != 200) {
+    //         return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
+    //     }
+
+
+
+    //     // Extract NID information from the response
+    //     $nid_info = $responseArray['data']['data'];
+    //     // dd($nid_info);
+
+    //     // $permanentAddress = "বাসা/হোল্ডিংঃ- " . ($nid_info['permanentAddress']['houseHoldingNumber'] ?? '') .
+    //     //     ", গ্রাম/রাস্তাঃ- " . ($nid_info['permanentAddress']['street'] ?? '') .
+    //     //     ", মৌজা/মহল্লাঃ- " . ($nid_info['permanentAddress']['mouza'] ?? '') .
+    //     //     ", ইউনিয়নঃ- " . ($nid_info['permanentAddress']['union'] ?? '') .
+    //     //     ", ওয়ার্ড নংঃ- " . ($nid_info['permanentAddress']['ward'] ?? '') .
+    //     //     ", ডাকঘরঃ- " . ($nid_info['permanentAddress']['postOffice'] ?? '') .
+    //     //     ", পোষ্ট কোডঃ- " . ($nid_info['permanentAddress']['postCode'] ?? '') .
+    //     //     ", উপজেলাঃ- " . ($nid_info['permanentAddress']['upazila'] ?? '') .
+    //     //     ", জেলাঃ- " . ($nid_info['permanentAddress']['district'] ?? '') .
+    //     //     ", বিভাগঃ- " . ($nid_info['permanentAddress']['division'] ?? '');
+
+    //     // $presentAddress = "বাসা/হোল্ডিংঃ- " . ($nid_info['presentAddress']['houseHoldingNumber'] ?? '') .
+    //     //     ", গ্রাম/রাস্তাঃ- " . ($nid_info['presentAddress']['street'] ?? '') .
+    //     //     ", মৌজা/মহল্লাঃ- " . ($nid_info['presentAddress']['mouza'] ?? '') .
+    //     //     ", ইউনিয়নঃ- " . ($nid_info['presentAddress']['union'] ?? '') .
+    //     //     ", ওয়ার্ড নংঃ- " . ($nid_info['presentAddress']['ward'] ?? '') .
+    //     //     ", ডাকঘরঃ- " . ($nid_info['presentAddress']['postOffice'] ?? '') .
+    //     //     ", পোষ্ট কোডঃ- " . ($nid_info['presentAddress']['postCode'] ?? '') .
+    //     //     ", উপজেলাঃ- " . ($nid_info['presentAddress']['upazila'] ?? '') .
+    //     //     ", জেলাঃ- " . ($nid_info['presentAddress']['district'] ?? '') .
+    //     //     ", বিভাগঃ- " . ($nid_info['presentAddress']['division'] ?? '');
+
+    //     // Deduct balance from user and save
+    //     $user->balance -= $price;
+    //     $user->save();
+
+    //     // Save the data to ServerCopyUnofficial
+    //     ServerCopyUnofficial::create([
+    //         'user_id' => $request->user_id,
+    //         'name' => $nid_info['name'],
+    //         'nameEn' => $nid_info['nameEn'],
+    //         'gender' => $nid_info['gender'] ?? null,
+    //         'bloodGroup' => $nid_info['bloodGroup'] ?? null,
+    //         'father' => $nid_info['father'],
+    //         'mother' => $nid_info['mother'],
+    //         'spouse' => $nid_info['spouse'] ?? null,
+    //         'occupation' => $nid_info['profession'] ?? null,
+    //         'nationalId' => $nid_info['nationalId'],
+    //         'permanentAddress' => $nid_info['permanentAddress'],
+    //         'presentAddress' => $nid_info['presentAddress'],
+    //         'photo' => $nid_info['photo'],
+    //         // 'photoBase64' => $nid_info['photoBase64'],
+    //         // 'mobile' => $nid_info['mobile'],
+    //         'religion' => $nid_info['religion'] ?? null,
+    //         'voterArea' => $nid_info['voterArea'] ?? null,
+    //         'dateOfBirth' => $nid_info['dateOfBirth'],
+    //         'birthPlace' => $nid_info['birthPlace'] ?? null,
+    //         'pin' => $nid_info['pin'],
+    //         'qr_code' => $request->qr_code,
+    //     ]);
+
+    //     // Return the view with NID info and QR code data
+    //     if ($request->qr_code == 1) {
+    //         return view('pdf.new_server_copy_unofficial', compact('nid_info'));
+    //     } else {
+    //         return view('pdf.server_copy_unofficial_without_qr_code', compact('nid_info'));
+    //     }
+    // }
+
 }

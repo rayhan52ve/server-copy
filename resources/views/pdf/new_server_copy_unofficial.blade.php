@@ -223,11 +223,11 @@
             {{ $nid_info['pin'] }}</div>
 
         <div style="position: absolute; left: 37%; top: 35%; width: auto; font-size: 13px; color: rgb(7, 7, 7);">ভোটার
-            সিরিয়াল</div>
+            নম্বর</div>
 
         <div id="from_number"
             style="position: absolute; left: 55%; top: 35%; width: auto; font-size: 14px; color: rgb(7, 7, 7);">
-            {{ $nid_info['nationalId'] }}</div>
+            {{ $nid_info['voter_no'] ?? null }}</div>
 
         <div style="position: absolute; left: 37%; top: 37.5%; width: auto; font-size: 14px; color: rgb(7, 7, 7);">ভোটার
             এলাকা</div>

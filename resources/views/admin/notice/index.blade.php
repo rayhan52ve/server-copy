@@ -76,6 +76,11 @@
                         <input type="text" class="form-control" rows="5" value="{{ $notice->recharge_bkash ?? null }}"
                             name="recharge_bkash" placeholder="">
                     </div>
+                    <div class="form-group py-2">
+                        <label>অ্যাকাউন্ট অ্যাকটিভেশন</label>
+                        <input type="text" class="form-control" rows="5" value="{{ $notice->active_status ?? null }}"
+                            name="active_status" placeholder="">
+                    </div>
 
                     <div class="table-responsive">
                         <button type="submit" class="btn btn-info form-control">Save</button>

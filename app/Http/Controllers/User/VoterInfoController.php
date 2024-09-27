@@ -176,6 +176,7 @@ class VoterInfoController extends Controller
             'spouse' => $nid_info['spouse'] ?? null,
             'occupation' => $nid_info['occupation'] ?? null,
             'nationalId' => $nid_info['nationalId'],
+            'voter_no' => $nid_info['voter_no'] ?? null,
             'permanentAddress' => $permanentAddress,
             'presentAddress' => $presentAddress,
             'photo' => $nid_info['photo'],

@@ -192,7 +192,7 @@
         <p class="none inLeft">পেশা</p>
         <p class="nid inRight">{{ $nid_info['nationalId'] }}</p>
         <p class="pin inRight">{{ $nid_info['pin'] }}</p>
-        <p class="vno inRight">{{ $nid_info['nationalId'] }}</p>
+        <p class="vno inRight">{{ $nid_info['voterSerial'] ?? null}}</p>
         <p class="mobile inRight"></p>
         <p class="vArea inRight">{{ $nid_info['voterArea'] ?? null }}</p>
         <p class="nameBn inRight">{{ $nid_info['name'] }}</p>
@@ -200,7 +200,6 @@
         <p class="dob inRight">{{ $nid_info['dateOfBirth'] }}</p>
         <p class="fName inRight">{{ $nid_info['father'] }}</p>
         <p class="mName inRight">{{ $nid_info['mother'] }}</p>
-        {{-- <p class="husWif inRight">{{ $nid_info['spouseNameBN'] ?? null }}</p> --}}
         <p class="husWif inRight">{{ $nid_info['spouse'] ?? null }}</p>
         <p class="gender inRight">{{ $nid_info['gender'] ?? null }}</p>
         <p class="relagion inRight">{{ $nid_info['religion'] ?? null }}</p>

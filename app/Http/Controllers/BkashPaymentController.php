@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
 use App\Models\Recharge;
 use App\Models\Report;
 use App\Models\User;
@@ -198,8 +199,16 @@ class BkashPaymentController extends Controller
                 }
             }
 
+            $submitStatus = \App\Models\SubmitStatus::first();
+            $activeAccountPrice = Message::first()->active_status_price;
             $user = User::find(Auth::user()->id);
-            $user->balance += $result_data->amount;
+            // Active Account
+            if ($user->status == 0 && $submitStatus->active_status == 1) {
+                $user->status = 1;
+                $user->balance += 0;
+            } else {
+                $user->balance += $result_data->amount;
+            }
             $user->save();
 
             // Create a new Recharge record

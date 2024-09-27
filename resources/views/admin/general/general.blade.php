@@ -410,6 +410,18 @@
                                                                 {{ @$submitStatus->recharge == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
+                                                    <div class="form-group py-2">
+                                                        অ্যাকাউন্ট অ্যাক্টিভেশন
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$submitStatus->active_status == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="active_status" value="0">
+                                                            <input class="form-check-input" onclick="submitForm()"
+                                                                value="1" name="active_status" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$submitStatus->active_status == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
                                                 </form>
 
                                                 <script>

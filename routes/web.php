@@ -82,7 +82,7 @@ Route::post('/sign-to-server-copy-upload', [SignToServerCopyController::class, '
 |--------------------------------------------------------------------------
 */
 
-Route::prefix('user')->name('user.')->middleware(['auth', 'is_user'])->group(function () {
+Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active'])->group(function () {
 
     Route::get('/home', [UserdashboardController::class, 'userDashboard'])->name('home');
     Route::get('/about/admin', [UserdashboardController::class, 'about_admin'])->name('about_admin');
@@ -140,6 +140,8 @@ Route::get('/biometric-info-file/download/{id}', [AdminBiometricInfoController::
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->group(function () {
 
     Route::resource('manage-user', ManageUserController::class);
+    Route::get('/inactive-user-list', [ManageUserController::class, 'inactiveUser'])->name('inactiveUser');
+    Route::get('/user-active-status/{id}', [ManageUserController::class, 'activeStatus'])->name('activeStatus');
     Route::get('/moderator-list', [ManageUserController::class, 'moderatorList'])->name('moderatorList')->middleware('is_admin');
     Route::get('/premium-request', [ManageUserController::class, 'premiumRequest'])->name('premiumRequest');
     Route::get('/premium-user-list', [ManageUserController::class, 'premiumUser'])->name('premiumUser');

@@ -20,8 +20,8 @@ class ManageUserController extends Controller
      */
     public function index()
     {
-        $pagetitle = 'ইউজার লিস্ট';
-        $users = User::where('is_admin', 0)->latest()->get();
+        $pagetitle = 'অ্যাক্টিভ ইউজার লিস্ট';
+        $users = User::where('is_admin', 0)->where('status', 1)->latest()->get();
 
         // Decrypt passwords securely
         $users->transform(function ($item) {
@@ -34,6 +34,39 @@ class ManageUserController extends Controller
         });
 
         return view('admin.manage_user.index', compact('users', 'pagetitle'));
+    }
+
+    public function inactiveUser()
+    {
+        $pagetitle = 'ইন-অ্যাক্টিভ ইউজার লিস্ট';
+        $users = User::where('is_admin', 0)->where('status', 0)->latest()->get();
+
+        // Decrypt passwords securely
+        $users->transform(function ($item) {
+            try {
+                $item->decryptedPassword = Crypt::decryptString($item->password);
+            } catch (DecryptException $e) {
+                $item->decryptedPassword = 'Decryption failed';
+            }
+            return $item;
+        });
+
+        return view('admin.manage_user.index', compact('users', 'pagetitle'));
+    }
+
+    public function activeStatus($id)
+    {
+        $user = User::find($id);
+        if ($user->status == 0) {
+            $user->status = 1;
+            Alert::toast("Account Activated.", 'success');
+        } else {
+            $user->status = 0;
+            Alert::toast("Account Deactivated.", 'success');
+        }
+        $user->save();
+
+        return redirect()->back();
     }
 
     public function premiumRequest()

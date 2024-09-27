@@ -20,8 +20,9 @@
                                 <th>নাম</th>
                                 <th>ইমেইল</th>
                                 <th>ব্যালেন্স(টাকা)</th>
-                                @if (url()->current() == route('admin.manage-user.index'))
+                                @if (url()->current() == route('admin.manage-user.index') || url()->current() == route('admin.inactiveUser'))
                                     <th>ইউজার টাইপ</th>
+                                    <th>স্ট্যাটাস</th>
                                 @endif
                                 <th>অ্যাকশান</th>
                             </tr>
@@ -33,11 +34,18 @@
                                     <td>{{ $item->name ?? null }}</td>
                                     <td>{{ $item->email ?? null }}</td>
                                     <td>{{ $item->balance ?? 0 }}</td>
-                                    @if (url()->current() == route('admin.manage-user.index'))
+                                    @if (url()->current() == route('admin.manage-user.index') || url()->current() == route('admin.inactiveUser'))
                                         <td>
-                                            <a href="{{ route('admin.userPremiumStatus', $item->id) }}"
-                                                onclick="return confirm('Are you sure?')"
+                                            <a style="width: 70px" href="{{ route('admin.userPremiumStatus', $item->id) }}"
+                                                onclick="sweetConfirmation(event)"
                                                 class="btn btn-sm btn-{{ $item->premium == 2 ? 'primary' : 'success' }}">{{ $item->premium == 2 ? 'Premium' : 'Casual' }}</a>
+                                        </td>
+                                        <td>
+                                            <a onclick="sweetConfirmation(event)"
+                                                href="{{ route('admin.activeStatus', $item->id) }}"
+                                                class="btn btn-sm btn-rounded btn-outline-{{ $item->status == 1 ? 'cyan' : 'danger' }}">
+                                                {{ $item->status == 1 ? 'Active' : 'Inactive' }}
+                                            </a>
                                         </td>
                                     @endif
                                     <td>
@@ -94,9 +102,10 @@
                                                         <label for="number" class="form-label">ব্যালেন্স(টাকা)</label>
                                                         <input type="number" class="form-control"
                                                             value="{{ $item->balance }}" name="balance" placeholder="0">
-                                                        <label for="add_balance" class="form-label">ব্যালেন্স যোগ করুন</label>
-                                                        <input type="number" class="form-control"
-                                                             name="add_balance" placeholder="0">
+                                                        <label for="add_balance" class="form-label">ব্যালেন্স যোগ
+                                                            করুন</label>
+                                                        <input type="number" class="form-control" name="add_balance"
+                                                            placeholder="0">
                                                     </div>
                                                     <button type="submit" class="btn btn-success btn-sm">Save</button>
                                                 </form>
@@ -112,32 +121,28 @@
                 </div>
             </div>
         </div>
-        <!-- Store Modal -->
-        {{-- <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="uploadModalLabel">বায়োমেট্রিক টাইপ</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('admin.biometric-type.store') }}" method="POST">
-                            @csrf
-                            <div class="form-group col-md-10">
-                                <label for="file" class="form-label">নাম</label>
-                                <input type="text" class="form-control" id="file" name="name" required>
-                                <label for="file" class="form-label">মূল্য(টাকা)</label>
-                                <input type="number" class="form-control" id="file" name="price" required>
-                            </div>
-                            <button type="submit" class="btn btn-success btn-sm">Save</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function sweetConfirmation(event) {
+            event.preventDefault(); // Prevent the link from being followed immediately
+
+            Swal.fire({
+                title: 'Are you sure?',
+                // text: "Change account active status.",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = event.target.href;
+                }
+            });
+        }
+    </script>
 @endsection
