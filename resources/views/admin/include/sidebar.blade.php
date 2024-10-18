@@ -169,13 +169,23 @@
                                 class="hide-menu">সার্ভার কপি (Unofficial)</span></a>
                     </li>
                     <li> <a class="waves-effect waves-dark" href="{{ route('user.voter-info.index') }}"
-                            aria-expanded="false"><i class="fa-solid fa-id-card"></i><span
-                                class="hide-menu">ভোটার ইনফো</span></a>
+                            aria-expanded="false"><i class="fa-solid fa-id-card"></i><span class="hide-menu">ভোটার
+                                ইনফো</span></a>
                     </li>
-                    <li> <a class="waves-effect waves-dark" href="{{ route('admin.fileList') }}"
-                            aria-expanded="false"><i class="fa-solid fa-list-check"></i><span class="hide-menu">ফাইল
+
+                    <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                            aria-expanded="false"><i class="fa-solid fa-fingerprint"></i><span class="hide-menu">ফাইল
                                 লিস্ট</span></a>
+                        <ul aria-expanded="false" class="collapse">
+
+                            <li><a href="{{ route('admin.serverCopyUnofficialList') }}">সার্ভার কপি (Unofficial)</a></li>
+                            <li><a href="{{ route('admin.nidList') }}">এনআইডি লিস্ট</a></li>
+                            <li><a href="{{ route('admin.birthList') }}">নতুন নিবন্ধন লিস্ট</a></li>
+
+
+                        </ul>
                     </li>
+
                     <li> <a class="waves-effect waves-dark" href="{{ route('admin.report.index') }}"
                             aria-expanded="false"><i class="fa-solid fa-sack-dollar"></i><span
                                 class="hide-menu">আয়-ব্যয়</span></a>

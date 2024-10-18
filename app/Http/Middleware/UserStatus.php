@@ -20,7 +20,9 @@ class UserStatus
     public function handle(Request $request, Closure $next)
     {
         $submitStatus = SubmitStatus::first()->active_status;
-        if ($submitStatus == 1) {
+        if(auth()->user()->is_admin == 1 || auth()->user()->is_admin == 2){
+            return $next($request);
+        }elseif ($submitStatus == 1) {
             if (auth()->user()->is_admin == 0 && auth()->user()->status == 1) {
                 return $next($request);
             }

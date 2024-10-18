@@ -435,10 +435,10 @@
 
                             @if ($redirectRoute == 'userFileList')
                                 @if (auth()->user()->is_admin == 0)
-                                    <a href="{{ route('user.userFile', auth()->user()->id) }}"
+                                    <a href="{{ route('user.nidList', auth()->user()->id) }}"
                                         class="back-btn">Back</a>
                                 @else
-                                    <a href="{{ route('admin.fileList', auth()->user()->id) }}"
+                                    <a href="{{ route('admin.nidList') }}"
                                         class="back-btn">Back</a>
                                 @endif
                             @elseif ($redirectRoute == 'nidMake')

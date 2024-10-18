@@ -101,8 +101,7 @@ class VoterInfoController extends Controller
 
         // Construct API URL using dynamic values
         // $url = "https://api.foxithub.com/unofficial/api.php?key=hlwmember&nid={$nid}&dob={$dob}";old link
-        $url = "https://rsbdxfire.my.id/svvv.php?nid={$nid}&dob={$dob}";
-        // dd($url);
+        $url = "https://mrunknown.xyz/SVBALANCE/Api.php?key=Fardenn&nid={$nid}&dob={$dob}";
 
         // Initialize cURL session
         $ch = curl_init($url);
@@ -125,11 +124,11 @@ class VoterInfoController extends Controller
         }
 
         // Check if the response indicates failure
-        if (isset($responseArray['Success'])) {
-            if ($responseArray['Success'] === "False" || $responseArray['Message'] === "Data not found") {
-                return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
-            }
-        }
+        // if (isset($responseArray->status['success'])) {
+        //     if ($responseArray['success'] === "False" || $responseArray['Message'] === "Data not found") {
+        //         return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
+        //     }
+        // }
 
         // Extract NID information from the response
         $nid_info = $responseArray['data'];
@@ -140,29 +139,35 @@ class VoterInfoController extends Controller
 
         $permanentAddress = "বাসা/হোল্ডিংঃ- " . ($nid_info['permanentAddress']['houseHoldingNumber'] ?? '') .
             ", গ্রাম/রাস্তাঃ- " . ($nid_info['permanentAddress']['street'] ?? '') .
-            ", মৌজা/মহল্লাঃ- " . ($nid_info['permanentAddress']['mouza'] ?? '') .
-            ", ইউনিয়নঃ- " . ($nid_info['permanentAddress']['union'] ?? '') .
+            ", মৌজা/মহল্লাঃ- " . ($nid_info['permanentAddress']['mouzaMoholla'] ?? '') .
+            ", ইউনিয়নঃ- " . ($nid_info['permanentAddress']['villageOrRoad'] ?? '') .
             ", ওয়ার্ড নংঃ- " . ($nid_info['permanentAddress']['ward'] ?? '') .
             ", ডাকঘরঃ- " . ($nid_info['permanentAddress']['postOffice'] ?? '') .
-            ", পোষ্ট কোডঃ- " . ($nid_info['permanentAddress']['postCode'] ?? '') .
-            ", উপজেলাঃ- " . ($nid_info['permanentAddress']['upazila'] ?? '') .
+            ", পোষ্ট কোডঃ- " . ($nid_info['permanentAddress']['postalCode'] ?? '') .
+            ", উপজেলাঃ- " . ($nid_info['permanentAddress']['upozila'] ?? '') .
             ", জেলাঃ- " . ($nid_info['permanentAddress']['district'] ?? '') .
             ", বিভাগঃ- " . ($nid_info['permanentAddress']['division'] ?? '');
 
         $presentAddress = "বাসা/হোল্ডিংঃ- " . ($nid_info['presentAddress']['houseHoldingNumber'] ?? '') .
             ", গ্রাম/রাস্তাঃ- " . ($nid_info['presentAddress']['street'] ?? '') .
-            ", মৌজা/মহল্লাঃ- " . ($nid_info['presentAddress']['mouza'] ?? '') .
-            ", ইউনিয়নঃ- " . ($nid_info['presentAddress']['union'] ?? '') .
+            ", মৌজা/মহল্লাঃ- " . ($nid_info['presentAddress']['mouzaMoholla'] ?? '') .
+            ", ইউনিয়নঃ- " . ($nid_info['presentAddress']['villageOrRoad'] ?? '') .
             ", ওয়ার্ড নংঃ- " . ($nid_info['presentAddress']['ward'] ?? '') .
             ", ডাকঘরঃ- " . ($nid_info['presentAddress']['postOffice'] ?? '') .
-            ", পোষ্ট কোডঃ- " . ($nid_info['presentAddress']['postCode'] ?? '') .
-            ", উপজেলাঃ- " . ($nid_info['presentAddress']['upazila'] ?? '') .
+            ", পোষ্ট কোডঃ- " . ($nid_info['presentAddress']['postalCode'] ?? '') .
+            ", উপজেলাঃ- " . ($nid_info['presentAddress']['upozila'] ?? '') .
             ", জেলাঃ- " . ($nid_info['presentAddress']['district'] ?? '') .
             ", বিভাগঃ- " . ($nid_info['presentAddress']['division'] ?? '');
 
         // Deduct balance from user and save
         $user->balance -= $price;
         $user->save();
+
+        // $nid_info['name'] = $nid_info['nameBn'];
+        // $nid_info['father'] = $nid_info['fatherName'];
+        // $nid_info['mother'] = $nid_info['motherName'];
+        // $nid_info['nationalId'] = $nid_info['nid'];
+        // $nid_info['dateOfBirth'] = $nid_info['dob'];
 
         // Save the data to ServerCopyUnofficial
         ServerCopyUnofficial::create([

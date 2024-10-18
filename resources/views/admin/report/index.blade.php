@@ -218,7 +218,7 @@
 
             $('#month-select').on('change', function() {
                 var yearMonth = $(this).val();
-                console.log(yearMonth);
+                //console.log(yearMonth);
 
                 window.location.href = "{{ route('admin.report.index') }}" + "?year_month=" + yearMonth;
             });

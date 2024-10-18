@@ -87,7 +87,9 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
     Route::get('/home', [UserdashboardController::class, 'userDashboard'])->name('home');
     Route::get('/about/admin', [UserdashboardController::class, 'about_admin'])->name('about_admin');
     Route::get('/video', [UserdashboardController::class, 'video'])->name('video.index');
-    Route::get('/file-list/{id}', [UserdashboardController::class, 'userFile'])->name('userFile');
+    Route::get('/server-copy-file-list/{id}', [UserdashboardController::class, 'serverCopyUnofficialList'])->name('serverCopyUnofficialList');
+    Route::get('/nid-file-list/{id}', [UserdashboardController::class, 'nidList'])->name('nidList');
+    Route::get('/birth-file-list/{id}', [UserdashboardController::class, 'birthList'])->name('birthList');
     Route::resource('sign-copy', SignCopyOrderController::class)->only('index', 'store');
     Route::resource('server-copy', ServerCopyOrderController::class)->only('index', 'store');
     Route::resource('id-card', IdCardOrderController::class)->only('index', 'store');
@@ -112,6 +114,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
 });
 
 Route::get('print-saved-nid/{id}', [NidMakeController::class,'printSavedNid'])->name('print.savedNid')->middleware('auth');
+Route::get('print-saved-birth/{id}', [NewRegistrationController::class,'printSavedBirth'])->name('print.savedBirth')->middleware('auth');
 
 Route::controller(ServerCopyUnofficialController::class)->middleware(['auth'])->group(function () {
     Route::get('/nid-server-copy', 'tech_web_nid_server_copy')->name('nid.server.copy');
@@ -207,8 +210,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
 
     Route::resource('moderator-access', ModeratorAccessController::class)->middleware('is_admin');
 
-    Route::get('/file-list', [HomeController::class, 'fileList'])->name('fileList');
-    Route::get('/clear-server-copy-unofficial-list', [HomeController::class, 'clearAll'])->name('clearAll');
+
+    Route::get('/server-copy-unofficial-list', [HomeController::class, 'serverCopyUnofficialList'])->name('serverCopyUnofficialList');
+    Route::get('/clear-server-copy-unofficial-list', [HomeController::class, 'clearServerCopyUnofficial'])->name('clearAll');
+
+    Route::get('/nid-file-list', [HomeController::class, 'nidList'])->name('nidList');
+    Route::get('/clear-nid-file-list', [HomeController::class, 'clearAllNid'])->name('clearAllNid');
+
+    Route::get('/birth-file-list', [HomeController::class, 'birthList'])->name('birthList');
+    Route::get('/clear-birth-file-list', [HomeController::class, 'clearAllbirth'])->name('clearAllbirth');
 
     Route::get('/admin-notification-list', [HomeController::class, 'adminNotification'])->name('adminNotification');
     Route::get('/clear-admin-notification-list', [HomeController::class, 'clearAllAdminNotification'])->name('clearAllAdminNotification')->middleware('is_admin');

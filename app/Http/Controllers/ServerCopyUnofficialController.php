@@ -63,7 +63,7 @@ class ServerCopyUnofficialController extends Controller
 
         // Decode JSON response
         $data = json_decode($response, true);
-        // dd($data);
+        // dd($response,$data);
 
         $nid_info['nationalId'] = $data['national']['R1'];
         $nid_info['pin'] = $data['national']['R2'];
@@ -87,6 +87,8 @@ class ServerCopyUnofficialController extends Controller
         $nid_info['permanentAddress'] = $data['permanentAddress'];
 
         $nid_info['photo'] = $data['photo'];
+
+        // dd($nid_info);
 
         // Check if the response is valid
         if ($nid_info['nationalId'] == null) {
@@ -175,6 +177,7 @@ class ServerCopyUnofficialController extends Controller
                 'birthPlace' => $serverCopy->birthPlace,
                 'pin' => $serverCopy->pin,
             ];
+            // dd( $nid_info);
 
 
             // Return the view with NID info

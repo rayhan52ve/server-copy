@@ -12,12 +12,9 @@
     <!-- Favicon icon -->
     @php
         $logo = \App\Models\Logo::latest()->first();
-        // $notice = \App\Models\Notice::first();
-        // $message = \App\Models\Message::first();
-        // $submitStatus = \App\Models\SubmitStatus::first();
     @endphp
-    {{-- <link rel="shortcut icon" type="image/x-icon" href="{{asset($logo->favicon)}}" /> --}}
-    <title>{{ $logo->site_name }}@yield('title')</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset($logo->logo_image)}}" />
+    <title>{{ $logo->site_name }}</title>
     <!-- This page CSS -->
     <!-- chartist CSS -->
     @include('User.layout.include.style')
@@ -35,7 +32,7 @@
     <div class="preloader">
         <div class="loader">
             <div class="loader__figure"></div>
-            <p class="loader__label">Server Copy</p>
+            <p class="loader__label">{{ $logo->site_name }}</p>
         </div>
     </div>
     <!-- ============================================================== -->

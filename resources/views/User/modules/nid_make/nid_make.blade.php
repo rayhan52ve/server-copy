@@ -90,7 +90,11 @@
                     <div class="text-center">
                         @if ($errors->any())
                             <div class="alert alert-danger">
-                                <h6 class="text-danger">Please Upload a Sign Copy First.</h6>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
                         @endif
                     </div>
@@ -103,13 +107,61 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>এনআইডি ছবি</label>
-                                    <input type="file" name="nid_image" class="form-control">
+                                    <input type="file" id="nid_image_input" class="form-control" accept="image/*"
+                                        onchange="handleImageUpload(event, 'nid_image')">
+                                    <img id="nidImagePreview" src="" alt=""
+                                        style="margin-top: 10px; width: 200px;">
+                                    <!-- This is where the base64-encoded data will go -->
+                                    <input type="hidden" id="nid_image" name="nid_image">
+
+
+                                    <script>
+                                        // Function to load and preview image, and store Base64 data in form inputs
+                                        function handleImageUpload(event, imageType) {
+                                            const imageFile = event.target.files[0];
+                                            if (imageFile) {
+                                                const reader = new FileReader();
+
+                                                reader.onload = function() {
+                                                    const img = new Image();
+                                                    img.src = reader.result;
+
+                                                    img.onload = function() {
+                                                        // Preview the image in the appropriate img element
+                                                        if (imageType === 'nid_image') {
+                                                            document.getElementById('nidImagePreview').src = img.src;
+                                                        } else if (imageType === 'sign_image') {
+                                                            document.getElementById('signImagePreview').src = img.src;
+                                                        }
+
+                                                        // Convert the image to base64 using Canvas
+                                                        const canvas = document.createElement('canvas');
+                                                        const ctx = canvas.getContext('2d');
+                                                        canvas.width = img.width;
+                                                        canvas.height = img.height;
+                                                        ctx.drawImage(img, 0, 0);
+
+                                                        // Get the Base64 encoded image data
+                                                        const base64Image = canvas.toDataURL('image/png');
+
+                                                        // Store the base64 data in the corresponding input field
+                                                        if (imageType === 'nid_image') {
+                                                            document.getElementById('nid_image').value = base64Image;
+                                                        } else if (imageType === 'sign_image') {
+                                                            document.getElementById('sign_image').value = base64Image;
+                                                        }
+                                                    };
+                                                };
+
+                                                reader.readAsDataURL(imageFile); // Read the file as a data URL
+                                            }
+                                        }
+                                    </script>
+
                                     @if (@$nidImage)
                                         <img id="nidImage" src="{{ $nidImage }}" width="100px" alt="NID Image">
                                         <input type="hidden" id="nidImageData" name="nid_image"
                                             value="{{ $nidImage }}">
-                                    @else
-                                        <p>No NID image found.</p>
                                     @endif
                                 </div>
                             </div>
@@ -117,14 +169,18 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>স্বাক্ষর (ছবি)</label>
-                                    <input type="file" name="sign_image" class="form-control">
+                                    <input type="file" id="sign_image_input" class="form-control" accept="image/*"
+                                        onchange="handleImageUpload(event, 'sign_image')">
+                                    <img id="signImagePreview" src="" alt=""
+                                        style="margin-top: 10px; width: 200px;">
+                                    <!-- This is where the base64-encoded data will go -->
+                                    <input type="hidden" id="sign_image" name="sign_image">
+
                                     @if (@$signatureImage)
                                         <img id="signatureImage" src="{{ $signatureImage }}" width="100px"
                                             alt="Signature Image">
                                         <input type="hidden" id="signatureImageData" name="sign_image"
                                             value="{{ $signatureImage }}">
-                                    @else
-                                        <p>No signature image found.</p>
                                     @endif
                                 </div>
                             </div>
@@ -164,8 +220,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>নাম(ইংরেজি)</label>
-                                    <input type="text" class="form-control" name="name_en" value="{{ $name_en ?? null }}"
-                                        placeholder="সম্পূর্ণ নাম ইংরেজিতে" required>
+                                    <input type="text" class="form-control" name="name_en"
+                                        value="{{ $name_en ?? null }}" placeholder="সম্পূর্ণ নাম ইংরেজিতে" required>
                                 </div>
                             </div>
 
@@ -179,8 +235,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>পিন নাম্বার</label>
-                                    <input type="text" class="form-control" value="{{ $pin ?? null }}" name="pin"
-                                        id="service_title" placeholder="পিন নাম্বার" required>
+                                    <input type="text" class="form-control" value="{{ $pin ?? null }}"
+                                        name="pin" id="service_title" placeholder="পিন নাম্বার" required>
                                 </div>
                             </div>
 
@@ -216,7 +272,8 @@
                                 <div class="form-group">
                                     <label> জন্ম তারিখ</label>
                                     <input type="date" class="form-control datepicker" name="birthday"
-                                    value="{{ isset($birthday) ? \Carbon\Carbon::parse($birthday)->format('Y-m-d') : \Carbon\Carbon::now()->format('Y-m-d') }}" required>
+                                        value="{{ isset($birthday) ? \Carbon\Carbon::parse($birthday)->format('Y-m-d') : \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                        required>
                                 </div>
                             </div>
 

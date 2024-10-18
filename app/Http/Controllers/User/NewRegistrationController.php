@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Message;
 use App\Models\NewRegistration;
 use App\Models\User;
 use Carbon\Carbon;
@@ -42,23 +43,45 @@ class NewRegistrationController extends Controller
      */
     public function store(Request $request)
     {
-
         $user = User::find($request->user_id);
         $userBalance = $user->balance;
-        // dd($userBalance);
 
         $price = (int)$request->price;
 
         if ($userBalance >= $price) {
             $user->balance -= $price;
             $user->save();
-            $data = $request->all();
+            $data = $request->except('price');
+            NewRegistration::create($data);
             return view('pdf.new_reg_pdf',compact('data'));
         }else{
             Alert::toast("আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
             return redirect()->route('user.new-registration.index');
         }
 
+    }
+
+    public function printSavedBirth($id)
+    {
+        $data = NewRegistration::find($id);
+        $user = User::find($data->user_id);
+        $userBalance = $user->balance;
+
+        $message = Message::first();
+
+        $price = (int)$message->birth_remake;
+        if (auth()->user()->is_admin == 1) {
+            $price = 0;
+        }
+
+        if ($userBalance >= $price) {
+            $user->balance -= $price;
+            $user->save();
+            return view('pdf.new_reg_pdf', compact('data'));
+        } else {
+            Alert::toast("পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
+            return redirect()->back();
+        }
     }
 
     /**

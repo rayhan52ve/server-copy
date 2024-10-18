@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+@php $logo = \App\Models\Logo::latest()->first() @endphp
 
 <head>
     <meta charset="utf-8">
@@ -8,11 +9,9 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">
     <!-- Favicon icon -->
-    @php $logo = \App\Models\Logo::latest()->first() @endphp
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset($logo->favicon) }}" />
-    <title>{{ $logo->site_name }}@yield('title')</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset($logo->logo_image) }}" />
+    <title>{{ $logo->site_name }}</title>
     <!-- This page CSS -->
     <!-- chartist CSS -->
     @include('admin.include.style')

@@ -6,6 +6,7 @@ use App\Models\AdminNotification;
 use App\Models\BiometricInfo;
 use App\Models\IdCardOrder;
 use App\Models\Message;
+use App\Models\NewRegistration;
 use App\Models\NidMake;
 use App\Models\Report;
 use App\Models\ServerCopyOrder;
@@ -56,20 +57,49 @@ class HomeController extends Controller
         return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount'));
     }
 
-    public function fileList()
+
+    public function serverCopyUnofficialList()
     {
         $serverCopyUnofficial = ServerCopyUnofficial::latest()->get();
+        $message = Message::first();
+
+        return view('admin.file_list.server_copy_unofficial', compact('serverCopyUnofficial', 'message'));
+    }
+
+    public function clearServerCopyUnofficial()
+    {
+        ServerCopyUnofficial::truncate();
+        Alert::toast("All Server Copy Unofficial Data Cleared Successfully.", 'success');
+        return redirect()->back();
+    }
+
+    public function nidList()
+    {
         $nids = NidMake::latest()->get();
         $message = Message::first();
 
-        return view('admin.file_list', compact('serverCopyUnofficial', 'nids', 'message'));
+        return view('admin.file_list.nid', compact('nids', 'message'));
     }
 
-    public function clearAll()
+    public function clearAllNid()
     {
-        ServerCopyUnofficial::truncate();
         NidMake::truncate();
-        Alert::toast("All Data Cleared Successfully.", 'success');
+        Alert::toast("All NId Data Cleared Successfully.", 'success');
+        return redirect()->back();
+    }
+
+    public function birthList()
+    {
+        $new_regs = NewRegistration::latest()->get();
+        $message = Message::first();
+
+        return view('admin.file_list.birth', compact('new_regs', 'message'));
+    }
+
+    public function clearAllbirth()
+    {
+        NewRegistration::truncate();
+        Alert::toast("All New Registration Data Cleared Successfully.", 'success');
         return redirect()->back();
     }
 

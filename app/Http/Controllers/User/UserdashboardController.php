@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BiometricInfo;
 use App\Models\IdCardOrder;
 use App\Models\Message;
+use App\Models\NewRegistration;
 use App\Models\NidMake;
 use App\Models\Report;
 use App\Models\ServerCopyOrder;
@@ -46,13 +47,28 @@ class UserdashboardController extends Controller
         return view('User.modules.video',compact('videos','videolink'));
     }
 
-    public function userFile($id)
+    public function serverCopyUnofficialList($id)
     {
         $message = Message::first();
-        $serverCopyUnoficial = ServerCopyUnofficial::where('user_id',$id)->latest()->paginate(15, ['*'], 'serverPage');
-        $nids = NidMake::where('user_id',$id)->latest()->paginate(5, ['*'], 'nidPage');
+        $serverCopyUnoficial = ServerCopyUnofficial::where('user_id',$id)->latest()->paginate(15);
 
-        return view('User.modules.file_list',compact('serverCopyUnoficial','nids','message'));
+        return view('User.modules.file_list.server_copy_unofficial',compact('serverCopyUnoficial','message'));
+    }
+
+    public function nidList($id)
+    {
+        $message = Message::first();
+        $nids = NidMake::where('user_id',$id)->latest()->paginate(15);
+
+        return view('User.modules.file_list.nid',compact('nids','message'));
+    }
+
+    public function birthList($id)
+    {
+        $message = Message::first();
+        $new_regs = NewRegistration::where('user_id',$id)->latest()->paginate(15);
+
+        return view('User.modules.file_list.birth',compact('new_regs','message'));
     }
 
     

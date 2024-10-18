@@ -131,9 +131,19 @@
                     {{-- <li> <a class="waves-effect waves-dark" href="#"
                         aria-expanded="false"><i class="fa-solid fa-file-shield"></i><span class="hide-menu">সুরক্ষা ক্লোন</span></a>
                 </li> --}}
-                    <li> <a class="waves-effect waves-dark" href="{{ route('user.userFile', auth()->user()->id) }}"
-                            aria-expanded="false"><i class="fa-solid fa-list-check"></i><span class="hide-menu">ফাইল
+
+                    <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
+                                class="fa-solid fa-fingerprint"></i><span class="hide-menu">ফাইল
                                 লিস্ট</span></a>
+                        <ul aria-expanded="false" class="collapse">
+
+                            <li><a href="{{ route('user.serverCopyUnofficialList',auth()->user()->id) }}">সার্ভার কপি (Unofficial)</a>
+                            </li>
+                            <li><a href="{{ route('user.nidList',auth()->user()->id) }}">এনআইডি লিস্ট</a></li>
+                            <li><a href="{{ route('user.birthList',auth()->user()->id) }}">নতুন নিবন্ধন লিস্ট</a></li>
+
+
+                        </ul>
                     </li>
                     @if ($hideUnhide->premium == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.premium.index') }}"
@@ -175,16 +185,17 @@
 
 
                 <li class="{{ auth()->user()->status == 1 || $submitStatus->active_status == 0 ? 'd-md-none' : '' }}">
-                    <a class="waves-effect waves-dark" href="{{ route('user.profile.settings') }}" aria-expanded="false">
+                    <a class="waves-effect waves-dark" href="{{ route('user.profile.settings') }}"
+                        aria-expanded="false">
                         <i class="fa-solid fa-user"></i>
                         <span class="hide-menu">প্রোফাইল</span>
                     </a>
                 </li>
-                
+
                 @if (auth()->user()->status == 0 && $submitStatus->active_status == 1)
                     <li> <a class="waves-effect waves-dark" href="{{ route('bkash.index') }}"
-                            aria-expanded="false"><i class="fa-solid fa-play"></i><span
-                                class="hide-menu">অ্যাকটিভেট অ্যাকাউন্ট</span></a>
+                            aria-expanded="false"><i class="fa-solid fa-play"></i><span class="hide-menu">অ্যাকটিভেট
+                                অ্যাকাউন্ট</span></a>
                     </li>
                 @endif
                 <li> <a class="waves-effect waves-dark" href="#"

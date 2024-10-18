@@ -200,7 +200,6 @@ class BkashPaymentController extends Controller
             }
 
             $submitStatus = \App\Models\SubmitStatus::first();
-            $activeAccountPrice = Message::first()->active_status_price;
             $user = User::find(Auth::user()->id);
             // Active Account
             if ($user->status == 0 && $submitStatus->active_status == 1) {
