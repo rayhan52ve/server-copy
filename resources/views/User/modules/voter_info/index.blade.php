@@ -10,7 +10,6 @@
                 ? $message->voter_info_premium_price
                 : $message->voter_info_price;
     @endphp
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .login-root {
@@ -27,7 +26,7 @@
         }
 
         a {
-            color: #5469d4;
+            color: #54d490;
             text-decoration: unset;
         }
 
@@ -90,7 +89,7 @@
         }
 
         .box-background--blue {
-            background-color: #5469d4;
+            background-color: #54d490;
         }
 
         .box-background--white {
@@ -201,8 +200,8 @@
         }
 
         input[type="submit"] {
-            background-color: rgb(84, 105, 212);
-            box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+            background-color: #2cac66;
+            box-shadow: rgba(7, 101, 57, 0) 0px 0px 0px 0px,
                 rgba(0, 0, 0, 0) 0px 0px 0px 0px,
                 rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
                 rgb(84, 105, 212) 0px 0px 0px 1px,
@@ -295,7 +294,7 @@
         <!-- Start Content-->
         <div class="container-fluid">
             <div class="col-lg-12 mt-5">
-                <div class="card p-1" style="border: 2px solid rgb(7, 95, 136); border-radius: 5px;">
+                <div class="card p-1" style="border: 2px solid #54d490; border-radius: 5px;">
                     <marquee behavior="" direction="">
                         <h4 class="mt-2"><b>নোটিশঃ-</b> {{ $notice->voter_info ?? null }}</h4>
                     </marquee>
@@ -374,6 +373,22 @@
                                             <label for="dob">Date of Birth</label>
                                             <input type="text" name="dob" id="dob"
                                                 placeholder="DOB [YYYY-MM-DD]" required>
+                                        </div>
+
+                                        <div class="field padding-bottom--10 text-center">
+                                            <label for="radioOptions">Select server copy type:</label>
+                                            <div class="btn-group" role="group"
+                                                aria-label="Basic radio toggle button group">
+                                                <input type="radio" class="btn-check" name="qr_code" id="option1"
+                                                    value="1" checked>
+                                                <label class="btn btn-sm btn-outline-success" for="option1">With QR
+                                                    Code</label>
+
+                                                <input type="radio" class="btn-check" name="qr_code" id="option2"
+                                                    value="0">
+                                                <label class="btn btn-sm btn-outline-success" for="option2">Without QR
+                                                    Code</label>
+                                            </div>
                                         </div>
 
                                         <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">

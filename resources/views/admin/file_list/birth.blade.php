@@ -49,7 +49,7 @@
 
                         <div class="table-responsive">
                             <table id="nid-table" class="table display table-striped border no-wrap">
-                                <h3 class="text-center">নতুন রেজিস্ট্রেশন লিস্ট</h3>
+                                <h3 class="text-center">জন্ম নিবন্ধন লিস্ট</h3>
                                 <thead>
                                     <tr>
                                         <th>সিরিয়াল</th>

@@ -6,19 +6,30 @@
         <!-- ============================================================== -->
         <!-- Logo -->
         <!-- ============================================================== -->
-        <div class="navbar-header text-center">
+        <div class="navbar-header text-center hidden-md-down">
             <a class="navbar-brand" href="">
-                <!-- Logo icon --><b>
-                    <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                     <!-- Dark Logo icon -->
                     @php $logo = \App\Models\Logo::latest()->first() @endphp
-                    <img src="{{ asset($logo->logo_image ?? null) }}" alt="homepage" height="80px" class="dark-logo" />
+                    <img src="{{ asset($logo->logo_image ?? null) }}" alt="homepage"  class="dark-logo logo-img" />
                     <!-- Light Logo icon -->
-                    <img src="{{ asset($logo->logo_image ?? null) }}" alt="homepage" height="80px"
-                        class="light-logo" />
-                </b>
-                <!--End Logo icon -->
+                    <img src="{{ asset($logo->logo_image ?? null) }}" alt="homepage"
+                        class="light-logo logo-img" />
+                        </a>
         </div>
+        <style>
+            /* Default size */
+            .logo-img {
+                max-height: 80px;
+                /* width: auto; */
+            }
+
+            /* @media only screen and (max-width: 768px) {
+                .logo-img {
+                    height: 50px;
+                    width: 50px;
+                }
+            } */
+        </style>
         <!-- ============================================================== -->
         <!-- End Logo -->
         <!-- ============================================================== -->
@@ -27,17 +38,11 @@
             <!-- toggle and nav items -->
             <!-- ============================================================== -->
             <ul class="navbar-nav me-auto">
-                <!-- This is  -->
                 <li class="nav-item"> <a class="nav-link nav-toggler d-block d-md-none waves-effect waves-dark"
                         href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
-                <li class="nav-item"> <a
+                <li class="nav-item mx-4"> <a
                         class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark"
                         href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
-                {{-- <li class="nav-item"> <a class="nav-link" href="{{route('front.page')}}">Frontend</a> </li> --}}
-                <li class="nav-item"> <a class="nav-link" href="#">Balance: {{ Auth::user()->balance }} ৳</a>
-                </li>
-
-
             </ul>
 
             <!-- ============================================================== -->
@@ -49,7 +54,8 @@
                 <li class="nav-item dropdown u-pro">
                     <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
                         href="{{ route('admin.adminNotification') }}">
-                        <span class="hidden-md-down">
+                        {{-- <span class="hidden-md-down"> --}}
+                        <span class="">
                             <i class="fa-solid fa-bell fa-xl" style="color: #FFD43B; position: relative;">
                                 @if ($notification >= 1)
                                     <sup class="notification-count">{{ $notification }}</sup>
@@ -74,9 +80,9 @@
                 <li class="nav-item dropdown u-pro">
                     <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="#"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span
-                            class="hidden-md-down">{{ Auth::User()->name }} &nbsp;<svg
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                            class="">{{ Auth::User()->name }} &nbsp;<svg xmlns="http://www.w3.org/2000/svg"
+                                width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill"
+                                viewBox="0 0 16 16">
                                 <path
                                     d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                             </svg></span> </a>

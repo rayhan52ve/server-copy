@@ -143,16 +143,21 @@ class PremiumController extends Controller
         return redirect()->back();
     }
 
-    public function userPremiumStatus($id)
+    public function userPremiumStatus(Request $request,$id)
     {
+        // dd($request->all());
         $user = User::find($id);
         $userBalance = $user->balance;
         $premium = Premium::first();
         $subscription_days =  $premium->subscription_days;
         $price = (int)$premium->price;
+        if(auth()->user()->is_admin == 1){
+            $price = 0;
+            $subscription_days =  $request->manual_subscription_days ?? $premium->subscription_days;
+        }
 
         if ($user->premium == 0) {
-            if ($userBalance >= $price) {
+            if ($userBalance >= $price ) {
                 $user->balance -= $price;
                 $user->premium = 2;
                 $user->premium_start = Carbon::now();

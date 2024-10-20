@@ -56,4 +56,11 @@ class AdminRechargeController extends Controller
 
         return redirect()->back();
     }
+
+    public function clearAllRecharge()
+    {
+        Recharge::truncate();
+        Alert::toast("All Recharge Data Cleared Successfully.", 'success');
+        return redirect()->back();
+    }
 }

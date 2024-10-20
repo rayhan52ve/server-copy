@@ -192,11 +192,16 @@ class VoterInfoController extends Controller
             'dateOfBirth' => $nid_info['dateOfBirth'],
             'birthPlace' => $nid_info['birthPlace']  ?? null,
             'pin' => $nid_info['pin'],
-            'qr_code' => 1,
+            'qr_code' => $request->qr_code,
         ]);
 
-        // Return the view with NID info and QR code data
-        return view('pdf.new_server_copy_unofficial', compact('nid_info', 'presentAddress', 'permanentAddress'));
+         // Return the view with NID info and QR code data
+         if ($request->qr_code == 1) {
+            return view('pdf.new_server_copy_unofficial', compact('nid_info', 'presentAddress', 'permanentAddress'));
+        } else {
+            return view('pdf.server_copy_unofficial_without_qr_code', compact('nid_info', 'presentAddress', 'permanentAddress'));
+        }
+        
     }
 
 

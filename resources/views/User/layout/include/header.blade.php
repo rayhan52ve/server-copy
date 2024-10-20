@@ -8,18 +8,15 @@
         <!-- ============================================================== -->
         <!-- Logo -->
         <!-- ============================================================== -->
-        <div class="navbar-header text-center">
+        <div class="navbar-header text-center hidden-md-down">
             <a class="navbar-brand" href="">
-                <!-- Logo icon --><b>
-                    <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                     <!-- Dark Logo icon -->
                     @php $logo = \App\Models\Logo::latest()->first() @endphp
                     <img src="{{ asset($logo->logo_image ?? null) }}" alt="homepage" height="80px" class="dark-logo" />
                     <!-- Light Logo icon -->
                     <img src="{{ asset($logo->logo_image ?? null) }}" alt="homepage" height="80px"
                         class="light-logo" />
-                </b>
-                <!--End Logo icon -->
+                        </a>
         </div>
         <!-- ============================================================== -->
         <!-- End Logo -->
@@ -29,18 +26,28 @@
             <!-- toggle and nav items -->
             <!-- ============================================================== -->
             <ul class="navbar-nav me-auto">
-                <!-- This is  -->
-                <li class="nav-item"> <a class="nav-link nav-toggler d-block d-md-none waves-effect waves-dark"
-                        href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
-                <li class="nav-item"> <a
-                        class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark"
-                        href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
-                {{-- <li class="nav-item"> <a class="nav-link" href="{{route('front.page')}}">Frontend</a> </li> --}}
-                <li class="nav-item"> <a class="nav-link" href="#">Balance: {{ Auth::user()->balance ?? null }}
-                        ৳</a>
+                <!-- Mobile menu toggler -->
+                <li class="nav-item d-md-none">
+                    <a class="nav-link nav-toggler d-md-none waves-effect waves-dark" href="javascript:void(0)">
+                        <i class="ti-menu"></i>
+                    </a>
                 </li>
-
+            
+                <!-- Sidebar toggler for larger screens -->
+                <li class="nav-item d-md-none">
+                    <a class="nav-link sidebartoggler d-none d-md-block waves-effect waves-dark" href="javascript:void(0)">
+                        <i class="icon-menu"></i>
+                    </a>
+                </li>
+            
+                <!-- Balance display -->
+                <li class="nav-item mx-3">
+                    <a class="nav-link" href="#">
+                        Balance: {{ Auth::user()->balance ?? '0.00' }} ৳
+                    </a>
+                </li>
             </ul>
+            
             <!-- ============================================================== -->
             <!-- User profile and search -->
             <!-- ============================================================== -->
@@ -49,7 +56,7 @@
                 <li class="nav-item dropdown u-pro">
                     <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
                         href="{{ route('user.userNotification') }}">
-                        <span class="hidden-md-down">
+                        <span class="">
                             <i class="fa-solid fa-bell fa-xl" style="color: #FFD43B; position: relative;">
                                 @if ($notification >= 1)
                                     <sup class="notification-count">{{ $notification }}</sup>

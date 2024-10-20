@@ -33,7 +33,7 @@
         <!-- Column -->
         <div class="col-lg-12 col-md-12">
             <div class="row">
-                <div class="col-xl-2 col-md-3">
+                <div class="col-xl-2 col-md-3 col-6">
                     <div class="card bg-primary text-white mb-4">
                         <div class="card-header">
                             <h5>Sign Copy</h5>
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-2 col-md-3">
+                <div class="col-xl-2 col-md-3 col-6">
                     <div class="card bg-warning text-white mb-4">
                         <div class="card-header">
                             <h5>Server Copy</h5>
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-2 col-md-3">
+                <div class="col-xl-2 col-md-3 col-6">
                     <div class="card bg-success text-white mb-4">
                         <div class="card-header">
                             <h5>Id Card</h5>
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-2 col-md-3">
+                <div class="col-xl-2 col-md-3 col-6">
                     <div class="card bg-danger text-white mb-4">
                         <div class="card-header">
                             <h5>Biometric Info</h5>

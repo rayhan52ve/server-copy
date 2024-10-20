@@ -21,7 +21,7 @@
 
                         <div class="table-responsive">
                             <table id="" class="table display table-striped border no-wrap">
-                                <h3 class="text-center">নতুন নিবন্ধন লিস্ট</h3>
+                                <h3 class="text-center">জন্ম নিবন্ধন লিস্ট</h3>
                                 <thead>
                                     <tr>
                                         <th>সিরিয়াল</th>

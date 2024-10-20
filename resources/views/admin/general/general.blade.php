@@ -120,7 +120,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">
-                                                        নতুন নিবন্ধন
+                                                        জন্ম নিবন্ধন
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->birth == 1 ? 'ON' : 'OFF' }}</label>
@@ -325,7 +325,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">
-                                                        নতুন নিবন্ধন
+                                                        জন্ম নিবন্ধন
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$submitStatus->birth == 1 ? 'ON' : 'OFF' }}</label>

@@ -114,7 +114,7 @@
                                 @endif
                             </tr>
                             <tr class="table-active">
-                                <td>নতুন নিবন্ধন</td>
+                                <td>জন্ম নিবন্ধন</td>
                                 @if ($submitStatus->birth == 1)
                                     @if (auth()->user()->premium == 0)
                                         <td>{{ $message->birth_price ?? null }} ৳</td>

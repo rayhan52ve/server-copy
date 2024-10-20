@@ -5,13 +5,7 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between">
                     <h3>Payment History</h3>
-                    <button class="btn btn-primary" onclick="reloadPage()">পেজ রিলোড করুন</button>
-                    <script>
-                        function reloadPage() {
-                            location.reload();
-                        }
-                    </script>
-
+                    <button type="button" class="btn btn-danger" id="clearAllBtn">Clear All</button>
 
                 </div>
             </div>
@@ -122,5 +116,27 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('clearAllBtn').addEventListener('click', function(event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "All the recharge data will be deleted permanently!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, clear it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "{{ route('admin.clearAllRecharge') }}";
+                    }
+                });
+            });
+        });
     </script>
 @endsection

@@ -36,9 +36,15 @@
                                     <td>{{ $item->balance ?? 0 }}</td>
                                     @if (url()->current() == route('admin.manage-user.index') || url()->current() == route('admin.inactiveUser'))
                                         <td>
-                                            <a style="width: 70px" href="{{ route('admin.userPremiumStatus', $item->id) }}"
-                                                onclick="sweetConfirmation(event)"
-                                                class="btn btn-sm btn-{{ $item->premium == 2 ? 'primary' : 'success' }}">{{ $item->premium == 2 ? 'Premium' : 'Casual' }}</a>
+                                            @if ($item->premium == 2)
+                                                <a style="width: 70px" href="" data-toggle="modal"
+                                                    data-target="#makeCasualModal{{ $item->id }}"
+                                                    class="btn btn-sm btn-primary">Premium</a>
+                                            @else
+                                                <a style="width: 70px" href="" data-toggle="modal"
+                                                    data-target="#makePremiumModal{{ $item->id }}"
+                                                    class="btn btn-sm btn-success">Casual</a>
+                                            @endif
                                         </td>
                                         <td>
                                             <a onclick="sweetConfirmation(event)"
@@ -108,6 +114,72 @@
                                                             placeholder="0">
                                                     </div>
                                                     <button type="submit" class="btn btn-success btn-sm">Save</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Make Premium Modal -->
+                                <div class="modal fade" id="makePremiumModal{{ $item->id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="uploadModalLabel"></h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h3 class="text-center">Make this user Premium?</h3>
+                                                <form action="{{ route('admin.userPremiumStatus', $item->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="form-group text-center">
+                                                        <label for="file" class="form-label">Select
+                                                            Duration (Days)</label>
+                                                        <input type="text" class="form-control text-center"
+                                                            id="file" placeholder="Select Account Duration" value="{{ App\Models\Premium::first()->subscription_days}}"
+                                                            name="manual_subscription_days" required>
+                                                        <input type="hidden" name="is_premium" value="1">
+                                                    </div>
+                                                    <div class="d-flex justify-content-center mt-3">
+                                                        <button type="submit" class="btn btn-success mx-1">Yes</button>
+                                                        <button type="button" class="btn btn-danger mx-1"
+                                                            data-dismiss="modal">NO</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Make Casual Modal -->
+                                <div class="modal fade" id="makeCasualModal{{ $item->id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="makeCasualModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="makeCasualModalLabel">
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h3 class="text-center my-3">Make this user Casual?</h3>
+                                                <form action="{{ route('admin.userPremiumStatus', $item->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="is_premium" value="0">
+                                                    <div class="d-flex justify-content-center mt-5">
+                                                        <button type="submit" class="btn btn-success mx-1">Yes</button>
+                                                        <button type="button" class="btn btn-danger mx-1"
+                                                            data-dismiss="modal">NO</button>
+                                                    </div>
                                                 </form>
                                             </div>
                                         </div>

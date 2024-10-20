@@ -198,7 +198,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::resource('premium', PremiumController::class)->only('index', 'store');
 
     Route::get('premium-request-accept/{id}', [PremiumController::class, 'userPremiumRequestAccept'])->name('userPremiumRequestAccept');
-    Route::get('premium-status/{id}', [PremiumController::class, 'userPremiumStatus'])->name('userPremiumStatus');
+    Route::put('premium-status/{id}', [PremiumController::class, 'userPremiumStatus'])->name('userPremiumStatus');
 
 
     Route::get('recharge', [AdminRechargeController::class, 'index'])->name('recharge');
@@ -210,6 +210,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
 
     Route::resource('moderator-access', ModeratorAccessController::class)->middleware('is_admin');
 
+    Route::get('/clear-recharge-data', [AdminRechargeController::class, 'clearAllRecharge'])->name('clearAllRecharge');
 
     Route::get('/server-copy-unofficial-list', [HomeController::class, 'serverCopyUnofficialList'])->name('serverCopyUnofficialList');
     Route::get('/clear-server-copy-unofficial-list', [HomeController::class, 'clearServerCopyUnofficial'])->name('clearAll');
