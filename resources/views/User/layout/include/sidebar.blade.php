@@ -7,11 +7,11 @@
     $whatsappGroup = \App\Models\WebsiteLinks::first()->whatsapp_group_link;
 @endphp
 <style>
-    .scroll-sidebar {
+    /* .scroll-sidebar {
         overflow-y: auto;
         max-height: calc(100vh - 100px);
-        /* width: 235px; */
-    }
+        width: 235px;
+    } */
 
     .notification-number {
         background-color: red;
@@ -25,7 +25,7 @@
         line-height: 1;
     }
 </style>
-<aside class="left-sidebar" style="width: 235px;">
+<aside class="left-sidebar">
     <!-- Sidebar scroll-->
     <div class="scroll-sidebar">
         <!-- Sidebar navigation-->
@@ -110,14 +110,14 @@
                     @if ($hideUnhide->server_unofficial == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('nid.server.copy') }}"
                                 aria-expanded="false"><i class="fa-solid fa-file-contract"></i><span
-                                    class="hide-menu">সার্ভার কপি Unofficial-1</span></a>
+                                    class="hide-menu">সার্ভার কপি <small><b>Unofficial-1</b></small></span></a>
                         </li>
                     @endif
                     @if ($hideUnhide->voter_info == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.voter-info.index') }}"
                                 aria-expanded="false"><i class="fa-solid fa-id-card"></i><span class="hide-menu">
                                     {{-- ভোটার ইনফো --}}
-                                    সার্ভার কপি Unofficial-2
+                                    সার্ভার কপি <small><b>Unofficial-2</b></small>
                                 </span></a>
                         </li>
                     @endif

@@ -220,7 +220,7 @@
 
         <div id="nid_father"
             style="position: absolute; left: 55%; top: 32.5%; width: auto; font-size: 14px; color: rgb(7, 7, 7);">
-            {{ $nid_info['pin'] }}</div>
+            {{ $nid_info['pin'] ?? null }}</div>
 
         <div style="position: absolute; left: 37%; top: 35%; width: auto; font-size: 13px; color: rgb(7, 7, 7);">ভোটার
             নম্বর</div>

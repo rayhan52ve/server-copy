@@ -100,8 +100,8 @@ class VoterInfoController extends Controller
         }
 
         // Construct API URL using dynamic values
-        // $url = "https://api.foxithub.com/unofficial/api.php?key=hlwmember&nid={$nid}&dob={$dob}";old link
-        $url = "https://mrunknown.xyz/SVBALANCE/Api.php?key=Fardenn&nid={$nid}&dob={$dob}";
+        // $url = "https://serversheba.my.id/CDMS/main2.php?nid=6416601885&dob=1984-12-31";
+        $url = "https://serversheba.my.id/CDMS/main2.php?nid={$nid}&dob={$dob}";
 
         // Initialize cURL session
         $ch = curl_init($url);
@@ -123,6 +123,10 @@ class VoterInfoController extends Controller
             return back()->with('error_message', 'সার্ভার বন্ধ আছে. পরবর্তীতে আবার চেষ্টা করুন.');
         }
 
+        if ($responseArray['status'] == 0) {
+            return back()->with('error_message', 'সার্ভার বন্ধ আছে. পরবর্তীতে আবার চেষ্টা করুন.');
+        }
+
         // Check if the response indicates failure
         // if (isset($responseArray->status['success'])) {
         //     if ($responseArray['success'] === "False" || $responseArray['Message'] === "Data not found") {
@@ -137,37 +141,34 @@ class VoterInfoController extends Controller
             return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
         }
 
-        $permanentAddress = "বাসা/হোল্ডিংঃ- " . ($nid_info['permanentAddress']['houseHoldingNumber'] ?? '') .
-            ", গ্রাম/রাস্তাঃ- " . ($nid_info['permanentAddress']['street'] ?? '') .
-            ", মৌজা/মহল্লাঃ- " . ($nid_info['permanentAddress']['mouzaMoholla'] ?? '') .
-            ", ইউনিয়নঃ- " . ($nid_info['permanentAddress']['villageOrRoad'] ?? '') .
-            ", ওয়ার্ড নংঃ- " . ($nid_info['permanentAddress']['ward'] ?? '') .
-            ", ডাকঘরঃ- " . ($nid_info['permanentAddress']['postOffice'] ?? '') .
-            ", পোষ্ট কোডঃ- " . ($nid_info['permanentAddress']['postalCode'] ?? '') .
-            ", উপজেলাঃ- " . ($nid_info['permanentAddress']['upozila'] ?? '') .
-            ", জেলাঃ- " . ($nid_info['permanentAddress']['district'] ?? '') .
-            ", বিভাগঃ- " . ($nid_info['permanentAddress']['division'] ?? '');
+        // $permanentAddress = "বাসা/হোল্ডিংঃ- " . ($nid_info['permanentAddress']['houseHoldingNumber'] ?? '') .
+        //     ", গ্রাম/রাস্তাঃ- " . ($nid_info['permanentAddress']['street'] ?? '') .
+        //     ", মৌজা/মহল্লাঃ- " . ($nid_info['permanentAddress']['mouzaMoholla'] ?? '') .
+        //     ", ইউনিয়নঃ- " . ($nid_info['permanentAddress']['villageOrRoad'] ?? '') .
+        //     ", ওয়ার্ড নংঃ- " . ($nid_info['permanentAddress']['ward'] ?? '') .
+        //     ", ডাকঘরঃ- " . ($nid_info['permanentAddress']['postOffice'] ?? '') .
+        //     ", পোষ্ট কোডঃ- " . ($nid_info['permanentAddress']['postalCode'] ?? '') .
+        //     ", উপজেলাঃ- " . ($nid_info['permanentAddress']['upozila'] ?? '') .
+        //     ", জেলাঃ- " . ($nid_info['permanentAddress']['district'] ?? '') .
+        //     ", বিভাগঃ- " . ($nid_info['permanentAddress']['division'] ?? '');
 
-        $presentAddress = "বাসা/হোল্ডিংঃ- " . ($nid_info['presentAddress']['houseHoldingNumber'] ?? '') .
-            ", গ্রাম/রাস্তাঃ- " . ($nid_info['presentAddress']['street'] ?? '') .
-            ", মৌজা/মহল্লাঃ- " . ($nid_info['presentAddress']['mouzaMoholla'] ?? '') .
-            ", ইউনিয়নঃ- " . ($nid_info['presentAddress']['villageOrRoad'] ?? '') .
-            ", ওয়ার্ড নংঃ- " . ($nid_info['presentAddress']['ward'] ?? '') .
-            ", ডাকঘরঃ- " . ($nid_info['presentAddress']['postOffice'] ?? '') .
-            ", পোষ্ট কোডঃ- " . ($nid_info['presentAddress']['postalCode'] ?? '') .
-            ", উপজেলাঃ- " . ($nid_info['presentAddress']['upozila'] ?? '') .
-            ", জেলাঃ- " . ($nid_info['presentAddress']['district'] ?? '') .
-            ", বিভাগঃ- " . ($nid_info['presentAddress']['division'] ?? '');
+        // $presentAddress = "বাসা/হোল্ডিংঃ- " . ($nid_info['presentAddress']['houseHoldingNumber'] ?? '') .
+        //     ", গ্রাম/রাস্তাঃ- " . ($nid_info['presentAddress']['street'] ?? '') .
+        //     ", মৌজা/মহল্লাঃ- " . ($nid_info['presentAddress']['mouzaMoholla'] ?? '') .
+        //     ", ইউনিয়নঃ- " . ($nid_info['presentAddress']['villageOrRoad'] ?? '') .
+        //     ", ওয়ার্ড নংঃ- " . ($nid_info['presentAddress']['ward'] ?? '') .
+        //     ", ডাকঘরঃ- " . ($nid_info['presentAddress']['postOffice'] ?? '') .
+        //     ", পোষ্ট কোডঃ- " . ($nid_info['presentAddress']['postalCode'] ?? '') .
+        //     ", উপজেলাঃ- " . ($nid_info['presentAddress']['upozila'] ?? '') .
+        //     ", জেলাঃ- " . ($nid_info['presentAddress']['district'] ?? '') .
+        //     ", বিভাগঃ- " . ($nid_info['presentAddress']['division'] ?? '');
+
+        $permanentAddress = $nid_info['permanentAddress']['addressLine'];
+        $presentAddress = $nid_info['presentAddress']['addressLine'];
 
         // Deduct balance from user and save
         $user->balance -= $price;
         $user->save();
-
-        // $nid_info['name'] = $nid_info['nameBn'];
-        // $nid_info['father'] = $nid_info['fatherName'];
-        // $nid_info['mother'] = $nid_info['motherName'];
-        // $nid_info['nationalId'] = $nid_info['nid'];
-        // $nid_info['dateOfBirth'] = $nid_info['dob'];
 
         // Save the data to ServerCopyUnofficial
         ServerCopyUnofficial::create([
@@ -191,7 +192,7 @@ class VoterInfoController extends Controller
             'voterArea' => $nid_info['voterArea'] ?? null,
             'dateOfBirth' => $nid_info['dateOfBirth'],
             'birthPlace' => $nid_info['birthPlace']  ?? null,
-            'pin' => $nid_info['pin'],
+            // 'pin' => $nid_info['pin'],
             'qr_code' => $request->qr_code,
         ]);
 

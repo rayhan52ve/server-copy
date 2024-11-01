@@ -191,8 +191,8 @@
         <p class="vote inLeft">ভোটার নম্বর</p>
         <p class="none inLeft">পেশা</p>
         <p class="nid inRight">{{ $nid_info['nationalId'] }}</p>
-        <p class="pin inRight">{{ $nid_info['pin'] }}</p>
-        <p class="vno inRight">{{ $nid_info['voterSerial'] ?? null}}</p>
+        <p class="pin inRight">{{ $nid_info['pin'] ?? null }}</p>
+        <p class="vno inRight">{{ $nid_info['voter_no'] ?? null}}</p>
         <p class="mobile inRight"></p>
         <p class="vArea inRight">{{ $nid_info['voterArea'] ?? null }}</p>
         <p class="nameBn inRight">{{ $nid_info['name'] }}</p>

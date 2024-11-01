@@ -6,15 +6,14 @@
     .scroll-sidebar {
         overflow-y: auto;
         max-height: calc(100vh - 100px);
-        /* Adjust max-height as needed */
     }
 </style> --}}
 <aside class="left-sidebar">
     <!-- Sidebar scroll-->
     <div class="scroll-sidebar">
         <!-- Sidebar navigation-->
-        <nav class="sidebar-nav mt-3 mt-md-0">
-            <ul id="sidebarnav">
+        <nav class="sidebar-nav ">
+            <ul id="sidebarnav" class="in">
 
                 <li> <a class="waves-effect waves-dark" href="{{ url('/') }}" aria-expanded="false"><i><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -162,7 +161,7 @@
                     </li>
 
                     <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"
-                            aria-expanded="false"><i class="fa-solid fa-fingerprint"></i><span class="hide-menu">ফাইল
+                            aria-expanded="false"><i class="fa-solid fa-file"></i><span class="hide-menu">ফাইল
                                 লিস্ট</span></a>
                         <ul aria-expanded="false" class="collapse">
 
