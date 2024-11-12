@@ -155,22 +155,52 @@ class NidMakeController extends Controller
 
     public function signCopyUpload(Request $request)
     {
+        // Validate the file input to ensure it's a required file and is of the specified types and size
         // $request->validate([
         //     'pdf_file' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
         // ]);
-
+    
         $pdf_file = $request->file('pdf_file');
-
+    
+        // Define the API URLs and headers where applicable
+        $apis = [
+            [
+                'url' => 'https://api.foxithub.com/make/api.php?user_key=Fardin',
+                'headers' => [
+                    "Authorization" => "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5OTE1N2E1LTgyOTctNGJmMy1hZDAzLTM2Njk2OWU0M2Y2OCIsInVzZXJJZCI6MzI4NTc2MDcsInRlYW1JZCI6MCwiaXYiOiJtTmxrYnV1M2E3VUVacUJYblUzK1pBPT0iLCJhbGdvIjoiYWVzLTEyOCIsImlhdCI6MTczMDI2Nzk1NSwiZXhwIjoxNzMwMjY5NzU1fQ.vBPC0TnzK_dwhhb3P-A0fImavYAJN_x5HI47_YdAkbw"
+                ]
+            ],
+            [
+                'url' => 'https://www.eservicecenter.xyz/ext/amarkhota?type=C',
+                'headers' => [] // No headers required for this API
+            ]
+        ];
+    
         try {
-            $response = Http::attach(
-                'pdf_file',
-                file_get_contents($pdf_file->getRealPath()),
-                $pdf_file->getClientOriginalName()
-            )->post('https://api24.pythonanywhere.com/ext/webmetrix');
-
-            if ($response->successful()) {
+            foreach ($apis as $api) {
+                $httpClient = Http::timeout(30);
+    
+                // Attach headers only if they are specified for the current API
+                if (!empty($api['headers'])) {
+                    $httpClient = $httpClient->withHeaders($api['headers']);
+                }
+    
+                // Make the HTTP request with the current API URL and headers if specified
+                $response = $httpClient->attach(
+                        'pdf_file',
+                        file_get_contents($pdf_file->getRealPath()),
+                        $pdf_file->getClientOriginalName()
+                    )
+                    ->post($api['url']);
+    
                 $data = $response->json();
-
+    
+                // Check if the daily limit error exists
+                if (isset($data['error']) && $data['error'] == 'Daily request limit reached') {
+                    continue; // Try the next API if the limit is reached
+                }
+    
+                // Process the response if no error
                 return view('User.modules.nid_make.nid_make', [
                     'nidImage' => $data['photo'] ?? null,
                     'signatureImage' => $data['sign'] ?? null,
@@ -179,18 +209,68 @@ class NidMakeController extends Controller
                     'name_en' => $data['nameEng'] ?? null,
                     'pin' => $data['pin'] ?? null,
                     'birthday' => $data['birth'] ?? null,
-                    'birth' => $data['birth'] ?? null,
                     'birth_place' => $data['birth_place'] ?? null,
                     'fathers_name' => $data['father'] ?? null,
                     'mothers_name' => $data['mother'] ?? null,
                     'blood_group' => $data['blood'] ?? null,
                     'address' => $data['address'] ?? null,
                 ]);
-            } else {
-                return back()->withErrors(['msg' => 'File upload failed. Please try again.']);
             }
+    
+            // If all APIs fail due to the limit, throw an error
+            return back()->withErrors(['msg' => 'All APIs have reached their daily request limit. Please try again later.']);
+    
         } catch (\Exception $e) {
+            // Handle any other exceptions and display an error message
             return back()->withErrors(['msg' => 'An error occurred: ' . $e->getMessage()]);
         }
     }
+    
+    // public function signCopyUpload(Request $request)
+    // {
+    //     // Validate the file input to ensure it's a required file and is of the specified types and size
+    //     $request->validate([
+    //         'pdf_file' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+    //     ]);
+
+    //     $pdf_file = $request->file('pdf_file');
+
+    //     try {
+    //         $response = Http::withHeaders([
+    //             "Authorization" => "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5OTE1N2E1LTgyOTctNGJmMy1hZDAzLTM2Njk2OWU0M2Y2OCIsInVzZXJJZCI6MzI4NTc2MDcsInRlYW1JZCI6MCwiaXYiOiJtTmxrYnV1M2E3VUVacUJYblUzK1pBPT0iLCJhbGdvIjoiYWVzLTEyOCIsImlhdCI6MTczMDI2Nzk1NSwiZXhwIjoxNzMwMjY5NzU1fQ.vBPC0TnzK_dwhhb3P-A0fImavYAJN_x5HI47_YdAkbw",
+    //         ])
+    //             ->attach(
+    //                 'pdf_file',
+    //                 file_get_contents($pdf_file->getRealPath()),
+    //                 $pdf_file->getClientOriginalName()
+    //             )
+    //             ->timeout(30) // Set a timeout to handle slow responses
+    //             // ->post('https://api.foxithub.com/make/api.php?user_key=Fardin');
+    //         ->post('https://www.eservicecenter.xyz/ext/amarkhota?type=C');
+    //         dd($response);
+
+    //         $data = $response->json();
+
+
+    //         // Process the response and display the data
+    //         return view('User.modules.nid_make.nid_make', [
+    //             'nidImage' => $data['photo'] ?? null,
+    //             'signatureImage' => $data['sign'] ?? null,
+    //             'nid_number' => $data['national_id'] ?? null,
+    //             'name_bn' => $data['nameBen'] ?? null,
+    //             'name_en' => $data['nameEng'] ?? null,
+    //             'pin' => $data['pin'] ?? null,
+    //             'birthday' => $data['birth'] ?? null,
+    //             'birth_place' => $data['birth_place'] ?? null,
+    //             'fathers_name' => $data['father'] ?? null,
+    //             'mothers_name' => $data['mother'] ?? null,
+    //             'blood_group' => $data['blood'] ?? null,
+    //             'address' => $data['address'] ?? null,
+    //         ]);
+    //     } catch (\Exception $e) {
+    //         // Handle any other exceptions and display an error message
+    //         return back()->withErrors(['msg' => 'An error occurred: ' . $e->getMessage()]);
+    //     }
+    // }
+
 }

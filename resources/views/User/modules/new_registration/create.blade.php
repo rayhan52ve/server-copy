@@ -221,9 +221,9 @@
                 <h6 class="text-danger text-center">ফর্ম সাবমিট বন্ধ আছে। পরবর্তীতে চেষ্টা করুন।</h6>
             @else
                 @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
-                    <h6 class="text-primary">{{ $message->premium_birth }}</h6>
+                    <h6 class="text-primary text-center">{{ $message->premium_birth }}</h6>
                 @else
-                    <h6 class="text-primary">{{ $message->birth }}</h6>
+                    <h6 class="text-primary text-center">{{ $message->birth }}</h6>
                 @endif
             @endif
             <div class="form-group">

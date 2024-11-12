@@ -228,13 +228,13 @@
                     <div class="form-group py-2">
                         <div class="row">
                             <div class="col-md-8">
-                                <label>Server Copy Unofficial</label>
+                                <label>সার্ভার কপি <small><b>Unofficial-1 </b></small></label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->server_unofficial ?? null }}" name="server_unofficial"
                                     placeholder="Server Copy Unofficial">
                             </div>
                             <div class="col-md-4">
-                                <label>Server Copy Unofficial Price</label>
+                                <label>সার্ভার কপি <small><b>Unofficial-1 </b></small> মূল্য</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->server_unofficial_price ?? null }}" name="server_unofficial_price"
                                     placeholder="0">
@@ -242,17 +242,17 @@
                         </div>
                         <div class="row pt-1">
                             <div class="col-md-8">
-                                <label>Server Copy Unofficial (Premium)</label>
+                                <label>সার্ভার কপি <small><b>Unofficial-1 </b></small>(Premium)</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->premium_server_unofficial ?? null }}" name="premium_server_unofficial"
                                     placeholder="Server Copy Unofficial">
                             </div>
                             <div class="col-md-4">
-                                <label>Server Copy Unofficial Price (Premium)</label>
+                                <label>সার্ভার কপি <small><b>Unofficial-1 </b></small> মূল্য (Premium)</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->premium_server_unofficial_price ?? null }}" name="premium_server_unofficial_price"
                                     placeholder="0">
-                                <label>Server Copy Unofficial Price (Remake)</label>
+                                <label>সার্ভার কপি <small><b>Unofficial-1 </b></small> মূল্য (Remake)</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->servercopy_remake ?? null }}" name="servercopy_remake"
                                     placeholder="0">
@@ -263,13 +263,13 @@
                     <div class="form-group py-2">
                         <div class="row">
                             <div class="col-md-8">
-                                <label>Voter Info</label>
+                                <label>সার্ভার কপি <small><b>Unofficial-2 </b></small></label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->voter_info ?? null }}" name="voter_info"
                                     placeholder="Voter Info">
                             </div>
                             <div class="col-md-4">
-                                <label>Voter Info Price</label>
+                                <label>সার্ভার কপি <small><b>Unofficial-2 </b></small> মূল্য</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->voter_info_price ?? null }}" name="voter_info_price"
                                     placeholder="0">
@@ -277,17 +277,17 @@
                         </div>
                         <div class="row pt-1">
                             <div class="col-md-8">
-                                <label>Voter Info (Premium)</label>
+                                <label>সার্ভার কপি <small><b>Unofficial-2 </b></small> (Premium)</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->voter_info_premium ?? null }}" name="voter_info_premium"
                                     placeholder="Voter Info">
                             </div>
                             <div class="col-md-4">
-                                <label>Voter Info Price (Premium)</label>
+                                <label>সার্ভার কপি <small><b>Unofficial-2 </b></small> মূল্য (Premium)</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->voter_info_premium_price ?? null }}" name="voter_info_premium_price"
                                     placeholder="0">
-                                {{-- <label>Voter Info Price (Remake)</label>
+                                {{-- <label>সার্ভার কপি <small><b>Unofficial-2 </b></small> মূল্য (Remake)</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->voter_info_remake_price ?? null }}" name="	voter_info_remake_price"
                                     placeholder="0"> --}}
@@ -298,13 +298,13 @@
                     <div class="form-group py-2">
                         <div class="row">
                             <div class="col-md-8">
-                                <label>Sign To Server Copy</label>
+                                <label>টিন সার্টিফিকেট</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->sign_to_server ?? null }}" name="sign_to_server"
-                                    placeholder="Sign To Server Copy">
+                                    placeholder="টিন সার্টিফিকেট">
                             </div>
                             <div class="col-md-4">
-                                <label>Sign To Server Copy Price</label>
+                                <label>টিন সার্টিফিকেট মূল্য</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->sign_to_server_price ?? null }}" name="sign_to_server_price"
                                     placeholder="0">
@@ -312,13 +312,13 @@
                         </div>
                         <div class="row pt-1">
                             <div class="col-md-8">
-                                <label>Sign To Server Copy (Premium)</label>
+                                <label>টিন সার্টিফিকেট (Premium)</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->premium_sign_to_server ?? null }}" name="premium_sign_to_server"
-                                    placeholder="Sign To Server Copy">
+                                    placeholder="টিন সার্টিফিকেট">
                             </div>
                             <div class="col-md-4">
-                                <label>Sign To Server Copy Price (Premium)</label>
+                                <label>টিন সার্টিফিকেট মূল্য (Premium)</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->premium_sign_to_server_price ?? null }}" name="premium_sign_to_server_price"
                                     placeholder="0">

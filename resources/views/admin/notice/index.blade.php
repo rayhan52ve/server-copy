@@ -52,17 +52,17 @@
                             name="birth" placeholder="জন্ম নিবন্ধন নোটিশ">
                     </div>
                     <div class="form-group py-2">
-                        <label>সার্ভার কপি (Unofficial) </label>
+                        <label>সার্ভার কপি <small><b>Unofficial-1</b></small> </label>
                         <input type="text" class="form-control" rows="5" value="{{ $notice->server_unofficial ?? null }}"
                             name="server_unofficial" placeholder="">
                     </div>
                     <div class="form-group py-2">
-                        <label>ভোটার ইনফো </label>
+                        <label>সার্ভার কপি <small><b>Unofficial-2 </b></small> </label>
                         <input type="text" class="form-control" rows="5" value="{{ $notice->voter_info ?? null }}"
                             name="voter_info" placeholder="">
                     </div>
                     <div class="form-group py-2">
-                        <label>সাইন টু সার্ভার কপি </label>
+                        <label>টিন সার্টিফিকেট </label>
                         <input type="text" class="form-control" rows="5" value="{{ $notice->sign_to_server ?? null }}"
                             name="sign_to_server" placeholder="">
                     </div>

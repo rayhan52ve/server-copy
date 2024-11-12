@@ -410,8 +410,10 @@
                                                         <span class="pr-2 bn"
                                                             style="font-size:12px;padding-top:1px;">প্রদানের
                                                             তারিখ:
-                                                            {{ toBanglaDate($data['issue_date']) }}<span
-                                                                class="ml-2.5" id="card_date">০৮/১১/২০২২</span></span>
+                                                            {{ toBanglaDate($data['issue_date']) }}
+                                                            {{-- <span
+                                                                class="ml-2.5" id="card_date">০৮/১১/২০২২</span> --}}
+                                                            </span>
                                                     </div>
                                                     <div id="barcode" class="w-full h-[39px] mt-1"
                                                         alt="NID Card Generator"

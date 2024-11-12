@@ -133,7 +133,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">
-                                                        সার্ভার কপি (Unofficial)
+                                                        সার্ভার কপি <small><b>Unofficial-1</b></small>
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->server_unofficial == 1 ? 'ON' : 'OFF' }}</label>
@@ -147,7 +147,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">
-                                                        ভোটার ইনফো
+                                                        সার্ভার কপি <small><b>Unofficial-2 </b></small>
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->voter_info == 1 ? 'ON' : 'OFF' }}</label>
@@ -161,7 +161,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">
-                                                        সাইন টু সার্ভার কপি
+                                                        টিন সার্টিফিকেট
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->sign_to_server == 1 ? 'ON' : 'OFF' }}</label>
@@ -337,7 +337,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">
-                                                        সার্ভার কপি (Unofficial)
+                                                        সার্ভার কপি <small><b>Unofficial-1</b></small>
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$submitStatus->server_unofficial == 1 ? 'ON' : 'OFF' }}</label>
@@ -350,7 +350,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">
-                                                        ভোটার ইনফো
+                                                        সার্ভার কপি <small><b>Unofficial-2 </b></small>
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$submitStatus->voter_info == 1 ? 'ON' : 'OFF' }}</label>
@@ -363,7 +363,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">
-                                                        সাইন টু সার্ভার কপি
+                                                        টিন সার্টিফিকেট
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$submitStatus->sign_to_server == 1 ? 'ON' : 'OFF' }}</label>

@@ -101,7 +101,7 @@
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.new-registration.index') }}"
                                 aria-expanded="false"><i class="fa-regular fa-file-lines"></i><span
                                     class="hide-menu">জন্ম
-                                    নিবন্ধন</span></a>
+                                    নিবন্ধন প্রতিলিপি</span></a>
                         </li>
                     @endif
                     {{-- <li> <a class="waves-effect waves-dark" href="#"
@@ -116,7 +116,7 @@
                     @if ($hideUnhide->voter_info == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.voter-info.index') }}"
                                 aria-expanded="false"><i class="fa-solid fa-id-card"></i><span class="hide-menu">
-                                    {{-- ভোটার ইনফো --}}
+                                    {{-- সার্ভার কপি <SMALL><B>UNOFFICIAL-2</B></SMALL> --}}
                                     সার্ভার কপি <small><b>Unofficial-2</b></small>
                                 </span></a>
                         </li>
@@ -124,8 +124,7 @@
                     @if ($hideUnhide->sign_to_server == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.sign-to-server.index') }}"
                                 aria-expanded="false"><i class="fa-solid fa-file-import"></i><span
-                                    class="hide-menu">সাইন টু
-                                    সার্ভার কপি</span></a>
+                                    class="hide-menu">টিন সার্টিফিকেট</span></a>
                         </li>
                     @endif
                     {{-- <li> <a class="waves-effect waves-dark" href="#"
@@ -137,7 +136,7 @@
                                 লিস্ট</span></a>
                         <ul aria-expanded="false" class="collapse">
 
-                            <li><a href="{{ route('user.serverCopyUnofficialList',auth()->user()->id) }}">সার্ভার কপি (Unofficial)</a>
+                            <li><a href="{{ route('user.serverCopyUnofficialList',auth()->user()->id) }}">সার্ভার কপি <small><b>Unofficial</b></small></a>
                             </li>
                             <li><a href="{{ route('user.nidList',auth()->user()->id) }}">এনআইডি লিস্ট</a></li>
                             <li><a href="{{ route('user.birthList',auth()->user()->id) }}">জন্ম নিবন্ধন লিস্ট</a></li>

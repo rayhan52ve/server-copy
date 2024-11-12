@@ -153,11 +153,10 @@
 
                     <li> <a class="waves-effect waves-dark" href="{{ route('nid.server.copy') }}"
                             aria-expanded="false"><i class="fa-solid fa-file-contract"></i><span
-                                class="hide-menu">সার্ভার কপি (Unofficial)</span></a>
+                                class="hide-menu">সার্ভার কপি <small><b>Unofficial-1</b></small></span></a>
                     </li>
                     <li> <a class="waves-effect waves-dark" href="{{ route('user.voter-info.index') }}"
-                            aria-expanded="false"><i class="fa-solid fa-id-card"></i><span class="hide-menu">ভোটার
-                                ইনফো</span></a>
+                            aria-expanded="false"><i class="fa-solid fa-id-card"></i><span class="hide-menu">সার্ভার কপি <small><b>Unofficial-2 </b></small></span></a>
                     </li>
 
                     <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"
@@ -165,7 +164,7 @@
                                 লিস্ট</span></a>
                         <ul aria-expanded="false" class="collapse">
 
-                            <li><a href="{{ route('admin.serverCopyUnofficialList') }}">সার্ভার কপি (Unofficial)</a>
+                            <li><a href="{{ route('admin.serverCopyUnofficialList') }}">সার্ভার কপি <small><b>Unofficial</b></small></a>
                             </li>
                             <li><a href="{{ route('admin.nidList') }}">এনআইডি লিস্ট</a></li>
                             <li><a href="{{ route('admin.birthList') }}">জন্ম নিবন্ধন লিস্ট</a></li>
