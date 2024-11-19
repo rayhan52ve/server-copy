@@ -153,6 +153,16 @@
                                     @endif
                                 </tr>
                             @endif
+                            @if ($submitStatus->name_address_id == 1 && $hideUnhide->name_address_id == 1)
+                                <tr class="table-active">
+                                    <td>আইডি কার্ড <small><b>নাম-ঠিকানা</b></small></td>
+                                    @if (auth()->user()->premium == 0)
+                                        <td>{{ $message->name_address_id_price ?? null }} ৳</td>
+                                    @elseif (auth()->user()->premium == 2)
+                                        <td>{{ $message->premium_name_address_id_price ?? null }} ৳</td>
+                                    @endif
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>

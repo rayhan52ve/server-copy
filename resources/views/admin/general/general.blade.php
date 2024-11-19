@@ -82,6 +82,19 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">
+                                                        আইডি কার্ড <small><b>নাম-ঠিকানা</b></small>
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$hideUnhide->name_address_id == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="name_address_id" value="0">
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="name_address_id" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$hideUnhide->name_address_id == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group py-2">
                                                         বায়োমেট্রিক তথ্য
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
@@ -94,6 +107,7 @@
                                                                 {{ @$hideUnhide->biometric == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
+
                                                     {{-- <div class="form-group py-2">
                                                         নতুন এনআইডি
                                                         <div class="form-check form-switch">
@@ -151,8 +165,7 @@
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->voter_info == 1 ? 'ON' : 'OFF' }}</label>
-                                                            <input type="hidden" name="voter_info"
-                                                                value="0">
+                                                            <input type="hidden" name="voter_info" value="0">
                                                             <input class="form-check-input"
                                                                 onclick="submitHideUnhideForm()" value="1"
                                                                 name="voter_info" type="checkbox"
@@ -160,6 +173,7 @@
                                                                 {{ @$hideUnhide->voter_info == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group py-2">
                                                         টিন সার্টিফিকেট
                                                         <div class="form-check form-switch">
@@ -289,6 +303,18 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">
+                                                        আইডি কার্ড <small><b>নাম-ঠিকানা</b></small>
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$submitStatus->name_address_id == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="name_address_id" value="0">
+                                                            <input class="form-check-input" onclick="submitForm()"
+                                                                value="1" name="name_address_id" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$submitStatus->name_address_id == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group py-2">
                                                         বায়োমেট্রিক তথ্য
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
@@ -300,6 +326,7 @@
                                                                 {{ @$submitStatus->biometric == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
+
                                                     {{-- <div class="form-group py-2">
                                                     নতুন এনআইডি
                                                     <div class="form-check form-switch">
@@ -354,8 +381,7 @@
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$submitStatus->voter_info == 1 ? 'ON' : 'OFF' }}</label>
-                                                            <input type="hidden" name="voter_info"
-                                                                value="0">
+                                                            <input type="hidden" name="voter_info" value="0">
                                                             <input class="form-check-input" onclick="submitForm()"
                                                                 value="1" name="voter_info" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"

@@ -8,6 +8,7 @@ use App\Models\BiometricInfo;
 use App\Models\BiometricType;
 use App\Models\User;
 use App\Models\UserNotification;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -16,19 +17,25 @@ class AdminBiometricInfoController extends Controller
 {
     public function index()
     {
+        $now = Carbon::now();
+
         $biometricInfo = BiometricInfo::whereIn('status',[0,1])->latest()->get();
-        return view('admin.biometric_info.index', compact('biometricInfo'));
+        return view('admin.biometric_info.index', compact('biometricInfo','now'));
     }
 
     public function completed()
     {
+        $now = Carbon::now();
+
         $biometricInfo = BiometricInfo::where('status',2)->latest()->get();
-        return view('admin.biometric_info.index', compact('biometricInfo'));
+        return view('admin.biometric_info.index', compact('biometricInfo','now'));
     }
     public function disabled()
     {
+        $now = Carbon::now();
+
         $biometricInfo = BiometricInfo::whereIn('status',[3,4,5,6,7])->latest()->get();
-        return view('admin.biometric_info.index', compact('biometricInfo'));
+        return view('admin.biometric_info.index', compact('biometricInfo','now'));
     }
 
     /**

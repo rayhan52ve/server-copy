@@ -103,6 +103,7 @@
                     </li>
                 @endif
 
+
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->server_copy == 1)
                     <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
                                 class="fa-solid fa-file-image"></i><span class="hide-menu">সার্ভার কপি অর্ডার</span></a>
@@ -123,6 +124,18 @@
                             <li><a href="{{ route('admin.id-card.index') }}">পেন্ডিং অর্ডার</a></li>
                             <li><a href="{{ route('admin.id-card.completed') }}">পাওয়া গেছে</a></li>
                             <li><a href="{{ route('admin.id-card.disabled') }}">পাওয়া যায়নি</a></li>
+                        </ul>
+                    </li>
+                @endif
+
+                
+                @if (auth()->user()->is_admin == 1 || @$moderatorAccess->name_address_id == 1)
+                    <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
+                                class="fa-solid fa-file-powerpoint"></i><span class="hide-menu">আইডি কার্ড <small><b>নাম-ঠিকানা</b></small></span></a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="{{ route('admin.name-address-id.index') }}">পেন্ডিং অর্ডার</a></li>
+                            <li><a href="{{ route('admin.name-address-id.completed') }}">পাওয়া গেছে</a></li>
+                            <li><a href="{{ route('admin.name-address-id.disabled') }}">পাওয়া যায়নি</a></li>
                         </ul>
                     </li>
                 @endif

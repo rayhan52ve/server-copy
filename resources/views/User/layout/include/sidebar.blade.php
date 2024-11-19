@@ -74,6 +74,12 @@
                                     অর্ডার</span></a>
                         </li>
                     @endif
+                    @if ($hideUnhide->name_address_id == 1)
+                        <li> <a class="waves-effect waves-dark" href="{{ route('user.name-address-id.index') }}"
+                                aria-expanded="false"><i class="fa-solid fa-file-signature"></i><span
+                                    class="hide-menu">আইডি কার্ড <small><b>নাম-ঠিকানা</b></small></span></a>
+                        </li>
+                    @endif
                     @if ($hideUnhide->biometric == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.biometric-info.index') }}"
                                 aria-expanded="false"><i class="fa-solid fa-fingerprint"></i><span
@@ -81,6 +87,7 @@
                                     তথ্য</span></a>
                         </li>
                     @endif
+
                     {{-- <li> <a class="waves-effect waves-dark" href="{{ route('user.new-nid.index') }}"
                         aria-expanded="false"><i class="fa-solid fa-id-card"></i><span class="hide-menu">নতুন এনআইডি</span></a>
                 </li> --}}
@@ -123,8 +130,8 @@
                     @endif
                     @if ($hideUnhide->sign_to_server == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.sign-to-server.index') }}"
-                                aria-expanded="false"><i class="fa-solid fa-file-import"></i><span
-                                    class="hide-menu">টিন সার্টিফিকেট</span></a>
+                                aria-expanded="false"><i class="fa-solid fa-file-import"></i><span class="hide-menu">টিন
+                                    সার্টিফিকেট</span></a>
                         </li>
                     @endif
                     {{-- <li> <a class="waves-effect waves-dark" href="#"
@@ -136,10 +143,11 @@
                                 লিস্ট</span></a>
                         <ul aria-expanded="false" class="collapse">
 
-                            <li><a href="{{ route('user.serverCopyUnofficialList',auth()->user()->id) }}">সার্ভার কপি <small><b>Unofficial</b></small></a>
+                            <li><a href="{{ route('user.serverCopyUnofficialList', auth()->user()->id) }}">সার্ভার কপি
+                                    <small><b>Unofficial</b></small></a>
                             </li>
-                            <li><a href="{{ route('user.nidList',auth()->user()->id) }}">এনআইডি লিস্ট</a></li>
-                            <li><a href="{{ route('user.birthList',auth()->user()->id) }}">জন্ম নিবন্ধন লিস্ট</a></li>
+                            <li><a href="{{ route('user.nidList', auth()->user()->id) }}">এনআইডি লিস্ট</a></li>
+                            <li><a href="{{ route('user.birthList', auth()->user()->id) }}">জন্ম নিবন্ধন লিস্ট</a></li>
 
 
                         </ul>

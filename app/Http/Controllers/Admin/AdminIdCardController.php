@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\IdCardOrder;
 use App\Models\User;
 use App\Models\UserNotification;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -15,19 +16,24 @@ class AdminIdCardController extends Controller
 {
     public function index()
     {
+        $now = Carbon::now();
         $idCardOrders = IdCardOrder::whereIn('status',[0,1])->latest()->get();
-        return view('admin.id_card_order.index', compact('idCardOrders'));
+        return view('admin.id_card_order.index', compact('idCardOrders','now'));
     }
 
     public function completed()
     {
+        $now = Carbon::now();
+
         $idCardOrders = IdCardOrder::where('status',2)->latest()->get();
-        return view('admin.id_card_order.index', compact('idCardOrders'));
+        return view('admin.id_card_order.index', compact('idCardOrders','now'));
     }
     public function disabled()
     {
+        $now = Carbon::now();
+
         $idCardOrders = IdCardOrder::whereIn('status',[3,4,5,6,7])->latest()->get();
-        return view('admin.id_card_order.index', compact('idCardOrders'));
+        return view('admin.id_card_order.index', compact('idCardOrders','now'));
     }
 
     /**

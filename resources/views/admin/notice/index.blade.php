@@ -32,10 +32,16 @@
                             name="id_card" placeholder="আইডি কার্ড নোটিশ">
                     </div>
                     <div class="form-group py-2">
+                        <label>আইডি কার্ড <small><b>নাম-ঠিকানা</b></small></label>
+                        <input type="text" class="form-control" rows="5" value="{{ $notice->name_address_id ?? null }}"
+                            name="name_address_id" placeholder="আইডি কার্ড (নাম-ঠিকানা) নোটিশ">
+                    </div>
+                    <div class="form-group py-2">
                         <label>বায়োমেট্রিক তথ্য</label>
                         <input type="text" class="form-control" rows="5" value="{{ $notice->biometric ?? null }}"
                             name="biometric" placeholder="বায়োমেট্রিক তথ্য নোটিশ">
                     </div>
+                    
                     {{-- <div class="form-group py-2">
                         <label>নতুন এনআইডি</label>
                         <input type="text" class="form-control" rows="5" value="{{ $notice->new_nid ?? null }}"

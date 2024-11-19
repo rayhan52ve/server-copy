@@ -147,7 +147,7 @@
                                                                     </select>
                                                                     <input type="hidden" name="user_id"
                                                                         value="{{ $item->user->id ?? null }}">
-                                                                    @if ($item->user->premium == 2)
+                                                                    @if ($item->user->premium == 2  && $now < $item->user->premium_end)
                                                                         <input type="hidden" name="price"
                                                                             value="{{ \App\Models\Message::first()->premium_id_card_price ?? null }}">
                                                                     @else

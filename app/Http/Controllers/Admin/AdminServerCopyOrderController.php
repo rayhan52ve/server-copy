@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ServerCopyOrder;
 use App\Models\User;
 use App\Models\UserNotification;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -20,19 +21,25 @@ class AdminServerCopyOrderController extends Controller
      */
     public function index()
     {
+        $now = Carbon::now();
+
         $serverCopyOrders = ServerCopyOrder::whereIn('status',[0,1])->latest()->get();
-        return view('admin.server_copy_order.index', compact('serverCopyOrders'));
+        return view('admin.server_copy_order.index', compact('serverCopyOrders','now'));
     }
 
     public function completed()
     {
+        $now = Carbon::now();
+
         $serverCopyOrders = ServerCopyOrder::where('status',2)->latest()->get();
-        return view('admin.server_copy_order.index', compact('serverCopyOrders'));
+        return view('admin.server_copy_order.index', compact('serverCopyOrders','now'));
     }
     public function disabled()
     {
+        $now = Carbon::now();
+
         $serverCopyOrders = ServerCopyOrder::whereIn('status',[3,4,5,6,7])->latest()->get();
-        return view('admin.server_copy_order.index', compact('serverCopyOrders'));
+        return view('admin.server_copy_order.index', compact('serverCopyOrders','now'));
     }
 
     /**

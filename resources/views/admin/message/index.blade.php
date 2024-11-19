@@ -99,6 +99,35 @@
                         </div>
 
                     </div>
+                    <div class="form-group py-2">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label>আইডি কার্ড <small><b>নাম-ঠিকানা</b></small></label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->name_address_id ?? null }}" name="name_address_id" placeholder="আইডি কার্ড মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>আইডি কার্ড মূল্য <small><b>নাম-ঠিকানা</b></small></label>
+                                <input type="number" class="form-control" rows="5"
+                                    value="{{ $message->name_address_id_price ?? null }}" name="name_address_id_price"
+                                    placeholder="0">
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-md-8">
+                                <label>আইডি কার্ড <small><b>নাম-ঠিকানা</b></small> (Premium)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->premium_name_address_id ?? null }}" name="premium_name_address_id" placeholder="আইডি কার্ড মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>আইডি কার্ড মূল্য <small><b>নাম-ঠিকানা</b></small> (Premium)</label>
+                                <input type="number" class="form-control" rows="5"
+                                    value="{{ $message->premium_name_address_id_price ?? null }}" name="premium_name_address_id_price"
+                                    placeholder="0">
+                            </div>
+                        </div>
+
+                    </div>
                     {{-- <div class="form-group py-2">
                         <div class="row">
                             <div class="col-md-8">

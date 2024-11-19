@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminBiometricInfoController;
 use App\Http\Controllers\Admin\AdminIdCardController;
+use App\Http\Controllers\Admin\AdminNameAddressIdController;
 use App\Http\Controllers\Admin\AdminRechargeController;
 use App\Http\Controllers\Admin\AdminServerCopyOrderController;
 use App\Http\Controllers\Admin\AdminSignCopyOrderController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\RechargeController;
 use App\Http\Controllers\ServerCopyUnofficialController;
 use App\Http\Controllers\User\BiometricInfoController;
 use App\Http\Controllers\User\IdCardOrderController;
+use App\Http\Controllers\User\NameAddressIdController;
 use App\Http\Controllers\User\NewNidController;
 use App\Http\Controllers\User\NewRegistrationController;
 use App\Http\Controllers\User\NidMakeController;
@@ -76,6 +78,9 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/new-nid-sign-copy-upload', [NewNidController::class, 'signCopyUpload'])->name('newNidSignCopyUpload');
 Route::post('/old-nid-sign-copy-upload', [NewNidController::class, 'signCopyUploadOld'])->name('signCopyUploadOld');
 Route::post('/sign-to-server-copy-upload', [SignToServerCopyController::class, 'signCopyUpload'])->name('serverCopy.signCopyUpload');
+
+Route::get('/redirect-to-api/{id}', [SignToServerCopyController::class, 'redirectToApi'])->name('redirect.to.api');
+
 /*
 |--------------------------------------------------------------------------
 | User Dashboard
@@ -94,6 +99,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
     Route::resource('server-copy', ServerCopyOrderController::class)->only('index', 'store');
     Route::resource('id-card', IdCardOrderController::class)->only('index', 'store');
     Route::resource('biometric-info', BiometricInfoController::class)->only('index', 'store');
+    Route::resource('name-address-id', NameAddressIdController::class)->only('index', 'store');
     Route::resource('new-nid', NewNidController::class)->only('index', 'store');
     Route::resource('sign-to-server', SignToServerCopyController::class)->only('index', 'store');
     Route::resource('old-nid', OldNidController::class)->only('index', 'store');
@@ -137,6 +143,8 @@ Route::get('/file/download/{id}', [AdminSignCopyOrderController::class, 'downloa
 Route::get('/server-copy-file/download/{id}', [AdminServerCopyOrderController::class, 'download'])->name('server-file.download');
 Route::get('/id-card-file/download/{id}', [AdminIdCardController::class, 'download'])->name('idCard-file.download');
 Route::get('/biometric-info-file/download/{id}', [AdminBiometricInfoController::class, 'download'])->name('biometric-file.download');
+Route::get('/name-address-id-file/download/{id}', [AdminNameAddressIdController::class, 'download'])->name('name-address-id-file.download');
+Route::get('/name-address-id-image/download/{id}', [AdminNameAddressIdController::class, 'imageDownload'])->name('name-address-id-image.download');
 //file upload and download
 
 
@@ -190,6 +198,17 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
 
 
     Route::resource('biometric-type', BiometricTypeController::class)->except('create', 'show', 'edit');
+
+    
+    Route::resource('name-address-id', AdminNameAddressIdController::class)->only('index', 'destroy');
+    Route::get('name-address-id-completed', [AdminNameAddressIdController::class, 'completed'])->name('name-address-id.completed');
+    Route::get('name-address-id-disabled', [AdminNameAddressIdController::class, 'disabled'])->name('name-address-id.disabled');
+    Route::put('/name-address-id-status/{id}', [AdminNameAddressIdController::class, 'updateStatus'])->name('updateNameAddressId');
+    Route::post('/name-address-id-update-handler', [AdminNameAddressIdController::class, 'fileUpload'])->name('name-address-id-file.upload');
+
+    Route::put('/name-address-id-refund/{id}', [AdminNameAddressIdController::class, 'refund'])->name('refund.name-address-id');
+
+
 
     Route::resource('notice', NoticeController::class)->only('index', 'store');
     Route::resource('message', MessageController::class)->only('index', 'store');

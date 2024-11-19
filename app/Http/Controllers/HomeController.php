@@ -6,6 +6,7 @@ use App\Models\AdminNotification;
 use App\Models\BiometricInfo;
 use App\Models\IdCardOrder;
 use App\Models\Message;
+use App\Models\NameAddressId;
 use App\Models\NewRegistration;
 use App\Models\NidMake;
 use App\Models\Report;
@@ -50,11 +51,12 @@ class HomeController extends Controller
         if (!$todaysReport) {
             Report::create();
         }
-        $signCopyCount = SignCopyOrder::count();
-        $serverCopyCount = ServerCopyOrder::count();
-        $idCardCount = IdCardOrder::count();
-        $biometricCount = BiometricInfo::count();
-        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount'));
+        $signCopyCount = SignCopyOrder::where('status','0')->count();
+        $serverCopyCount = ServerCopyOrder::where('status','0')->count();
+        $idCardCount = IdCardOrder::where('status','0')->count();
+        $biometricCount = BiometricInfo::where('status','0')->count();
+        $nameAddressCount = NameAddressId::where('status','0')->count();
+        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount','nameAddressCount'));
     }
 
 

@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Events\DeliveryNotification;
 use App\Http\Controllers\Controller;
-use App\Models\SignCopyOrder;
+use App\Models\Message;
+use App\Models\NameAddressId;
 use App\Models\User;
 use App\Models\UserNotification;
 use Carbon\Carbon;
@@ -12,7 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class AdminSignCopyOrderController extends Controller
+class AdminNameAddressIdController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,29 +24,28 @@ class AdminSignCopyOrderController extends Controller
     {
         $now = Carbon::now();
 
-        $signCopyOrders = SignCopyOrder::whereIn('status', [0, 1])
+        $nameAddressIds = NameAddressId::whereIn('status', [0, 1])
             ->latest()
             ->get();
-        return view('admin.sign_copy_order.index', compact('signCopyOrders','now'));
+        return view('admin.name_address_id.index', compact('nameAddressIds','now'));
     }
 
     public function completed()
     {
         $now = Carbon::now();
 
-        $signCopyOrders = SignCopyOrder::where('status', 2)->latest()->get();
-        return view('admin.sign_copy_order.index', compact('signCopyOrders','now'));
+        $nameAddressIds = NameAddressId::where('status', 2)->latest()->get();
+        return view('admin.name_address_id.index', compact('nameAddressIds','now'));
     }
     public function disabled()
     {
         $now = Carbon::now();
 
-        $signCopyOrders = SignCopyOrder::whereIn('status', [3, 4, 5, 6, 7])
+        $nameAddressIds = NameAddressId::whereIn('status', [3, 4, 5, 6, 7])
             ->latest()
             ->get();
-        return view('admin.sign_copy_order.index', compact('signCopyOrders','now'));
+        return view('admin.name_address_id.index', compact('nameAddressIds','now'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -53,7 +53,7 @@ class AdminSignCopyOrderController extends Controller
      */
     public function create()
     {
-        return view('admin.sign_copy_order.create');
+        //
     }
 
     /**
@@ -64,18 +64,16 @@ class AdminSignCopyOrderController extends Controller
      */
     public function store(Request $request)
     {
-        SignCopyOrder::create($request->except(['nid_image', 'sign_image']));
-        Alert::toast('Sign Copy order Created Successfully.', 'success');
-        return redirect()->route('admin.sign-copy.index');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\SignCopyOrder  $signCopyOrder
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(SignCopyOrder $signCopyOrder)
+    public function show($id)
     {
         //
     }
@@ -83,22 +81,22 @@ class AdminSignCopyOrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\SignCopyOrder  $signCopyOrder
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(SignCopyOrder $signCopyOrder)
+    public function edit($id)
     {
-        return view('admin.sign_copy_order.edit', compact('signCopyOrder'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\SignCopyOrder  $signCopyOrder
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SignCopyOrder $signCopyOrder)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -106,28 +104,34 @@ class AdminSignCopyOrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\SignCopyOrder  $signCopyOrder
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $signCopyOrder = SignCopyOrder::find($id);
+        $nameAddressId = NameAddressId::find($id);
 
-        $destination = $signCopyOrder->file;
+        $destination1 = $nameAddressId->file;
+        $destination2 =  'uploads/id_card/' . $nameAddressId->image;
 
-        if (File::exists($destination)) {
-            File::delete($destination);
+        if (File::exists($destination1)) {
+            File::delete($destination1);
         }
 
-        $signCopyOrder->delete();
-        Alert::toast('Sign Copy Order Deleted Successfully.', 'success');
+        if (File::exists($destination2)) {
+            File::delete($destination2);
+        }
+
+        $nameAddressId->delete();
+        Alert::toast('Id Card(Name,Address) Order Deleted Successfully.', 'success');
         return redirect()->back();
     }
 
+    
     public function updateStatus(Request $request, $id)
     {
         // dd($request->all(), $id);
-        $data = SignCopyOrder::findOrFail($id);
+        $data = NameAddressId::findOrFail($id);
 
         $data->status = $request->status;
         $data->save();
@@ -137,13 +141,15 @@ class AdminSignCopyOrderController extends Controller
 
     public function fileUpload(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'file' => 'required|file',
-            'id' => 'required|exists:sign_copy_orders,id',
+            // 'id' => 'required|exists:name_address_id,id',
         ]);
 
         $id = $request->input('id');
-        $entity = SignCopyOrder::findOrFail($id);
+        $entity = NameAddressId::findOrFail($id);
+        // dd($entity);
 
         // Delete the old file if it exists
         if ($entity->file && File::exists(public_path($entity->file))) {
@@ -152,16 +158,15 @@ class AdminSignCopyOrderController extends Controller
 
         $file = $request->file('file');
         $filename = time() . '_' . $file->getClientOriginalName();
-        $path = $file->move(public_path('uploads/sign_copy/'), $filename);
+        $path = $file->move(public_path('uploads/id_card/'), $filename);
 
         // Update the file path in the database
-        $entity->file = 'uploads/sign_copy/' . $filename;
+        $entity->file = 'uploads/id_card/' . $filename;
         $entity->status = 2;
-        $entity->admin_comment = $request->admin_comment;
         $entity->save();
 
         $user_id = $entity->user_id;
-        $message = 'Sign Copy Uploaded.Please Reload.';
+        $message = 'Id Card Uploaded.Please Reload.';
 
         $userNotification = new UserNotification();
         $userNotification->user_id = $user_id;
@@ -177,7 +182,7 @@ class AdminSignCopyOrderController extends Controller
 
     public function download($id)
     {
-        $entity = SignCopyOrder::findOrFail($id);
+        $entity = NameAddressId::findOrFail($id);
 
         // Check if the file exists
         if (!$entity->file) {
@@ -188,15 +193,29 @@ class AdminSignCopyOrderController extends Controller
         return response()->download(public_path($entity->file));
     }
 
+    public function imageDownload($id)
+    {
+        $entity = NameAddressId::findOrFail($id);
+
+        // dd($entity,$id);
+        // Check if the file exists
+        if (!$entity->image) {
+            abort(404);
+        }
+
+        // Return the file for download
+        return response()->download(public_path('/uploads/id_card/'.$entity->image));
+    }
+
     public function refund(Request $request, $id)
     {
-        $data = SignCopyOrder::findOrFail($id);
+        $data = NameAddressId::findOrFail($id);
 
         $data->status = $request->status;
         $data->save();
 
         $user_id = $data->user_id;
-        $message = 'Sign Copy Order Refunded.Please Reload.';
+        $message = 'Id Card(Name,Address) Order Refunded.Please Reload.';
         
         $userNotification = new UserNotification();
         $userNotification->user_id = $user_id;

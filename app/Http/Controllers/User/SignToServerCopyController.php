@@ -11,6 +11,8 @@ use Smalot\PdfParser\Parser;
 use Smalot\PdfParser\Document;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class SignToServerCopyController extends Controller
 {
@@ -44,36 +46,76 @@ class SignToServerCopyController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+        // Validate the incoming request data
         $request->validate([
             'type' => 'required|string',
             'tin' => 'required',
+            'price' => 'required|numeric',
+            'user_id' => 'required|exists:users,id', // Ensure user exists
         ]);
 
+        // Retrieve request data
         $type = $request->input('type');
         $tin = $request->input('tin');
         $price = (int) $request->input('price');
+
+        // If the authenticated user is an admin, set the price to 0
         if (auth()->user()->is_admin == 1) {
             $price = 0;
         }
 
+        // Find the user by ID
         $user = User::find($request->user_id);
-        $userBalance = $user->balance;
 
-        // Check if user has sufficient balance
-        if ($userBalance < $price) {
+        // Check if the user has sufficient balance
+        if ($user->balance < $price) {
             Alert::toast("আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
-            return redirect()->back();
+            return redirect()->back()->withInput(); // Preserve input data
         }
-        // Deduct balance from user and save
-        $user->balance -= $price;
-        $user->save();
 
-        // Construct API URL using dynamic values
+        // Construct the API URL using dynamic values
         $url = "https://api.foxithub.com/tinpdf.php?type={$type}&tin={$tin}";
-        
-        return redirect($url);
+
+        try {
+            // Make a GET request to the API
+            $response = Http::get($url);
+            // dd($response);
+
+            if ($response->successful()) {
+                // Handle success
+                Alert::toast('API সফলভাবে কল করা হয়েছে।', 'success');
+
+                // Deduct balance from the user's account and save
+                $user->balance -= $price;
+                $user->save();
+
+                // Redirect to the API URL while keeping it hidden from the user
+                return redirect()->route('redirect.to.api', ['id' => $tin]);
+            } else {
+                // Handle unsuccessful response
+                Alert::toast('API কল ব্যর্থ হয়েছে।', 'error');
+                Log::error('API Unsuccessful Response', [
+                    'status' => $response->status(),
+                    'body' => $response->body(),
+                ]);
+            }
+        } catch (\Exception $e) {
+            // Handle exceptions
+            Log::error('API Call Failed: ' . $e->getMessage());
+            Alert::toast('API কল করার সময় একটি ত্রুটি ঘটেছে।', 'error');
+        }
+
+        return redirect()->back(); // Redirect back in case of failure
     }
+
+    public function redirectToApi($id)
+    {
+        $type = 'nid'; // Replace with logic to determine the type
+        $apiUrl = "https://api.foxithub.com/tinpdf.php?type={$type}&tin={$id}";
+
+        return redirect()->away($apiUrl); // Redirect to the actual API URL
+    }
+
 
     // public function store(Request $request)
     // {

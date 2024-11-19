@@ -5,8 +5,9 @@
         <div class="">
             <div class="card card-primary card-outline">
                 <div class="card-header">
-                    <h3 class="card-title">
+                    <h3 class="card-title d-flex justify-content-between">
                         Permission Settings for {{ $moderatorAccess->user->name ?? null }}
+                        <a class="btn btn-success" href="{{route('admin.moderatorList')}}"><i class="fa-solid fa-left-long"></i> Back</a>
                     </h3>
                 </div>
                 <div class="card-body">
@@ -47,6 +48,17 @@
                                         <input class="form-check-input" onclick="submitForm()" value="1" name="id_card"
                                             type="checkbox" id="flexSwitchCheckChecked2"
                                             {{ @$moderatorAccess->id_card == 1 ? 'checked' : '' }}>
+                                    </div>
+                                </div>
+                                <div class="form-group py-2">
+                                    আইডি কার্ড <small><b>নাম-ঠিকানা</b></small>
+                                    <div class="form-check form-switch">
+                                        <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                            {{ @$moderatorAccess->name_address_id == 1 ? 'ON' : 'OFF' }}</label>
+                                        <input type="hidden" name="name_address_id" value="0">
+                                        <input class="form-check-input" onclick="submitForm()" value="1" name="name_address_id"
+                                            type="checkbox" id="flexSwitchCheckChecked2"
+                                            {{ @$moderatorAccess->name_address_id == 1 ? 'checked' : '' }}>
                                     </div>
                                 </div>
                                 <div class="form-group py-2">

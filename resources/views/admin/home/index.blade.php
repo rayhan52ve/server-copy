@@ -95,6 +95,26 @@
                     </div>
                 </div>
                 <div class="col-xl-2 col-md-3 col-6">
+                    <div class="card bg-purple text-white mb-4">
+                        <div class="card-header">
+                            <h5>ID Card <small style="font-size: 10px"><b>Name-Address</b></small></h5>
+                        </div>
+                        <div class="card-body text-center">
+                            <h1>{{ $nameAddressCount }}</h1>
+                        </div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            @if (auth()->user()->is_admin == 1)
+                                <a class="small text-white stretched-link"
+                                    href="{{ route('admin.name-address-id.index') }}">View Details</a>
+                            @else
+                                <a class="small text-white stretched-link" href="#">View
+                                    Details</a>
+                            @endif
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-3 col-6">
                     <div class="card bg-danger text-white mb-4">
                         <div class="card-header">
                             <h5>Biometric Info</h5>
@@ -114,6 +134,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
