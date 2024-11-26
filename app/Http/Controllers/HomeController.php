@@ -15,6 +15,7 @@ use App\Models\ServerCopyUnofficial;
 use App\Models\SignCopyOrder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class HomeController extends Controller
@@ -51,12 +52,12 @@ class HomeController extends Controller
         if (!$todaysReport) {
             Report::create();
         }
-        $signCopyCount = SignCopyOrder::where('status','0')->count();
-        $serverCopyCount = ServerCopyOrder::where('status','0')->count();
-        $idCardCount = IdCardOrder::where('status','0')->count();
-        $biometricCount = BiometricInfo::where('status','0')->count();
-        $nameAddressCount = NameAddressId::where('status','0')->count();
-        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount','nameAddressCount'));
+        $signCopyCount = SignCopyOrder::where('status', '0')->count();
+        $serverCopyCount = ServerCopyOrder::where('status', '0')->count();
+        $idCardCount = IdCardOrder::where('status', '0')->count();
+        $biometricCount = BiometricInfo::where('status', '0')->count();
+        $nameAddressCount = NameAddressId::where('status', '0')->count();
+        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount', 'nameAddressCount'));
     }
 
 
@@ -132,4 +133,58 @@ class HomeController extends Controller
         Alert::toast('Notification Deleted.', 'success');
         return redirect()->back();
     }
+
+    public function clearOldOrders()
+    {
+
+        // Delete SignCopyOrders and associated files
+        $signCopyOrders = SignCopyOrder::where('status', '!=', 0)->get();
+        foreach ($signCopyOrders as $order) {
+            $filePath = public_path($order->file); // Assuming the file is in the public directory
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+        SignCopyOrder::where('status', '!=', 0)->delete();
+
+        $serverCopyOrders = ServerCopyOrder::where('status', '!=', 0)->get();
+        foreach ($serverCopyOrders as $order) {
+            $filePath = public_path($order->file);
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+        ServerCopyOrder::where('status', '!=', 0)->delete();
+
+        $idCards = IdCardOrder::where('status', '!=', 0)->get();
+        foreach ($idCards as $order) {
+            $filePath = public_path($order->file);
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+        IdCardOrder::where('status', '!=', 0)->delete();
+
+        $biometric = BiometricInfo::where('status', '!=', 0)->get();
+        foreach ($biometric as $order) {
+            $filePath = public_path($order->file);
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+        BiometricInfo::where('status', '!=', 0)->delete();
+
+        $nameAddressId = NameAddressId::where('status', '!=', 0)->get();
+        foreach ($nameAddressId as $order) {
+            $filePath = public_path($order->file);
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+        NameAddressId::where('status', '!=', 0)->delete();
+
+        Alert::toast('Completed orders and associated files cleared.', 'success');
+        return redirect()->back();
+    }
+
 }

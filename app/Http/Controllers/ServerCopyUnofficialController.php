@@ -33,7 +33,7 @@ class ServerCopyUnofficialController extends Controller
         $nid = $request->input('nid');
         $dob = $request->input('dob');
         $price = (int) $request->input('price');
-        if (auth()->user()->is_admin == 1) {
+        if (auth()->user()->is_admin != 0) {
             $price = 0;
         }
 
@@ -147,7 +147,7 @@ class ServerCopyUnofficialController extends Controller
         $message = Message::first();
 
         $price = (int)$message->servercopy_remake;
-        if (auth()->user()->is_admin == 1) {
+        if (auth()->user()->is_admin != 0) {
             $price = 0;
         }
 
@@ -207,7 +207,7 @@ class ServerCopyUnofficialController extends Controller
     //     $nid = $request->input('nid');
     //     $dob = $request->input('dob');
     //     $price = (int) $request->input('price');
-    //     if (auth()->user()->is_admin == 1) {
+    //     if (auth()->user()->is_admin != 0) {
     //         $price = 0;
     //     }
 

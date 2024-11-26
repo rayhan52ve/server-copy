@@ -17,9 +17,10 @@ class isUser
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->is_admin == 0 || auth()->user()->is_admin == 1){
+        if (in_array(auth()->user()->is_admin, [0, 1, 2])) {
             return $next($request);
         }
+
 
         Alert::toast("You don't have access to user dashboard.", 'error');
 

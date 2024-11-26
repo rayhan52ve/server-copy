@@ -1,6 +1,6 @@
-@extends(auth()->user()->is_admin == 1 ? 'admin.master' : 'User.layout.master')
+@extends(auth()->user()->is_admin != 0 ? 'admin.master' : 'User.layout.master')
 
-@section(auth()->user()->is_admin == 1 ? 'body' : 'user')
+@section(auth()->user()->is_admin != 0 ? 'body' : 'user')
     @php
         $notice = \App\Models\Notice::first();
         $message = \App\Models\Message::first();

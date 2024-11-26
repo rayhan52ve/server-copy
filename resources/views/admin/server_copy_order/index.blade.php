@@ -85,7 +85,7 @@
                                                     var formIdVoterNumber = row.cells[4].innerText;
                                                     var textToCopy = "Server Copy\n";
 
-                                                    textToCopy += "ফাইল টাইপ:" + type + - +formIdVoterNumber + "\n";
+                                                    textToCopy += "ফাইল টাইপ:" + type + "-" + formIdVoterNumber + "\n";
                                                     textToCopy += "নাম:" + name + "\n\n";
 
                                                     navigator.clipboard.writeText(textToCopy).then(function() {

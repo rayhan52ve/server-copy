@@ -128,10 +128,11 @@
                     </li>
                 @endif
 
-                
+
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->name_address_id == 1)
                     <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
-                                class="fa-solid fa-file-powerpoint"></i><span class="hide-menu">আইডি কার্ড <small><b>নাম-ঠিকানা</b></small></span></a>
+                                class="fa-solid fa-file-powerpoint"></i><span class="hide-menu">আইডি কার্ড
+                                <small><b>নাম-ঠিকানা</b></small></span></a>
                         <ul aria-expanded="false" class="collapse">
                             <li><a href="{{ route('admin.name-address-id.index') }}">পেন্ডিং অর্ডার</a></li>
                             <li><a href="{{ route('admin.name-address-id.completed') }}">পাওয়া গেছে</a></li>
@@ -158,26 +159,32 @@
                         </ul>
                     </li>
                 @endif
-                @if (auth()->user()->is_admin == 1)
+                @if (auth()->user()->is_admin == 1 || @$moderatorAccess->nid_make == 1)
                     <li> <a class="waves-effect waves-dark" href="{{ route('user.nid-make.index') }}"
                             aria-expanded="false"><i class="fa-regular fa-id-card"></i><span class="hide-menu">এনআইডি
                                 মেক</span></a>
                     </li>
-
+                @endif
+                @if (auth()->user()->is_admin == 1 || @$moderatorAccess->server_copy1 == 1)
                     <li> <a class="waves-effect waves-dark" href="{{ route('nid.server.copy') }}"
                             aria-expanded="false"><i class="fa-solid fa-file-contract"></i><span
                                 class="hide-menu">সার্ভার কপি <small><b>Unofficial-1</b></small></span></a>
                     </li>
+                @endif
+                @if (auth()->user()->is_admin == 1 || @$moderatorAccess->server_copy2 == 1)
                     <li> <a class="waves-effect waves-dark" href="{{ route('user.voter-info.index') }}"
-                            aria-expanded="false"><i class="fa-solid fa-id-card"></i><span class="hide-menu">সার্ভার কপি <small><b>Unofficial-2 </b></small></span></a>
+                            aria-expanded="false"><i class="fa-solid fa-id-card"></i><span class="hide-menu">সার্ভার
+                                কপি <small><b>Unofficial-2 </b></small></span></a>
                     </li>
-
+                @endif
+                @if (auth()->user()->is_admin == 1)
                     <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"
                             aria-expanded="false"><i class="fa-solid fa-file"></i><span class="hide-menu">ফাইল
                                 লিস্ট</span></a>
                         <ul aria-expanded="false" class="collapse">
 
-                            <li><a href="{{ route('admin.serverCopyUnofficialList') }}">সার্ভার কপি <small><b>Unofficial</b></small></a>
+                            <li><a href="{{ route('admin.serverCopyUnofficialList') }}">সার্ভার কপি
+                                    <small><b>Unofficial</b></small></a>
                             </li>
                             <li><a href="{{ route('admin.nidList') }}">এনআইডি লিস্ট</a></li>
                             <li><a href="{{ route('admin.birthList') }}">জন্ম নিবন্ধন লিস্ট</a></li>

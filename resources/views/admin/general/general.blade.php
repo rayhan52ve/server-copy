@@ -33,6 +33,36 @@
                             <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-footer" type="button" role="tab"
                                 aria-controls="v-pills-settings" aria-selected="false">Footer</button>
+
+                            {{-- <button class="nav-link" id="" type="button" role="tab">Clear All Order</button> --}}
+
+                            <div class="row my-4 mb-3">
+                                <div class="col-12 text-center">
+                                    <button class="btn btn-lg btn-outline-danger fw-bold" id="clearOldOrders" title="This action will clear all except pending orders">
+                                        <i class="fas fa-trash-alt me-2"></i> Clear All Orders
+                                    </button>
+                                </div>
+                            </div>
+                        
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                            <script>
+                                document.getElementById('clearOldOrders').addEventListener('click', function(event) {
+                                    event.preventDefault();
+                                    Swal.fire({
+                                        title: 'Are you sure?',
+                                        text: "All the completed odrers and files will be cleared!",
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#d33',
+                                        cancelButtonColor: '#3085d6',
+                                        confirmButtonText: 'Yes, clear it!'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.href = "{{ route('admin.clearOldOrders') }}";
+                                        }
+                                    });
+                                });
+                            </script>
                         </div>
                         <div class="w-75 mx-auto">
                             <div class="tab-content" id="v-pills-tabContent">
@@ -75,8 +105,9 @@
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->id_card == 1 ? 'ON' : 'OFF' }}</label>
                                                             <input type="hidden" name="id_card" value="0">
-                                                            <input class="form-check-input" onclick="submitHideUnhideForm()"
-                                                                value="1" name="id_card" type="checkbox"
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="id_card" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$hideUnhide->id_card == 1 ? 'checked' : '' }}>
                                                         </div>

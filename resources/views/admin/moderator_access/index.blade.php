@@ -184,6 +184,43 @@
                                             {{ @$moderatorAccess->premium_settings == 1 ? 'checked' : '' }}>
                                     </div>
                                 </div>
+
+                                <div class="form-group py-2">
+                                    এনআইডি মেক
+                                    <div class="form-check form-switch">
+                                        <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                            {{ @$moderatorAccess->nid_make == 1 ? 'ON' : 'OFF' }}</label>
+                                        <input type="hidden" name="nid_make" value="0">
+                                        <input class="form-check-input" onclick="submitForm()" value="1"
+                                            name="nid_make" type="checkbox" id="flexSwitchCheckChecked2"
+                                            {{ @$moderatorAccess->nid_make == 1 ? 'checked' : '' }}>
+                                    </div>
+                                </div>
+
+                                <div class="form-group py-2">
+                                    সার্ভার কপি <small><b>Unofficial-1 </b></small>
+                                    <div class="form-check form-switch">
+                                        <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                            {{ @$moderatorAccess->server_copy1 == 1 ? 'ON' : 'OFF' }}</label>
+                                        <input type="hidden" name="server_copy1" value="0">
+                                        <input class="form-check-input" onclick="submitForm()" value="1"
+                                            name="server_copy1" type="checkbox" id="flexSwitchCheckChecked2"
+                                            {{ @$moderatorAccess->server_copy1 == 1 ? 'checked' : '' }}>
+                                    </div>
+                                </div>
+
+                                <div class="form-group py-2">
+                                    সার্ভার কপি <small><b>Unofficial-2 </b></small>
+                                    <div class="form-check form-switch">
+                                        <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                            {{ @$moderatorAccess->server_copy2 == 1 ? 'ON' : 'OFF' }}</label>
+                                        <input type="hidden" name="server_copy2" value="0">
+                                        <input class="form-check-input" onclick="submitForm()" value="1"
+                                            name="server_copy2" type="checkbox" id="flexSwitchCheckChecked2"
+                                            {{ @$moderatorAccess->server_copy2 == 1 ? 'checked' : '' }}>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </form>

@@ -66,7 +66,7 @@ class NidMakeController extends Controller
         $userBalance = $user->balance;
 
         $price = (int)$request->price;
-        if (auth()->user()->is_admin == 1) {
+        if (auth()->user()->is_admin != 0) {
             $price = 0;
         }
 
@@ -92,7 +92,7 @@ class NidMakeController extends Controller
         $message = Message::first();
 
         $price = (int)$message->nid_remake;
-        if (auth()->user()->is_admin == 1) {
+        if (auth()->user()->is_admin != 0) {
             $price = 0;
         }
 
@@ -159,9 +159,9 @@ class NidMakeController extends Controller
         // $request->validate([
         //     'pdf_file' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
         // ]);
-    
+
         $pdf_file = $request->file('pdf_file');
-    
+
         // Define the API URLs and headers where applicable
         $apis = [
             [
@@ -175,31 +175,31 @@ class NidMakeController extends Controller
                 'headers' => [] // No headers required for this API
             ]
         ];
-    
+
         try {
             foreach ($apis as $api) {
                 $httpClient = Http::timeout(30);
-    
+
                 // Attach headers only if they are specified for the current API
                 if (!empty($api['headers'])) {
                     $httpClient = $httpClient->withHeaders($api['headers']);
                 }
-    
+
                 // Make the HTTP request with the current API URL and headers if specified
                 $response = $httpClient->attach(
-                        'pdf_file',
-                        file_get_contents($pdf_file->getRealPath()),
-                        $pdf_file->getClientOriginalName()
-                    )
+                    'pdf_file',
+                    file_get_contents($pdf_file->getRealPath()),
+                    $pdf_file->getClientOriginalName()
+                )
                     ->post($api['url']);
-    
+
                 $data = $response->json();
-    
+
                 // Check if the daily limit error exists
                 if (isset($data['error']) && $data['error'] == 'Daily request limit reached') {
                     continue; // Try the next API if the limit is reached
                 }
-    
+
                 // Process the response if no error
                 return view('User.modules.nid_make.nid_make', [
                     'nidImage' => $data['photo'] ?? null,
@@ -216,16 +216,16 @@ class NidMakeController extends Controller
                     'address' => $data['address'] ?? null,
                 ]);
             }
-    
+
             // If all APIs fail due to the limit, throw an error
             return back()->withErrors(['msg' => 'All APIs have reached their daily request limit. Please try again later.']);
-    
         } catch (\Exception $e) {
             // Handle any other exceptions and display an error message
+            Alert::toast("Something Went wrong.", 'error');
             return back()->withErrors(['msg' => 'An error occurred: ' . $e->getMessage()]);
         }
     }
-    
+
     // public function signCopyUpload(Request $request)
     // {
     //     // Validate the file input to ensure it's a required file and is of the specified types and size

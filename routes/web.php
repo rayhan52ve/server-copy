@@ -244,6 +244,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::get('/clear-admin-notification-list', [HomeController::class, 'clearAllAdminNotification'])->name('clearAllAdminNotification')->middleware('is_admin');
     Route::delete('/delete-notification/{id}', [HomeController::class, 'destroy'])->name('notification.destroy');
 
+    Route::get('/clear-admin-all-old-orders', [HomeController::class, 'clearOldOrders'])->name('clearOldOrders')->middleware('is_admin');
+
+
     Route::resource('report',ReportController::class)->middleware('is_admin');
 
 });
