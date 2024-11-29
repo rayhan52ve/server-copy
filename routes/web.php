@@ -79,7 +79,6 @@ Route::post('/new-nid-sign-copy-upload', [NewNidController::class, 'signCopyUplo
 Route::post('/old-nid-sign-copy-upload', [NewNidController::class, 'signCopyUploadOld'])->name('signCopyUploadOld');
 Route::post('/sign-to-server-copy-upload', [SignToServerCopyController::class, 'signCopyUpload'])->name('serverCopy.signCopyUpload');
 
-Route::get('/redirect-to-api/{id}', [SignToServerCopyController::class, 'redirectToApi'])->name('redirect.to.api');
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +94,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
     Route::get('/server-copy-file-list/{id}', [UserdashboardController::class, 'serverCopyUnofficialList'])->name('serverCopyUnofficialList');
     Route::get('/nid-file-list/{id}', [UserdashboardController::class, 'nidList'])->name('nidList');
     Route::get('/birth-file-list/{id}', [UserdashboardController::class, 'birthList'])->name('birthList');
+    Route::get('/tin-file-list/{id}', [UserdashboardController::class, 'tinList'])->name('tinList');
     Route::resource('sign-copy', SignCopyOrderController::class)->only('index', 'store');
     Route::resource('server-copy', ServerCopyOrderController::class)->only('index', 'store');
     Route::resource('id-card', IdCardOrderController::class)->only('index', 'store');
@@ -102,6 +102,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
     Route::resource('name-address-id', NameAddressIdController::class)->only('index', 'store');
     Route::resource('new-nid', NewNidController::class)->only('index', 'store');
     Route::resource('sign-to-server', SignToServerCopyController::class)->only('index', 'store');
+
     Route::resource('old-nid', OldNidController::class)->only('index', 'store');
     Route::resource('nid-make', NidMakeController::class)->only('index', 'store');
     Route::post('nid-make-with-signcopy', [NidMakeController::class,'signCopyUpload'])->name('signCopyNidApi');
@@ -121,6 +122,8 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
 
 Route::get('print-saved-nid/{id}', [NidMakeController::class,'printSavedNid'])->name('print.savedNid')->middleware('auth');
 Route::get('print-saved-birth/{id}', [NewRegistrationController::class,'printSavedBirth'])->name('print.savedBirth')->middleware('auth');
+Route::get('/print-saved-tin/{id}',[SignToServerCopyController::class,'print_saved_tin'])->name('print.print_saved_tin')->middleware('auth');
+
 
 Route::controller(ServerCopyUnofficialController::class)->middleware(['auth'])->group(function () {
     Route::get('/nid-server-copy', 'tech_web_nid_server_copy')->name('nid.server.copy');
@@ -239,6 +242,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
 
     Route::get('/birth-file-list', [HomeController::class, 'birthList'])->name('birthList');
     Route::get('/clear-birth-file-list', [HomeController::class, 'clearAllbirth'])->name('clearAllbirth');
+    Route::get('/tin-file-list', [HomeController::class, 'tinList'])->name('tinList');
+    Route::get('/clear-tin-file-list', [HomeController::class, 'clearAllTin'])->name('clearAllTin');
+
 
     Route::get('/admin-notification-list', [HomeController::class, 'adminNotification'])->name('adminNotification');
     Route::get('/clear-admin-notification-list', [HomeController::class, 'clearAllAdminNotification'])->name('clearAllAdminNotification')->middleware('is_admin');

@@ -17,7 +17,9 @@ class isUser
      */
     public function handle(Request $request, Closure $next)
     {
-        if (in_array(auth()->user()->is_admin, [0, 1, 2])) {
+        $user = auth()->user();
+
+        if ($user && in_array($user->is_admin, [0, 1, 2], true)) {
             return $next($request);
         }
 

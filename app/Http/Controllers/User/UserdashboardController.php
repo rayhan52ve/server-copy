@@ -12,6 +12,7 @@ use App\Models\Report;
 use App\Models\ServerCopyOrder;
 use App\Models\ServerCopyUnofficial;
 use App\Models\SignCopyOrder;
+use App\Models\TinCirtificate;
 use App\Models\User;
 use App\Models\UserNotification;
 use App\Models\Video;
@@ -69,6 +70,14 @@ class UserdashboardController extends Controller
         $new_regs = NewRegistration::where('user_id',$id)->latest()->paginate(15);
 
         return view('User.modules.file_list.birth',compact('new_regs','message'));
+    }
+
+    public function tinList($id)
+    {
+        $message = Message::first();
+        $tins = TinCirtificate::where('user_id',$id)->latest()->paginate(15);
+
+        return view('User.modules.file_list.tin',compact('tins','message'));
     }
 
     

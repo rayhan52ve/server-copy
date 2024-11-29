@@ -1,5 +1,6 @@
-@extends('User.layout.master')
-@section('user')
+@extends(auth()->user()->is_admin != 0 ? 'admin.master' : 'User.layout.master')
+
+@section(auth()->user()->is_admin != 0 ? 'body' : 'user')
     @php
         $notice = \App\Models\Notice::first();
         $message = \App\Models\Message::first();
@@ -65,8 +66,9 @@
 
                                 <div class="form-group mb-4">
                                     <label class="font-weight-bold my-2"><b>TIN</b></label>
-                                    <input type="number" class="form-control text-center @error('tin') is-invalid @enderror" name="tin" id=""
-                                        placeholder="Enter TIN Number" required>
+                                    <input type="number"
+                                        class="form-control text-center @error('tin') is-invalid @enderror" name="tin"
+                                        id="" placeholder="Enter TIN Number" required>
                                     @error('tin')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -94,7 +96,7 @@
                         </div>
 
                         <div class="d-flex justify-content-center mx-5 my-2">
-                            <button type="button" class="submit form-control btn btn-info btn-lg"
+                            <button type="button" id="searchButton" class="submit form-control btn btn-info btn-lg"
                                 {{ $submitStatus->sign_to_server == 1 ? '' : 'disabled' }}>
                                 Search
                             </button>
@@ -111,15 +113,18 @@
                 ? $message->premium_sign_to_server_price
                 : $message->sign_to_server_price;
     @endphp
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
-            $('.submit').on('click', function(event) {
-                event.preventDefault(); // Prevent the default form submission triggered by the button click
+            // Ensure the document is fully loaded before binding events
+            $('#searchButton').on('click', function(event) {
+                event.preventDefault(); // Prevent the default form submission behavior
 
+                // Use SweetAlert2 for confirmation dialog
                 Swal.fire({
-                    title: 'এনআইডি',
-                    text: "এই কার্ডটি ডাউনলোড করার জন্য আপনার অ্যাকাউন্ট থেকে {{ $priceAlert }} টাকা কর্তন করা হবে।",
+                    title: 'টিন সার্টিফিকেট',
+                    text: `এই ফাইলটি ডাউনলোড করার জন্য আপনার অ্যাকাউন্ট থেকে {{ $priceAlert }} টাকা কর্তন করা হবে।`,
                     icon: 'info',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -128,10 +133,28 @@
                     cancelButtonText: 'না, বাতিল করুন!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $('#submit_form').submit(); // Only submit the form if the user confirms
+                        // Change button state to indicate processing
+                        $('#searchButton').text('Searching...').prop('disabled', true);
+
+                        // Submit the associated form
+                        $('#submit_form').submit();
                     }
                 });
             });
         });
     </script>
+
+    @if (Session::has('error_message'))
+        <script>
+            // Show error message if session contains 'error_message'
+            Swal.fire({
+                icon: 'error',
+                title: 'দুঃখিত...',
+                text: "{{ Session::get('error_message') }}",
+                background: '#000',
+                color: '#fff',
+                iconColor: '#fff'
+            });
+        </script>
+    @endif
 @endsection

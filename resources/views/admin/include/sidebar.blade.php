@@ -177,6 +177,13 @@
                                 কপি <small><b>Unofficial-2 </b></small></span></a>
                     </li>
                 @endif
+                @if (auth()->user()->is_admin == 1 || @$moderatorAccess->tin_cirtificate == 1)
+                    <li> <a class="waves-effect waves-dark" href="{{ route('user.sign-to-server.index') }}"
+                            aria-expanded="false"><i class="fa-solid fa-file-import"></i><span class="hide-menu">টিন
+                                সার্টিফিকেট</span></a>
+                    </li>
+                @endif
+
                 @if (auth()->user()->is_admin == 1)
                     <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"
                             aria-expanded="false"><i class="fa-solid fa-file"></i><span class="hide-menu">ফাইল
@@ -188,6 +195,7 @@
                             </li>
                             <li><a href="{{ route('admin.nidList') }}">এনআইডি লিস্ট</a></li>
                             <li><a href="{{ route('admin.birthList') }}">জন্ম নিবন্ধন লিস্ট</a></li>
+                            <li><a href="{{ route('admin.tinList') }}">টিন সার্টিফিকেট লিস্ট</a></li>
 
 
                         </ul>

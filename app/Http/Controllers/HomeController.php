@@ -13,6 +13,7 @@ use App\Models\Report;
 use App\Models\ServerCopyOrder;
 use App\Models\ServerCopyUnofficial;
 use App\Models\SignCopyOrder;
+use App\Models\TinCirtificate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -106,6 +107,21 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
+    public function tinList()
+    {
+        $tins = TinCirtificate::latest()->get();
+        $message = Message::first();
+
+        return view('admin.file_list.tin', compact('tins', 'message'));
+    }
+
+    public function clearAllTin()
+    {
+        TinCirtificate::truncate();
+        Alert::toast("All Tin Cirtificate Data Cleared Successfully.", 'success');
+        return redirect()->back();
+    }
+
     public function adminNotification()
     {
         $unreadNotifications = AdminNotification::where('read_unread', 0)->get();
@@ -186,5 +202,4 @@ class HomeController extends Controller
         Alert::toast('Completed orders and associated files cleared.', 'success');
         return redirect()->back();
     }
-
 }

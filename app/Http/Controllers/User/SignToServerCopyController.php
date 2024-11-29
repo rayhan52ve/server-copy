@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Message;
+use App\Models\TinCirtificate;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -73,48 +75,106 @@ class SignToServerCopyController extends Controller
             return redirect()->back()->withInput(); // Preserve input data
         }
 
-        // Construct the API URL using dynamic values
-        $url = "https://api.foxithub.com/tinpdf.php?type={$type}&tin={$tin}";
+        // Construct API URL using dynamic values
+        $url = "https://api.server24x.online/tinServer/api.php?key=fardin&type={$type}&tin={$tin}";
 
-        try {
-            // Make a GET request to the API
-            $response = Http::get($url);
-            // dd($response);
+        // Initialize cURL session
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-            if ($response->successful()) {
-                // Handle success
-                Alert::toast('API সফলভাবে কল করা হয়েছে।', 'success');
+        // Execute cURL request and get the response
+        $response = curl_exec($ch);
 
-                // Deduct balance from the user's account and save
-                $user->balance -= $price;
-                $user->save();
-
-                // Redirect to the API URL while keeping it hidden from the user
-                return redirect()->route('redirect.to.api', ['id' => $tin]);
-            } else {
-                // Handle unsuccessful response
-                Alert::toast('API কল ব্যর্থ হয়েছে।', 'error');
-                Log::error('API Unsuccessful Response', [
-                    'status' => $response->status(),
-                    'body' => $response->body(),
-                ]);
-            }
-        } catch (\Exception $e) {
-            // Handle exceptions
-            Log::error('API Call Failed: ' . $e->getMessage());
-            Alert::toast('API কল করার সময় একটি ত্রুটি ঘটেছে।', 'error');
+        if ($response === false) {
+            return back()->with('error_message', 'অনুগ্রহ করে আবার চেষ্টা করুন.' . curl_error($ch));
         }
 
-        return redirect()->back(); // Redirect back in case of failure
+        // Decode JSON response
+        $data = json_decode($response, true);
+
+        // Check if the API response indicates data was not found
+        if (isset($data['message']) && $data['message'] === 'Data not found') {
+            return back()->with('error_message', 'তথ্য পাওয়া যায়নি। অনুগ্রহ করে সঠিক তথ্য প্রদান করুন।' . curl_error($ch));
+        }
+
+
+
+        // Deduct balance from user and save
+        $user->balance -= $price;
+        $user->save();
+
+        TinCirtificate::create([
+            'user_id' => $request->user_id,
+            'name_english' => $data['nameEnglish'],
+            'father_name_english' => $data['fatherNameEn'],
+            'mother_name_english' => $data['motherNameEn'],
+            'present_address' => $data['presentAddress'],
+            'permanent_address' => $data['permanentAddress'],
+            'tin' => $data['TIN'],
+            'previous_tin' => $data['previousTIN'],
+            'tax_zone' => $data['taxZone'],
+            'tax_circle' => $data['taxCircle'],
+            'status' => $data['status'],
+            'date' => $data['date'],
+            'qr_code_url' => $data['QR'],
+            'zone_address' => $data['zoneAddress'],
+            'zone_phone' => $data['zonePhone'],
+
+        ]);
+
+        // If API returns valid data, proceed to generate the PDF or show the view
+        return view('pdf.tin_cirtificate', compact('data'));
     }
 
-    public function redirectToApi($id)
+
+    public function print_saved_tin($id)
     {
-        $type = 'nid'; // Replace with logic to determine the type
-        $apiUrl = "https://api.foxithub.com/tinpdf.php?type={$type}&tin={$id}";
+        // Find the saved server copy by ID
+        $tin = TinCirtificate::find($id);
 
-        return redirect()->away($apiUrl); // Redirect to the actual API URL
+        if (!$tin) {
+            return back()->with('error_message', 'No data found for the given ID.');
+        }
+
+        $user = User::find($tin->user_id);
+        $userBalance = $user->balance;
+
+        $message = Message::first();
+
+        $price = (int)$message->tin_remake_price;
+        if (auth()->user()->is_admin != 0) {
+            $price = 0;
+        }
+
+        if ($userBalance >= $price) {
+            $user->balance -= $price;
+            $user->save();
+            // Construct the nid_info array
+            $data = [
+                'nameEnglish' => $tin->name_english,
+                'fatherNameEn' => $tin->father_name_english,
+                'motherNameEn' => $tin->mother_name_english,
+                'presentAddress' => $tin->present_address,
+                'permanentAddress' => $tin->permanent_address,
+                'TIN' => $tin->tin,
+                'previousTIN' => $tin->previous_tin,
+                'taxZone' => $tin->tax_zone,
+                'taxCircle' => $tin->tax_circle,
+                'status' => $tin->status,
+                'date' => $tin->date,
+                'QR' => $tin->qr_code_url,
+                'zoneAddress' => $tin->zone_address,
+                'zonePhone' => $tin->zone_phone,
+            ];
+
+            return view('pdf.tin_cirtificate', compact('data'));
+
+        } else {
+            Alert::toast("অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
+            return redirect()->back();
+        }
     }
+
 
 
     // public function store(Request $request)

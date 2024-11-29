@@ -2,6 +2,7 @@
 @section('body')
     @php
         $moderatorAccess = \App\Models\ModeratorAccess::where('user_id', auth()->user()->id)->first();
+        $now = \Carbon\Carbon::now();
     @endphp
     <div class="col-lg-12 mt-5">
         <div class="card">
@@ -36,7 +37,7 @@
                                     <td>{{ $item->balance ?? 0 }}</td>
                                     @if (url()->current() == route('admin.manage-user.index') || url()->current() == route('admin.inactiveUser'))
                                         <td>
-                                            @if ($item->premium == 2)
+                                            @if ($item->premium == 2 && $now < $item->premium_end)
                                                 <a style="width: 70px" href="" data-toggle="modal"
                                                     data-target="#makeCasualModal{{ $item->id }}"
                                                     class="btn btn-sm btn-primary">Premium</a>

@@ -221,6 +221,18 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group py-2">
+                                    টিন সার্টিফিকেট
+                                    <div class="form-check form-switch">
+                                        <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                            {{ @$moderatorAccess->tin_cirtificate == 1 ? 'ON' : 'OFF' }}</label>
+                                        <input type="hidden" name="tin_cirtificate" value="0">
+                                        <input class="form-check-input" onclick="submitForm()" value="1"
+                                            name="tin_cirtificate" type="checkbox" id="flexSwitchCheckChecked2"
+                                            {{ @$moderatorAccess->tin_cirtificate == 1 ? 'checked' : '' }}>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </form>

@@ -265,7 +265,7 @@
                                 <div class="form-group text-center mt-2">
                                     @if ($submitStatus->name_address_id == 1)
                                         @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
-                                            <h6 class="text-danger">{{ $message->premium_sign_copy }}</h6>
+                                            <h6 class="text-danger">{{ $message->premium_name_address_id }}</h6>
                                         @else
                                             <h6 class="text-danger">{{ $message->name_address_id }}</h6>
                                         @endif
