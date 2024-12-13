@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Tin Cirtificate - {{ $data['TIN'] }}</title>
+    <title>Tin Cirtificate - {{ @$data['tin'] }}</title>
     <style>
         button.PrintBtn {
             width: 150px;
@@ -156,7 +156,7 @@
                                                                 <td colspan="2" style="text-align: center;">
                                                                     <span
                                                                         style="font-weight: bold; font-size: large; text-align: center; text-decoration: underline; color: black">
-                                                                        TIN : {{ $data['TIN'] }}
+                                                                        TIN : {{ @$data['tin'] }}
                                                                     </span>
                                                                 </td>
                                                             </tr>
@@ -401,7 +401,7 @@
 
 
 
-        <title>{{ $data['TIN'] }}<title>
+        <title>{{ @$data['tin'] }}<title>
 
     </div>
     

@@ -47,16 +47,15 @@ class ServerCopyUnofficialController extends Controller
         }
 
         // Construct API URL using dynamic values
-        $url = "https://api.foxithub.com/unofficial/scUpdate/api.php?key=ownx&nid={$nid}&dob={$dob}";
-        // $url = "https://api.foxithub.com/unofficial/scUpdate/api.php?key=ownx&nid=1499108379&dob=1994-08-15";
-
+        $url = "​https://api.foxithub.pro/unofficial/scUpdate/api.php?key=ownx&nid={$nid}&dob={$dob}";
+        // $url = "​https://api.foxithub.pro/unofficial/scUpdate/api.php?key=ownx&nid=1499108379&dob=1994-08-15";
         // Initialize cURL session
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         // Execute cURL request and get the response
         $response = curl_exec($ch);
-        // dd($response);
+        dd($response);
         if ($response === false) {
             return back()->with('error_message', 'অনুগ্রহ করে আবার চেষ্টা করুন.' . curl_error($ch));
         }
