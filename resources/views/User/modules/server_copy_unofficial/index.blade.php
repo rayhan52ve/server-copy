@@ -200,7 +200,7 @@
                 rgba(0, 0, 0, 0) 0px 0px 0px 0px;
         }
 
-        input[type="submit"] {
+        #searchButton {
             background-color: rgb(84, 105, 212);
             box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
                 rgba(0, 0, 0, 0) 0px 0px 0px 0px,
@@ -405,8 +405,10 @@
                                         </div>
 
                                         <div class="field padding-bottom--24">
-                                            <input id="searchButton" type="submit" value="Search"
+                                            <button id="searchButton" type="submit" class="btn btn-lg form-control"
                                                 {{ $submitStatus->server_unofficial == 1 ? '' : 'disabled' }}>
+                                                Search
+                                            </button>
                                         </div>
                                     </form>
 
@@ -424,17 +426,16 @@
 
     </div> <!-- content -->
     @if (Session::has('error_message'))
-    <script>
-        Swal.fire({
-            icon: "error",
-            title: "দুঃখিত...",
-            text: "{{ Session::get('error_message') }}",
-            background: "#000",
-            color: "#fff",
-            iconColor: "#fff"
-        });
-    </script>
-    
+        <script>
+            Swal.fire({
+                icon: "error",
+                title: "দুঃখিত...",
+                text: "{{ Session::get('error_message') }}",
+                background: "#000",
+                color: "#fff",
+                iconColor: "#fff"
+            });
+        </script>
     @endif
     <script>
         $(document).ready(function() {
@@ -452,13 +453,23 @@
                     cancelButtonText: 'না, বাতিল করুন!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $('#searchButton').val('Searching...').prop('disabled', true);
-                        $('#submit_form').off('submit')
-                            .submit(); // Submit the form after confirmation
+                        // Update button to show loading state
+                        $('#searchButton').html(`
+                            <span>
+                                <span class="spinner-border spinner-border-sm text-white" role="status" aria-hidden="true"></span>
+                                Searching...
+                            </span>
+                        `).prop('disabled', true);
+
+                        // Submit the form after confirmation
+                        $('#submit_form').off('submit').submit();
                     }
                 });
             });
         });
     </script>
+
+
+
 
 @endsection

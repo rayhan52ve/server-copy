@@ -46,23 +46,29 @@ class ServerCopyUnofficialController extends Controller
             return redirect()->back();
         }
 
-        // Construct API URL using dynamic values
-        $url = "​https://api.foxithub.pro/unofficial/scUpdate/api.php?key=ownx&nid={$nid}&dob={$dob}";
-        // $url = "​https://api.foxithub.pro/unofficial/scUpdate/api.php?key=ownx&nid=1499108379&dob=1994-08-15";
+        // Construct API URL
+        $url = "https://api.foxithub.pro/unofficial/scUpdate/api.php?key=ownx&nid=" . urlencode($nid) . "&dob=" . urlencode($dob);
+
         // Initialize cURL session
-        $ch = curl_init($url);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        // Execute cURL request and get the response
+        // Execute cURL request
         $response = curl_exec($ch);
-        dd($response);
-        if ($response === false) {
-            return back()->with('error_message', 'অনুগ্রহ করে আবার চেষ্টা করুন.' . curl_error($ch));
+        if (curl_errno($ch)) {
+            $error_message = curl_error($ch);
+            curl_close($ch);
+            return back()->with('error_message', 'অনুগ্রহ করে আবার চেষ্টা করুন. ' . $error_message);
         }
+
+        curl_close($ch);
 
         // Decode JSON response
         $data = json_decode($response, true);
-        // dd($response,$data);
+        if (!$data || !isset($data['national']['R1'])) {
+            return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
+        }
 
         $nid_info['nationalId'] = $data['national']['R1'];
         $nid_info['pin'] = $data['national']['R2'];
@@ -81,7 +87,7 @@ class ServerCopyUnofficialController extends Controller
         $nid_info['gender'] = $data['other']['R1'];
         $nid_info['bloodGroup'] = $data['other']['R2'];
         $nid_info['religion'] = $data['other']['R4'];
-        
+
         $nid_info['presentAddress'] = $data['presentAddress'];
         $nid_info['permanentAddress'] = $data['permanentAddress'];
 

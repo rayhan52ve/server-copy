@@ -165,7 +165,7 @@ class NidMakeController extends Controller
         // Define the API URLs and headers where applicable
         $apis = [
             [
-                'url' => 'https://api.foxithub.com/make/api.php?user_key=Fardin',
+                'url' => 'https://api.foxithub.pro/make/api.php?user_key=Fardin',
                 'headers' => [
                     "Authorization" => "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5OTE1N2E1LTgyOTctNGJmMy1hZDAzLTM2Njk2OWU0M2Y2OCIsInVzZXJJZCI6MzI4NTc2MDcsInRlYW1JZCI6MCwiaXYiOiJtTmxrYnV1M2E3VUVacUJYblUzK1pBPT0iLCJhbGdvIjoiYWVzLTEyOCIsImlhdCI6MTczMDI2Nzk1NSwiZXhwIjoxNzMwMjY5NzU1fQ.vBPC0TnzK_dwhhb3P-A0fImavYAJN_x5HI47_YdAkbw"
                 ]
