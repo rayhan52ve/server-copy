@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Tin Cirtificate - {{ @$data['tin'] }}</title>
+    <title>Tin Certificate - {{ @$data['tin'] }}</title>
     <style>
         button.PrintBtn {
             width: 150px;
@@ -57,7 +57,7 @@
                 myWindow.document.write(`
                     <html>
                         <head>
-                            <title>Certificate</title>
+                            <title>Tin Certificate - {{ @$data['tin'] }}</title>
                             <link rel="stylesheet" type="text/css" href="${certCssUrl}">
                         </head>
                         <body onload="window.print(); window.close();">
@@ -169,13 +169,13 @@
                                                                 <td colspan="2">
                                                                     This is to Certify that <span
                                                                         style="font-weight: bold;">
-                                                                        {{ $data['nameEnglish'] }}
+                                                                        {{ @$data['nameEnglish'] }}
                                                                     </span>is a Registered Taxpayer of National
                                                                     Board of Revenue under the jurisdiction
                                                                     of <span
-                                                                        style="font-weight: bold;">{{ $data['taxCircle'] }}</span>
+                                                                        style="font-weight: bold;">{{ @$data['taxCircle'] }}</span>
                                                                     , Taxes Zone <span
-                                                                        style="font-weight: bold;">{{ $data['taxZone'] }}</span>.
+                                                                        style="font-weight: bold;">{{ @$data['taxZone'] }}</span>.
                                                                 </td>
                                                             </tr>
 
@@ -188,43 +188,43 @@
                                                             <tr>
                                                                 <td colspan="2">
                                                                     1) Name : <span
-                                                                        style="font-weight: bold;">{{ $data['nameEnglish'] }}</span>
+                                                                        style="font-weight: bold;">{{ @$data['nameEnglish'] }}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="2">
                                                                     2) Father's Name : <span
-                                                                        style="font-weight: bold;">{{ $data['fatherNameEn'] }}</span>
+                                                                        style="font-weight: bold;">{{ @$data['fatherNameEn'] }}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="2">
                                                                     3) Mother's Name : <span
-                                                                        style="font-weight: bold;">{{ $data['motherNameEn'] }}</span>
+                                                                        style="font-weight: bold;">{{ @$data['motherNameEn'] }}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="2">
                                                                     4.a) Current Address : <span
-                                                                        style="font-weight: bold;">{{ $data['presentAddress'] }}</span>
+                                                                        style="font-weight: bold;">{{ @$data['presentAddress'] }}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="2">
                                                                     4.b) Permanent Address : <span
-                                                                        style="font-weight: bold;">{{ $data['permanentAddress'] }}</span>
+                                                                        style="font-weight: bold;">{{ @$data['permanentAddress'] }}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="2">
                                                                     5) Previous TIN : <span
-                                                                        style="font-weight: bold;">{{ $data['previousTIN'] }}</span>
+                                                                        style="font-weight: bold;">{{ @$data['previousTIN'] }}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="2">
                                                                     6) Status : <span
-                                                                        style="font-weight: bold;">{{ $data['status'] }}</span>
+                                                                        style="font-weight: bold;">{{ @$data['status'] }}</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -237,7 +237,7 @@
 
                                                             <tr>
                                                                 <td colspan="2">
-                                                                    {{ $data['date'] }}
+                                                                    {{ @$data['date'] }}
                                                                 </td>
                                                             </tr>
 
@@ -314,7 +314,7 @@
 
                                                                             </td>
                                                                             <td style="text-align: center; width: 40%;">
-                                                                                <img src="{{ $data['QR'] }}"
+                                                                                <img src="{{ @$data['QR'] }}"
                                                                                     height="150px;" width="150px;"
                                                                                     alt="QR Code"
                                                                                     style="text-align:center;" />
@@ -328,15 +328,15 @@
                                                                                         Commissioner
                                                                                         of Taxes </span>
                                                                                     <br />
-                                                                                    {{ $data['taxCircle'] }}
+                                                                                    {{ @$data['taxCircle'] }}
                                                                                     <br />
                                                                                     Taxes Zone
-                                                                                    {{ $data['taxZone'] }}
+                                                                                    {{ @$data['taxZone'] }}
                                                                                     <br />
                                                                                     Address :
-                                                                                    {{ $data['zoneAddress'] }}
+                                                                                    {{ @$data['zoneAddress'] }}
                                                                                     Phone :
-                                                                                    {{ $data['zonePhone'] }}
+                                                                                    {{ @$data['zonePhone'] }}
                                                                                 </span>
                                                                             </td>
                                                                         </tr>

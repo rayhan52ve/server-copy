@@ -13,6 +13,7 @@ use Smalot\PdfParser\Parser;
 use Smalot\PdfParser\Document;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -56,75 +57,98 @@ class SignToServerCopyController extends Controller
             'user_id' => 'required|exists:users,id', // Ensure user exists
         ]);
 
-        // Retrieve request data
-        $type = $request->input('type');
-        $tin = $request->input('tin');
-        $price = (int) $request->input('price');
+        try {
+            DB::beginTransaction();
 
-        // If the authenticated user is an admin, set the price to 0
-        if (auth()->user()->is_admin == 1) {
-            $price = 0;
+            // Retrieve request data
+            $type = $request->input('type');
+            $tin = $request->input('tin');
+            $price = (int) $request->input('price');
+
+            // If the authenticated user is an admin, set the price to 0
+            if (auth()->user()->is_admin == 1) {
+                $price = 0;
+            }
+
+            // Find the user by ID
+            $user = User::find($request->user_id);
+
+            // Check if the user has sufficient balance
+            if ($user->balance < $price) {
+                Alert::toast("আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
+                return redirect()->back()->withInput(); // Preserve input data
+            }
+
+            $url = sprintf(
+                "https://api.server24x.news/tinServer/api.php?key=fardin&type=%s&tin=%s",
+                urlencode($type),
+                urlencode($tin)
+            );
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 60); // Set timeout to 60 seconds
+
+            // Execute cURL request
+            $response = curl_exec($ch);
+            // dd($response);
+
+            if ($response === false) {
+                $errorMessage = curl_error($ch);
+                curl_close($ch);
+                return back()->with('error_message', "অনুগ্রহ করে আবার চেষ্টা করুন: $errorMessage");
+            }
+
+            curl_close($ch);
+
+            // Decode JSON response
+            $data = json_decode($response, true);
+            // dd($data);
+            // Check if $data is null or empty
+            if (is_null($data)) {
+                return back()->with('error_message', 'সার্ভার থেকে ডেটা পাওয়া যায়নি।');
+            }
+
+            // Check if the API response indicates data was not found
+            if (isset($data['message']) && $data['message'] === 'Data not found') {
+                return back()->with('error_message', 'তথ্য পাওয়া যায়নি। অনুগ্রহ করে সঠিক তথ্য প্রদান করুন।');
+            }
+
+            // Deduct balance from user and save
+            $user->balance -= $price;
+            $user->save();
+
+            // Save certificate details in the database
+            TinCirtificate::create([
+                'user_id' => $request->user_id,
+                'name_english' => @$data['nameEnglish'],
+                'father_name_english' => @$data['fatherNameEn'],
+                'mother_name_english' => @$data['motherNameEn'],
+                'present_address' => @$data['presentAddress'],
+                'permanent_address' => @$data['permanentAddress'],
+                'tin' => @$data['tin'],
+                'previous_tin' => @$data['previousTIN'],
+                'tax_zone' => @$data['taxZone'],
+                'tax_circle' => @$data['taxCircle'],
+                'status' => @$data['status'],
+                'date' => @$data['date'],
+                'qr_code_url' => @$data['QR'],
+                'zone_address' => @$data['zoneAddress'],
+                'zone_phone' => @$data['zonePhone'],
+            ]);
+
+            // Commit the transaction
+            DB::commit();
+
+            // Return the PDF view with the retrieved data
+            return view('pdf.tin_cirtificate', compact('data'));
+        } catch (\Exception $e) {
+            // Rollback the transaction on error
+            DB::rollBack();
+            return back()->with('error_message', 'Something Went Wrong: ' . $e->getMessage());
         }
-
-        // Find the user by ID
-        $user = User::find($request->user_id);
-
-        // Check if the user has sufficient balance
-        if ($user->balance < $price) {
-            Alert::toast("আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
-            return redirect()->back()->withInput(); // Preserve input data
-        }
-
-        // Construct API URL using dynamic values
-        $url = "https://api.server24x.online/tinServer/api.php?key=fardin&type={$type}&tin={$tin}";
-
-        // Initialize cURL session
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        // Execute cURL request and get the response
-        $response = curl_exec($ch);
-
-        if ($response === false) {
-            return back()->with('error_message', 'অনুগ্রহ করে আবার চেষ্টা করুন.' . curl_error($ch));
-        }
-
-        // Decode JSON response
-        $data = json_decode($response, true);
-
-        // Check if the API response indicates data was not found
-        if (isset($data['message']) && $data['message'] === 'Data not found') {
-            return back()->with('error_message', 'তথ্য পাওয়া যায়নি। অনুগ্রহ করে সঠিক তথ্য প্রদান করুন।' . curl_error($ch));
-        }
-
-
-
-        // Deduct balance from user and save
-        $user->balance -= $price;
-        $user->save();
-
-        TinCirtificate::create([
-            'user_id' => $request->user_id,
-            'name_english' => @$data['nameEnglish'],
-            'father_name_english' => @$data['fatherNameEn'],
-            'mother_name_english' => @$data['motherNameEn'],
-            'present_address' => @$data['presentAddress'],
-            'permanent_address' => @$data['permanentAddress'],
-            'tin' => @$data['tin'],
-            'previous_tin' => @$data['previousTIN'],
-            'tax_zone' => @$data['taxZone'],
-            'tax_circle' => @$data['taxCircle'],
-            'status' => @$data['status'],
-            'date' => @$data['date'],
-            'qr_code_url' => @$data['QR'],
-            'zone_address' => @$data['zoneAddress'],
-            'zone_phone' => @$data['zonePhone'],
-
-        ]);
-
-        // If API returns valid data, proceed to generate the PDF or show the view
-        return view('pdf.tin_cirtificate', compact('data'));
     }
+
 
 
     public function print_saved_tin($id)
@@ -168,7 +192,6 @@ class SignToServerCopyController extends Controller
             ];
 
             return view('pdf.tin_cirtificate', compact('data'));
-
         } else {
             Alert::toast("অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
             return redirect()->back();

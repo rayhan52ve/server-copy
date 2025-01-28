@@ -26,7 +26,7 @@ class AdminSignCopyOrderController extends Controller
         $signCopyOrders = SignCopyOrder::whereIn('status', [0, 1])
             ->latest()
             ->get();
-        return view('admin.sign_copy_order.index', compact('signCopyOrders','now'));
+        return view('admin.sign_copy_order.index', compact('signCopyOrders', 'now'));
     }
 
     public function completed()
@@ -34,7 +34,7 @@ class AdminSignCopyOrderController extends Controller
         $now = Carbon::now();
 
         $signCopyOrders = SignCopyOrder::where('status', 2)->latest()->get();
-        return view('admin.sign_copy_order.index', compact('signCopyOrders','now'));
+        return view('admin.sign_copy_order.index', compact('signCopyOrders', 'now'));
     }
     public function disabled()
     {
@@ -43,7 +43,7 @@ class AdminSignCopyOrderController extends Controller
         $signCopyOrders = SignCopyOrder::whereIn('status', [3, 4, 5, 6, 7])
             ->latest()
             ->get();
-        return view('admin.sign_copy_order.index', compact('signCopyOrders','now'));
+        return view('admin.sign_copy_order.index', compact('signCopyOrders', 'now'));
     }
 
     /**
@@ -132,6 +132,13 @@ class AdminSignCopyOrderController extends Controller
         $data->status = $request->status;
         $data->save();
 
+        if ($request->status == 1) {
+            $user_id = $data->user_id;
+            $message = 'orderReceived';
+            event(new DeliveryNotification($user_id, $message));
+        }
+
+
         return redirect()->back();
     }
 
@@ -197,7 +204,7 @@ class AdminSignCopyOrderController extends Controller
 
         $user_id = $data->user_id;
         $message = 'Sign Copy Order Refunded.Please Reload.';
-        
+
         $userNotification = new UserNotification();
         $userNotification->user_id = $user_id;
         $userNotification->msg = $message;

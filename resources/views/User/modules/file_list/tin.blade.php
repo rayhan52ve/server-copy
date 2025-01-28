@@ -45,7 +45,7 @@
                                             <td>{{ $item->date ?? null }}</td>
                                             <td>{{ @$item->created_at->toDayDateTimeString() }}</td>
                                             <td>
-                                                <a href="{{ route('user.print.print_saved_tin', $item->id) }}"
+                                                <a href="{{ route('print.print_saved_tin', $item->id) }}"
                                                     class="btn btn-success btn-sm printBirth">
                                                     <i class="fa-solid fa-download"></i>
                                                     Print

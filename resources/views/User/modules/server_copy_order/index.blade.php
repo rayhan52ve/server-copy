@@ -37,6 +37,7 @@
                                 <th>টাইপ</th>
                                 <th>নাম</th>
                                 <th>ফর্ম/আইডি/ভোটার নাম্বার</th>
+                                <th>জন্ম তারিখ</th>
                                 <th>স্ট্যাটাস</th>
                                 <th>অ্যাডমিনের মন্তব্য</th>
                                 <th>ডাউনলোড</th>
@@ -50,6 +51,7 @@
                                     <td>{{ $item->type }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->nid_voter_birth_form_no ?? null }}</td>
+                                    <td>{{ $item->date_of_birth ?? null }}</td>
                                     <td>
                                         @if ($item->status == 0)
                                             <button class="btn btn-sm btn-warning">পেন্ডিং</button>
@@ -128,7 +130,7 @@
                                         <label class="form-label">টাইপ<span class="text-danger">*</span></label>
                                         <select class="form-control" name="type" required>
                                             <option value="" selected disabled>Select</option>
-                                            <option value="FORM_NO">FORM_NO</option>
+                                            {{-- <option value="FORM_NO">FORM_NO</option> --}}
                                             <option value="NID_NO">NID_NO</option>
                                             <option value="VOTER_NO">VOTER_NO</option>
                                             <option value="BIRTH_NO">BIRTH_NO</option>
@@ -152,6 +154,15 @@
                                             placeholder="এনআইডি/ভোটার/ফর্ম নাম্বার" required>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="form-group text-center">
+                                        <label>জন্ম তারিখঃ <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="date_of_birth"
+                                            value="{{ old('date_of_birth') }}"
+                                            placeholder="YYYY-MM-DD" required>
+                                    </div>
+                                </div>
+
 
                                 <div class="form-group text-center">
                                     <label>সাইন কপি সম্পর্কে কিছু বলার থাকলে বলুন</label>

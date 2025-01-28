@@ -18,6 +18,7 @@
                                 <th>টাইপ</th>
                                 <th>নাম</th>
                                 <th>ফর্ম/আইডি/ভোটার নাম্বার</th>
+                                <th>জন্ম তারিখ</th>
                                 <th>স্ট্যাটাস</th>
                                 <th>মন্তব্য</th>
                                 <th>ডাউনলোড</th>
@@ -32,6 +33,7 @@
                                     <td>{{ $item->type ?? null }}</td>
                                     <td>{{ $item->name ?? null }}</td>
                                     <td>{{ $item->nid_voter_birth_form_no ?? null }}</td>
+                                    <td>{{ $item->date_of_birth ?? null }}</td>
                                     <td>
                                         <form id="statusForm{{ $item->id }}"
                                             action="{{ route('admin.updateServerCopyStatus', $item->id) }}" method="post">
@@ -80,13 +82,15 @@
                                             <script>
                                                 function copyTableFields(button) {
                                                     var row = button.closest('tr');
-                                                    var type = row.cells[2].innerText;
+                                                    var type = row.cells[2].innerText.replace(/_/g, ' ');
                                                     var name = row.cells[3].innerText;
                                                     var formIdVoterNumber = row.cells[4].innerText;
-                                                    var textToCopy = "Server Copy\n";
+                                                    // var textToCopy = "Server Copy\n";
 
-                                                    textToCopy += "ফাইল টাইপ:" + type + "-" + formIdVoterNumber + "\n";
-                                                    textToCopy += "নাম:" + name + "\n\n";
+                                                    var textToCopy = "";
+
+                                                    textToCopy += type + " - " + formIdVoterNumber + "\n";
+                                                    textToCopy += "নাম" + " - " + name + "\n\n";
 
                                                     navigator.clipboard.writeText(textToCopy).then(function() {
                                                         alert("Row copied to clipboard!");

@@ -10,13 +10,12 @@
         <!-- ============================================================== -->
         <div class="navbar-header text-center hidden-md-down">
             <a class="navbar-brand" href="">
-                    <!-- Dark Logo icon -->
-                    @php $logo = \App\Models\Logo::latest()->first() @endphp
-                    <img src="{{ asset($logo->logo_image ?? null) }}" alt="homepage" height="80px" class="dark-logo" />
-                    <!-- Light Logo icon -->
-                    <img src="{{ asset($logo->logo_image ?? null) }}" alt="homepage" height="80px"
-                        class="light-logo" />
-                        </a>
+                <!-- Dark Logo icon -->
+                @php $logo = \App\Models\Logo::latest()->first() @endphp
+                <img src="{{ asset($logo->logo_image ?? null) }}" alt="homepage" height="80px" class="dark-logo" />
+                <!-- Light Logo icon -->
+                <img src="{{ asset($logo->logo_image ?? null) }}" alt="homepage" height="80px" class="light-logo" />
+            </a>
         </div>
         <!-- ============================================================== -->
         <!-- End Logo -->
@@ -32,14 +31,15 @@
                         <i class="ti-menu"></i>
                     </a>
                 </li>
-            
+
                 <!-- Sidebar toggler for larger screens -->
                 <li class="nav-item d-md-none">
-                    <a class="nav-link sidebartoggler d-none d-md-block waves-effect waves-dark" href="javascript:void(0)">
+                    <a class="nav-link sidebartoggler d-none d-md-block waves-effect waves-dark"
+                        href="javascript:void(0)">
                         <i class="icon-menu"></i>
                     </a>
                 </li>
-            
+
                 <!-- Balance display -->
                 <li class="nav-item mx-3">
                     <a class="nav-link" href="#">
@@ -47,7 +47,7 @@
                     </a>
                 </li>
             </ul>
-            
+
             <!-- ============================================================== -->
             <!-- User profile and search -->
             <!-- ============================================================== -->
@@ -89,6 +89,8 @@
                             </svg></span> </a>
                     <div class="dropdown-menu dropdown-menu-end animated flipInY">
 
+                        {{-- <button type="button" class="btn btn-lg btn-success w-100"
+                            onclick="playNotificationSound()">Sound</button> --}}
                         <!-- text-->
                         <a href="{{ route('user.profile.settings') }}" class="dropdown-item"><i class=""><svg
                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -97,6 +99,7 @@
                                     <path fill-rule="evenodd"
                                         d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
                                 </svg></i> Profile</a>
+
                         <a href="" class="dropdown-item"
                             onclick="event.preventDefault(); document.getElementById('logoutForm').submit()"><i
                                 class=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"

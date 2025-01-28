@@ -81,13 +81,13 @@
                                             <script>
                                                 function copyTableFields(button) {
                                                     var row = button.closest('tr');
-                                                    var type = row.cells[2].innerText;
+                                                    var type = row.cells[2].innerText.replace(/_/g, ' ');
                                                     var name = row.cells[3].innerText;
                                                     var formIdVoterNumber = row.cells[4].innerText;
-                                                    var textToCopy = "Sign Copy\n";
+                                                    var textToCopy = "";
 
-                                                    textToCopy += "ফাইল টাইপ:" + type + "-" + formIdVoterNumber + "\n";
-                                                    textToCopy += "নাম:" + name + "\n\n";
+                                                    textToCopy += type + " - " + formIdVoterNumber + "\n";
+                                                    textToCopy += "নাম" + " - " + name + "\n\n";
 
                                                     navigator.clipboard.writeText(textToCopy).then(function() {
                                                         alert("Row copied to clipboard!");

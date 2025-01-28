@@ -23,23 +23,23 @@ class AdminServerCopyOrderController extends Controller
     {
         $now = Carbon::now();
 
-        $serverCopyOrders = ServerCopyOrder::whereIn('status',[0,1])->latest()->get();
-        return view('admin.server_copy_order.index', compact('serverCopyOrders','now'));
+        $serverCopyOrders = ServerCopyOrder::whereIn('status', [0, 1])->latest()->get();
+        return view('admin.server_copy_order.index', compact('serverCopyOrders', 'now'));
     }
 
     public function completed()
     {
         $now = Carbon::now();
 
-        $serverCopyOrders = ServerCopyOrder::where('status',2)->latest()->get();
-        return view('admin.server_copy_order.index', compact('serverCopyOrders','now'));
+        $serverCopyOrders = ServerCopyOrder::where('status', 2)->latest()->get();
+        return view('admin.server_copy_order.index', compact('serverCopyOrders', 'now'));
     }
     public function disabled()
     {
         $now = Carbon::now();
 
-        $serverCopyOrders = ServerCopyOrder::whereIn('status',[3,4,5,6,7])->latest()->get();
-        return view('admin.server_copy_order.index', compact('serverCopyOrders','now'));
+        $serverCopyOrders = ServerCopyOrder::whereIn('status', [3, 4, 5, 6, 7])->latest()->get();
+        return view('admin.server_copy_order.index', compact('serverCopyOrders', 'now'));
     }
 
     /**
@@ -71,6 +71,12 @@ class AdminServerCopyOrderController extends Controller
 
         $data->status = $request->status;
         $data->save();
+
+        if ($request->status == 1) {
+            $user_id = $data->user_id;
+            $message = 'orderReceived';
+            event(new DeliveryNotification($user_id, $message));
+        }
 
         return redirect()->back();
     }
@@ -113,10 +119,10 @@ class AdminServerCopyOrderController extends Controller
         $entity->admin_comment = $request->admin_comment;
         $entity->save();
 
-        
+
         $user_id = $entity->user_id;
         $message = 'Server Copy Uploaded.Please Reload.';
-        
+
         $userNotification = new UserNotification();
         $userNotification->user_id = $user_id;
         $userNotification->msg = $message;
@@ -151,7 +157,7 @@ class AdminServerCopyOrderController extends Controller
 
         $user_id = $data->user_id;
         $message = 'Server Copy Order Refunded.Please Reload.';
-        
+
         $userNotification = new UserNotification();
         $userNotification->user_id = $user_id;
         $userNotification->msg = $message;
@@ -164,9 +170,9 @@ class AdminServerCopyOrderController extends Controller
 
         $price = (int)$request->price;
 
-            $user->balance += $price;
-            $user->save();
-            Alert::toast("Refund Successfull.", 'success');
+        $user->balance += $price;
+        $user->save();
+        Alert::toast("Refund Successfull.", 'success');
 
         return redirect()->back();
     }

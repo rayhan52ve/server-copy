@@ -66,7 +66,7 @@
 
                                 <div class="form-group mb-4">
                                     <label class="font-weight-bold my-2"><b>TIN</b></label>
-                                    <input type="number"
+                                    <input type="text"
                                         class="form-control text-center @error('tin') is-invalid @enderror" name="tin"
                                         id="" placeholder="Enter TIN Number" required>
                                     @error('tin')

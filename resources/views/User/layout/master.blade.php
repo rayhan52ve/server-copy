@@ -94,7 +94,6 @@
     <!-- ============================================================== -->
     @include('User.layout.include.script')
     @include('sweetalert::alert')
-    {{-- @include('sweetalert::alert') --}}
     @include('User.layout.include.pusher')
 
     <!--Start of Tawk.to Script-->

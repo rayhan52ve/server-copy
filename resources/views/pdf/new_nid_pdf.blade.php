@@ -133,9 +133,13 @@
                                             <div id="nid_front" class="w-full border-[1.999px] border-black">
                                                 <header
                                                     class="px-1.5 flex items-start gap-x-2 justify-between relative">
-                                                    <img class="w-[38px] absolute top-1.5 left-[4.5px]"
+                                                    {{-- <img class="w-[38px] absolute top-1.5 left-[4.5px]"
                                                         src="https://seeklogo.com/images/B/bangladesh-govt-logo-A2C7688845-seeklogo.com.png"
-                                                        alt="https://i.ibb.co/qJHPs8Z/gov-logo-0b7f8514.png" />
+                                                        alt="https://i.ibb.co/qJHPs8Z/gov-logo-0b7f8514.png" /> --}}
+                                                    <img class="w-[38px] absolute top-1.5 left-[4.5px]"
+                                                        src="https://i.ibb.co/qJHPs8Z/gov-logo-0b7f8514.png"
+                                                        alt="Bangladesh Government Logo">
+
                                                     <div class="w-full h-[60px] flex flex-col justify-center">
                                                         <h3 style="font-size:20px"
                                                             class="text-center font-medium tracking-normal pl-11 bn leading-5">
@@ -380,7 +384,7 @@
 
                                                         // Assuming the month names in Bengali
                                                         $bn_months = [
-                                                            '০১' => '/০১/,',
+                                                            '০১' => '/০১/',
                                                             '০২' => '/০২/',
                                                             '০৩' => '/০৩/',
                                                             '০৪' => '/০৪/',
@@ -413,7 +417,7 @@
                                                             {{ toBanglaDate($data['issue_date']) }}
                                                             {{-- <span
                                                                 class="ml-2.5" id="card_date">০৮/১১/২০২২</span> --}}
-                                                            </span>
+                                                        </span>
                                                     </div>
                                                     <div id="barcode" class="w-full h-[39px] mt-1"
                                                         alt="NID Card Generator"
@@ -440,8 +444,7 @@
                                     <a href="{{ route('user.nidList', auth()->user()->id) }}"
                                         class="back-btn">Back</a>
                                 @else
-                                    <a href="{{ route('admin.nidList') }}"
-                                        class="back-btn">Back</a>
+                                    <a href="{{ route('admin.nidList') }}" class="back-btn">Back</a>
                                 @endif
                             @elseif ($redirectRoute == 'nidMake')
                                 <a href="{{ route('user.nid-make.index') }}" class="back-btn">Back</a>

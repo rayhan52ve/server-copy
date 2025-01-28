@@ -27,7 +27,7 @@ class AdminNameAddressIdController extends Controller
         $nameAddressIds = NameAddressId::whereIn('status', [0, 1])
             ->latest()
             ->get();
-        return view('admin.name_address_id.index', compact('nameAddressIds','now'));
+        return view('admin.name_address_id.index', compact('nameAddressIds', 'now'));
     }
 
     public function completed()
@@ -35,7 +35,7 @@ class AdminNameAddressIdController extends Controller
         $now = Carbon::now();
 
         $nameAddressIds = NameAddressId::where('status', 2)->latest()->get();
-        return view('admin.name_address_id.index', compact('nameAddressIds','now'));
+        return view('admin.name_address_id.index', compact('nameAddressIds', 'now'));
     }
     public function disabled()
     {
@@ -44,7 +44,7 @@ class AdminNameAddressIdController extends Controller
         $nameAddressIds = NameAddressId::whereIn('status', [3, 4, 5, 6, 7])
             ->latest()
             ->get();
-        return view('admin.name_address_id.index', compact('nameAddressIds','now'));
+        return view('admin.name_address_id.index', compact('nameAddressIds', 'now'));
     }
     /**
      * Show the form for creating a new resource.
@@ -127,7 +127,7 @@ class AdminNameAddressIdController extends Controller
         return redirect()->back();
     }
 
-    
+
     public function updateStatus(Request $request, $id)
     {
         // dd($request->all(), $id);
@@ -135,6 +135,12 @@ class AdminNameAddressIdController extends Controller
 
         $data->status = $request->status;
         $data->save();
+
+        if ($request->status == 1) {
+            $user_id = $data->user_id;
+            $message = 'orderReceived';
+            event(new DeliveryNotification($user_id, $message));
+        }
 
         return redirect()->back();
     }
@@ -204,7 +210,7 @@ class AdminNameAddressIdController extends Controller
         }
 
         // Return the file for download
-        return response()->download(public_path('/uploads/id_card/'.$entity->image));
+        return response()->download(public_path('/uploads/id_card/' . $entity->image));
     }
 
     public function refund(Request $request, $id)
@@ -216,7 +222,7 @@ class AdminNameAddressIdController extends Controller
 
         $user_id = $data->user_id;
         $message = 'Id Card(Name,Address) Order Refunded.Please Reload.';
-        
+
         $userNotification = new UserNotification();
         $userNotification->user_id = $user_id;
         $userNotification->msg = $message;

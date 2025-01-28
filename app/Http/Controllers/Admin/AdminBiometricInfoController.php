@@ -68,6 +68,12 @@ class AdminBiometricInfoController extends Controller
         $data->status = $request->status;
         $data->save();
 
+        if ($request->status == 1) {
+            $user_id = $data->user_id;
+            $message = 'orderReceived';
+            event(new DeliveryNotification($user_id, $message));
+        }
+
         return redirect()->back();
     }
 
