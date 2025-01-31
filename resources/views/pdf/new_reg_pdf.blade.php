@@ -86,7 +86,7 @@
                     <div class="top_part1">
                         <div class="left">
                             <p>Date of Registration</p>
-                            <p><?php echo $data['regDate']; ?></p>
+                            <p><?php echo (new DateTime($data['regDate']))->format('d/m/Y'); ?></p>
                         </div>
                         <div class="middle">
                             <h2>Birth Registration Number</h2>
@@ -94,7 +94,7 @@
                         </div>
                         <div class="right">
                             <p>Date of Issuance</p>
-                            <p><?php echo $data['issuteDate']; ?></p>
+                            <p><?php echo (new DateTime($data['issuteDate']))->format('d/m/Y'); ?></p>
                         </div>
                     </div>
 
@@ -109,7 +109,7 @@
                                             class="clone">:</span></p>
                                 </div>
                                 <div class="part2">
-                                    <p><span  class="bn"><?php echo $data['dob']; ?></span></p>
+                                    <p><span  class="bn"><?php echo (new DateTime($data['dob']))->format('d/m/Y'); ?></span></p>
                                 </div>
                             </div>
                             <div class="right">

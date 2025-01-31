@@ -407,7 +407,7 @@
                                                 <div class="py-1 pl-2 pr-1">
                                                     <img class="w-[78px] ml-[18px] -mb-[3px]"
                                                         style="margin-bottom: 3px;height:27.3px;"
-                                                        src="{{ asset('voter_id/assets/img/sign.jpeg') }}" />
+                                                        src="{{ asset('voter_id/assets/img/sign2.jpeg') }}" />
                                                     <div class="flex justify-between items-center -mt-[5px]">
                                                         <p class="bn" style="font-size:14px">প্রদানকারী
                                                             কর্তৃপক্ষের স্বাক্ষর</p>
