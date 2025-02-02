@@ -1,5 +1,15 @@
 @extends('admin.master')
 @section('body')
+<style>
+    .whatsapp-link {
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 700;
+    }
+    .whatsapp-link:hover {
+        text-decoration: underline; /* Add underline on hover */
+    }
+</style>
     <div class="col-lg-12 mt-5">
         <div class="card">
             <div class="card-header">
@@ -18,6 +28,7 @@
                                 <th>ছবি</th>
                                 <th>নাম</th>
                                 <th>ঠিকানা</th>
+                                <th>হোয়াটস অ্যাপ</th>
                                 <th>স্ট্যাটাস</th>
                                 <th>ডাউনলোড</th>
                                 <th>অ্যাকশান</th>
@@ -30,8 +41,8 @@
                                     <td>{{ $item->user->email ?? null }}</td>
                                     <td><a href="{{ route('name-address-id-image.download', $item->id) }}"> <img
                                                 class="image img-thumbnail"
-                                                src="{{ asset('/uploads/id_card/' . $item->image) }}" width="70px" style="min-width:70px" 
-                                                alt=""></a></td>
+                                                src="{{ asset('/uploads/id_card/' . $item->image) }}" width="70px"
+                                                style="min-width:70px" alt=""></a></td>
                                     <td>
                                         নাম: {{ $item->name ?? null }} <br>
                                         পিতার নাম: {{ $item->fathers_name ?? null }}<br>
@@ -42,6 +53,11 @@
                                         উপজেলা: {{ $item->upozila ?? null }},
                                         জেলা: {{ $item->district ?? null }},<br>
                                         বিভাগ: {{ $item->division ?? null }}
+                                    </td>
+                                    <td>
+                                        <a href="https://wa.me/{{ $item->whatsapp }}" class="link text-info whatsapp-link" target="_blank">
+                                            {{ $item->whatsapp }}
+                                        </a>
                                     </td>
                                     <td>
                                         <form id="statusForm{{ $item->id }}"
@@ -93,7 +109,7 @@
                                                     var address = row.cells[4].innerText;
                                                     var textToCopy = "আইডি কার্ড (নাম-ঠিকানা)\n";
 
-                                                    textToCopy +=  info + "\n";
+                                                    textToCopy += info + "\n";
                                                     textToCopy += "ঠিকানা:-" + "\n" + address + "\n\n";
 
                                                     navigator.clipboard.writeText(textToCopy).then(function() {

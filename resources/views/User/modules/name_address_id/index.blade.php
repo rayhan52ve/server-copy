@@ -46,7 +46,8 @@
                             @foreach ($nameAddressIds as $key => $item)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><img class="img-thumbnail" src="{{asset('/uploads/id_card/'.$item->image )}}" width="70px" style="height:70px" alt=""></td>
+                                    <td><img class="img-thumbnail" src="{{ asset('/uploads/id_card/' . $item->image) }}"
+                                            width="70px" style="height:70px" alt=""></td>
                                     <td>{{ $item->name }}</td>
                                     <td>
                                         গ্রাম: {{ $item->village ?? null }},
@@ -165,8 +166,9 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group row align-items-center">
-                                        <p class="col-form-label text-right">ঠিকানাঃ- (নোটঃ - যে স্থানের ভোটার সেই স্থানের ঠিকানা দিতে হবে। )</p>
-                                        
+                                        <p class="col-form-label text-right">ঠিকানাঃ- (নোটঃ - যে স্থানের ভোটার সেই স্থানের
+                                            ঠিকানা দিতে হবে। )</p>
+
                                     </div>
 
                                 </div>
@@ -249,14 +251,28 @@
 
                                 </div>
                                 <div class="col-md-12">
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-form-label col-sm-3 text-right"> হোয়াটস অ্যাপ নাম্বার:<span
+                                                class="text-danger">*</span></label>
+                                        <small class="text-success">আপনার অ্যাক্টিভ Whatsapp নাম্বার দিন, যেখানে আপনার সাথে
+                                            যোগাযোগ করা হবে।</small>
+                                        <div class="col-sm-10">
+                                            <input type="tel" pattern="[0-9]{10,15}" maxlength="15"  class="form-control" name="whatsapp"
+                                                value="{{ old('whatsapp') }}"
+                                                placeholder="আপনার অ্যাক্টিভ Whatsapp নাম্বার লিখুন" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12">
                                     <div class="form-group align-items-center row justify-content-center">
                                         <label class="col-form-label font-weight-bold text-center"><b>ছবি:<span
-                                                class="text-danger">*</span></b></label>
-                                                <p class="text-center text-dark font-weight-bold">নোটঃ- ব্যাক্তির পরিষ্কার ছবি আপলোড করুন</p>
+                                                    class="text-danger">*</span></b></label>
+                                        <p class="text-center text-dark font-weight-bold">নোটঃ- ব্যাক্তির পরিষ্কার ছবি
+                                            আপলোড করুন</p>
                                         <div class="col-sm-6">
                                             <input type="file" class="form-control" name="image"
-                                                value="{{ old('image') }}"
-                                                required>
+                                                value="{{ old('image') }}" required>
                                         </div>
                                     </div>
 

@@ -219,4 +219,18 @@ class ManageUserController extends Controller
         Alert::toast("User Deleted Successfully.", 'success');
         return redirect()->back();
     }
+    public function multipleDelete(Request $request)
+    {
+        if (!$request->has('checked')) {
+            Alert::error('Error', 'No users selected for deletion.');
+            return redirect()->back();
+        }
+    
+        User::whereIn('id', $request->checked)->delete();
+    
+        Alert::toast("Selected users deleted successfully.", 'success');
+    
+        return redirect()->back();
+    }
+    
 }

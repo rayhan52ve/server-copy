@@ -36,33 +36,23 @@
 
                             {{-- <button class="nav-link" id="" type="button" role="tab">Clear All Order</button> --}}
 
-                            <div class="row my-4 mb-3">
+                            <div class="row my-4 mb-1">
                                 <div class="col-12 text-center">
-                                    <button class="btn btn-lg btn-outline-danger fw-bold" id="clearOldOrders" title="This action will clear all except pending orders">
+                                    <button class="btn btn-lg btn-outline-danger fw-bold" style="width: 210px" id="clearOldOrders"
+                                        title="This action will clear all except pending orders">
                                         <i class="fas fa-trash-alt me-2"></i> Clear All Orders
                                     </button>
                                 </div>
                             </div>
-                        
-                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                            <script>
-                                document.getElementById('clearOldOrders').addEventListener('click', function(event) {
-                                    event.preventDefault();
-                                    Swal.fire({
-                                        title: 'Are you sure?',
-                                        text: "All the completed odrers and files will be cleared!",
-                                        icon: 'warning',
-                                        showCancelButton: true,
-                                        confirmButtonColor: '#d33',
-                                        cancelButtonColor: '#3085d6',
-                                        confirmButtonText: 'Yes, clear it!'
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            window.location.href = "{{ route('admin.clearOldOrders') }}";
-                                        }
-                                    });
-                                });
-                            </script>
+                            <div class="row mb-3">
+                                <div class="col-12 text-center">
+                                    <button class="btn btn-lg btn-outline-primary fw-bold" style="width: 210px" id="clearFileListData"
+                                        title="This action will clear all except pending orders">
+                                        <i class="fas fa-trash-alt me-2"></i> Clear All File List
+                                    </button>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="w-75 mx-auto">
                             <div class="tab-content" id="v-pills-tabContent">
@@ -520,4 +510,41 @@
 
 
     </div> <!-- .row -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById('clearOldOrders').addEventListener('click', function(event) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "All the completed odrers and files will be cleared!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, clear it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{ route('admin.clearOldOrders') }}";
+                }
+            });
+        });
+
+        document.getElementById('clearFileListData').addEventListener('click', function(event) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "All the datas from file list will be cleared!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, clear it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{ route('admin.clearFileListData') }}";
+                }
+            });
+        });
+    </script>
 @endsection

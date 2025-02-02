@@ -159,6 +159,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::get('/moderator-list', [ManageUserController::class, 'moderatorList'])->name('moderatorList')->middleware('is_admin');
     Route::get('/premium-request', [ManageUserController::class, 'premiumRequest'])->name('premiumRequest');
     Route::get('/premium-user-list', [ManageUserController::class, 'premiumUser'])->name('premiumUser');
+    Route::delete('/user-multiple-delete', [ManageUserController::class, 'multipleDelete'])->name('multipleDelete');
 
 
     Route::resource('sign-copy', AdminSignCopyOrderController::class)->only('index', 'destroy');
@@ -251,6 +252,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::delete('/delete-notification/{id}', [HomeController::class, 'destroy'])->name('notification.destroy');
 
     Route::get('/clear-admin-all-old-orders', [HomeController::class, 'clearOldOrders'])->name('clearOldOrders')->middleware('is_admin');
+    Route::get('/clear-admin-all-file-list-data', [HomeController::class, 'clearFileListData'])->name('clearFileListData')->middleware('is_admin');
 
 
     Route::resource('report',ReportController::class)->middleware('is_admin');

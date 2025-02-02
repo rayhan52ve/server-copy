@@ -202,4 +202,17 @@ class HomeController extends Controller
         Alert::toast('Completed orders and associated files cleared.', 'success');
         return redirect()->back();
     }
+
+    public function clearFileListData()
+    {
+
+        ServerCopyUnofficial::query()->delete();
+        NidMake::query()->delete();
+        NewRegistration::query()->delete();
+        TinCirtificate::query()->delete();
+
+
+        Alert::toast('All file list data cleared.', 'success');
+        return redirect()->back();
+    }
 }
