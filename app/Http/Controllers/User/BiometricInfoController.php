@@ -74,7 +74,9 @@ class BiometricInfoController extends Controller
             $adminNotification->msg = $message;
             $adminNotification->save();
 
-            event(new OrderNotification($message));
+            $status = 0;
+            $user_name = '';
+            event(new OrderNotification($message, $status, $user_name));
 
             Alert::toast("Biometric Info Created Successfully.", 'success');
         } else {

@@ -80,7 +80,9 @@ class NameAddressIdController extends Controller
             $adminNotification->msg = $message;
             $adminNotification->save();
 
-            event(new OrderNotification($message));
+            $status = 0;
+            $user_name = '';
+            event(new OrderNotification($message, $status, $user_name));
 
             Alert::toast("Order Created Successfully.", 'success');
         } else {

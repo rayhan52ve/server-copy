@@ -13,14 +13,15 @@
                 </div>
             </div>
             <div class="card-body">
-                <form id="multipleDeleteform" onclick="preventDefault()" action="{{ route('admin.multipleDelete') }}"
+                <form id="multipleDeleteform" onsubmit="return false;" action="{{ route('admin.multipleDelete') }}"
                     method="post">
                     @csrf
-                    <div class="mx-4 mb-2">
+                    @method('PUT')
+                    {{-- <div class="mx-4 mb-2">
                         <button type="button" class="btn btn-sm btn-outline-danger delete-selected">
                             <i class="icon-trash"></i> Delete Selected
                         </button>
-                    </div>
+                    </div> --}}
                     <div class="table-responsive">
                         <table id="config-table" class="table display table-striped border no-wrap">
                             <thead>
@@ -73,8 +74,10 @@
                                                 @endif
                                                 <button type="button" class="btn btn-sm btn-info" data-toggle="modal"
                                                     data-target="#editModal{{ $item->id }}">Edit</button>
+                                                <button type="button" class="btn btn-sm btn-warning" data-toggle="modal"
+                                                    data-target="#popupMessageModal{{ $item->id }}"><i class="fa-regular fa-comment"></i></button>
 
-                                                <form id="{{ 'form_' . $item->id }}"
+                                                {{-- <form id="{{ 'form_' . $item->id }}"
                                                     action="{{ route('admin.manage-user.destroy', $item->id) }}"
                                                     method="POST" style="display: inline;">
                                                     @csrf
@@ -84,7 +87,10 @@
                                                         title="Delete" data-id="{{ $item->id }}">
                                                         <i class="icon-trash"></i>
                                                     </button>
-                                                </form>
+                                                </form> --}}
+                                                <button type="button" class="btn btn-sm btn-danger delete-selected">
+                                                    <i class="icon-trash"></i>
+                                                </button>
                                             @endif
 
                                         </td>
@@ -126,8 +132,40 @@
                                                             <input type="number" class="form-control" name="add_balance"
                                                                 placeholder="0">
                                                         </div>
-                                                        <button type="submit"
-                                                            class="btn btn-success btn-sm">Save</button>
+                                                        <button type="submit" class="btn btn-success btn-sm">Save</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Make popupMessageModal Modal -->
+                                    <div class="modal fade" id="popupMessageModal{{ $item->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="uploadModalLabel">Popup Message Box </h4><br>
+                                                    
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <small class="text-success">To: {{$item->name ?? null}}</small>
+                                                    <form action="{{ route('admin.popupMessage') }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <div class="form-group ">
+                                                            {{-- <label for="file" class="form-label">Write a message</label> --}}
+                                                            <textarea name="message" class="form-control" placeholder="Write a message" id="" cols="30"
+                                                                rows="4" required></textarea>
+                                                        </div>
+                                                        <input type="hidden" name="user_id" value="{{$item->id}}">
+                                                        <div class="text-center">
+                                                            <button type="submit"
+                                                                class="btn btn-outline-success w-100">Send</button>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>
@@ -236,35 +274,40 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            document.querySelector(".delete-selected").addEventListener("click", function() {
-                let selectedUsers = document.querySelectorAll('input[name="checked[]"]:checked');
+            document.querySelectorAll(".delete-selected").forEach(button => {
+                button.addEventListener("click", function() {
+                    let selectedUsers = document.querySelectorAll(
+                        'input[name="checked[]"]:checked');
+                    console.log('clicked');
 
-                if (selectedUsers.length === 0) {
-                    Swal.fire({
-                        title: "NO user is selected!",
-                        text: "Please select atleast one use to delete.",
-                        icon: "warning",
-                        confirmButtonText: "OK"
-                    });
-                    return;
-                }
-
-                Swal.fire({
-                    title: 'Are you sure to delete?',
-                    text: "All the selected users will be deleted permanently.",
-                    icon: 'info',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes',
-                    cancelButtonText: 'No'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        document.querySelector("#multipleDeleteform").submit();
+                    if (selectedUsers.length === 0) {
+                        Swal.fire({
+                            title: "NO user is selected!",
+                            text: "Please select at least one user to delete.",
+                            icon: "warning",
+                            confirmButtonText: "OK"
+                        });
+                        return;
                     }
+
+                    Swal.fire({
+                        title: 'Are you sure to delete?',
+                        text: "All the selected users will be deleted permanently.",
+                        icon: 'info',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'No'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.querySelector("#multipleDeleteform").submit();
+                        }
+                    });
                 });
             });
         });
+
 
         $('.delete').on('click', function() {
             let id = $(this).attr('data-id')

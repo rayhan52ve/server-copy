@@ -201,6 +201,10 @@
                         </ul>
                     </li>
 
+                    <li> <a class="waves-effect waves-dark" href="{{ route('popup-message.index') }}"
+                            aria-expanded="false"><i class="fa-regular fa-comment"></i><span
+                                class="hide-menu">মেসেজ হিস্ট্রি</span></a>
+                    </li>
                     <li> <a class="waves-effect waves-dark" href="{{ route('admin.report.index') }}"
                             aria-expanded="false"><i class="fa-solid fa-sack-dollar"></i><span
                                 class="hide-menu">আয়-ব্যয়</span></a>

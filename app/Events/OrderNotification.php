@@ -15,15 +15,19 @@ class OrderNotification implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+    public $status;
+    public $user_name;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($message,$status,$user_name)
     {
         $this->message = $message;
+        $this->status = $status;
+        $this->user_name = $user_name;
     }
 
     /**
@@ -43,6 +47,10 @@ class OrderNotification implements ShouldBroadcast
 
     public function broadcastWith()
     {
-        return ['message' => $this->message];
+        return [
+            'user_name' => $this->user_name,
+            'message' => $this->message,
+            'status' => $this->status,
+        ];
     }
 }

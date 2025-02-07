@@ -28,7 +28,7 @@ class ServerCopyOrderController extends Controller
         $message = Message::first();
         $submitStatus = SubmitStatus::first();
         $serverCopyOrders = ServerCopyOrder::where('user_id', auth()->user()->id)->get();
-        return view('User.modules.server_copy_order.index', compact('serverCopyOrders', 'notice', 'message', 'submitStatus','now'));
+        return view('User.modules.server_copy_order.index', compact('serverCopyOrders', 'notice', 'message', 'submitStatus', 'now'));
     }
 
     /**
@@ -68,7 +68,9 @@ class ServerCopyOrderController extends Controller
             $adminNotification->msg = $message;
             $adminNotification->save();
 
-            event(new OrderNotification($message));
+            $status = 0;
+            $user_name = '';
+            event(new OrderNotification($message, $status, $user_name));
 
             Alert::toast("Server Copy order Created Successfully.", 'success');
         } else {

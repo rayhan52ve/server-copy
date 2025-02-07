@@ -75,7 +75,8 @@ class AdminServerCopyOrderController extends Controller
         if ($request->status == 1) {
             $user_id = $data->user_id;
             $message = 'orderReceived';
-            event(new DeliveryNotification($user_id, $message));
+                    $status = 0;
+        event(new DeliveryNotification($user_id, $message,$status));
         }
 
         return redirect()->back();
@@ -128,7 +129,8 @@ class AdminServerCopyOrderController extends Controller
         $userNotification->msg = $message;
         $userNotification->save();
 
-        event(new DeliveryNotification($user_id, $message));
+                $status = 0;
+        event(new DeliveryNotification($user_id, $message,$status));
 
         Alert::toast("File Uploaded Successfully.", 'success');
 
@@ -163,7 +165,8 @@ class AdminServerCopyOrderController extends Controller
         $userNotification->msg = $message;
         $userNotification->save();
 
-        event(new DeliveryNotification($user_id, $message));
+                $status = 0;
+        event(new DeliveryNotification($user_id, $message,$status));
 
         $user = User::find($request->user_id);
         $userBalance = $user->balance;

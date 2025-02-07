@@ -16,15 +16,17 @@ class DeliveryNotification implements ShouldBroadcast
 
     public $user_id;
     public $message;
+    public $status;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($user_id, $message)
+    public function __construct($user_id, $message,$status)
     {
         $this->user_id = $user_id;
         $this->message = $message;
+        $this->status = $status;
     }
 
     /**
@@ -47,6 +49,7 @@ class DeliveryNotification implements ShouldBroadcast
         return [
             'user_id' => $this->user_id,
             'message' => $this->message,
+            'status' => $this->status,
         ];
     }
 }

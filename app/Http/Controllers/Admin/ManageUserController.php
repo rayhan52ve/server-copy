@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Report;
 use App\Models\User;
+use App\Models\UserNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
+use App\Events\DeliveryNotification;
+use App\Models\PopupMessage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ManageUserController extends Controller
@@ -230,6 +233,24 @@ class ManageUserController extends Controller
     
         Alert::toast("Selected users deleted successfully.", 'success');
     
+        return redirect()->back();
+    }
+
+    public function popupMessage(Request $request)
+    {
+        $user_id = (int) $request->user_id;
+        $message = $request->message;
+        
+        $popupMessage = new PopupMessage();
+        $popupMessage->user_id = $user_id;
+        $popupMessage->message = $message;
+        $popupMessage->status = 0;
+        $popupMessage->save();
+        $status = 10;
+        event(new DeliveryNotification($user_id, $message,$status));
+
+        Alert::toast('Message Sent Successfully.', 'success');
+
         return redirect()->back();
     }
     

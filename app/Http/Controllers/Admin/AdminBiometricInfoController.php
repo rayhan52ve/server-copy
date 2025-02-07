@@ -19,23 +19,23 @@ class AdminBiometricInfoController extends Controller
     {
         $now = Carbon::now();
 
-        $biometricInfo = BiometricInfo::whereIn('status',[0,1])->latest()->get();
-        return view('admin.biometric_info.index', compact('biometricInfo','now'));
+        $biometricInfo = BiometricInfo::whereIn('status', [0, 1])->latest()->get();
+        return view('admin.biometric_info.index', compact('biometricInfo', 'now'));
     }
 
     public function completed()
     {
         $now = Carbon::now();
 
-        $biometricInfo = BiometricInfo::where('status',2)->latest()->get();
-        return view('admin.biometric_info.index', compact('biometricInfo','now'));
+        $biometricInfo = BiometricInfo::where('status', 2)->latest()->get();
+        return view('admin.biometric_info.index', compact('biometricInfo', 'now'));
     }
     public function disabled()
     {
         $now = Carbon::now();
 
-        $biometricInfo = BiometricInfo::whereIn('status',[3,4,5,6,7])->latest()->get();
-        return view('admin.biometric_info.index', compact('biometricInfo','now'));
+        $biometricInfo = BiometricInfo::whereIn('status', [3, 4, 5, 6, 7])->latest()->get();
+        return view('admin.biometric_info.index', compact('biometricInfo', 'now'));
     }
 
     /**
@@ -71,7 +71,8 @@ class AdminBiometricInfoController extends Controller
         if ($request->status == 1) {
             $user_id = $data->user_id;
             $message = 'orderReceived';
-            event(new DeliveryNotification($user_id, $message));
+            $status = 0;
+            event(new DeliveryNotification($user_id, $message, $status));
         }
 
         return redirect()->back();
@@ -114,16 +115,17 @@ class AdminBiometricInfoController extends Controller
         $entity->status = 2;
         $entity->admin_comment = $request->admin_comment;
         $entity->save();
-        
+
         $user_id = $entity->user_id;
         $message = 'Biometric Copy Uploaded.Please Reload.';
-        
+
         $userNotification = new UserNotification();
         $userNotification->user_id = $user_id;
         $userNotification->msg = $message;
         $userNotification->save();
 
-        event(new DeliveryNotification($user_id, $message));
+        $status = 0;
+        event(new DeliveryNotification($user_id, $message, $status));
 
         Alert::toast("File Uploaded Successfully.", 'success');
 
@@ -154,13 +156,14 @@ class AdminBiometricInfoController extends Controller
 
         $user_id = $data->user_id;
         $message = 'Biometric Order Refunded.Please Reload.';
-        
+
         $userNotification = new UserNotification();
         $userNotification->user_id = $user_id;
         $userNotification->msg = $message;
         $userNotification->save();
 
-        event(new DeliveryNotification($user_id, $message));
+        $status = 0;
+        event(new DeliveryNotification($user_id, $message, $status));
 
         $user = User::find($request->user_id);
         // $biometricType = BiometricType::find($request->type);
@@ -169,9 +172,9 @@ class AdminBiometricInfoController extends Controller
 
         $price = (int)$request->price;
 
-            $user->balance += $price;
-            $user->save();
-            Alert::toast("Refund Successfull.", 'success');
+        $user->balance += $price;
+        $user->save();
+        Alert::toast("Refund Successfull.", 'success');
 
         return redirect()->back();
     }

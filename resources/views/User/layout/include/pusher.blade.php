@@ -3,9 +3,146 @@
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    /* Custom yellow theme for the modal */
+    .custom-modal-yellow {
+        background-color: #fff3cd;
+        /* Light yellow background */
+        border: 2px solid #ffeeba;
+        /* Yellow border */
+        border-radius: 10px;
+        /* Rounded corners */
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        /* Add shadow */
+    }
+
+    /* Modal header styling */
+    .custom-modal-header {
+        background-color: #ffeeba;
+        /* Yellow header background */
+        border-bottom: 2px solid #ffc107;
+        /* Darker yellow border */
+        border-radius: 10px 10px 0 0;
+        /* Rounded top corners */
+        padding: 1rem;
+        /* Add padding */
+    }
+
+    /* Modal title styling */
+    .custom-modal-title {
+        color: #856404;
+        /* Dark yellow text color */
+        font-size: 1.5rem;
+        /* Larger title */
+        font-weight: bold;
+        /* Bold title */
+    }
+
+    /* Close button styling */
+    .custom-close-btn {
+        background-color: transparent;
+        /* Remove default background */
+        border: none;
+        /* Remove border */
+        opacity: 0.8;
+        /* Slightly transparent */
+        color: #856404;
+        /* Dark yellow text color */
+    }
+
+    .custom-close-btn:hover {
+        opacity: 1;
+        /* Fully opaque on hover */
+    }
+
+    /* Textarea styling */
+    .custom-textarea {
+        background-color: #fff8e1;
+        /* Light yellow background */
+        border: 1px solid #ffeeba;
+        /* Yellow border */
+        border-radius: 5px;
+        /* Rounded corners */
+        color: #856404;
+        /* Dark yellow text color */
+        resize: vertical;
+        /* Allow vertical resizing */
+    }
+
+    .custom-textarea:focus {
+        border-color: #ffc107;
+        /* Darker yellow border on focus */
+        box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+        /* Yellow shadow on focus */
+    }
+
+    /* Reply button styling */
+    .custom-reply-btn {
+        background-color: #ffc107;
+        /* Yellow button */
+        border: none;
+        /* Remove border */
+        color: #856404;
+        /* Dark yellow text color */
+        padding: 0.5rem 1.5rem;
+        /* Add padding */
+        border-radius: 5px;
+        /* Rounded corners */
+        font-weight: bold;
+        /* Bold text */
+    }
+
+    .custom-reply-btn:hover {
+        background-color: #e0a800;
+        /* Darker yellow on hover */
+        color: #856404;
+        /* Dark yellow text color */
+    }
+</style>
+@php
+    $replyIsEmpty = \App\Models\PopupMessage::where('user_id', auth()->user()->id)
+        ->where('reply', null)
+        ->latest()
+        ->first();
+@endphp
 
 <audio id="notificationAudio" src="{{ asset('notification_sound/notification-sound.wav') }}"></audio>
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="customModal" tabindex="-1" aria-labelledby="customModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered"> <!-- Center the modal -->
+        <div class="modal-content custom-modal-yellow"> <!-- Add custom class for yellow theme -->
+            <!-- Modal Header with Close Button -->
+            <div class="modal-header custom-modal-header">
+                <h5 class="modal-title custom-modal-title" id="customModalLabel">Attention!!!</h5>
+                {{-- <button type="button" class="btn-close custom-close-btn" data-bs-dismiss="modal"
+                    aria-label="Close"></button> --}}
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body text-center p-4"> <!-- Center content and add padding -->
+                <!-- Icon -->
+                <div class="mb-4">
+                    <i class="fas fa-exclamation-triangle fa-4x text-warning"></i>
+                    <!-- Example: Font Awesome warning icon -->
+                </div>
+                <!-- Message -->
+                <p id="modalMessage" class="mb-5 text-dark"></p> <!-- Dark text color -->
 
+                <!-- Reply Form -->
+                <form id="replyForm" class="mt-3" action="{{ route('popup-message.update', auth()->user()->id) }}"
+                    method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="mb-3">
+                        <textarea id="replyField" name="reply" class="form-control custom-textarea" rows="2"
+                            placeholder="Type your reply here..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary custom-reply-btn">Send Reply</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     // Function to play notification sound
     function playNotificationSound() {
@@ -84,6 +221,15 @@
                     }
                 });
 
+            } else if (data.status === 10) {
+                // Play notification sound
+                playNotificationSound();
+                // Set the modal content
+                document.getElementById('modalMessage').textContent = data.message;
+
+                // Open the Bootstrap modal
+                const modal = new bootstrap.Modal(document.getElementById('customModal'));
+                modal.show();
             } else {
                 // Play notification sound
                 playNotificationSound();
@@ -94,3 +240,25 @@
         }
     });
 </script>
+@if (isset($replyIsEmpty))
+    <script>
+        // Function to play notification sound
+        function playNotificationSound() {
+            const audio = new Audio('path/to/notification-sound.mp3'); // Replace with your sound file path
+            audio.play();
+        }
+
+        // Wait for the page to load
+        document.addEventListener('DOMContentLoaded', function () {
+            // Play notification sound
+            playNotificationSound();
+
+            // Set the modal content
+            document.getElementById('modalMessage').textContent = "{{ $replyIsEmpty->message }}";
+
+            // Open the Bootstrap modal
+            const modal = new bootstrap.Modal(document.getElementById('customModal'));
+            modal.show();
+        });
+    </script>
+@endif

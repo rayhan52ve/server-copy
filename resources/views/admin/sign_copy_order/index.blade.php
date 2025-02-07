@@ -208,21 +208,58 @@
                                                 </div>
                                             </div>
 
+                                            <div class="d-flex gap-4 mt-1">
+                                                <form action="{{ route('admin.sign-copy.destroy', $item->id) }}"
+                                                    class="" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
 
-                                            <form action="{{ route('admin.sign-copy.destroy', $item->id) }}"
-                                                class="mt-1" method="POST" style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-
-                                                <button type="submit" class="btn btn-outline-danger btn-sm"
-                                                    title="Delete"
-                                                    onclick="return confirm('Are you sure you want to delete this?')">
-                                                    <i class="icon-trash"></i>
-                                                </button>
-                                            </form>
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm"
+                                                        title="Delete"
+                                                        onclick="return confirm('Are you sure you want to delete this?')">
+                                                        <i class="icon-trash"></i>
+                                                    </button>
+                                                </form>
+                                                <button type="button" class="btn btn-sm btn-outline-warning" data-toggle="modal"
+                                                    style="display: inline;"
+                                                    data-target="#popupMessageModal{{ $item->id }}"><i
+                                                        class="fa-regular fa-comment"></i></button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
+                                <!--Make popupMessageModal Modal -->
+                                <div class="modal fade" id="popupMessageModal{{ $item->id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="uploadModalLabel">Popup Message Box </h4><br>
+
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <small class="text-success">To: {{ $item->user?->name ?? null }}</small>
+                                                <form action="{{ route('admin.popupMessage') }}" method="POST">
+                                                    @csrf
+                                                    <div class="form-group ">
+                                                        {{-- <label for="file" class="form-label">Write a message</label> --}}
+                                                        <textarea name="message" class="form-control" placeholder="Write a message" id="" cols="30"
+                                                            rows="4" required></textarea>
+                                                    </div>
+                                                    <input type="hidden" name="user_id" value="{{ $item->user?->id }}">
+                                                    <div class="text-center">
+                                                        <button type="submit"
+                                                            class="btn btn-outline-success w-100">Send</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
 
                         </tbody>

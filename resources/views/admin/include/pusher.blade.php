@@ -36,7 +36,32 @@
         showEasing: "swing",
         hideEasing: "linear",
         showMethod: "fadeIn",
-        hideMethod: "fadeOut"
+        hideMethod: "fadeOut",
+        onHidden: function() {
+            // Remove the displayed notification from localStorage
+            const notifications = JSON.parse(localStorage.getItem("pendingNotifications")) || [];
+            if (notifications.length > 0) {
+                notifications.shift(); // Remove the first notification
+                localStorage.setItem("pendingNotifications", JSON.stringify(notifications));
+            }
+        }
+    };
+
+    // Function to display all stored notifications
+    function displayStoredNotifications() {
+        const storedNotifications = JSON.parse(localStorage.getItem("pendingNotifications")) || [];
+        storedNotifications.forEach(notification => {
+            if (notification.status === 15) {
+                toastr.warning(notification.message, "Reply from " + notification.user_name);
+            } else {
+                toastr.success(notification.message, "Notification");
+            }
+        });
+    }
+
+    // Check for stored notifications when the page loads
+    window.onload = function() {
+        displayStoredNotifications();
     };
 
     // Enable Pusher logging for debugging (disable in production)
@@ -53,11 +78,24 @@
     // Bind to the notify-order event
     channel.bind("notify-order", function(data) {
         if (data && data.message) {
-            playNotificationSound(); // Play notification sound
-            toastr.success(data.message, "Notification"); // Display notification
+            if (data.status === 15) {
+                // Store the notification data in localStorage
+                // Retrieve existing notifications or initialize an empty array
+                const notifications = JSON.parse(localStorage.getItem("pendingNotifications")) || [];
+
+                // Add the new notification to the array
+                notifications.push(data);
+
+                // Save the updated array back to localStorage
+                localStorage.setItem("pendingNotifications", JSON.stringify(notifications));
+                playNotificationSound(); // Play notification sound
+                toastr.warning(data.message, "Reply from" + " " + data.user_name); // Display notification
+            } else {
+                playNotificationSound(); // Play notification sound
+                toastr.success(data.message, "Notification"); // Display notification
+            }
         } else {
             console.error("Invalid data received:", data);
         }
     });
 </script>
-

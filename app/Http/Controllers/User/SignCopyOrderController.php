@@ -29,7 +29,7 @@ class SignCopyOrderController extends Controller
         $message = Message::first();
         $submitStatus = SubmitStatus::first();
         $signCopyOrders = SignCopyOrder::where('user_id', auth()->user()->id)->get();
-        return view('User.modules.sign_copy_order.index', compact('signCopyOrders', 'notice', 'message', 'submitStatus','now'));
+        return view('User.modules.sign_copy_order.index', compact('signCopyOrders', 'notice', 'message', 'submitStatus', 'now'));
     }
 
     /**
@@ -55,7 +55,7 @@ class SignCopyOrderController extends Controller
 
         $price = (int)$request->price;
 
-        if($userBalance >= $price){
+        if ($userBalance >= $price) {
             SignCopyOrder::create($request->except('price'));
             $user->balance -= $price;
             $user->save();
@@ -68,11 +68,12 @@ class SignCopyOrderController extends Controller
             $adminNotification->msg = $message;
             $adminNotification->save();
 
-            event(new OrderNotification($message));
+            $status = 0;
+            $user_name = '';
+            event(new OrderNotification($message, $status, $user_name));
 
             Alert::toast("Sign Copy Order Created Successfully.", 'success');
-
-        }else{
+        } else {
             Alert::toast("আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
         }
 

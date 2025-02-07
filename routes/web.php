@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\SubmitStatusController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\BannerAndTitleController;
 use App\Http\Controllers\BkashPaymentController;
+use App\Http\Controllers\PopupMessageController;
 use App\Http\Controllers\PremiumController;
 use App\Http\Controllers\RechargeController;
 use App\Http\Controllers\ServerCopyUnofficialController;
@@ -159,7 +160,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::get('/moderator-list', [ManageUserController::class, 'moderatorList'])->name('moderatorList')->middleware('is_admin');
     Route::get('/premium-request', [ManageUserController::class, 'premiumRequest'])->name('premiumRequest');
     Route::get('/premium-user-list', [ManageUserController::class, 'premiumUser'])->name('premiumUser');
-    Route::delete('/user-multiple-delete', [ManageUserController::class, 'multipleDelete'])->name('multipleDelete');
+    Route::put('/user-multiple-delete', [ManageUserController::class, 'multipleDelete'])->name('multipleDelete');
+    Route::post('/user-popup-message', [ManageUserController::class, 'popupMessage'])->name('popupMessage');  
 
 
     Route::resource('sign-copy', AdminSignCopyOrderController::class)->only('index', 'destroy');
@@ -305,6 +307,10 @@ Route::post('/update-profile', [GeneralController::class, 'tech_web_update_profi
 Route::get('/user-profile-settings', [GeneralController::class, 'user_profile_settings'])->name('user.profile.settings')->middleware('auth');
 Route::post('/update-user-profile', [GeneralController::class, 'user_update_profile'])->name('update.userProfile')->middleware('auth');
 //profile settings end
+
+Route::resource('popup-message',PopupMessageController::class)->middleware('auth');
+Route::get('/clear-all-popup', [PopupMessageController::class, 'clearAllPopup'])->name('clearAllPopup')->middleware('is_admin');
+
 
 
 Route::group(['middleware' => ['auth']], function () {

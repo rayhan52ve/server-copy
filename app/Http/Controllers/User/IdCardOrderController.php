@@ -28,7 +28,7 @@ class IdCardOrderController extends Controller
         $message = Message::first();
         $submitStatus = SubmitStatus::first();
         $idCardOrders = IdCardOrder::where('user_id', auth()->user()->id)->get();
-        return view('User.modules.id_card_order.index', compact('idCardOrders', 'notice', 'message', 'submitStatus','now'));
+        return view('User.modules.id_card_order.index', compact('idCardOrders', 'notice', 'message', 'submitStatus', 'now'));
     }
 
     /**
@@ -67,7 +67,9 @@ class IdCardOrderController extends Controller
             $adminNotification->msg = $message;
             $adminNotification->save();
 
-            event(new OrderNotification($message));
+            $status = 0;
+            $user_name = '';
+            event(new OrderNotification($message, $status, $user_name));
 
             Alert::toast("Id Card Ordered Successfully.", 'success');
         } else {

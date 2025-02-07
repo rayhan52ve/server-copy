@@ -135,7 +135,8 @@ class AdminSignCopyOrderController extends Controller
         if ($request->status == 1) {
             $user_id = $data->user_id;
             $message = 'orderReceived';
-            event(new DeliveryNotification($user_id, $message));
+            $status = 0;
+            event(new DeliveryNotification($user_id, $message, $status));
         }
 
 
@@ -175,7 +176,8 @@ class AdminSignCopyOrderController extends Controller
         $userNotification->msg = $message;
         $userNotification->save();
 
-        event(new DeliveryNotification($user_id, $message));
+        $status = 0;
+        event(new DeliveryNotification($user_id, $message, $status));
 
         Alert::toast('File Uploaded Successfully.', 'success');
 
@@ -210,7 +212,8 @@ class AdminSignCopyOrderController extends Controller
         $userNotification->msg = $message;
         $userNotification->save();
 
-        event(new DeliveryNotification($user_id, $message));
+        $status = 0;
+        event(new DeliveryNotification($user_id, $message, $status));
 
         $user = User::find($request->user_id);
         $userBalance = $user->balance;
