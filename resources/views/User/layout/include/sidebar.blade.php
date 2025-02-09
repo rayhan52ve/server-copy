@@ -105,6 +105,13 @@
                         </li>
                     @endif
                     @if ($hideUnhide->birth == 1)
+                        <li> <a class="waves-effect waves-dark" href="{{ route('user.birth-order.index') }}"
+                                aria-expanded="false"><i class="fa-regular fa-file-lines"></i><span
+                                    class="hide-menu">নতুন জন্ম
+                                    নিবন্ধন</span></a>
+                        </li>
+                    @endif
+                    @if ($hideUnhide->birth == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.new-registration.index') }}"
                                 aria-expanded="false"><i class="fa-regular fa-file-lines"></i><span
                                     class="hide-menu">জন্ম

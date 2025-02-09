@@ -25,6 +25,7 @@ use App\Http\Controllers\PremiumController;
 use App\Http\Controllers\RechargeController;
 use App\Http\Controllers\ServerCopyUnofficialController;
 use App\Http\Controllers\User\BiometricInfoController;
+use App\Http\Controllers\User\BirthOrderController;
 use App\Http\Controllers\User\IdCardOrderController;
 use App\Http\Controllers\User\NameAddressIdController;
 use App\Http\Controllers\User\NewNidController;
@@ -101,6 +102,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
     Route::resource('id-card', IdCardOrderController::class)->only('index', 'store');
     Route::resource('biometric-info', BiometricInfoController::class)->only('index', 'store');
     Route::resource('name-address-id', NameAddressIdController::class)->only('index', 'store');
+    Route::resource('birth-order', BirthOrderController::class)->only('index', 'store');
     Route::resource('new-nid', NewNidController::class)->only('index', 'store');
     Route::resource('sign-to-server', SignToServerCopyController::class)->only('index', 'store');
 
