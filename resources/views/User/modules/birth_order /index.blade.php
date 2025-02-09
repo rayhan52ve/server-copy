@@ -12,7 +12,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
-                    <h3>আইডি কার্ড অর্ডার</h3>
+                    <h3>জন্ম নিবন্ধন অর্ডার</h3>
                     <!-- Button trigger modal -->
                     <button class="btn btn-primary" onclick="reloadPage()">পেজ রিলোড করুন</button>
                     <script>
@@ -21,7 +21,7 @@
                         }
                     </script>
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#createModal">
-                        <i class="fa-solid fa-plus"></i> অর্ডার আইডি কার্ড
+                        <i class="fa-solid fa-plus"></i> জন্ম নিবন্ধন অর্ডার
                     </button>
                     {{-- <a class="btn btn-success" href="{{ route('user.sign-copy.create') }}"><i class="fa-solid fa-plus"></i>
                         </a> --}}
@@ -113,7 +113,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="createModallLabel">অর্ডার আইডি কার্ড</h5>
+                        <h5 class="modal-title" id="createModallLabel">জন্ম নিবন্ধন অর্ডার</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
