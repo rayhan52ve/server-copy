@@ -155,7 +155,20 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">
-                                                        জন্ম নিবন্ধন
+                                                        নতুন জন্ম নিবন্ধন
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$hideUnhide->birth_order == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="birth_order" value="0">
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="birth_order" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$hideUnhide->birth_order == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group py-2">
+                                                        জন্ম নিবন্ধন প্রতিলিপি
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->birth == 1 ? 'ON' : 'OFF' }}</label>
@@ -373,7 +386,19 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">
-                                                        জন্ম নিবন্ধন
+                                                        নতুন জন্ম নিবন্ধন
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$submitStatus->birth_order == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="birth_order" value="0">
+                                                            <input class="form-check-input" onclick="submitForm()"
+                                                                value="1" name="birth_order" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$submitStatus->birth_order == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group py-2">
+                                                        জন্ম নিবন্ধন প্রতিলিপি
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$submitStatus->birth == 1 ? 'ON' : 'OFF' }}</label>

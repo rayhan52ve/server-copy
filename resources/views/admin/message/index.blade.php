@@ -215,13 +215,55 @@
                     <div class="form-group py-2">
                         <div class="row">
                             <div class="col-md-8">
-                                <label>জন্ম নিবন্ধন</label>
+                                <label>নতুন জন্ম নিবন্ধন</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->birth_order ?? null }}" name="birth_order"
+                                    placeholder="নতুন জন্ম নিবন্ধন মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>নতুন জন্ম নিবন্ধন মূল্য</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->birth_order_price ?? null }}" name="birth_order_price"
+                                    placeholder="0">
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-md-8">
+                                <label>নতুন জন্ম নিবন্ধন (Premium)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->birth_order_premium ?? null }}" name="birth_order_premium"
+                                    placeholder="জন্ম নিবন্ধন মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>নতুন জন্ম নিবন্ধন মূল্য (Premium)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->birth_order_premium_price ?? null }}" name="birth_order_premium_price"
+                                    placeholder="0">
+                            </div>
+                        </div>
+                        {{-- <div class="row pt-1">
+                            <div class="col-md-8">
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <label>নতুন জন্ম নিবন্ধন মূল্য (Remake)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->birth_order_remake ?? null }}" name="birth_order_remake"
+                                    placeholder="0">
+                            </div>
+                        </div> --}}
+
+                    </div>
+                    <div class="form-group py-2">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label>জন্ম নিবন্ধন প্রতিলিপি</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->birth ?? null }}" name="birth"
                                     placeholder="জন্ম নিবন্ধন মেসেজ">
                             </div>
                             <div class="col-md-4">
-                                <label>জন্ম নিবন্ধন মূল্য</label>
+                                <label>জন্ম নিবন্ধন প্রতিলিপি মূল্য</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->birth_price ?? null }}" name="birth_price"
                                     placeholder="0">
@@ -229,13 +271,13 @@
                         </div>
                         <div class="row pt-1">
                             <div class="col-md-8">
-                                <label>জন্ম নিবন্ধন (Premium)</label>
+                                <label>জন্ম নিবন্ধন প্রতিলিপি (Premium)</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->premium_birth ?? null }}" name="premium_birth"
                                     placeholder="জন্ম নিবন্ধন মেসেজ">
                             </div>
                             <div class="col-md-4">
-                                <label>জন্ম নিবন্ধন মূল্য (Premium)</label>
+                                <label>জন্ম নিবন্ধন প্রতিলিপি মূল্য (Premium)</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->premium_birth_price ?? null }}" name="premium_birth_price"
                                     placeholder="0">
@@ -246,7 +288,7 @@
                                 
                             </div>
                             <div class="col-md-4">
-                                <label>জন্ম নিবন্ধন মূল্য (Remake)</label>
+                                <label>জন্ম নিবন্ধন প্রতিলিপি মূল্য (Remake)</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->birth_remake ?? null }}" name="birth_remake"
                                     placeholder="0">

@@ -53,9 +53,14 @@
                             name="old_nid" placeholder=" নআইডি নোটিশ">
                     </div>
                     <div class="form-group py-2">
-                        <label>জন্ম নিবন্ধন</label>
+                        <label>নতুন জন্ম নিবন্ধন</label>
+                        <input type="text" class="form-control" rows="5" value="{{ $notice->birth_order ?? null }}"
+                            name="birth_order" placeholder="নতুন জন্ম নিবন্ধন নোটিশ">
+                    </div>
+                    <div class="form-group py-2">
+                        <label>জন্ম নিবন্ধন প্রতিলিপি</label>
                         <input type="text" class="form-control" rows="5" value="{{ $notice->birth ?? null }}"
-                            name="birth" placeholder="জন্ম নিবন্ধন নোটিশ">
+                            name="birth" placeholder="জন্ম নিবন্ধন প্রতিলিপি নোটিশ">
                     </div>
                     <div class="form-group py-2">
                         <label>সার্ভার কপি <small><b>Unofficial-1</b></small> </label>

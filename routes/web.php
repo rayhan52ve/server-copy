@@ -150,6 +150,7 @@ Route::get('/server-copy-file/download/{id}', [AdminServerCopyOrderController::c
 Route::get('/id-card-file/download/{id}', [AdminIdCardController::class, 'download'])->name('idCard-file.download');
 Route::get('/biometric-info-file/download/{id}', [AdminBiometricInfoController::class, 'download'])->name('biometric-file.download');
 Route::get('/name-address-id-file/download/{id}', [AdminNameAddressIdController::class, 'download'])->name('name-address-id-file.download');
+Route::get('/birth-order-file/download/{id}', [AdminNameAddressIdController::class, 'download'])->name('birth-order-file.download');
 Route::get('/name-address-id-image/download/{id}', [AdminNameAddressIdController::class, 'imageDownload'])->name('name-address-id-image.download');
 //file upload and download
 

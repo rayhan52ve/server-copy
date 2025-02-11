@@ -26,7 +26,9 @@ class CreateBirthOrdersTable extends Migration
             $table->string('mothers_name_bn')->nullable();
             $table->string('mothers_name_en')->nullable();
             $table->string('fathers_nid')->nullable();
+            $table->string('fathers_birth_no')->nullable();
             $table->string('mothers_nid')->nullable();
+            $table->string('mothers_birth_no')->nullable();
             $table->text('address')->nullable();
             $table->string('house_holding')->nullable();
             $table->string('post_office')->nullable();
