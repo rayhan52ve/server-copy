@@ -125,6 +125,24 @@
                         </div>
                     </div>
                 @endif
+                @if (auth()->user()->is_admin == 1 || @$moderatorAccess->birth_order == 1)
+                    <div class="col-xl-2 col-md-3 col-6">
+                        <div class="card bg-info text-white mb-4">
+                            <div class="card-header">
+                                <h5>Birth Registration</h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <h1>{{ $birthRegCount }}</h1>
+                            </div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <a class="small text-white stretched-link"
+                                    href="{{ route('admin.birth-order.index') }}">View Details</a>
+
+                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
             </div>
         </div>

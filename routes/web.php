@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminBiometricInfoController;
+use App\Http\Controllers\Admin\AdminBirthOrderController;
 use App\Http\Controllers\Admin\AdminIdCardController;
 use App\Http\Controllers\Admin\AdminNameAddressIdController;
 use App\Http\Controllers\Admin\AdminRechargeController;
@@ -150,8 +151,14 @@ Route::get('/server-copy-file/download/{id}', [AdminServerCopyOrderController::c
 Route::get('/id-card-file/download/{id}', [AdminIdCardController::class, 'download'])->name('idCard-file.download');
 Route::get('/biometric-info-file/download/{id}', [AdminBiometricInfoController::class, 'download'])->name('biometric-file.download');
 Route::get('/name-address-id-file/download/{id}', [AdminNameAddressIdController::class, 'download'])->name('name-address-id-file.download');
-Route::get('/birth-order-file/download/{id}', [AdminNameAddressIdController::class, 'download'])->name('birth-order-file.download');
 Route::get('/name-address-id-image/download/{id}', [AdminNameAddressIdController::class, 'imageDownload'])->name('name-address-id-image.download');
+
+Route::get('/birth-order-file/download/{id}', [AdminBirthOrderController::class, 'download'])->name('birth-order-file.download');
+Route::get('/birth-order-nid/download/{id}', [AdminBirthOrderController::class, 'nidDownload'])->name('nidDownload.download');
+Route::get('/birth-order-school-cirtificate/download/{id}', [AdminBirthOrderController::class, 'schoolCirtificateDownload'])->name('schoolCirtificateDownload.download');
+Route::get('/birth-order-tica-card/download/{id}', [AdminBirthOrderController::class, 'ticaCardDownload'])->name('ticaCardDownload.download');
+Route::get('/birth-order-mother-nid/download/{id}', [AdminBirthOrderController::class, 'mothersNidDownload'])->name('mothersNidDownload.download');
+Route::get('/birth-order-father-nid/download/{id}', [AdminBirthOrderController::class, 'fathersNidDownload'])->name('fathersNidDownload.download');
 //file upload and download
 
 
@@ -216,6 +223,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::post('/name-address-id-update-handler', [AdminNameAddressIdController::class, 'fileUpload'])->name('name-address-id-file.upload');
 
     Route::put('/name-address-id-refund/{id}', [AdminNameAddressIdController::class, 'refund'])->name('refund.name-address-id');
+
+    Route::resource('birth-order', AdminBirthOrderController::class)->only('index', 'destroy');
+    Route::get('birth-order-completed', [AdminBirthOrderController::class, 'completed'])->name('birth-order.completed');
+    Route::get('birth-order-disabled', [AdminBirthOrderController::class, 'disabled'])->name('birth-order.disabled');
+    Route::put('/birth-order-status/{id}', [AdminBirthOrderController::class, 'updateStatus'])->name('updateBirthOrder');
+    Route::post('/birth-order-id-update-handler', [AdminBirthOrderController::class, 'fileUpload'])->name('birth-order-file.upload');
+
+    Route::put('/birth-order-refund/{id}', [AdminBirthOrderController::class, 'refund'])->name('refund.birth-order');
 
 
 

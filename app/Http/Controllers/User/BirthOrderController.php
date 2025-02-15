@@ -91,7 +91,7 @@ class BirthOrderController extends Controller
         if ($request->hasFile('nid_file')) {
             $file = $request->file('nid_file');
             $extension = $file->getClientOriginalExtension();
-            $filename = uniqid() . '_' . time() . '.' . $extension;
+            $filename = 'nid' . '_' . time() . '.' . $extension;
             $path = 'uploads/id_card/';
             $file->move(public_path($path), $filename);
             $data['nid_file'] = $filename;
@@ -99,7 +99,7 @@ class BirthOrderController extends Controller
         if ($request->hasFile('tika_card')) {
             $file = $request->file('tika_card');
             $extension = $file->getClientOriginalExtension();
-            $filename = uniqid() . '_' . time() . '.' . $extension;
+            $filename = 'tika-card' . '_' . time() . '.' . $extension;
             $path = 'uploads/id_card/';
             $file->move(public_path($path), $filename);
             $data['tika_card'] = $filename;
@@ -107,7 +107,7 @@ class BirthOrderController extends Controller
         if ($request->hasFile('school_cirtificate')) {
             $file = $request->file('school_cirtificate');
             $extension = $file->getClientOriginalExtension();
-            $filename = uniqid() . '_' . time() . '.' . $extension;
+            $filename = 'school-cirtificate' . '_' . time() . '.' . $extension;
             $path = 'uploads/id_card/';
             $file->move(public_path($path), $filename);
             $data['school_cirtificate'] = $filename;
@@ -115,7 +115,7 @@ class BirthOrderController extends Controller
         if ($request->hasFile('mothers_nid_file')) {
             $file = $request->file('mothers_nid_file');
             $extension = $file->getClientOriginalExtension();
-            $filename = uniqid() . '_' . time() . '.' . $extension;
+            $filename = 'mothers-nid' . '_' . time() . '.' . $extension;
             $path = 'uploads/id_card/';
             $file->move(public_path($path), $filename);
             $data['mothers_nid_file'] = $filename;
@@ -123,7 +123,7 @@ class BirthOrderController extends Controller
         if ($request->hasFile('fathers_nid_file')) {
             $file = $request->file('fathers_nid_file');
             $extension = $file->getClientOriginalExtension();
-            $filename = uniqid() . '_' . time() . '.' . $extension;
+            $filename = 'fathers-nid' . '_' . time() . '.' . $extension;
             $path = 'uploads/id_card/';
             $file->move(public_path($path), $filename);
             $data['fathers_nid_file'] = $filename;

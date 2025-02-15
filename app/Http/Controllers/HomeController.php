@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AdminNotification;
 use App\Models\BiometricInfo;
+use App\Models\BirthOrder;
 use App\Models\IdCardOrder;
 use App\Models\Message;
 use App\Models\NameAddressId;
@@ -58,7 +59,8 @@ class HomeController extends Controller
         $idCardCount = IdCardOrder::where('status', '0')->count();
         $biometricCount = BiometricInfo::where('status', '0')->count();
         $nameAddressCount = NameAddressId::where('status', '0')->count();
-        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount', 'nameAddressCount'));
+        $birthRegCount = BirthOrder::where('status', '0')->count();
+        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount', 'nameAddressCount','birthRegCount'));
     }
 
 

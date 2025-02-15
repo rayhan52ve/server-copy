@@ -50,12 +50,12 @@
                                     <td>{{ $item->name_en }}</td>
                                     <td>
                                         হোল্ডিং নং: {{ $item->house_holding ?? null }},
-                                        পোস্ট-অফিস: {{ $item->post_office ?? null }},
+                                        পোস্ট-অফিস: {{ $item->post_office ?? null }},<br>
                                         ওয়ার্ড নং: {{ $item->word_no ?? null }},
-                                        গ্রাম: {{ $item->village ?? null }},
-                                        ইউনিয়ন: {{ $item->union ?? null }},<br>
-                                        উপজেলা: {{ $item->upozila ?? null }},
-                                        জেলা: {{ $item->district ?? null }},<br>
+                                        গ্রাম: {{ $item->village ?? null }},<br>
+                                        ইউনিয়ন: {{ $item->union ?? null }},
+                                        উপজেলা: {{ $item->upozila ?? null }},<br>
+                                        জেলা: {{ $item->district ?? null }},
                                         বিভাগ: {{ $item->division ?? null }}
                                     </td>
                                     <td>
@@ -64,17 +64,13 @@
                                         @elseif($item->status == 1)
                                             <button class="btn btn-sm btn-primary">রিসিভড</button>
                                         @elseif($item->status == 2)
-                                            <button class="btn btn-sm btn-success">পাওয়া গেছে</button>
+                                            <button class="btn btn-sm btn-success">সম্পন্ন হয়েছে</button>
                                         @elseif($item->status == 3)
-                                            <button class="btn btn-sm btn-success">ম্যাচ ফাউন্ড</button>
+                                            <button class="btn btn-sm btn-success">পসিবল ডুপ্লিকেট</button>
                                         @elseif($item->status == 4)
-                                            <button class="btn btn-sm btn-danger">ফাইল ডিলিট</button>
+                                            <button class="btn btn-sm btn-danger">ডুপ্লিকেট</button>
                                         @elseif($item->status == 5)
-                                            <button class="btn btn-sm btn-danger">ব্যক্তি মৃত</button>
-                                        @elseif($item->status == 6)
-                                            <button class="btn btn-sm btn-danger">ফাইল লক</button>
-                                        @elseif($item->status == 7)
-                                            <button class="btn btn-sm btn-danger">পাওয়া যায়নি</button>
+                                            <button class="btn btn-sm btn-danger">সম্পন্ন হয়নি</button>
                                         @endif
                                     </td>
                                     <td>
@@ -216,11 +212,24 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-form-label col-md-12 text-right">
+                                            পিতা-মাতার কত তম সন্তান :
+                                        </label>
+                                        <div class="col-md-12">
+                                            <div class="input-group date" id="dobPicker">
+                                                <input type="text" class="form-control" name="which_number_child"
+                                                    value="{{ old('which_number_child') }}" placeholder="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="col-md-12">
                                     <div class="form-group row align-items-center">
                                         <label class="col-form-label col-md-12 text-right">পিতার জন্ম নিবন্ধন নাম্বার:<span
-                                                class="text-danger father-req">*</span></label>
+                                                class="text-danger required-mark">*</span></label>
                                         <div class="col-md-12">
                                             <input type="text" class="form-control" name="fathers_birth_no"
                                                 value="{{ old('fathers_birth_no') }}"
@@ -229,10 +238,11 @@
                                     </div>
 
                                 </div>
+
                                 <div class="col-md-12">
                                     <div class="form-group row align-items-center">
                                         <label class="col-form-label col-md-12 text-right">মাতার জন্ম নিবন্ধন নাম্বার:<span
-                                                class="text-danger mother-req">*</span></label>
+                                                class="text-danger required-mark">*</span></label>
                                         <div class="col-md-12">
                                             <input type="text" class="form-control" name="mothers_birth_no"
                                                 value="{{ old('mothers_birth_no') }}"
@@ -240,6 +250,34 @@
                                         </div>
                                     </div>
 
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-form-label col-md-12 text-right">
+                                            পিতার জন্ম তারিখ: <span class="text-danger required-mark">*</span>
+                                        </label>
+                                        <div class="col-md-12">
+                                            <div class="input-group date" id="dobPicker">
+                                                <input type="date" class="form-control" name="fathers_dob"
+                                                    id="fathers_dob" value="{{ old('fathers_dob') }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-form-label col-md-12 text-right">
+                                            মাতার জন্ম তারিখ: <span class="text-danger required-mark">*</span>
+                                        </label>
+                                        <div class="col-md-12">
+                                            <div class="input-group date" id="dobPicker">
+                                                <input type="date" class="form-control" name="mothers_dob"
+                                                    id="mothers_dob" value="{{ old('mothers_dob') }}">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-12">
@@ -372,12 +410,14 @@
                                         <p class="text-center text-dark font-weight-bold">নোটঃ- কমপক্ষে যেকোনো দুইটি ফাইল
                                             আপলোড করতে হবে</p>
 
-                                        <p class="text-center text-dark font-weight-bold">১।পিতার এন.আইডি</p>
+                                        <p class="text-center text-dark font-weight-bold">১।পিতার এন.আইডি / জন্ম নিবন্ধন
+                                        </p>
                                         <div class="col-sm-6">
                                             <input type="file" class="form-control" name="fathers_nid_file">
                                         </div>
 
-                                        <p class="text-center text-dark font-weight-bold mt-2">২। মাতার এন.আইডি</p>
+                                        <p class="text-center text-dark font-weight-bold mt-2">২। মাতার এন.আইডি / জন্ম
+                                            নিবন্ধন</p>
                                         <div class="col-sm-6">
                                             <input type="file" class="form-control" name="mothers_nid_file">
                                         </div>
@@ -399,11 +439,30 @@
                                         </div>
 
                                         <!-- Error Message (Visible only if less than 2 files are selected) -->
-                                        <p id="fileError" class="text-danger font-weight-bold text-center"
+                                        <p id="fileError" class="text-danger font-weight-bold text-center mt-2"
                                             style="display: none;">
                                             কমপক্ষে যেকোনো দুইটি ফাইল আপলোড করতে হবে।
                                         </p>
 
+
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center">
+                                    <div class="col-md-10">
+                                        <div class="form-group row align-items-center">
+                                            <label class="col-form-label text-center"> হোয়াটস অ্যাপ নাম্বার:<span
+                                                    class="text-danger">*</span></label>
+                                            <small class="text-success text-center">আপনার অ্যাক্টিভ Whatsapp নাম্বার দিন,
+                                                যেখানে আপনার সাথে
+                                                যোগাযোগ করা হবে।</small>
+                                            <div class=" text-center">
+                                                <input type="tel" pattern="[0-9]{10,15}" maxlength="15"
+                                                    class="form-control text-center" name="whatsapp"
+                                                    value="{{ old('whatsapp') }}"
+                                                    placeholder="আপনার অ্যাক্টিভ Whatsapp নাম্বার লিখুন" required>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -452,16 +511,18 @@
 
                 if (dob >= year2000) {
                     // Make fields required
-                    $('input[name="fathers_birth_no"], input[name="mothers_birth_no"]').attr('required',
-                        'required');
+                    $('input[name="fathers_birth_no"], input[name="mothers_birth_no"], input[name="fathers_dob"], input[name="mothers_dob"]')
+                        .attr('required',
+                            'required');
                     // Show the red asterisks
-                    $('.father-req, .mother-req').show();
+                    $('.required-mark').show();
                 } else {
                     // Remove required attribute
-                    $('input[name="fathers_birth_no"], input[name="mothers_birth_no"]').removeAttr(
-                        'required');
+                    $('input[name="fathers_birth_no"], input[name="mothers_birth_no"], input[name="fathers_dob"], input[name="mothers_dob"]')
+                        .removeAttr(
+                            'required');
                     // Hide the red asterisks
-                    $('.father-req, .mother-req').hide();
+                    $('.required-mark').hide();
                 }
             }).trigger('change'); // Trigger on page load to check existing values
 

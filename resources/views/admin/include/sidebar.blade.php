@@ -70,7 +70,7 @@
 
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->user_list == 1 || @$moderatorAccess->premium_request == 1)
                     <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
-                                class="fa-solid fa-file-powerpoint"></i><span class="hide-menu">ম্যানেজ ইউজার</span></a>
+                                class="fa-solid fa-users-gear"></i><span class="hide-menu">ম্যানেজ ইউজার</span></a>
                         <ul aria-expanded="false" class="collapse">
                             @if (auth()->user()->is_admin == 1 || @$moderatorAccess->user_list == 1)
                                 <li><a href="{{ route('admin.manage-user.index') }}">ইউজার (Active)</a></li>
@@ -131,12 +131,25 @@
 
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->name_address_id == 1)
                     <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
-                                class="fa-solid fa-file-powerpoint"></i><span class="hide-menu">আইডি কার্ড
+                                class="fa-solid fa-users-rectangle"></i><span class="hide-menu">আইডি কার্ড
                                 <small><b>নাম-ঠিকানা</b></small></span></a>
                         <ul aria-expanded="false" class="collapse">
                             <li><a href="{{ route('admin.name-address-id.index') }}">পেন্ডিং অর্ডার</a></li>
                             <li><a href="{{ route('admin.name-address-id.completed') }}">পাওয়া গেছে</a></li>
                             <li><a href="{{ route('admin.name-address-id.disabled') }}">পাওয়া যায়নি</a></li>
+                        </ul>
+                    </li>
+                @endif
+
+
+                @if (auth()->user()->is_admin == 1 || @$moderatorAccess->birth_order == 1)
+                    <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
+                                class="fa-solid fa-file-lines"></i><span class="hide-menu">জন্ম নিবন্ধন
+                                অর্ডার</span></a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="{{ route('admin.birth-order.index') }}">পেন্ডিং অর্ডার</a></li>
+                            <li><a href="{{ route('admin.birth-order.completed') }}">পাওয়া গেছে</a></li>
+                            <li><a href="{{ route('admin.birth-order.disabled') }}">পাওয়া যায়নি</a></li>
                         </ul>
                     </li>
                 @endif
@@ -202,7 +215,7 @@
                     </li>
 
                     <li> <a class="waves-effect waves-dark" href="{{ route('popup-message.index') }}"
-                            aria-expanded="false"><i class="fa-regular fa-comment"></i><span
+                            aria-expanded="false"><i class="fa-solid fa-envelope-open-text"></i><span
                                 class="hide-menu">মেসেজ হিস্ট্রি</span></a>
                     </li>
                     <li> <a class="waves-effect waves-dark" href="{{ route('admin.report.index') }}"

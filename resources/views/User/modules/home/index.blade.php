@@ -110,9 +110,20 @@
 
                                 </tr>
                             @endif
+                            @if ($submitStatus->birth_order == 1 && $hideUnhide->birth_order == 1)
+                                <tr class="table-success">
+                                    <td>নতুন জন্ম নিবন্ধন</td>
+                                    @if (auth()->user()->premium == 0)
+                                        <td>{{ $message->birth_order_price ?? null }} ৳</td>
+                                    @elseif (auth()->user()->premium == 2)
+                                        <td>{{ $message->birth_order_premium_price ?? null }} ৳</td>
+                                    @endif
+
+                                </tr>
+                            @endif
                             @if ($submitStatus->birth == 1 && $hideUnhide->birth == 1)
                                 <tr class="table-active">
-                                    <td>জন্ম নিবন্ধন</td>
+                                    <td>জন্ম নিবন্ধন প্রতিলিপি</td>
                                     @if (auth()->user()->premium == 0)
                                         <td>{{ $message->birth_price ?? null }} ৳</td>
                                     @elseif (auth()->user()->premium == 2)
