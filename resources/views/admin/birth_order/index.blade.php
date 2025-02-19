@@ -75,13 +75,16 @@
                                         @endif
                                     </td>
                                     <td>
-                                        বাসা/হোল্ডিং নং: {{ $item->house_holding ?? null }},
-                                        ডাকঘর: {{ $item->post_office ?? null }},<br>
+                                        বাসা/হোল্ডিং নং (BN): {{ $item->house_holding ?? null }},
+                                        বাসা/হোল্ডিং নং (EN): {{ $item->house_holding_en ?? null }},<br>
+                                        ডাকঘর (BN): {{ $item->post_office ?? null }},
+                                        ডাকঘর (EN): {{ $item->post_office_en ?? null }},<br>
+                                        গ্রাম (BN): {{ $item->village ?? null }},
+                                        গ্রাম (EN): {{ $item->village_en ?? null }},<br>
                                         ওয়ার্ড নং: {{ $item->word_no ?? null }},
-                                        গ্রাম: {{ $item->village ?? null }},<br>
-                                        ইউনিয়ন: {{ $item->union ?? null }},
-                                        উপজেলা: {{ $item->upozila ?? null }},<br>
-                                        জেলা: {{ $item->district ?? null }},
+                                        ইউনিয়ন: {{ $item->union ?? null }},<br>
+                                        উপজেলা: {{ $item->upozila ?? null }},
+                                        জেলা: {{ $item->district ?? null }},<br>
                                         বিভাগ: {{ $item->division ?? null }}
                                     </td>
                                     <td>

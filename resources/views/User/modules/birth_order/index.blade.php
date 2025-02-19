@@ -317,7 +317,19 @@
                                                 class="text-danger">*</span></label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="house_holding"
-                                                value="{{ old('house_holding') }}" placeholder="বাসা/হোল্ডিং নং"
+                                                value="{{ old('house_holding') }}" placeholder="বাসা/হোল্ডিং নং বাংলায়"
+                                                required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-form-label col-sm-2 text-right">House/ Holding no:<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="house_holding_en"
+                                                value="{{ old('house_holding_en') }}" placeholder="বাসা/হোল্ডিং নং ইংরেজিতে"
                                                 required>
                                         </div>
                                     </div>
@@ -329,7 +341,40 @@
                                                 class="text-danger">*</span></label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="post_office"
-                                                value="{{ old('post_office') }}" placeholder="ডাকঘর" required>
+                                                value="{{ old('post_office') }}" placeholder="ডাকঘর বাংলায়" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-form-label col-sm-2 text-right">Post Office:<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="post_office_en"
+                                                value="{{ old('post_office_en') }}" placeholder="ডাকঘর ইংরেজিতে" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-form-label col-sm-2 text-right">গ্রাম:<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="village"
+                                                value="{{ old('village') }}" placeholder="গ্রামের নাম বাংলায়" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-form-label col-sm-2 text-right">Village:<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="village_en"
+                                                value="{{ old('village_en') }}" placeholder="গ্রামের নাম ইংরেজিতে" required>
                                         </div>
                                     </div>
 
@@ -341,17 +386,6 @@
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="word_no"
                                                 value="{{ old('word_no') }}" placeholder="ওয়ার্ড নং" required>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-form-label col-sm-2 text-right">গ্রাম:<span
-                                                class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="village"
-                                                value="{{ old('village') }}" placeholder="গ্রামের নাম" required>
                                         </div>
                                     </div>
 
