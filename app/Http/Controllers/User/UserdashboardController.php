@@ -8,6 +8,7 @@ use App\Models\IdCardOrder;
 use App\Models\Message;
 use App\Models\NewRegistration;
 use App\Models\NidMake;
+use App\Models\PopupNotice;
 use App\Models\Report;
 use App\Models\ServerCopyOrder;
 use App\Models\ServerCopyUnofficial;
@@ -84,6 +85,7 @@ class UserdashboardController extends Controller
     public function userNotification()
     {
         $unreadNotifications = UserNotification::where('user_id',auth()->user()->id)->where('read_unread', 0)->get();
+        $popupNotices = PopupNotice::latest()->get();
         foreach ($unreadNotifications as $notification) {
             $notification->read_unread = 1;
             $notification->save();

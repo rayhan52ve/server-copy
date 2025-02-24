@@ -54,6 +54,9 @@
                                 <li><a href="{{ route('admin.moderator-access.index') }}">মডারেটর অ্যাক্সেস</a></li>
                             @endif --}}
                             @if (auth()->user()->is_admin == 1 || @$moderatorAccess->notice_settings == 1)
+                                <li><a href="{{ route('popup-notice.index') }}">পপ-আপ নোটিশ</a></li>
+                            @endif
+                            @if (auth()->user()->is_admin == 1 || @$moderatorAccess->notice_settings == 1)
                                 <li><a href="{{ route('admin.notice.index') }}">নোটিশ সেটিংস</a></li>
                             @endif
 

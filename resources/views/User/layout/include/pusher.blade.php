@@ -100,8 +100,15 @@
     }
 </style>
 @php
+    $now = \Carbon\Carbon::now();
     $replyIsEmpty = \App\Models\PopupMessage::where('user_id', auth()->user()->id)
         ->where('reply', null)
+        ->latest()
+        ->first();
+    $popupNotice = \App\Models\PopupNotice::where('end_time', '>=', $now)
+        ->whereDoesntHave('users', function ($query) {
+            $query->where('user_id', auth()->user()->id);
+        })
         ->latest()
         ->first();
 @endphp
@@ -138,6 +145,39 @@
                             placeholder="Type your reply here..." required></textarea>
                     </div>
                     <button type="submit" class="btn btn-outline-primary custom-reply-btn">Send Reply</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap Modal Notice -->
+<div class="modal fade" id="customModalNotice" tabindex="-1" aria-labelledby="customModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered"> <!-- Center the modal -->
+        <div class="modal-content custom-modal-notice"> <!-- Add custom class for yellow theme -->
+            <!-- Modal Header with Close Button -->
+            <div class="modal-header notice-modal-header bg-success">
+                <h3 class="modal-title" id="customModalLabel">Important Notice!!!</h3>
+                {{-- <button type="button" class="btn-close custom-close-btn" data-bs-dismiss="modal"
+                    aria-label="Close"></button> --}}
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body text-center p-4"> <!-- Center content and add padding -->
+                <!-- Icon -->
+                <div class="mb-4">
+                    <i class="fas fa-info-circle fa-4x text-info p-3 rounded-pill"></i>
+                    <!-- Example: Font Awesome warning icon -->
+                </div>
+                <!-- Message -->
+                <p id="modalNotice" class="mb-5 text-dark"></p> <!-- Dark text color -->
+
+                <!-- Reply Form -->
+                <form id="noticeForm" class="mt-3" action="{{ route('popup-notice.update', auth()->user()->id) }}"
+                    method="POST">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="status" id="modalStatus" value="">
+                    <button type="submit" class="btn btn-success">OK</button>
                 </form>
             </div>
         </div>
@@ -235,6 +275,16 @@
                 playNotificationSound();
                 toastr.success(data.message, 'Notification');
             }
+        } else if (data.user_id === 0) {
+            // Play notification sound
+            playNotificationSound();
+            // Set the modal content
+            document.getElementById('modalNotice').textContent = data.message;
+            document.getElementById('modalStatus').value = data.status;
+
+            // Open the Bootstrap modal
+            const modal = new bootstrap.Modal(document.getElementById('customModalNotice'));
+            modal.show();
         } else {
             console.log("Notification received for a different user.");
         }
@@ -249,7 +299,7 @@
         }
 
         // Wait for the page to load
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Play notification sound
             playNotificationSound();
 
@@ -262,3 +312,53 @@
         });
     </script>
 @endif
+@if (isset($popupNotice))
+    <script>
+        // Function to play notification sound
+        function playNotificationSound() {
+            const audio = new Audio('path/to/notification-sound.mp3'); // Replace with your sound file path
+            audio.play();
+        }
+
+        // Wait for the page to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Play notification sound
+            playNotificationSound();
+
+            // Set the modal content
+            document.getElementById('modalNotice').innerHTML = `{!! $popupNotice->message !!}`;
+            document.getElementById('modalStatus').value = "{{ $popupNotice->status }}";
+
+
+            // Open the Bootstrap modal
+            const modal = new bootstrap.Modal(document.getElementById('customModalNotice'));
+            modal.show();
+        });
+    </script>
+@endif
+<script>
+    $(document).ready(function() {
+        $("#noticeForm").on("submit", function(e) {
+            e.preventDefault(); // Prevent page reload
+
+            var formData = $(this).serialize(); // Serialize form data
+
+            $.ajax({
+                url: $(this).attr("action"), // Form action URL
+                type: "POST", // HTTP method
+                data: formData, // Data to be sent
+                success: function(response) {
+                    // Success message (You can replace this with a notification)
+                    // alert("Form submitted successfully!");
+
+                    // Close the modal
+                    $("#customModalNotice").modal("hide");
+                },
+                error: function(xhr) {
+                    // alert("Error: " + xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+

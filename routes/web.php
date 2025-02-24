@@ -22,6 +22,7 @@ use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\BannerAndTitleController;
 use App\Http\Controllers\BkashPaymentController;
 use App\Http\Controllers\PopupMessageController;
+use App\Http\Controllers\PopupNoticeController;
 use App\Http\Controllers\PremiumController;
 use App\Http\Controllers\RechargeController;
 use App\Http\Controllers\ServerCopyUnofficialController;
@@ -172,7 +173,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::get('/premium-user-list', [ManageUserController::class, 'premiumUser'])->name('premiumUser');
     Route::put('/user-multiple-delete', [ManageUserController::class, 'multipleDelete'])->name('multipleDelete');
     Route::post('/user-popup-message', [ManageUserController::class, 'popupMessage'])->name('popupMessage');  
-
 
     Route::resource('sign-copy', AdminSignCopyOrderController::class)->only('index', 'destroy');
     Route::get('sign-copy-completed', [AdminSignCopyOrderController::class, 'completed'])->name('sign-copy.completed');
@@ -328,6 +328,11 @@ Route::post('/update-user-profile', [GeneralController::class, 'user_update_prof
 
 Route::resource('popup-message',PopupMessageController::class)->middleware('auth');
 Route::get('/clear-all-popup', [PopupMessageController::class, 'clearAllPopup'])->name('clearAllPopup')->middleware('is_admin');
+
+Route::resource('popup-notice',PopupNoticeController::class)->middleware('auth');
+Route::get('/clear-all-popup-notice', [PopupNoticeController::class, 'clearAllPopup'])->name('clearAllPopupNotice')->middleware('is_admin');
+// Route::post('/user-popup-notice', [PopupNoticeController::class, 'popupNotice'])->name('popupNotice')->middleware('is_admin');  
+
 
 
 
