@@ -52,6 +52,14 @@
                                     </button>
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <div class="col-12 text-center">
+                                    <button class="btn btn-lg btn-danger fw-bold" style="width: 210px" id="clearAllPermanently"
+                                        title="This action will clear all except pending orders">
+                                        <i class="fas fa-trash-alt me-2"></i> Clear All For Users
+                                    </button>
+                                </div>
+                            </div>
 
                         </div>
                         <div class="w-75 mx-auto">
@@ -542,7 +550,7 @@
             event.preventDefault();
             Swal.fire({
                 title: 'Are you sure?',
-                text: "All the completed odrers and files will be cleared!",
+                text: "All the completed odrers and files will be cleared only for admin!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
@@ -559,7 +567,7 @@
             event.preventDefault();
             Swal.fire({
                 title: 'Are you sure?',
-                text: "All the datas from file list will be cleared!",
+                text: "All the datas from file list will be cleared only for admin!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
@@ -568,6 +576,23 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location.href = "{{ route('admin.clearFileListData') }}";
+                }
+            });
+        });
+
+        document.getElementById('clearAllPermanently').addEventListener('click', function(event) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "All the datas and related files will be cleared permanently!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, clear it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{ route('admin.clearAllPermanently') }}";
                 }
             });
         });

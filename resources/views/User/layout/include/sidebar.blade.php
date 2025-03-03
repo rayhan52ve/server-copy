@@ -51,6 +51,8 @@
 
                         </a>
                     </li> --}}
+
+                    <p class="mx-3 mt-4" style="font-size: 11px;font-weight: bold">অর্ডার সার্ভিস</p>
                     @if ($hideUnhide->sign_copy == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.sign-copy.index') }}"
                                 aria-expanded="false"><i class="fa-solid fa-file-powerpoint"></i><span
@@ -97,6 +99,7 @@
                                 মেক</span></a>
                     </li>
                 @endif --}}
+                    <p class="mx-3 mt-4" style="font-size: 11px;font-weight: bold">অটোমেটিক</p>
                     @if ($hideUnhide->old_nid == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.nid-make.index') }}"
                                 aria-expanded="false"><i class="fa-regular fa-id-card"></i><span
@@ -106,8 +109,8 @@
                     @endif
                     @if ($hideUnhide->birth_order == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.birth-order.index') }}"
-                                aria-expanded="false"><i class="fa-solid fa-file-lines"></i><span
-                                    class="hide-menu">নতুন জন্ম
+                                aria-expanded="false"><i class="fa-solid fa-file-lines"></i><span class="hide-menu">নতুন
+                                    জন্ম
                                     নিবন্ধন</span></a>
                         </li>
                     @endif
@@ -155,7 +158,8 @@
                             </li>
                             <li><a href="{{ route('user.nidList', auth()->user()->id) }}">এনআইডি লিস্ট</a></li>
                             <li><a href="{{ route('user.birthList', auth()->user()->id) }}">জন্ম নিবন্ধন লিস্ট</a></li>
-                            <li><a href="{{ route('user.tinList', auth()->user()->id) }}">টিন সার্টিফিকেট লিস্ট</a></li>
+                            <li><a href="{{ route('user.tinList', auth()->user()->id) }}">টিন সার্টিফিকেট লিস্ট</a>
+                            </li>
 
 
                         </ul>

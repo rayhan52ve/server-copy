@@ -279,7 +279,7 @@
             // Play notification sound
             playNotificationSound();
             // Set the modal content
-            document.getElementById('modalNotice').textContent = data.message;
+            document.getElementById('modalNotice').innerHTML  = data.message;
             document.getElementById('modalStatus').value = data.status;
 
             // Open the Bootstrap modal
@@ -338,6 +338,13 @@
 @endif
 <script>
     $(document).ready(function() {
+        // Handle modal hidden event to remove the backdrop manually
+        $("#customModalNotice").on("hidden.bs.modal", function() {
+            $(".modal-backdrop").remove(); // Remove lingering backdrops
+            $("body").removeClass("modal-open"); // Reset body scroll behavior
+        });
+
+        // Handle AJAX Form Submission
         $("#noticeForm").on("submit", function(e) {
             e.preventDefault(); // Prevent page reload
 
@@ -348,17 +355,21 @@
                 type: "POST", // HTTP method
                 data: formData, // Data to be sent
                 success: function(response) {
-                    // Success message (You can replace this with a notification)
-                    // alert("Form submitted successfully!");
-
                     // Close the modal
                     $("#customModalNotice").modal("hide");
+
+                    // Ensure the backdrop is removed properly
+                    setTimeout(function() {
+                        $(".modal-backdrop").remove();
+                        $("body").removeClass("modal-open");
+                    }, 500);
                 },
                 error: function(xhr) {
-                    // alert("Error: " + xhr.responseText);
+                    console.log("Error: " + xhr.responseText);
                 }
             });
         });
     });
 </script>
+
 

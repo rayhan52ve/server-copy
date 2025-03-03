@@ -53,9 +53,9 @@
                             {{-- @if (auth()->user()->is_admin == 1)
                                 <li><a href="{{ route('admin.moderator-access.index') }}">মডারেটর অ্যাক্সেস</a></li>
                             @endif --}}
-                            @if (auth()->user()->is_admin == 1 || @$moderatorAccess->notice_settings == 1)
+                            {{-- @if (auth()->user()->is_admin == 1 || @$moderatorAccess->notice_settings == 1)
                                 <li><a href="{{ route('popup-notice.index') }}">পপ-আপ নোটিশ</a></li>
-                            @endif
+                            @endif --}}
                             @if (auth()->user()->is_admin == 1 || @$moderatorAccess->notice_settings == 1)
                                 <li><a href="{{ route('admin.notice.index') }}">নোটিশ সেটিংস</a></li>
                             @endif
@@ -94,6 +94,7 @@
                     </li>
                 @endif
 
+                <p class="mx-3 mt-4" style="font-size: 11px;font-weight: bold">অর্ডার সার্ভিস</p>
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->sign_copy == 1)
                     <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
                                 class="fa-solid fa-file-powerpoint"></i><span class="hide-menu">সাইন কপি
@@ -175,6 +176,7 @@
                         </ul>
                     </li>
                 @endif
+                <p class="mx-3 mt-4" style="font-size: 11px;font-weight: bold">অটোমেটিক</p>
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->nid_make == 1)
                     <li> <a class="waves-effect waves-dark" href="{{ route('user.nid-make.index') }}"
                             aria-expanded="false"><i class="fa-regular fa-id-card"></i><span class="hide-menu">এনআইডি
@@ -217,10 +219,20 @@
                         </ul>
                     </li>
 
+                    <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                            aria-expanded="false"><i class="fa-solid fa-envelope"></i><span class="hide-menu">পপ-আপ
+                                নোটিশ</span></a>
+                        <ul aria-expanded="false" class="collapse">
+
+                            <li><a href="{{ route('popup-notice.index') }}">নতুন নোটিশ</a></li>
+                            <li><a href="{{ route('popup-notice.draft') }}">ড্রাফট নোটিশ</a></li>
+                        </ul>
+                    </li>
                     <li> <a class="waves-effect waves-dark" href="{{ route('popup-message.index') }}"
                             aria-expanded="false"><i class="fa-solid fa-envelope-open-text"></i><span
                                 class="hide-menu">মেসেজ হিস্ট্রি</span></a>
                     </li>
+
                     <li> <a class="waves-effect waves-dark" href="{{ route('admin.report.index') }}"
                             aria-expanded="false"><i class="fa-solid fa-sack-dollar"></i><span
                                 class="hide-menu">আয়-ব্যয়</span></a>

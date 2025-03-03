@@ -19,7 +19,7 @@ class AdminBiometricInfoController extends Controller
     {
         $now = Carbon::now();
 
-        $biometricInfo = BiometricInfo::whereIn('status', [0, 1])->latest()->get();
+        $biometricInfo = BiometricInfo::whereIn('status', [0, 1])->where('hide', 0)->latest()->get();
         return view('admin.biometric_info.index', compact('biometricInfo', 'now'));
     }
 
@@ -27,14 +27,14 @@ class AdminBiometricInfoController extends Controller
     {
         $now = Carbon::now();
 
-        $biometricInfo = BiometricInfo::where('status', 2)->latest()->get();
+        $biometricInfo = BiometricInfo::where('status', 2)->where('hide', 0)->latest()->get();
         return view('admin.biometric_info.index', compact('biometricInfo', 'now'));
     }
     public function disabled()
     {
         $now = Carbon::now();
 
-        $biometricInfo = BiometricInfo::whereIn('status', [3, 4, 5, 6, 7])->latest()->get();
+        $biometricInfo = BiometricInfo::whereIn('status', [3, 4, 5, 6, 7])->where('hide', 0)->latest()->get();
         return view('admin.biometric_info.index', compact('biometricInfo', 'now'));
     }
 

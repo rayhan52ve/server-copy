@@ -18,7 +18,13 @@ class PopupNoticeController extends Controller
      */
     public function index()
     {
-        $popupNotices = PopupNotice::latest()->get();
+        $popupNotices = PopupNotice::where('notice_type', 0)->latest()->get();
+        return view('admin.popup_notice', compact('popupNotices'));
+    }
+
+    public function draft()
+    {
+        $popupNotices = PopupNotice::where('notice_type', 1)->latest()->get();
         return view('admin.popup_notice', compact('popupNotices'));
     }
 
@@ -40,6 +46,7 @@ class PopupNoticeController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $user_id = 0;
         $message = $request->message;
 
@@ -48,6 +55,7 @@ class PopupNoticeController extends Controller
         $popupNotice->message = $message;
         $popupNotice->hour = $request->hour;
         $popupNotice->minute = $request->minute;
+        $popupNotice->notice_type = $request->notice_type;
         $popupNotice->save();
 
         // Calculate `end_time`
@@ -55,13 +63,20 @@ class PopupNoticeController extends Controller
         $endTime = $createdAt->addHours($popupNotice->hour)->addMinutes($popupNotice->minute); // Add both hour & minute
 
         // Store end time
-        $popupNotice->end_time = $endTime;
+        if ($request->notice_type == 1) {
+            $popupNotice->end_time = null;
+        } else {
+            $popupNotice->end_time = $endTime;
+        }
         $popupNotice->status = $popupNotice->id;
         $popupNotice->save();
         $status = $popupNotice->status;
-        event(new DeliveryNotification($user_id, $message, $status));
-
-        Alert::toast('Notice Sent Successfully.', 'success');
+        if ($request->notice_type == 1) {
+            Alert::toast('Notice Saved Successfully.', 'success');
+        } else {
+            event(new DeliveryNotification($user_id, $message, $status));
+            Alert::toast('Notice Sent Successfully.', 'success');
+        }
 
         return redirect()->back();
     }
@@ -120,7 +135,7 @@ class PopupNoticeController extends Controller
 
     public function clearAllPopup()
     {
-        $popupNotices = PopupNotice::all();
+        $popupNotices = PopupNotice::where('notice_type',0)->get();
 
         // Detach all users from all popup notices in a single operation
         foreach ($popupNotices as $popupNotice) {
@@ -128,8 +143,71 @@ class PopupNoticeController extends Controller
         }
 
         // Delete all popup notices in a single query
-        PopupNotice::query()->delete();
+        PopupNotice::where('notice_type',0)->delete();
         Alert::toast("All Popup Notices Cleared Successfully.", 'success');
+        return redirect()->back();
+    }
+
+    public function updatePublished(Request $request, $id)
+    {
+        // dd($request->all());
+        // Store hour & minute separately
+        $popupNotice = PopupNotice::find($id);
+        $popupNotice->users()->detach();
+        // Calculate `end_time`
+        $now = Carbon::now();
+        $endTime = $now->addHours($request->hour)->addMinutes($request->minute); // Add both hour & minute
+
+        // Store end time
+        if ($request->notice_type == 1) {
+            $popupNotice->end_time = null;
+        } else {
+            $popupNotice->end_time = $endTime;
+        }
+        $popupNotice->status = $popupNotice->id;
+        $popupNotice->hour = $request->hour;
+        $popupNotice->minute = $request->minute;
+        $popupNotice->message = $request->message;
+        $popupNotice->save();
+
+
+        $user_id = 0;
+        $message = $popupNotice->message;
+        $status = $popupNotice->status;
+
+        if ($request->notice_type == 1) {
+            Alert::toast('Notice Saved Successfully.', 'success');
+        } else {
+            event(new DeliveryNotification($user_id, $message, $status));
+            Alert::toast('Notice Sent Successfully.', 'success');
+        }
+
+        return redirect()->back();
+    }
+
+    public function publish($id)
+    {
+        // Store hour & minute separately
+        $popupNotice = PopupNotice::find($id);
+        $popupNotice->users()->detach();
+        // Calculate `end_time`
+        $now = Carbon::now();
+        $endTime = $now->addHours($popupNotice->hour)->addMinutes($popupNotice->minute); // Add both hour & minute
+
+        // Store end time
+        $popupNotice->end_time = $endTime;
+        $popupNotice->status = $popupNotice->id;
+        $popupNotice->save();
+
+
+        $user_id = 0;
+        $message = $popupNotice->message;
+        $status = $popupNotice->status;
+
+        event(new DeliveryNotification($user_id, $message, $status));
+
+        Alert::toast('Notice Sent Successfully.', 'success');
+
         return redirect()->back();
     }
 }

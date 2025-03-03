@@ -23,7 +23,7 @@ class AdminServerCopyOrderController extends Controller
     {
         $now = Carbon::now();
 
-        $serverCopyOrders = ServerCopyOrder::whereIn('status', [0, 1])->latest()->get();
+        $serverCopyOrders = ServerCopyOrder::whereIn('status', [0, 1])->where('hide', 0)->latest()->get();
         return view('admin.server_copy_order.index', compact('serverCopyOrders', 'now'));
     }
 
@@ -31,14 +31,14 @@ class AdminServerCopyOrderController extends Controller
     {
         $now = Carbon::now();
 
-        $serverCopyOrders = ServerCopyOrder::where('status', 2)->latest()->get();
+        $serverCopyOrders = ServerCopyOrder::where('status', 2)->where('hide', 0)->latest()->get();
         return view('admin.server_copy_order.index', compact('serverCopyOrders', 'now'));
     }
     public function disabled()
     {
         $now = Carbon::now();
 
-        $serverCopyOrders = ServerCopyOrder::whereIn('status', [3, 4, 5, 6, 7])->latest()->get();
+        $serverCopyOrders = ServerCopyOrder::whereIn('status', [3, 4, 5, 6, 7])->where('hide', 0)->latest()->get();
         return view('admin.server_copy_order.index', compact('serverCopyOrders', 'now'));
     }
 

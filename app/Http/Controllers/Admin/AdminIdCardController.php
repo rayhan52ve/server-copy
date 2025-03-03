@@ -17,7 +17,7 @@ class AdminIdCardController extends Controller
     public function index()
     {
         $now = Carbon::now();
-        $idCardOrders = IdCardOrder::whereIn('status', [0, 1])->latest()->get();
+        $idCardOrders = IdCardOrder::whereIn('status', [0, 1])->where('hide', 0)->latest()->get();
         return view('admin.id_card_order.index', compact('idCardOrders', 'now'));
     }
 
@@ -25,14 +25,14 @@ class AdminIdCardController extends Controller
     {
         $now = Carbon::now();
 
-        $idCardOrders = IdCardOrder::where('status', 2)->latest()->get();
+        $idCardOrders = IdCardOrder::where('status', 2)->where('hide', 0)->latest()->get();
         return view('admin.id_card_order.index', compact('idCardOrders', 'now'));
     }
     public function disabled()
     {
         $now = Carbon::now();
 
-        $idCardOrders = IdCardOrder::whereIn('status', [3, 4, 5, 6, 7])->latest()->get();
+        $idCardOrders = IdCardOrder::whereIn('status', [3, 4, 5, 6, 7])->where('hide', 0)->latest()->get();
         return view('admin.id_card_order.index', compact('idCardOrders', 'now'));
     }
 

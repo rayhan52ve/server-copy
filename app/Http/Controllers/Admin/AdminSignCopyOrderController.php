@@ -24,6 +24,7 @@ class AdminSignCopyOrderController extends Controller
         $now = Carbon::now();
 
         $signCopyOrders = SignCopyOrder::whereIn('status', [0, 1])
+            ->where('hide', 0)
             ->latest()
             ->get();
         return view('admin.sign_copy_order.index', compact('signCopyOrders', 'now'));
@@ -33,14 +34,14 @@ class AdminSignCopyOrderController extends Controller
     {
         $now = Carbon::now();
 
-        $signCopyOrders = SignCopyOrder::where('status', 2)->latest()->get();
+        $signCopyOrders = SignCopyOrder::where('hide', 0)->where('status', 2)->latest()->get();
         return view('admin.sign_copy_order.index', compact('signCopyOrders', 'now'));
     }
     public function disabled()
     {
         $now = Carbon::now();
 
-        $signCopyOrders = SignCopyOrder::whereIn('status', [3, 4, 5, 6, 7])
+        $signCopyOrders = SignCopyOrder::where('hide', 0)->whereIn('status', [3, 4, 5, 6, 7])
             ->latest()
             ->get();
         return view('admin.sign_copy_order.index', compact('signCopyOrders', 'now'));

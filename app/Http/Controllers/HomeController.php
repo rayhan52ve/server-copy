@@ -60,13 +60,13 @@ class HomeController extends Controller
         $biometricCount = BiometricInfo::where('status', '0')->count();
         $nameAddressCount = NameAddressId::where('status', '0')->count();
         $birthRegCount = BirthOrder::where('status', '0')->count();
-        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount', 'nameAddressCount','birthRegCount'));
+        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount', 'nameAddressCount', 'birthRegCount'));
     }
 
 
     public function serverCopyUnofficialList()
     {
-        $serverCopyUnofficial = ServerCopyUnofficial::latest()->get();
+        $serverCopyUnofficial = ServerCopyUnofficial::where('hide',0)->latest()->get();
         $message = Message::first();
 
         return view('admin.file_list.server_copy_unofficial', compact('serverCopyUnofficial', 'message'));
@@ -81,7 +81,7 @@ class HomeController extends Controller
 
     public function nidList()
     {
-        $nids = NidMake::latest()->get();
+        $nids = NidMake::where('hide',0)->latest()->get();
         $message = Message::first();
 
         return view('admin.file_list.nid', compact('nids', 'message'));
@@ -96,7 +96,7 @@ class HomeController extends Controller
 
     public function birthList()
     {
-        $new_regs = NewRegistration::latest()->get();
+        $new_regs = NewRegistration::where('hide',0)->latest()->get();
         $message = Message::first();
 
         return view('admin.file_list.birth', compact('new_regs', 'message'));
@@ -111,7 +111,7 @@ class HomeController extends Controller
 
     public function tinList()
     {
-        $tins = TinCirtificate::latest()->get();
+        $tins = TinCirtificate::where('hide',0)->latest()->get();
         $message = Message::first();
 
         return view('admin.file_list.tin', compact('tins', 'message'));
@@ -153,6 +153,36 @@ class HomeController extends Controller
     }
 
     public function clearOldOrders()
+    {
+
+        SignCopyOrder::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
+
+        ServerCopyOrder::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
+
+        IdCardOrder::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
+
+        BiometricInfo::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
+
+        NameAddressId::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
+
+        Alert::toast('Completed orders and associated files cleared.', 'success');
+        return redirect()->back();
+    }
+
+    public function clearFileListData()
+    {
+
+        ServerCopyUnofficial::where('hide', 0)->update(['hide' => 1]);
+        NidMake::where('hide', 0)->update(['hide' => 1]);
+        NewRegistration::where('hide', 0)->update(['hide' => 1]);
+        TinCirtificate::where('hide', 0)->update(['hide' => 1]);
+
+
+        Alert::toast('All file list data removed.', 'success');
+        return redirect()->back();
+    }
+
+    public function clearAllPermanently()
     {
 
         // Delete SignCopyOrders and associated files
@@ -201,20 +231,13 @@ class HomeController extends Controller
         }
         NameAddressId::where('status', '!=', 0)->delete();
 
-        Alert::toast('Completed orders and associated files cleared.', 'success');
-        return redirect()->back();
-    }
-
-    public function clearFileListData()
-    {
 
         ServerCopyUnofficial::query()->delete();
         NidMake::query()->delete();
         NewRegistration::query()->delete();
         TinCirtificate::query()->delete();
 
-
-        Alert::toast('All file list data cleared.', 'success');
+        Alert::toast('All the data and associated files cleared.', 'success');
         return redirect()->back();
     }
 }

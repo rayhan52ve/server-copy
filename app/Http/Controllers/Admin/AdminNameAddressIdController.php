@@ -25,6 +25,7 @@ class AdminNameAddressIdController extends Controller
         $now = Carbon::now();
 
         $nameAddressIds = NameAddressId::whereIn('status', [0, 1])
+            ->where('hide', 0)
             ->latest()
             ->get();
         return view('admin.name_address_id.index', compact('nameAddressIds', 'now'));
@@ -34,7 +35,7 @@ class AdminNameAddressIdController extends Controller
     {
         $now = Carbon::now();
 
-        $nameAddressIds = NameAddressId::where('status', 2)->latest()->get();
+        $nameAddressIds = NameAddressId::where('hide', 0)->where('status', 2)->latest()->get();
         return view('admin.name_address_id.index', compact('nameAddressIds', 'now'));
     }
     public function disabled()
@@ -42,6 +43,7 @@ class AdminNameAddressIdController extends Controller
         $now = Carbon::now();
 
         $nameAddressIds = NameAddressId::whereIn('status', [3, 4, 5, 6, 7])
+            ->where('hide', 0)
             ->latest()
             ->get();
         return view('admin.name_address_id.index', compact('nameAddressIds', 'now'));

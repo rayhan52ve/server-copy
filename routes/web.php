@@ -273,6 +273,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
 
     Route::get('/clear-admin-all-old-orders', [HomeController::class, 'clearOldOrders'])->name('clearOldOrders')->middleware('is_admin');
     Route::get('/clear-admin-all-file-list-data', [HomeController::class, 'clearFileListData'])->name('clearFileListData')->middleware('is_admin');
+    Route::get('/clear-admin-all-permanently', [HomeController::class, 'clearAllPermanently'])->name('clearAllPermanently')->middleware('is_admin');
 
 
     Route::resource('report',ReportController::class)->middleware('is_admin');
@@ -330,7 +331,10 @@ Route::resource('popup-message',PopupMessageController::class)->middleware('auth
 Route::get('/clear-all-popup', [PopupMessageController::class, 'clearAllPopup'])->name('clearAllPopup')->middleware('is_admin');
 
 Route::resource('popup-notice',PopupNoticeController::class)->middleware('auth');
+Route::get('/pop-notice/draft',[PopupNoticeController::class,'draft'])->name('popup-notice.draft')->middleware('auth');
+Route::put('/pop-notice/update-published/{id}',[PopupNoticeController::class,'updatePublished'])->name('popup-notice.updatePublished')->middleware('auth');
 Route::get('/clear-all-popup-notice', [PopupNoticeController::class, 'clearAllPopup'])->name('clearAllPopupNotice')->middleware('is_admin');
+Route::get('/republish-popup-notice/{id}', [PopupNoticeController::class, 'publish'])->name('notice.publish')->middleware('is_admin');
 // Route::post('/user-popup-notice', [PopupNoticeController::class, 'popupNotice'])->name('popupNotice')->middleware('is_admin');  
 
 
