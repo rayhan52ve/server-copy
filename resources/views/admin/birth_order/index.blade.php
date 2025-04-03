@@ -81,11 +81,16 @@
                                         ডাকঘর (EN): {{ $item->post_office_en ?? null }},<br>
                                         গ্রাম (BN): {{ $item->village ?? null }},
                                         গ্রাম (EN): {{ $item->village_en ?? null }},<br>
-                                        ওয়ার্ড নং: {{ $item->word_no ?? null }},
-                                        ইউনিয়ন: {{ $item->union ?? null }},<br>
-                                        উপজেলা: {{ $item->upozila ?? null }},
-                                        জেলা: {{ $item->district ?? null }},<br>
-                                        বিভাগ: {{ $item->division ?? null }}
+                                        ওয়ার্ড নং (BN): {{ $item->word_no ?? null }},
+                                        ওয়ার্ড নং (EN): {{ $item->word_no_en ?? null }},<br>
+                                        ইউনিয়ন (BN): {{ $item->union ?? null }},
+                                        ইউনিয়ন (EN): {{ $item->union_en ?? null }},<br>
+                                        উপজেলা (BN): {{ $item->upozila ?? null }},
+                                        উপজেলা (EN): {{ $item->upozila_en ?? null }},<br>
+                                        জেলা (BN): {{ $item->district ?? null }},
+                                        জেলা (EN): {{ $item->district_en ?? null }},<br>
+                                        বিভাগ (BN): {{ $item->division ?? null }}
+                                        বিভাগ (EN): {{ $item->division_en ?? null }}
                                     </td>
                                     <td>
                                         @if ($item->nid_file)

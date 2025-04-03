@@ -2,12 +2,17 @@
     $moderatorAccess = \App\Models\ModeratorAccess::where('user_id', auth()->user()->id)->first();
     $notification = \App\Models\AdminNotification::where('read_unread', 0)->count();
 @endphp
-{{-- <style>
-    .scroll-sidebar {
-        overflow-y: auto;
-        max-height: calc(100vh - 100px);
+<style>
+    .menu-category {
+        margin: 0.75rem 1rem;
+        font-size: 10px;
+        font-weight: 900 !impotant;
+        color: grey;
+        margin-left: 18px;
+        padding-top: 18px;
+        /* Add a color for better readability */
     }
-</style> --}}
+</style>
 <aside class="left-sidebar">
     <!-- Sidebar scroll-->
     <div class="scroll-sidebar">
@@ -94,7 +99,8 @@
                     </li>
                 @endif
 
-                <p class="mx-3 mt-4" style="font-size: 11px;font-weight: bold">অর্ডার সার্ভিস</p>
+                {{-- <li class="menu-category">অর্ডার সার্ভিস</li> --}}
+                
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->sign_copy == 1)
                     <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
                                 class="fa-solid fa-file-powerpoint"></i><span class="hide-menu">সাইন কপি
@@ -176,7 +182,9 @@
                         </ul>
                     </li>
                 @endif
-                <p class="mx-3 mt-4" style="font-size: 11px;font-weight: bold">অটোমেটিক</p>
+
+                {{-- <li class="menu-category">অটোমেটিক</li> --}}
+
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->nid_make == 1)
                     <li> <a class="waves-effect waves-dark" href="{{ route('user.nid-make.index') }}"
                             aria-expanded="false"><i class="fa-regular fa-id-card"></i><span class="hide-menu">এনআইডি

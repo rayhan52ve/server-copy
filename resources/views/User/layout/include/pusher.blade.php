@@ -162,9 +162,9 @@
                     aria-label="Close"></button> --}}
             </div>
             <!-- Modal Body -->
-            <div class="modal-body text-center p-4"> <!-- Center content and add padding -->
+            <div class="modal-body p-4"> <!-- Center content and add padding -->
                 <!-- Icon -->
-                <div class="mb-4">
+                <div class="mb-4 text-center">
                     <i class="fas fa-info-circle fa-4x text-info p-3 rounded-pill"></i>
                     <!-- Example: Font Awesome warning icon -->
                 </div>
@@ -177,7 +177,9 @@
                     @csrf
                     @method('PUT')
                     <input type="hidden" name="status" id="modalStatus" value="">
-                    <button type="submit" class="btn btn-success">OK</button>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success">OK</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -279,7 +281,7 @@
             // Play notification sound
             playNotificationSound();
             // Set the modal content
-            document.getElementById('modalNotice').innerHTML  = data.message;
+            document.getElementById('modalNotice').innerHTML = data.message;
             document.getElementById('modalStatus').value = data.status;
 
             // Open the Bootstrap modal
@@ -371,5 +373,3 @@
         });
     });
 </script>
-
-

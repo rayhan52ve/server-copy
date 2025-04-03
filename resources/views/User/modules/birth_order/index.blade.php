@@ -385,7 +385,18 @@
                                                 class="text-danger">*</span></label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="word_no"
-                                                value="{{ old('word_no') }}" placeholder="ওয়ার্ড নং" required>
+                                                value="{{ old('word_no') }}" placeholder="ওয়ার্ড নং বাংলায়" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-form-label col-sm-2 text-right">Ward No:<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="word_no_en"
+                                                value="{{ old('word_no_en') }}" placeholder="ওয়ার্ড নং ইংরেজিতে" required>
                                         </div>
                                     </div>
 
@@ -396,7 +407,18 @@
                                                 class="text-danger">*</span></label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="union"
-                                                value="{{ old('union') }}" placeholder="ইউনিয়ন" required>
+                                                value="{{ old('union') }}" placeholder="ইউনিয়ন বাংলায়" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-form-label col-sm-2 text-right">Union:<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="union_en"
+                                                value="{{ old('union_en') }}" placeholder="ইউনিয়ন ইংরেজিতে" required>
                                         </div>
                                     </div>
 
@@ -407,7 +429,18 @@
                                                 class="text-danger">*</span></label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="upozila"
-                                                value="{{ old('upozila') }}" placeholder="উপজেলা" required>
+                                                value="{{ old('upozila') }}" placeholder="উপজেলা বাংলায়" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-form-label col-sm-2 text-right">Upozila:<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="upozila_en"
+                                                value="{{ old('upozila_en') }}" placeholder="উপজেলা ইংরেজিতে" required>
                                         </div>
                                     </div>
 
@@ -418,7 +451,18 @@
                                                 class="text-danger">*</span></label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="district"
-                                                value="{{ old('district') }}" placeholder="জেলা" required>
+                                                value="{{ old('district') }}" placeholder="জেলা বাংলায়" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-form-label col-sm-2 text-right">District:<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="district_en"
+                                                value="{{ old('district_en') }}" placeholder="জেলা ইংরেজিতে" required>
                                         </div>
                                     </div>
 
@@ -429,7 +473,18 @@
                                                 class="text-danger">*</span></label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="division"
-                                                value="{{ old('division') }}" placeholder="বিভাগ" required>
+                                                value="{{ old('division') }}" placeholder="বিভাগ বাংলায়" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-form-label col-sm-2 text-right">Division:<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="division_en"
+                                                value="{{ old('division_en') }}" placeholder="বিভাগ ইংরেজিতে" required>
                                         </div>
                                     </div>
 

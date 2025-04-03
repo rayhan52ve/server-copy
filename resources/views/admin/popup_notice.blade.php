@@ -132,7 +132,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group ">
-                                                                <textarea name="message" class="form-control" placeholder="Write a notice" id="" cols="30" rows="4"
+                                                                <textarea name="message" class="form-control" placeholder="Write a notice" id="message-{{ $item->id }}" cols="30" rows="4"
                                                                     autocomplete="on">{{ $item->message }}</textarea>
                                                             </div>
                                                             <input type="hidden" name="status" value="10">
@@ -204,7 +204,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group ">
-                                                                    <textarea name="message" class="form-control" placeholder="Write a notice" id="" cols="30"
+                                                                    <textarea name="message" class="form-control message" placeholder="Write a notice" id="msg-{{ $item->id }}" cols="30"
                                                                         rows="4" autocomplete="on">{{ $item->message }}</textarea>
                                                                 </div>
                                                                 <input type="hidden" name="status" value="10">
@@ -264,7 +264,7 @@
                             </div>
                         </div>
                         <div class="form-group ">
-                            <textarea name="message" class="form-control" placeholder="Write a notice" id="" cols="30"
+                            <textarea name="message" class="form-control" placeholder="Write a notice" id="message" cols="30"
                                 rows="4" autocomplete="on"></textarea>
                         </div>
                         <input type="hidden" name="status" value="10">
@@ -294,12 +294,37 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
     <script>
+        // Function to initialize CKEditor for a given textarea ID
+        function initializeCKEditor(textareaId) {
+            ClassicEditor
+                .create(document.querySelector(`#${textareaId}`))
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
+        // Initialize CKEditor for the create form textarea
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCKEditor('message'); // For the create form
+
+            // Initialize CKEditor for each edit form textarea
+            @foreach ($popupNotices as $item)
+                initializeCKEditor('message-{{ $item->id }}'); // For each edit form
+            @endforeach
+            // Initialize CKEditor for each publish form textarea
+            @foreach ($popupNotices as $item)
+                initializeCKEditor('msg-{{ $item->id }}'); // For each edit form
+            @endforeach
+        });
+    </script>
+{{-- 
+    <script>
         ClassicEditor
-            .create(document.querySelector('#message'))
+            .create(document.querySelector('#msg'))
             .catch(error => {
                 console.error(error);
             });
-    </script>
+    </script> --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('clearAllBtn').addEventListener('click', function(event) {

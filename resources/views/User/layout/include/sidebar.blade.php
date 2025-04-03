@@ -24,6 +24,16 @@
         right: 50px;
         line-height: 1;
     }
+
+    .menu-category {
+        margin: 0.75rem 1rem;
+        font-size: 10px;
+        font-weight: 900 !impotant;
+        color: grey;
+        margin-left: 18px;
+        padding-top: 18px;
+        /* Add a color for better readability */
+    }
 </style>
 <aside class="left-sidebar">
     <!-- Sidebar scroll-->
@@ -52,7 +62,8 @@
                         </a>
                     </li> --}}
 
-                    <p class="mx-3 mt-4" style="font-size: 11px;font-weight: bold">অর্ডার সার্ভিস</p>
+                    {{-- <li class="menu-category">অর্ডার সার্ভিস</li> --}}
+
                     @if ($hideUnhide->sign_copy == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.sign-copy.index') }}"
                                 aria-expanded="false"><i class="fa-solid fa-file-powerpoint"></i><span
@@ -99,7 +110,9 @@
                                 মেক</span></a>
                     </li>
                 @endif --}}
-                    <p class="mx-3 mt-4" style="font-size: 11px;font-weight: bold">অটোমেটিক</p>
+
+                    {{-- <li class="menu-category">অটোমেটিক</li> --}}
+
                     @if ($hideUnhide->old_nid == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.nid-make.index') }}"
                                 aria-expanded="false"><i class="fa-regular fa-id-card"></i><span
