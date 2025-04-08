@@ -212,6 +212,36 @@
                         </div>
 
                     </div>
+
+                    <div class="form-group py-2">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label>ইউজার পাসওয়ার্ড সেট <small><b>NID Card</b></small></label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->user_pass_nid ?? null }}" name="user_pass_nid" placeholder="ইউজার পাসওয়ার্ড সেট (NID Card) মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>ইউজার পাসওয়ার্ড সেট মূল্য<small><b>NID Card</b></small></label>
+                                <input type="number" class="form-control" rows="5"
+                                    value="{{ $message->user_pass_nid_price ?? null }}" name="user_pass_nid_price"
+                                    placeholder="0">
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-md-8">
+                                <label>ইউজার পাসওয়ার্ড সেট <small><b>NID Card</b></small> (Premium)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->premium_user_pass_nid ?? null }}" name="premium_user_pass_nid" placeholder="ইউজার পাসওয়ার্ড সেট (NID Card) মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>ইউজার পাসওয়ার্ড সেট মূল্য <small><b>NID Card</b></small> (Premium)</label>
+                                <input type="number" class="form-control" rows="5"
+                                    value="{{ $message->premium_user_pass_nid_price ?? null }}" name="premium_user_pass_nid_price"
+                                    placeholder="0">
+                            </div>
+                        </div>
+
+                    </div>
                     <div class="form-group py-2">
                         <div class="row">
                             <div class="col-md-8">

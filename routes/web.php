@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AdminNameAddressIdController;
 use App\Http\Controllers\Admin\AdminRechargeController;
 use App\Http\Controllers\Admin\AdminServerCopyOrderController;
 use App\Http\Controllers\Admin\AdminSignCopyOrderController;
+use App\Http\Controllers\Admin\AdminUserpassNidController;
 use App\Http\Controllers\Admin\BiometricTypeController;
 use App\Http\Controllers\Admin\HideUnhideController;
 use App\Http\Controllers\Admin\ManageUserController;
@@ -38,6 +39,7 @@ use App\Http\Controllers\User\ServerCopyOrderController;
 use App\Http\Controllers\User\SignCopyOrderController;
 use App\Http\Controllers\User\SignToServerCopyController;
 use App\Http\Controllers\User\UserdashboardController;
+use App\Http\Controllers\User\UserPassNidController;
 use App\Http\Controllers\User\VoterInfoController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WebsiteSettingsController;
@@ -104,6 +106,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
     Route::resource('id-card', IdCardOrderController::class)->only('index', 'store');
     Route::resource('biometric-info', BiometricInfoController::class)->only('index', 'store');
     Route::resource('name-address-id', NameAddressIdController::class)->only('index', 'store');
+    Route::resource('user-pass-nid', UserPassNidController::class)->only('index', 'store');
     Route::resource('birth-order', BirthOrderController::class)->only('index', 'store');
     Route::resource('new-nid', NewNidController::class)->only('index', 'store');
     Route::resource('sign-to-server', SignToServerCopyController::class)->only('index', 'store');
@@ -153,6 +156,7 @@ Route::get('/id-card-file/download/{id}', [AdminIdCardController::class, 'downlo
 Route::get('/biometric-info-file/download/{id}', [AdminBiometricInfoController::class, 'download'])->name('biometric-file.download');
 Route::get('/name-address-id-file/download/{id}', [AdminNameAddressIdController::class, 'download'])->name('name-address-id-file.download');
 Route::get('/name-address-id-image/download/{id}', [AdminNameAddressIdController::class, 'imageDownload'])->name('name-address-id-image.download');
+Route::get('/user-pass-nid-image/download/{id}', [AdminUserpassNidController::class, 'imageDownload'])->name('user-pass-nid-image.download');
 
 Route::get('/birth-order-file/download/{id}', [AdminBirthOrderController::class, 'download'])->name('birth-order-file.download');
 Route::get('/birth-order-nid/download/{id}', [AdminBirthOrderController::class, 'nidDownload'])->name('nidDownload.download');
@@ -221,8 +225,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::get('name-address-id-disabled', [AdminNameAddressIdController::class, 'disabled'])->name('name-address-id.disabled');
     Route::put('/name-address-id-status/{id}', [AdminNameAddressIdController::class, 'updateStatus'])->name('updateNameAddressId');
     Route::post('/name-address-id-update-handler', [AdminNameAddressIdController::class, 'fileUpload'])->name('name-address-id-file.upload');
-
     Route::put('/name-address-id-refund/{id}', [AdminNameAddressIdController::class, 'refund'])->name('refund.name-address-id');
+    
+    Route::resource('user-pass-nid', AdminUserpassNidController::class)->only('index', 'destroy');
+    Route::get('user-pass-nid-completed', [AdminUserpassNidController::class, 'completed'])->name('user-pass-nid.completed');
+    Route::get('user-pass-nid-disabled', [AdminUserpassNidController::class, 'disabled'])->name('user-pass-nid.disabled');
+    Route::put('/user-pass-nid-status/{id}', [AdminUserpassNidController::class, 'updateStatus'])->name('updateNameAddressId');
+    Route::post('/user-pass-nid-update-handler', [AdminUserpassNidController::class, 'fileUpload'])->name('user-pass-nid-file.upload');
+    Route::put('/user-pass-nid-refund/{id}', [AdminUserpassNidController::class, 'refund'])->name('refund.user-pass-nid');
 
     Route::resource('birth-order', AdminBirthOrderController::class)->only('index', 'destroy');
     Route::get('birth-order-completed', [AdminBirthOrderController::class, 'completed'])->name('birth-order.completed');

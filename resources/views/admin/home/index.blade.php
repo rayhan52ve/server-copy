@@ -143,11 +143,28 @@
                         </div>
                     </div>
                 @endif
+                @if (auth()->user()->is_admin == 1)
+                    <div class="col-xl-2 col-md-3 col-6">
+                        <div class="card text-white mb-4" style="background-color:rgb(8, 216, 147)">
+                            <div class="card-header">
+                                <h5>ইউজার পাসওয়ার্ড সেট <small><b>NID Card</b></small></h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <h1>{{ $userPassCount }}</h1>
+                            </div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <a class="small text-white stretched-link"
+                                    href="{{ route('admin.user-pass-nid.index') }}">View Details</a>
+
+                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
             </div>
         </div>
     </div>
     <!-- ============================================================== -->
     <!-- End Info box -->
-
 @endsection

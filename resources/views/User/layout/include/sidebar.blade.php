@@ -120,6 +120,12 @@
                                     মেক</span></a>
                         </li>
                     @endif
+                    @if ($hideUnhide->user_pass_nid == 1)
+                        <li> <a class="waves-effect waves-dark" href="{{ route('user.user-pass-nid.index') }}"
+                                aria-expanded="false"><i class="fa-solid fa-unlock-keyhole"></i><span
+                                    class="hide-menu">ইউজার পাসওয়ার্ড সেট <small class="px-4"><b>NID Card</b></small></span></a>
+                        </li>
+                    @endif
                     @if ($hideUnhide->birth_order == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.birth-order.index') }}"
                                 aria-expanded="false"><i class="fa-solid fa-file-lines"></i><span class="hide-menu">নতুন

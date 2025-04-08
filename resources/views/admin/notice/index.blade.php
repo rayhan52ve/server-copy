@@ -50,7 +50,12 @@
                     <div class="form-group py-2">
                         <label>এনআইডি মেক</label>
                         <input type="text" class="form-control" rows="5" value="{{ $notice->old_nid ?? null }}"
-                            name="old_nid" placeholder=" নআইডি নোটিশ">
+                            name="old_nid" placeholder=" এনআইডি নোটিশ">
+                    </div>
+                    <div class="form-group py-2">
+                        <label>ইউজার পাসওয়ার্ড সেট <small><b>NID Card</b></small></label>
+                        <input type="text" class="form-control" rows="5" value="{{ $notice->user_pass_nid ?? null }}"
+                            name="user_pass_nid" placeholder="ইউজার পাসওয়ার্ড সেট (NID) নোটিশ">
                     </div>
                     <div class="form-group py-2">
                         <label>নতুন জন্ম নিবন্ধন</label>

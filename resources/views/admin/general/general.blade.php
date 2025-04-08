@@ -38,24 +38,24 @@
 
                             <div class="row my-4 mb-1">
                                 <div class="col-12 text-center">
-                                    <button class="btn btn-lg btn-outline-danger fw-bold" style="width: 210px" id="clearOldOrders"
-                                        title="This action will clear all except pending orders">
+                                    <button class="btn btn-lg btn-outline-danger fw-bold" style="width: 210px"
+                                        id="clearOldOrders" title="This action will clear all except pending orders">
                                         <i class="fas fa-trash-alt me-2"></i> Clear All Orders
                                     </button>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-12 text-center">
-                                    <button class="btn btn-lg btn-outline-primary fw-bold" style="width: 210px" id="clearFileListData"
-                                        title="This action will clear all except pending orders">
+                                    <button class="btn btn-lg btn-outline-primary fw-bold" style="width: 210px"
+                                        id="clearFileListData" title="This action will clear all except pending orders">
                                         <i class="fas fa-trash-alt me-2"></i> Clear All File List
                                     </button>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-12 text-center">
-                                    <button class="btn btn-lg btn-danger fw-bold" style="width: 210px" id="clearAllPermanently"
-                                        title="This action will clear all except pending orders">
+                                    <button class="btn btn-lg btn-danger fw-bold" style="width: 210px"
+                                        id="clearAllPermanently" title="This action will clear all except pending orders">
                                         <i class="fas fa-trash-alt me-2"></i> Clear All For Users
                                     </button>
                                 </div>
@@ -91,8 +91,9 @@
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->server_copy == 1 ? 'ON' : 'OFF' }}</label>
                                                             <input type="hidden" name="server_copy" value="0">
-                                                            <input class="form-check-input" onclick="submitHideUnhideForm()"
-                                                                value="1" name="server_copy" type="checkbox"
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="server_copy" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$hideUnhide->server_copy == 1 ? 'checked' : '' }}>
                                                         </div>
@@ -160,6 +161,30 @@
                                                                 name="old_nid" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$hideUnhide->old_nid == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group py-2">
+                                                        ইউজার পাসওয়ার্ড সেট <small><b>NID Card</b></small>
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$hideUnhide->user_pass_nid == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="user_pass_nid" value="0">
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="user_pass_nid" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$hideUnhide->user_pass_nid == 1 ? 'checked' : '' }}>
+                                                            <br>
+
+                                                        </div>
+                                                        <div class="form-group d-flex g-1">
+                                                        <input type="hidden" name="user_pass_nid_extra" value="0">
+                                                        <input class="" onclick="submitHideUnhideForm()"
+                                                            value="1" name="user_pass_nid_extra" type="checkbox"
+                                                            id="user_pass_nid_extra"
+                                                            {{ @$hideUnhide->user_pass_nid_extra == 1 ? 'checked' : '' }}>
+                                                        <label for="user_pass_nid_extra"
+                                                            class="px-1">Address Fields</label>
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">
@@ -391,6 +416,18 @@
                                                                 value="1" name="old_nid" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$submitStatus->old_nid == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group py-2">
+                                                        ইউজার পাসওয়ার্ড সেট <small><b>NID Card</b></small>
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$submitStatus->user_pass_nid == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="user_pass_nid" value="0">
+                                                            <input class="form-check-input" onclick="submitForm()"
+                                                                value="1" name="user_pass_nid" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$submitStatus->user_pass_nid == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">

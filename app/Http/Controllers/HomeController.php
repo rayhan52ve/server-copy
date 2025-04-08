@@ -15,6 +15,7 @@ use App\Models\ServerCopyOrder;
 use App\Models\ServerCopyUnofficial;
 use App\Models\SignCopyOrder;
 use App\Models\TinCirtificate;
+use App\Models\UserPassNid;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -60,7 +61,8 @@ class HomeController extends Controller
         $biometricCount = BiometricInfo::where('status', '0')->count();
         $nameAddressCount = NameAddressId::where('status', '0')->count();
         $birthRegCount = BirthOrder::where('status', '0')->count();
-        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount', 'nameAddressCount', 'birthRegCount'));
+        $userPassCount = UserPassNid::where('status', '0')->count();
+        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount', 'nameAddressCount', 'birthRegCount','userPassCount'));
     }
 
 

@@ -110,6 +110,17 @@
 
                                 </tr>
                             @endif
+                            @if ($submitStatus->user_pass_nid == 1 && $hideUnhide->user_pass_nid == 1)
+                                <tr class="table-info">
+                                    <td>ইউজার পাসওয়ার্ড সেট <small><b>NID Card</b></small></td>
+                                    @if (auth()->user()->premium == 0)
+                                        <td>{{ $message->user_pass_nid_price ?? null }} ৳</td>
+                                    @elseif (auth()->user()->premium == 2)
+                                        <td>{{ $message->premium_user_pass_nid_price ?? null }} ৳</td>
+                                    @endif
+
+                                </tr>
+                            @endif
                             @if ($submitStatus->birth_order == 1 && $hideUnhide->birth_order == 1)
                                 <tr class="table-success">
                                     <td>নতুন জন্ম নিবন্ধন</td>

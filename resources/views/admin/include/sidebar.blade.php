@@ -100,7 +100,7 @@
                 @endif
 
                 {{-- <li class="menu-category">অর্ডার সার্ভিস</li> --}}
-                
+
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->sign_copy == 1)
                     <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
                                 class="fa-solid fa-file-powerpoint"></i><span class="hide-menu">সাইন কপি
@@ -179,6 +179,18 @@
                                 <li><a href="{{ route('admin.biometric-info.disabled') }}">পাওয়া যায়নি</a></li>
                             @endif
 
+                        </ul>
+                    </li>
+                @endif
+
+                @if (auth()->user()->is_admin == 1)
+                    <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                            aria-expanded="false"><i class="fa-solid fa-unlock-keyhole"></i><span
+                                class="hide-menu">ইউজার পাসওয়ার্ড সেট <small class="px-4"><b>NID Card</b></small></span></a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="{{ route('admin.user-pass-nid.index') }}">পেন্ডিং অর্ডার</a></li>
+                            <li><a href="{{ route('admin.user-pass-nid.completed') }}">পাওয়া গেছে</a></li>
+                            <li><a href="{{ route('admin.user-pass-nid.disabled') }}">পাওয়া যায়নি</a></li>
                         </ul>
                     </li>
                 @endif
