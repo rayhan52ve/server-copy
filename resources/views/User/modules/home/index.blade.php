@@ -121,6 +121,17 @@
 
                                 </tr>
                             @endif
+                            @if ($submitStatus->user_pass_nid == 1 && $hideUnhide->user_pass_nid == 1)
+                                <tr class="table-primary">
+                                    <td>এনআইডি সংশোধন <small><b>ফর্ম উত্তোলন</b></small></td>
+                                    @if (auth()->user()->premium == 0)
+                                        <td>{{ $message->nid_lost_form_price ?? null }} ৳</td>
+                                    @elseif (auth()->user()->premium == 2)
+                                        <td>{{ $message->premium_nid_lost_form_price ?? null }} ৳</td>
+                                    @endif
+
+                                </tr>
+                            @endif
                             @if ($submitStatus->birth_order == 1 && $hideUnhide->birth_order == 1)
                                 <tr class="table-success">
                                     <td>নতুন জন্ম নিবন্ধন</td>

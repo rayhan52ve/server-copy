@@ -21,7 +21,7 @@
                         }
                     </script>
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#createModal">
-                        <i class="fa-solid fa-plus"></i> অর্ডার আইডি কার্ড
+                        <i class="fa-solid fa-plus"></i> অর্ডার করুন
                     </button>
                     {{-- <a class="btn btn-success" href="{{ route('user.sign-copy.create') }}"><i class="fa-solid fa-plus"></i>
                         </a> --}}

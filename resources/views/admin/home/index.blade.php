@@ -36,8 +36,8 @@
         <div class="col-lg-12 col-md-12">
             <div class="row">
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->sign_copy == 1)
-                    <div class="col-xl-2 col-md-3 col-6">
-                        <div class="card bg-primary text-white mb-4">
+                    <div class="col-xl-2 col-md-3 col-6 mb-3">
+                        <div class="card bg-primary text-white mb-4 h-100">
                             <div class="card-header">
                                 <h5>Sign Copy</h5>
                             </div>
@@ -54,8 +54,8 @@
                     </div>
                 @endif
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->server_copy == 1)
-                    <div class="col-xl-2 col-md-3 col-6">
-                        <div class="card bg-warning text-white mb-4">
+                    <div class="col-xl-2 col-md-3 col-6 mb-3">
+                        <div class="card bg-warning text-white mb-4 h-100">
                             <div class="card-header">
                                 <h5>Server Copy</h5>
                             </div>
@@ -73,8 +73,8 @@
                     </div>
                 @endif
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->id_card == 1)
-                    <div class="col-xl-2 col-md-3 col-6">
-                        <div class="card bg-success text-white mb-4">
+                    <div class="col-xl-2 col-md-3 col-6 mb-3">
+                        <div class="card bg-success text-white mb-4 h-100">
                             <div class="card-header">
                                 <h5>Id Card</h5>
                             </div>
@@ -91,8 +91,8 @@
                     </div>
                 @endif
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->name_address_id == 1)
-                    <div class="col-xl-2 col-md-3 col-6">
-                        <div class="card bg-purple text-white mb-4">
+                    <div class="col-xl-2 col-md-3 col-6 mb-3">
+                        <div class="card bg-purple text-white mb-4 h-100">
                             <div class="card-header">
                                 <h5>ID Card <small style="font-size: 10px"><b>Name-Address</b></small></h5>
                             </div>
@@ -108,8 +108,8 @@
                     </div>
                 @endif
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->biometric == 1)
-                    <div class="col-xl-2 col-md-3 col-6">
-                        <div class="card bg-danger text-white mb-4">
+                    <div class="col-xl-2 col-md-3 col-6 mb-3">
+                        <div class="card bg-danger text-white mb-4 h-100">
                             <div class="card-header">
                                 <h5>Biometric Info</h5>
                             </div>
@@ -126,8 +126,8 @@
                     </div>
                 @endif
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->birth_order == 1)
-                    <div class="col-xl-2 col-md-3 col-6">
-                        <div class="card bg-info text-white mb-4">
+                    <div class="col-xl-2 col-md-3 col-6 mb-3">
+                        <div class="card bg-info text-white mb-4 h-100">
                             <div class="card-header">
                                 <h5>Birth Registration</h5>
                             </div>
@@ -144,10 +144,10 @@
                     </div>
                 @endif
                 @if (auth()->user()->is_admin == 1)
-                    <div class="col-xl-2 col-md-3 col-6">
-                        <div class="card text-white mb-4" style="background-color:rgb(8, 216, 147)">
+                    <div class="col-xl-2 col-md-3 col-6 mb-3">
+                        <div class="card text-white mb-4 h-100" style="background-color:rgb(70, 131, 85)">
                             <div class="card-header">
-                                <h5>ইউজার পাসওয়ার্ড সেট <small><b>NID Card</b></small></h5>
+                                <h5>User Password Set <small><b>NID Card</b></small></h5>
                             </div>
                             <div class="card-body text-center">
                                 <h1>{{ $userPassCount }}</h1>
@@ -155,6 +155,24 @@
                             <div class="card-footer d-flex align-items-center justify-content-between">
                                 <a class="small text-white stretched-link"
                                     href="{{ route('admin.user-pass-nid.index') }}">View Details</a>
+
+                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                @if (auth()->user()->is_admin == 1)
+                    <div class="col-xl-2 col-md-3 col-6 mb-3">
+                        <div class="card text-white mb-4 h-100" style="background-color:rgb(153, 39, 159)">
+                            <div class="card-header">
+                                <h5>Nid Correction <small><b>Form Download</b></small></h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <h1>{{ $nidLostFormCount }}</h1>
+                            </div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <a class="small text-white stretched-link"
+                                    href="{{ route('admin.lost-nid-form.index') }}">View Details</a>
 
                                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                             </div>

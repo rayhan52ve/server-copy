@@ -242,6 +242,36 @@
                         </div>
 
                     </div>
+
+                    <div class="form-group py-2">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label>এনআইডি সংশোধন ফর্ম উত্তোলন</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->nid_lost_form ?? null }}" name="nid_lost_form" placeholder="ইউজার পাসওয়ার্ড সেট (NID Card) মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>এনআইডি সংশোধন ফর্ম উত্তোলন মূল্য</label>
+                                <input type="number" class="form-control" rows="5"
+                                    value="{{ $message->nid_lost_form_price ?? null }}" name="nid_lost_form_price"
+                                    placeholder="0">
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-md-8">
+                                <label>এনআইডি সংশোধন ফর্ম উত্তোলন (Premium)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->premium_nid_lost_form ?? null }}" name="premium_nid_lost_form" placeholder="ইউজার পাসওয়ার্ড সেট (NID Card) মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>এনআইডি সংশোধন ফর্ম উত্তোলন (Premium)</label>
+                                <input type="number" class="form-control" rows="5"
+                                    value="{{ $message->premium_nid_lost_form_price ?? null }}" name="premium_nid_lost_form_price"
+                                    placeholder="0">
+                            </div>
+                        </div>
+
+                    </div>
                     <div class="form-group py-2">
                         <div class="row">
                             <div class="col-md-8">

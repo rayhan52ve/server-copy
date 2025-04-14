@@ -58,6 +58,11 @@
                             name="user_pass_nid" placeholder="ইউজার পাসওয়ার্ড সেট (NID) নোটিশ">
                     </div>
                     <div class="form-group py-2">
+                        <label>এনআইডি সংশোধন ফর্ম উত্তোলন</label>
+                        <input type="text" class="form-control" rows="5" value="{{ $notice->nid_lost_form ?? null }}"
+                            name="nid_lost_form" placeholder="এনআইডি সংশোধন ফর্ম উত্তোলন নোটিশ">
+                    </div>
+                    <div class="form-group py-2">
                         <label>নতুন জন্ম নিবন্ধন</label>
                         <input type="text" class="form-control" rows="5" value="{{ $notice->birth_order ?? null }}"
                             name="birth_order" placeholder="নতুন জন্ম নিবন্ধন নোটিশ">

@@ -50,11 +50,15 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a onclick="sweetConfirmation(event)"
+                                            {{-- <a onclick="sweetConfirmation(event)"
                                                 href="{{ route('admin.activeStatus', $item->id) }}"
                                                 class="btn btn-sm btn-rounded btn-outline-{{ $item->status == 1 ? 'cyan' : 'danger' }}">
                                                 {{ $item->status == 1 ? 'Active' : 'Inactive' }}
-                                            </a>
+                                            </a> --}}
+                                            <button type="button"
+                                                class="btn btn-sm btn-rounded btn-outline-{{ $item->status == 1 ? 'cyan' : 'danger' }} change-selected-status">
+                                                {{ $item->status == 1 ? 'Active' : 'Inactive' }}
+                                            </button>
                                         </td>
                                     @endif
                                     <td>
@@ -236,6 +240,51 @@
                 </div>
             </div>
         </div>
+        <!-- Status Selection Modal -->
+        <div class="modal fade" id="statusSelectionModal" tabindex="-1" role="dialog"
+            aria-labelledby="statusSelectionModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="uploadModalLabel">Are you sure?</h5>
+                        <button type="button" class="close" onclick="closeModal()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h3 class="text-center">Select Status</h3>
+                        <div class="form-group text-center">
+                            <select class="form-control text-center" id="statusSelect">
+                                <option value="1"
+                                    {{ url()->current() == route('admin.inactiveUser') ? 'selected' : '' }}>Active</option>
+                                <option value="0"
+                                    {{ url()->current() != route('admin.inactiveUser') ? 'selected' : '' }}>Inactive
+                                </option>
+
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-end mt-3">
+                            <button type="button" class="btn btn-secondary mx-1" onclick="closeModal()">Close</button>
+                            <button type="submit" class="btn btn-success mx-1" id="confirmStatusChange">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function closeModal() {
+                $('#statusSelectionModal').modal('hide');
+            }
+        </script>
+
+
+        <!-- Multiple Status form -->
+        <form id="multipleStatusform" action="{{ route('admin.multipleStatus') }}" method="post">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="checked_user_ids[]" id="checked_user_ids">
+            <input type="hidden" name="status" id="statusInput">
+        </form>
     </div>
     {{-- multiple deletion form --}}
     <form id="multipleDeleteform" onsubmit="return false;" action="{{ route('admin.multipleDelete') }}" method="post">
@@ -243,7 +292,8 @@
         @method('PUT')
         <input type="hidden" name="checked_user_ids[]" id="checked_user_ids">
     </form>
-    {{-- multiple deletion form --}}
+
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -292,7 +342,7 @@
             document.querySelectorAll(".delete-selected").forEach(button => {
                 button.addEventListener("click", function() {
                     let selectedUsers = document.querySelectorAll(
-                    'input[name="checked[]"]:checked');
+                        'input[name="checked[]"]:checked');
                     let selectedUserIds = Array.from(selectedUsers).map(checkbox => checkbox.value);
 
                     if (selectedUserIds.length === 0) {
@@ -316,7 +366,7 @@
                         cancelButtonText: 'No'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            let form = document.querySelector("#multipleDeleteform");
+                            let statusForm = document.querySelector("#multipleDeleteform");
                             let inputContainer = document.createElement("div");
 
                             // Remove old inputs to prevent duplication
@@ -332,11 +382,65 @@
                                 inputContainer.appendChild(input);
                             });
 
-                            form.appendChild(inputContainer);
-                            form.submit();
+                            statusForm.appendChild(inputContainer);
+                            statusForm.submit();
                         }
                     });
                 });
+            });
+
+            document.addEventListener("click", function(event) {
+                if (event.target.classList.contains("change-selected-status")) {
+                    let selectedUsers = document.querySelectorAll('input[name="checked[]"]:checked');
+                    let selectedUserIds = Array.from(selectedUsers).map(checkbox => checkbox.value);
+
+                    if (selectedUserIds.length === 0) {
+                        Swal.fire({
+                            title: "No user is selected!",
+                            text: "Please select at least one user to change status.",
+                            icon: "warning",
+                            confirmButtonText: "OK"
+                        });
+                        return;
+                    }
+
+                    // Store the selected user IDs in a data attribute
+                    $('#statusSelectionModal').data('selectedUserIds', selectedUserIds);
+
+                    // Show the Bootstrap modal
+                    $('#statusSelectionModal').modal('show');
+                }
+            });
+
+
+            // Handle the confirm button in the modal
+            document.getElementById('confirmStatusChange').addEventListener('click', function() {
+                let form = document.querySelector("#multipleStatusform");
+                let selectedUserIds = $('#statusSelectionModal').data('selectedUserIds');
+                let selectedStatus = document.getElementById('statusSelect').value;
+
+                // Clear any existing hidden inputs
+                document.querySelectorAll("input[name='checked_user_ids[]']").forEach(el => {
+                    if (el.id !== 'checked_user_ids') el.remove();
+                });
+
+                // Add the status to the form
+                document.getElementById('statusInput').value = selectedStatus;
+
+                // Create hidden inputs for each selected user ID
+                selectedUserIds.forEach(id => {
+                    let input = document.createElement("input");
+                    input.type = "hidden";
+                    input.name = "checked_user_ids[]";
+                    input.value = id;
+                    form.appendChild(input);
+                });
+
+                // Submit the form
+                form.submit();
+
+                // Hide the modal
+                $('#statusSelectionModal').modal('hide');
             });
 
             const allChecked = document.querySelector("input[name='all_checked']");

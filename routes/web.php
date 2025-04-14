@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminBiometricInfoController;
 use App\Http\Controllers\Admin\AdminBirthOrderController;
 use App\Http\Controllers\Admin\AdminIdCardController;
+use App\Http\Controllers\Admin\AdminLostNidFormController;
 use App\Http\Controllers\Admin\AdminNameAddressIdController;
 use App\Http\Controllers\Admin\AdminRechargeController;
 use App\Http\Controllers\Admin\AdminServerCopyOrderController;
@@ -41,6 +42,7 @@ use App\Http\Controllers\User\SignToServerCopyController;
 use App\Http\Controllers\User\UserdashboardController;
 use App\Http\Controllers\User\UserPassNidController;
 use App\Http\Controllers\User\VoterInfoController;
+use App\Http\Controllers\User\NidLostFormController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WebsiteSettingsController;
 
@@ -107,6 +109,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
     Route::resource('biometric-info', BiometricInfoController::class)->only('index', 'store');
     Route::resource('name-address-id', NameAddressIdController::class)->only('index', 'store');
     Route::resource('user-pass-nid', UserPassNidController::class)->only('index', 'store');
+    Route::resource('nid-lost-form', NidLostFormController::class)->only('index', 'store');
     Route::resource('birth-order', BirthOrderController::class)->only('index', 'store');
     Route::resource('new-nid', NewNidController::class)->only('index', 'store');
     Route::resource('sign-to-server', SignToServerCopyController::class)->only('index', 'store');
@@ -157,6 +160,7 @@ Route::get('/biometric-info-file/download/{id}', [AdminBiometricInfoController::
 Route::get('/name-address-id-file/download/{id}', [AdminNameAddressIdController::class, 'download'])->name('name-address-id-file.download');
 Route::get('/name-address-id-image/download/{id}', [AdminNameAddressIdController::class, 'imageDownload'])->name('name-address-id-image.download');
 Route::get('/user-pass-nid-image/download/{id}', [AdminUserpassNidController::class, 'imageDownload'])->name('user-pass-nid-image.download');
+Route::get('/lost-nid-form-file/download/{id}', [AdminLostNidFormController::class, 'download'])->name('lost-nid-form-file.download');
 
 Route::get('/birth-order-file/download/{id}', [AdminBirthOrderController::class, 'download'])->name('birth-order-file.download');
 Route::get('/birth-order-nid/download/{id}', [AdminBirthOrderController::class, 'nidDownload'])->name('nidDownload.download');
@@ -176,6 +180,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::get('/premium-request', [ManageUserController::class, 'premiumRequest'])->name('premiumRequest');
     Route::get('/premium-user-list', [ManageUserController::class, 'premiumUser'])->name('premiumUser');
     Route::put('/user-multiple-delete', [ManageUserController::class, 'multipleDelete'])->name('multipleDelete');
+    Route::put('/user-multiple-status', [ManageUserController::class, 'multipleStatus'])->name('multipleStatus');
     Route::post('/user-popup-message', [ManageUserController::class, 'popupMessage'])->name('popupMessage');  
 
     Route::resource('sign-copy', AdminSignCopyOrderController::class)->only('index', 'destroy');
@@ -227,10 +232,17 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::post('/name-address-id-update-handler', [AdminNameAddressIdController::class, 'fileUpload'])->name('name-address-id-file.upload');
     Route::put('/name-address-id-refund/{id}', [AdminNameAddressIdController::class, 'refund'])->name('refund.name-address-id');
     
+    Route::resource('lost-nid-form', AdminLostNidFormController::class)->only('index', 'destroy');
+    Route::get('lost-nid-form-completed', [AdminLostNidFormController::class, 'completed'])->name('lost-nid-form.completed');
+    Route::get('lost-nid-form-disabled', [AdminLostNidFormController::class, 'disabled'])->name('lost-nid-form.disabled');
+    Route::put('/lost-nid-form-status/{id}', [AdminLostNidFormController::class, 'updateStatus'])->name('updateNidLostForms');
+    Route::post('/lost-nid-form-update-handler', [AdminLostNidFormController::class, 'fileUpload'])->name('lost-nid-form-file.upload');
+    Route::put('/lost-nid-form-refund/{id}', [AdminLostNidFormController::class, 'refund'])->name('refund.lost-nid-form');
+    
     Route::resource('user-pass-nid', AdminUserpassNidController::class)->only('index', 'destroy');
     Route::get('user-pass-nid-completed', [AdminUserpassNidController::class, 'completed'])->name('user-pass-nid.completed');
     Route::get('user-pass-nid-disabled', [AdminUserpassNidController::class, 'disabled'])->name('user-pass-nid.disabled');
-    Route::put('/user-pass-nid-status/{id}', [AdminUserpassNidController::class, 'updateStatus'])->name('updateNameAddressId');
+    Route::put('/user-pass-nid-status/{id}', [AdminUserpassNidController::class, 'updateStatus'])->name('updateUserPassNid');
     Route::post('/user-pass-nid-update-handler', [AdminUserpassNidController::class, 'fileUpload'])->name('user-pass-nid-file.upload');
     Route::put('/user-pass-nid-refund/{id}', [AdminUserpassNidController::class, 'refund'])->name('refund.user-pass-nid');
 

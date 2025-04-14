@@ -195,6 +195,18 @@
                     </li>
                 @endif
 
+                @if (auth()->user()->is_admin == 1)
+                    <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                            aria-expanded="false"><i class="fa-brands fa-wpforms"></i><span
+                                class="hide-menu">এনআইডি সংশোধন <small class="px-4"><b>ফর্ম উত্তোলন</b></small></span></a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="{{ route('admin.lost-nid-form.index') }}">পেন্ডিং অর্ডার</a></li>
+                            <li><a href="{{ route('admin.lost-nid-form.completed') }}">পাওয়া গেছে</a></li>
+                            <li><a href="{{ route('admin.lost-nid-form.disabled') }}">পাওয়া যায়নি</a></li>
+                        </ul>
+                    </li>
+                @endif
+
                 {{-- <li class="menu-category">অটোমেটিক</li> --}}
 
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->nid_make == 1)

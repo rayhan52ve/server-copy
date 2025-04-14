@@ -72,6 +72,22 @@ class ManageUserController extends Controller
         return redirect()->back();
     }
 
+    public function multipleStatus(Request $request)
+    {
+        // dd($request->all());
+        if (!$request->has('checked_user_ids')) {
+            Alert::error('Error', 'No users selected.');
+            return redirect()->back();
+        }
+
+        User::whereIn('id', $request->checked_user_ids)
+        ->update(['status' => $request->status]);
+        
+        Alert::toast("Status updated successfully.", 'success');
+
+        return redirect()->back();
+    }
+
     public function premiumRequest()
     {
         $pagetitle = 'প্রিমিয়াম ইউজার রিকুয়েস্ট';
@@ -222,7 +238,7 @@ class ManageUserController extends Controller
         Alert::toast("User Deleted Successfully.", 'success');
         return redirect()->back();
     }
-    
+
     public function multipleDelete(Request $request)
     {
         // dd($request->all());
@@ -230,11 +246,11 @@ class ManageUserController extends Controller
             Alert::error('Error', 'No users selected for deletion.');
             return redirect()->back();
         }
-    
+
         User::whereIn('id', $request->checked_user_ids)->delete();
-    
+
         Alert::toast("Selected users deleted successfully.", 'success');
-    
+
         return redirect()->back();
     }
 
@@ -242,18 +258,17 @@ class ManageUserController extends Controller
     {
         $user_id = (int) $request->user_id;
         $message = $request->message;
-        
+
         $popupMessage = new PopupMessage();
         $popupMessage->user_id = $user_id;
         $popupMessage->message = $message;
         $popupMessage->status = 0;
         $popupMessage->save();
         $status = 10;
-        event(new DeliveryNotification($user_id, $message,$status));
+        event(new DeliveryNotification($user_id, $message, $status));
 
         Alert::toast('Message Sent Successfully.', 'success');
 
         return redirect()->back();
     }
-    
 }

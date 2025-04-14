@@ -9,6 +9,7 @@ use App\Models\IdCardOrder;
 use App\Models\Message;
 use App\Models\NameAddressId;
 use App\Models\NewRegistration;
+use App\Models\NidLostForm;
 use App\Models\NidMake;
 use App\Models\Report;
 use App\Models\ServerCopyOrder;
@@ -62,7 +63,8 @@ class HomeController extends Controller
         $nameAddressCount = NameAddressId::where('status', '0')->count();
         $birthRegCount = BirthOrder::where('status', '0')->count();
         $userPassCount = UserPassNid::where('status', '0')->count();
-        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount', 'nameAddressCount', 'birthRegCount','userPassCount'));
+        $nidLostFormCount = NidLostForm::where('status', '0')->count();
+        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount', 'nameAddressCount', 'birthRegCount','userPassCount','nidLostFormCount'));
     }
 
 
@@ -166,6 +168,10 @@ class HomeController extends Controller
         BiometricInfo::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
 
         NameAddressId::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
+        
+        UserPassNid::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
+
+        NidLostForm::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
 
         Alert::toast('Completed orders and associated files cleared.', 'success');
         return redirect()->back();
@@ -233,6 +239,23 @@ class HomeController extends Controller
         }
         NameAddressId::where('status', '!=', 0)->delete();
 
+        $userPassNid = UserPassNid::where('status', '!=', 0)->get();
+        foreach ($userPassNid as $order) {
+            $filePath = public_path($order->file);
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+        UserPassNid::where('status', '!=', 0)->delete();
+
+        $nidLostForm = NidLostForm::where('status', '!=', 0)->get();
+        foreach ($nidLostForm as $order) {
+            $filePath = public_path($order->file);
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+        NidLostForm::where('status', '!=', 0)->delete();
 
         ServerCopyUnofficial::query()->delete();
         NidMake::query()->delete();

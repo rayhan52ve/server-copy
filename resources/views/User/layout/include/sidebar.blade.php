@@ -126,6 +126,12 @@
                                     class="hide-menu">ইউজার পাসওয়ার্ড সেট <small class="px-4"><b>NID Card</b></small></span></a>
                         </li>
                     @endif
+                    @if ($hideUnhide->nid_lost_form == 1)
+                        <li> <a class="waves-effect waves-dark" href="{{ route('user.nid-lost-form.index') }}"
+                                aria-expanded="false"><i class="fa-brands fa-wpforms"></i><span
+                                    class="hide-menu">এনআইডি সংশোধন <small class="px-4">ফর্ম উত্তোলন</small></span></a>
+                        </li>
+                    @endif
                     @if ($hideUnhide->birth_order == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.birth-order.index') }}"
                                 aria-expanded="false"><i class="fa-solid fa-file-lines"></i><span class="hide-menu">নতুন

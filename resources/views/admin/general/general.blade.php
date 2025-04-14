@@ -188,6 +188,19 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">
+                                                        এনআইডি সংশোধন ফর্ম উত্তোলন
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$hideUnhide->nid_lost_form == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="nid_lost_form" value="0">
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="nid_lost_form" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$hideUnhide->nid_lost_form == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group py-2">
                                                         নতুন জন্ম নিবন্ধন
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
@@ -428,6 +441,18 @@
                                                                 value="1" name="user_pass_nid" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$submitStatus->user_pass_nid == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group py-2">
+                                                        এনআইডি সংশোধন ফর্ম উত্তোলন
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$submitStatus->nid_lost_form == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="nid_lost_form" value="0">
+                                                            <input class="form-check-input" onclick="submitForm()"
+                                                                value="1" name="nid_lost_form" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$submitStatus->nid_lost_form == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">
