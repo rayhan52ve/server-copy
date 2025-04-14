@@ -105,17 +105,47 @@ class AdminBirthOrderController extends Controller
     public function destroy($id)
     {
         $nameAddressId = BirthOrder::find($id);
+        // dd($nameAddressId->file);
 
         $destination1 = $nameAddressId->file;
-        $destination2 =  'uploads/id_card/' . $nameAddressId->image;
+        $destination2 =  'uploads/id_card/' . $nameAddressId->fathers_nid_file;
+        $destination3 =  'uploads/id_card/' . $nameAddressId->mothers_nid_file;
+        $destination4 =  'uploads/id_card/' . $nameAddressId->school_cirtificate;
+        $destination5 =  'uploads/id_card/' . $nameAddressId->tika_card;
+        $destination6 =  'uploads/id_card/' . $nameAddressId->nid_file;
+        // dd($destination2);
 
         if (File::exists($destination1)) {
+            // dd(1);
             File::delete($destination1);
         }
 
         if (File::exists($destination2)) {
+            // dd(2);
             File::delete($destination2);
         }
+
+        if (File::exists($destination3)) {
+            // dd(3);
+            File::delete($destination3);
+        }
+
+        if (File::exists($destination4)) {
+            // dd(4);
+            File::delete($destination4);
+        }
+
+        if (File::exists($destination5)) {
+            // dd(5);
+            File::delete($destination5);
+        }
+
+        if (File::exists($destination6)) {
+            // dd(6);
+            File::delete($destination6);
+        }
+
+        // dd('delete');
 
         $nameAddressId->delete();
         Alert::toast('Birth Registration Order Deleted Successfully.', 'success');

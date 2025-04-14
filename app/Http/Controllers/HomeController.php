@@ -236,6 +236,10 @@ class HomeController extends Controller
             if (File::exists($filePath)) {
                 File::delete($filePath);
             }
+            $imagePathNAI = public_path('uploads/id_card/' .$order->image);
+            if (File::exists($imagePathNAI)) {
+                File::delete($imagePathNAI);
+            }
         }
         NameAddressId::where('status', '!=', 0)->delete();
 
@@ -244,6 +248,10 @@ class HomeController extends Controller
             $filePath = public_path($order->file);
             if (File::exists($filePath)) {
                 File::delete($filePath);
+            }
+            $imagePathUserPassNid = public_path('uploads/id_card/' . $order->image);
+            if (File::exists($imagePathUserPassNid)) {
+                File::delete($imagePathUserPassNid);
             }
         }
         UserPassNid::where('status', '!=', 0)->delete();
