@@ -151,6 +151,19 @@
                                                         </div>
                                                     </div> --}}
                                                     <div class="form-group py-2">
+                                                        ভ্যাক্সিনেশন সার্টিফিকেট
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$hideUnhide->vaccin == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="vaccin" value="0">
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="vaccin" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$hideUnhide->vaccin == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group py-2">
                                                         এনআইডি মেক
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
@@ -419,6 +432,18 @@
                                                             {{ @$submitStatus->new_nid == 1 ? 'checked' : '' }}>
                                                     </div>
                                                 </div> --}}
+                                                    <div class="form-group py-2">
+                                                        ভ্যাক্সিনেশন সার্টিফিকেট
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$submitStatus->vaccin == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="vaccin" value="0">
+                                                            <input class="form-check-input" onclick="submitForm()"
+                                                                value="1" name="vaccin" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$submitStatus->vaccin == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
                                                     <div class="form-group py-2">
                                                         এনআইডি মেক
                                                         <div class="form-check form-switch">

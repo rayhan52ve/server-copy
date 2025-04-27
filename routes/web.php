@@ -43,6 +43,7 @@ use App\Http\Controllers\User\UserdashboardController;
 use App\Http\Controllers\User\UserPassNidController;
 use App\Http\Controllers\User\VoterInfoController;
 use App\Http\Controllers\User\NidLostFormController;
+use App\Http\Controllers\VaccinController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WebsiteSettingsController;
 
@@ -116,6 +117,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
 
     Route::resource('old-nid', OldNidController::class)->only('index', 'store');
     Route::resource('nid-make', NidMakeController::class)->only('index', 'store');
+    Route::resource('vaccin', VaccinController::class)->only('index', 'store');
     Route::post('nid-make-with-signcopy', [NidMakeController::class,'signCopyUpload'])->name('signCopyNidApi');
     Route::resource('new-registration', NewRegistrationController::class)->only('index', 'store');
     Route::resource('voter-info', VoterInfoController::class)->only('index', 'store');
@@ -132,6 +134,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
 });
 
 Route::get('print-saved-nid/{id}', [NidMakeController::class,'printSavedNid'])->name('print.savedNid')->middleware('auth');
+Route::get('print-saved-vaccin/{id}', [VaccinController::class,'printSavedVaccin'])->name('print.savedVaccin')->middleware('auth');
 Route::get('print-saved-birth/{id}', [NewRegistrationController::class,'printSavedBirth'])->name('print.savedBirth')->middleware('auth');
 Route::get('/print-saved-tin/{id}',[SignToServerCopyController::class,'print_saved_tin'])->name('print.print_saved_tin')->middleware('auth');
 

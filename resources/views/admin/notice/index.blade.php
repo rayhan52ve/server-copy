@@ -48,6 +48,11 @@
                             name="new_nid" placeholder="নতুন এনআইডি নোটিশ">
                     </div> --}}
                     <div class="form-group py-2">
+                        <label>ভ্যাক্সিনেশন সার্টিফিকেট</label>
+                        <input type="text" class="form-control" rows="5" value="{{ $notice->vaccin ?? null }}"
+                            name="vaccin" placeholder=" ভ্যাক্সিনেশন সার্টিফিকেট নোটিশ">
+                    </div>
+                    <div class="form-group py-2">
                         <label>এনআইডি মেক</label>
                         <input type="text" class="form-control" rows="5" value="{{ $notice->old_nid ?? null }}"
                             name="old_nid" placeholder=" এনআইডি নোটিশ">

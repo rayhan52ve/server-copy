@@ -163,6 +163,12 @@
                                 </span></a>
                         </li>
                     @endif
+                    @if ($hideUnhide->vaccin == 1)
+                        <li> <a class="waves-effect waves-dark" href="{{ route('user.vaccin.index') }}"
+                                aria-expanded="false"><i class="fa-regular fa-id-card"></i><span
+                                    class="hide-menu">ভ্যাক্সিনেশন সার্টিফিকেট</span></a>
+                        </li>
+                    @endif
                     @if ($hideUnhide->sign_to_server == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.sign-to-server.index') }}"
                                 aria-expanded="false"><i class="fa-solid fa-file-import"></i><span class="hide-menu">টিন

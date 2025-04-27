@@ -179,6 +179,43 @@
                     <div class="form-group py-2">
                         <div class="row">
                             <div class="col-md-8">
+                                <label>ভ্যাক্সিনেশন সার্টিফিকেট</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->vaccin ?? null }}" name="vaccin"
+                                    placeholder="ভ্যাক্সিনেশন সার্টিফিকেট মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>ভ্যাক্সিনেশন সার্টিফিকেট মূল্য</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->vaccin_price ?? null }}" name="vaccin_price"
+                                    placeholder="0">
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-md-8">
+                                <label>ভ্যাক্সিনেশন সার্টিফিকেট (Premium)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->premium_vaccin ?? null }}" name="premium_vaccin"
+                                    placeholder="ভ্যাক্সিনেশন সার্টিফিকেট মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>ভ্যাক্সিনেশন সার্টিফিকেট মূল্য (Premium)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->premium_vaccin_price ?? null }}" name="premium_vaccin_price"
+                                    placeholder="0">
+
+                                <label>ভ্যাক্সিনেশন সার্টিফিকেট মূল্য (Remake)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->vaccin_remake_price ?? null }}" name="vaccin_remake_price"
+                                    placeholder="0">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group py-2">
+                        <div class="row">
+                            <div class="col-md-8">
                                 <label>এনআইডি মেক</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->old_nid ?? null }}" name="old_nid"
