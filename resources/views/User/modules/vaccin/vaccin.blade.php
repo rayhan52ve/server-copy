@@ -51,7 +51,7 @@
                                     <label for="certification_no">Certificate No (সার্টিফিকেট নং): <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="certification_no"
-                                        name="certification_no" value="BD{{ mt_rand(10000000000000000, 99999999999999999) }}"
+                                        name="certification_no" value="BD{{ mt_rand(10000000000, 99999999999) }}"
                                         readonly>
                                 </div>
                                 <div class="col-md-6 mb-3">

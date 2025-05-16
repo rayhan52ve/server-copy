@@ -16,6 +16,7 @@ use App\Models\SignCopyOrder;
 use App\Models\TinCirtificate;
 use App\Models\User;
 use App\Models\UserNotification;
+use App\Models\Vaccin;
 use App\Models\Video;
 use App\Models\VideoLink;
 use Carbon\Carbon;
@@ -71,6 +72,14 @@ class UserdashboardController extends Controller
         $new_regs = NewRegistration::where('user_id',$id)->latest()->paginate(15);
 
         return view('User.modules.file_list.birth',compact('new_regs','message'));
+    }
+
+    public function vaccineList($id)
+    {
+        $message = Message::first();
+        $new_regs = Vaccin::where('user_id',$id)->latest()->paginate(15);
+
+        return view('User.modules.file_list.vaccin',compact('new_regs','message'));
     }
 
     public function tinList($id)

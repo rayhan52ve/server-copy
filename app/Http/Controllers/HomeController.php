@@ -17,6 +17,7 @@ use App\Models\ServerCopyUnofficial;
 use App\Models\SignCopyOrder;
 use App\Models\TinCirtificate;
 use App\Models\UserPassNid;
+use App\Models\Vaccin;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -113,6 +114,21 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
+    public function vaccineList()
+    {
+        $new_regs = Vaccin::where('hide',0)->latest()->get();
+        $message = Message::first();
+
+        return view('admin.file_list.vaccine', compact('new_regs', 'message'));
+    }
+
+    public function clearAllVaccine()
+    {
+        Vaccin::truncate();
+        Alert::toast("All Vaccine Data Cleared Successfully.", 'success');
+        return redirect()->back();
+    }
+
     public function tinList()
     {
         $tins = TinCirtificate::where('hide',0)->latest()->get();
@@ -184,6 +200,7 @@ class HomeController extends Controller
         NidMake::where('hide', 0)->update(['hide' => 1]);
         NewRegistration::where('hide', 0)->update(['hide' => 1]);
         TinCirtificate::where('hide', 0)->update(['hide' => 1]);
+        Vaccin::where('hide', 0)->update(['hide' => 1]);
 
 
         Alert::toast('All file list data removed.', 'success');
@@ -269,6 +286,7 @@ class HomeController extends Controller
         NidMake::query()->delete();
         NewRegistration::query()->delete();
         TinCirtificate::query()->delete();
+        Vaccin::query()->delete();
 
         Alert::toast('All the data and associated files cleared.', 'success');
         return redirect()->back();

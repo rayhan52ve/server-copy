@@ -15,6 +15,7 @@ class CreateVaccinsTable extends Migration
     {
         Schema::create('vaccins', function (Blueprint $table) {
             $table->id();
+            $table->string('verification_token', 64)->unique();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('certification_no')->nullable();
             $table->string('nid_number')->nullable();

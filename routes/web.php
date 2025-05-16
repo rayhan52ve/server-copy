@@ -103,6 +103,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
     Route::get('/server-copy-file-list/{id}', [UserdashboardController::class, 'serverCopyUnofficialList'])->name('serverCopyUnofficialList');
     Route::get('/nid-file-list/{id}', [UserdashboardController::class, 'nidList'])->name('nidList');
     Route::get('/birth-file-list/{id}', [UserdashboardController::class, 'birthList'])->name('birthList');
+    Route::get('/vaccine-file-list/{id}', [UserdashboardController::class, 'vaccineList'])->name('vaccineList');
     Route::get('/tin-file-list/{id}', [UserdashboardController::class, 'tinList'])->name('tinList');
     Route::resource('sign-copy', SignCopyOrderController::class)->only('index', 'store');
     Route::resource('server-copy', ServerCopyOrderController::class)->only('index', 'store');
@@ -135,6 +136,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
 
 Route::get('print-saved-nid/{id}', [NidMakeController::class,'printSavedNid'])->name('print.savedNid')->middleware('auth');
 Route::get('print-saved-vaccin/{id}', [VaccinController::class,'printSavedVaccin'])->name('print.savedVaccin')->middleware('auth');
+Route::get('certificate-verify/{token}', [VaccinController::class,'certificate_verify'])->name('certificate_verify')->middleware('auth');
 Route::get('print-saved-birth/{id}', [NewRegistrationController::class,'printSavedBirth'])->name('print.savedBirth')->middleware('auth');
 Route::get('/print-saved-tin/{id}',[SignToServerCopyController::class,'print_saved_tin'])->name('print.print_saved_tin')->middleware('auth');
 
@@ -288,6 +290,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
 
     Route::get('/birth-file-list', [HomeController::class, 'birthList'])->name('birthList');
     Route::get('/clear-birth-file-list', [HomeController::class, 'clearAllbirth'])->name('clearAllbirth');
+
+    Route::get('/vaccine-file-list', [HomeController::class, 'vaccineList'])->name('vaccineList');
+    Route::get('/clear-vaccine-file-list', [HomeController::class, 'clearAllVaccine'])->name('clearAllVaccine');
+
     Route::get('/tin-file-list', [HomeController::class, 'tinList'])->name('tinList');
     Route::get('/clear-tin-file-list', [HomeController::class, 'clearAllTin'])->name('clearAllTin');
 

@@ -1,0 +1,49 @@
+[25-Jul-2024 23:55:06 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'puffinxy_cexpress.certificates' doesn't exist in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php:21
+Stack trace:
+#0 /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php(21): mysqli->prepare()
+#1 {main}
+  thrown in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 21
+[27-Jul-2024 03:07:21 UTC] PHP Parse error:  syntax error, unexpected token "endif", expecting end of file in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 603
+[02-Aug-2024 04:22:04 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/alt-php44/sess_as7h7qfrl97aig2l3pj5ba4ili, O_RDWR) failed: No such file or directory (2) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 2
+[02-Aug-2024 04:22:04 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/alt-php44) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 2
+[02-Aug-2024 04:22:04 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'puffinxy_verify'@'localhost' (using password: YES) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php:10
+Stack trace:
+#0 /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php(10): mysqli->__construct()
+#1 {main}
+  thrown in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 10
+[02-Aug-2024 04:22:06 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/alt-php44/sess_o7nmkj85u5h66oanica4n35c7q, O_RDWR) failed: No such file or directory (2) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 2
+[02-Aug-2024 04:22:06 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/alt-php44) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 2
+[02-Aug-2024 04:22:06 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'puffinxy_verify'@'localhost' (using password: YES) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php:10
+Stack trace:
+#0 /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php(10): mysqli->__construct()
+#1 {main}
+  thrown in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 10
+[02-Aug-2024 04:22:08 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/alt-php44/sess_qf4g054t9qd56c8kots6n84jck, O_RDWR) failed: No such file or directory (2) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 2
+[02-Aug-2024 04:22:08 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/alt-php44) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 2
+[02-Aug-2024 04:22:08 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'puffinxy_verify'@'localhost' (using password: YES) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php:10
+Stack trace:
+#0 /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php(10): mysqli->__construct()
+#1 {main}
+  thrown in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 10
+[02-Aug-2024 04:24:36 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/alt-php44/sess_o7nmkj85u5h66oanica4n35c7q, O_RDWR) failed: No such file or directory (2) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 2
+[02-Aug-2024 04:24:36 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/alt-php44) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 2
+[02-Aug-2024 04:27:31 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/alt-php44/sess_o7nmkj85u5h66oanica4n35c7q, O_RDWR) failed: No such file or directory (2) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 4
+[02-Aug-2024 04:27:31 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/alt-php44) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 4
+[02-Aug-2024 04:29:50 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/alt-php44/sess_o7nmkj85u5h66oanica4n35c7q, O_RDWR) failed: No such file or directory (2) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 4
+[02-Aug-2024 04:29:50 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/alt-php44) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 4
+[02-Aug-2024 04:35:37 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/alt-php44/sess_o7nmkj85u5h66oanica4n35c7q, O_RDWR) failed: No such file or directory (2) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 4
+[02-Aug-2024 04:35:37 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/alt-php44) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 4
+[02-Aug-2024 04:35:39 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/alt-php44/sess_o7nmkj85u5h66oanica4n35c7q, O_RDWR) failed: No such file or directory (2) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 4
+[02-Aug-2024 04:35:39 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/alt-php44) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 4
+[02-Aug-2024 00:36:41] PHP Parse error:  syntax error, unexpected '?' in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 22
+[02-Aug-2024 00:36:44] PHP Parse error:  syntax error, unexpected '?' in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 22
+[02-Aug-2024 00:37:11] PHP Parse error:  syntax error, unexpected '?' in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 21
+[02-Aug-2024 04:37:51 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/alt-php44/sess_o7nmkj85u5h66oanica4n35c7q, O_RDWR) failed: No such file or directory (2) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 3
+[02-Aug-2024 04:37:51 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/alt-php44) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 3
+[02-Aug-2024 04:38:47 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/alt-php44/sess_o7nmkj85u5h66oanica4n35c7q, O_RDWR) failed: No such file or directory (2) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 3
+[02-Aug-2024 04:38:47 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/alt-php44) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 3
+[02-Aug-2024 04:39:33 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/alt-php44/sess_o7nmkj85u5h66oanica4n35c7q, O_RDWR) failed: No such file or directory (2) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 3
+[02-Aug-2024 04:39:33 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/alt-php44) in /home/puffinxy/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 3
+[01-Mar-2025 13:24:27 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home2/julyxyz/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 607
+[01-Mar-2025 13:24:35 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home2/julyxyz/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 607
+[01-Mar-2025 13:24:38 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home2/julyxyz/public_html/surokkhagovbd.puffin24.xyz/certificate_verify.php on line 607

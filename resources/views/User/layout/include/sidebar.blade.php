@@ -190,6 +190,7 @@
                             <li><a href="{{ route('user.nidList', auth()->user()->id) }}">এনআইডি লিস্ট</a></li>
                             <li><a href="{{ route('user.birthList', auth()->user()->id) }}">জন্ম নিবন্ধন লিস্ট</a></li>
                             <li><a href="{{ route('user.tinList', auth()->user()->id) }}">টিন সার্টিফিকেট লিস্ট</a>
+                            <li><a href="{{ route('user.vaccineList', auth()->user()->id) }}">ভ্যাক্সিনেশন লিস্ট</a>
                             </li>
 
 

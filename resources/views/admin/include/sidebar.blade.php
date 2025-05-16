@@ -246,6 +246,7 @@
                             <li><a href="{{ route('admin.nidList') }}">এনআইডি লিস্ট</a></li>
                             <li><a href="{{ route('admin.birthList') }}">জন্ম নিবন্ধন লিস্ট</a></li>
                             <li><a href="{{ route('admin.tinList') }}">টিন সার্টিফিকেট লিস্ট</a></li>
+                            <li><a href="{{ route('admin.vaccineList') }}">ভ্যাক্সিনেশন লিস্ট</a></li>
 
 
                         </ul>

@@ -1,0 +1,62 @@
+# Enable mod_rewrite
+RewriteEngine On
+
+# Example of a RewriteRule for pretty URLs
+# Uncomment and adjust as necessary
+# RewriteRule ^certificate/([a-zA-Z0-9]+)/?$ certificate_verify.php?id=$1 [L]
+
+# ErrorDocument settings
+ErrorDocument 403 /error/403.html
+ErrorDocument 404 /error/404.html
+ErrorDocument 500 /error/500.html
+
+# Enable PHP error reporting
+php_flag display_errors on
+php_value error_reporting 32767
+
+# Set custom PHP settings
+# Increase memory limit
+php_value memory_limit 256M
+
+# Increase max execution time
+php_value max_execution_time 60
+
+# DirectoryIndex setting
+DirectoryIndex index.php index.html
+
+# Prevent directory listing
+Options -Indexes
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# This domain inherits the “PHP” package.
+# php -- END cPanel-generated handler, do not edit
+
+# BEGIN cPanel-generated php ini directives, do not edit
+# Manual editing of this file may result in unexpected behavior.
+# To make changes to this file, use the cPanel MultiPHP INI Editor (Home >> Software >> MultiPHP INI Editor)
+# For more information, read our documentation (https://go.cpanel.net/EA4ModifyINI)
+<IfModule php8_module>
+   php_flag display_errors Off
+   php_value max_execution_time 30
+   php_value max_input_time 60
+   php_value max_input_vars 1000
+   php_value memory_limit 128M
+   php_value post_max_size 8M
+   php_value session.gc_maxlifetime 1440
+   php_value session.save_path "/opt/alt/php81/var/lib/php/session"
+   php_value upload_max_filesize 2M
+   php_flag zlib.output_compression Off
+</IfModule>
+<IfModule lsapi_module>
+   php_flag display_errors Off
+   php_value max_execution_time 30
+   php_value max_input_time 60
+   php_value max_input_vars 1000
+   php_value memory_limit 128M
+   php_value post_max_size 8M
+   php_value session.gc_maxlifetime 1440
+   php_value session.save_path "/opt/alt/php81/var/lib/php/session"
+   php_value upload_max_filesize 2M
+   php_flag zlib.output_compression Off
+</IfModule>
+# END cPanel-generated php ini directives, do not edit
