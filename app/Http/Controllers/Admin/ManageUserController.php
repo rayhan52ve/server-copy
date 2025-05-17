@@ -81,8 +81,8 @@ class ManageUserController extends Controller
         }
 
         User::whereIn('id', $request->checked_user_ids)
-        ->update(['status' => $request->status]);
-        
+            ->update(['status' => $request->status]);
+
         Alert::toast("Status updated successfully.", 'success');
 
         return redirect()->back();
@@ -256,7 +256,7 @@ class ManageUserController extends Controller
 
     public function popupMessage(Request $request)
     {
-        $user_id = (int) $request->user_id;
+        $user_id = (int)$request->user_id;
         $message = $request->message;
 
         $popupMessage = new PopupMessage();

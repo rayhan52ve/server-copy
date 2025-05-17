@@ -114,7 +114,7 @@ class PopupNoticeController extends Controller
     {
         // dd($request->all(),$id);
         $popupNotice = PopupNotice::find($request->status);
-        $popupNotice->users()->sync($id);
+        $popupNotice->users()->attach($id);
         return redirect()->back();
     }
 

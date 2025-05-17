@@ -1,10 +1,8 @@
-<audio id="notificationAudio" src="{{ asset('notification_sound/notification-sound.wav') }}"></audio>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- Move this to the top of your file, right after opening body tag -->
 <style>
     /* Custom yellow theme for the modal */
     .custom-modal-yellow {
@@ -103,18 +101,19 @@
 </style>
 @php
     $now = \Carbon\Carbon::now();
-    $replyIsEmpty = \App\Models\PopupMessage::whereRaw('BINARY `user_id` = ?', [auth()->user()->id])
+    $replyIsEmpty = \App\Models\PopupMessage::where('user_id', auth()->user()->id)
         ->where('reply', null)
         ->latest()
         ->first();
     $popupNotice = \App\Models\PopupNotice::where('end_time', '>=', $now)
         ->whereDoesntHave('users', function ($query) {
-            $query->whereRaw('BINARY `user_id` = ?', [auth()->user()->id]);
+            $query->where('user_id', auth()->user()->id);
         })
         ->latest()
         ->first();
 @endphp
 
+<audio id="notificationAudio" src="{{ asset('notification_sound/notification-sound.wav') }}"></audio>
 <!-- Bootstrap Modal -->
 <div class="modal fade" id="customModal" tabindex="-1" aria-labelledby="customModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="false">
@@ -186,24 +185,22 @@
         </div>
     </div>
 </div>
-
-
 <script>
-    // Single unified sound function
+    // Function to play notification sound
     function playNotificationSound() {
         const audio = document.getElementById("notificationAudio");
         if (audio) {
-            audio.currentTime = 0;
+            audio.currentTime = 0; // Reset the audio to the beginning
             audio.play().catch(error => {
                 console.error("Audio playback failed:", error);
             });
         } else {
-            console.error("Notification audio element not found.");
+            console.error("Audio element not found.");
         }
     }
 
-    // Ensure the user ID is safely passed to the frontend as a string
-    const userId = String({{ json_encode(auth()->user()->id ?? null) }});
+    // Ensure the user ID is safely passed to the frontend
+    const userId = {{ json_encode(auth()->user()->id ?? null) }};
 
     // Toastr configuration
     toastr.options = {
@@ -216,13 +213,16 @@
         onclick: null,
         showDuration: 300,
         hideDuration: 1000,
-        timeOut: 0,
-        extendedTimeOut: 0,
+        timeOut: 0, // Notification stays visible
+        extendedTimeOut: 0, // No auto-hide on hover
         showEasing: "swing",
         hideEasing: "linear",
         showMethod: "fadeIn",
         hideMethod: "fadeOut"
     };
+
+    // Enable Pusher logging (useful for debugging; disable in production)
+    // Pusher.logToConsole = true;
 
     // Initialize Pusher
     const pusher = new Pusher('6d5c0efa3bf0828da699', {
@@ -234,25 +234,26 @@
 
     // Bind to the notification event
     channel.bind('notify-delivery-event', function(data) {
-        // Convert both IDs to strings for strict comparison
-        const dataUserId = String(data.user_id);
-        
-        if (dataUserId === userId) {
+        if (data.user_id === userId) {
+
+
+            // Check the message type and display appropriate Toastr notification
             if (data.message === 'orderReceived') {
+                // Play notification sound
                 playNotificationSound();
                 Swal.fire({
                     title: "Order Received",
                     text: "অ্যাডমিন আপনার অর্ডারটি গ্রহণ করেছেন। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন এবং নোটিফিকেশন পাওয়ার পর পেজ রিলোড করুন।",
                     icon: "info",
-                    showCloseButton: true,
-                    backdrop: true,
-                    allowOutsideClick: true,
-                    allowEscapeKey: false,
+                    showCloseButton: true, // Adds a close button in the top-right corner
+                    backdrop: true, // Adds a backdrop behind the modal
+                    allowOutsideClick: true, // Prevent closing the modal by clicking outside
+                    allowEscapeKey: false, // Prevent closing the modal with the Escape key
                     customClass: {
-                        popup: "custom-swal-popup",
-                        title: "custom-swal-title",
-                        content: "custom-swal-content",
-                        footer: "custom-swal-footer",
+                        popup: "custom-swal-popup", // Custom CSS class for styling
+                        title: "custom-swal-title", // Custom CSS class for the title
+                        content: "custom-swal-content", // Custom CSS class for the content
+                        footer: "custom-swal-footer", // Custom CSS class for the footer
                     },
                     showClass: {
                         popup: "animate__animated animate__fadeInUp animate__faster"
@@ -261,19 +262,29 @@
                         popup: "animate__animated animate__fadeOutDown animate__faster"
                     }
                 });
+
             } else if (data.status === 10) {
+                // Play notification sound
                 playNotificationSound();
+                // Set the modal content
                 document.getElementById('modalMessage').textContent = data.message;
+
+                // Open the Bootstrap modal
                 const modal = new bootstrap.Modal(document.getElementById('customModal'));
                 modal.show();
             } else {
+                // Play notification sound
                 playNotificationSound();
                 toastr.success(data.message, 'Notification');
             }
-        } else if (dataUserId === "0") {  // Compare with string "0"
+        } else if (data.user_id === 0) {
+            // Play notification sound
             playNotificationSound();
+            // Set the modal content
             document.getElementById('modalNotice').innerHTML = data.message;
             document.getElementById('modalStatus').value = data.status;
+
+            // Open the Bootstrap modal
             const modal = new bootstrap.Modal(document.getElementById('customModalNotice'));
             modal.show();
         } else {
@@ -281,56 +292,82 @@
         }
     });
 </script>
-
 @if (isset($replyIsEmpty))
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        playNotificationSound();
-        document.getElementById('modalMessage').textContent = @json($replyIsEmpty->message);
-        const modal = new bootstrap.Modal(document.getElementById('customModal'));
-        modal.show();
-    });
-</script>
-@endif
+    <script>
+        // Function to play notification sound
+        function playNotificationSound() {
+            const audio = new Audio('path/to/notification-sound.mp3'); // Replace with your sound file path
+            audio.play();
+        }
 
+        // Wait for the page to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Play notification sound
+            playNotificationSound();
+
+            // Set the modal content
+            document.getElementById('modalMessage').textContent = "{{ $replyIsEmpty->message }}";
+
+            // Open the Bootstrap modal
+            const modal = new bootstrap.Modal(document.getElementById('customModal'));
+            modal.show();
+        });
+    </script>
+@endif
 @if (isset($popupNotice))
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        playNotificationSound();
-        document.getElementById('modalNotice').innerHTML = @json($popupNotice->message);
-        document.getElementById('modalStatus').value = @json($popupNotice->status);
-        const modal = new bootstrap.Modal(document.getElementById('customModalNotice'));
-        modal.show();
-    });
-</script>
-@endif
+    <script>
+        // Function to play notification sound
+        function playNotificationSound() {
+            const audio = new Audio('path/to/notification-sound.mp3'); // Replace with your sound file path
+            audio.play();
+        }
 
+        // Wait for the page to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Play notification sound
+            playNotificationSound();
+
+            // Set the modal content
+            document.getElementById('modalNotice').innerHTML = `{!! $popupNotice->message !!}`;
+            document.getElementById('modalStatus').value = "{{ $popupNotice->status }}";
+
+
+            // Open the Bootstrap modal
+            const modal = new bootstrap.Modal(document.getElementById('customModalNotice'));
+            modal.show();
+        });
+    </script>
+@endif
 <script>
     $(document).ready(function() {
-        // Cleanup modal backdrop
+        // Handle modal hidden event to remove the backdrop manually
         $("#customModalNotice").on("hidden.bs.modal", function() {
-            $(".modal-backdrop").remove();
-            $("body").removeClass("modal-open");
+            $(".modal-backdrop").remove(); // Remove lingering backdrops
+            $("body").removeClass("modal-open"); // Reset body scroll behavior
         });
 
-        // AJAX form submission
+        // Handle AJAX Form Submission
         $("#noticeForm").on("submit", function(e) {
-            e.preventDefault();
-            
+            e.preventDefault(); // Prevent page reload
+
+            var formData = $(this).serialize(); // Serialize form data
+
             $.ajax({
-                url: $(this).attr("action"),
-                type: "POST",
-                data: $(this).serialize(),
+                url: $(this).attr("action"), // Form action URL
+                type: "POST", // HTTP method
+                data: formData, // Data to be sent
                 success: function(response) {
+                    // Close the modal
                     $("#customModalNotice").modal("hide");
+
+                    // Ensure the backdrop is removed properly
                     setTimeout(function() {
                         $(".modal-backdrop").remove();
                         $("body").removeClass("modal-open");
                     }, 500);
                 },
                 error: function(xhr) {
-                    console.error("Error:", xhr.responseText);
-                    toastr.error("An error occurred while processing your request");
+                    console.log("Error: " + xhr.responseText);
                 }
             });
         });
