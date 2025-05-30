@@ -99,6 +99,17 @@
                                     <td>OFF</td>
                                 @endif
                             </tr> --}}
+                            @if ($submitStatus->nid_auto == 1 && $hideUnhide->nid_auto == 1)
+                                <tr class="table-active">
+                                    <td>এনআইডি <small class=""><b>Auto</b></small></td>
+                                    @if (auth()->user()->premium == 0)
+                                        <td>{{ $message->nid_auto_price ?? null }} ৳</td>
+                                    @elseif (auth()->user()->premium == 2)
+                                        <td>{{ $message->premium_nid_auto_price ?? null }} ৳</td>
+                                    @endif
+
+                                </tr>
+                            @endif
                             @if ($submitStatus->old_nid == 1 && $hideUnhide->old_nid == 1)
                                 <tr class="table-warning">
                                     <td>এনআইডি মেক</td>

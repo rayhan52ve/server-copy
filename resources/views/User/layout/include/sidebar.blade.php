@@ -113,6 +113,13 @@
 
                     {{-- <li class="menu-category">অটোমেটিক</li> --}}
 
+                    @if ($hideUnhide->nid_auto == 1)
+                        <li> <a class="waves-effect waves-dark" href="{{ route('user.nid-auto.index') }}"
+                                aria-expanded="false"><i class="fa-regular fa-id-card"></i><span
+                                    class="hide-menu">এনআইডি <small class=""><b>Auto</b></small></span></a>
+                        </li>
+                    @endif
+
                     @if ($hideUnhide->old_nid == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.nid-make.index') }}"
                                 aria-expanded="false"><i class="fa-regular fa-id-card"></i><span

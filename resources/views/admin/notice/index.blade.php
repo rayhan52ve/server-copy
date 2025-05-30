@@ -53,6 +53,11 @@
                             name="vaccin" placeholder=" ভ্যাক্সিনেশন সার্টিফিকেট নোটিশ">
                     </div>
                     <div class="form-group py-2">
+                        <label>এনআইডি <small class=""><b>Auto</b></small></label>
+                        <input type="text" class="form-control" rows="5" value="{{ $notice->nid_auto ?? null }}"
+                            name="nid_auto" placeholder=" এনআইডি(Auto) নোটিশ">
+                    </div>
+                    <div class="form-group py-2">
                         <label>এনআইডি মেক</label>
                         <input type="text" class="form-control" rows="5" value="{{ $notice->old_nid ?? null }}"
                             name="old_nid" placeholder=" এনআইডি নোটিশ">

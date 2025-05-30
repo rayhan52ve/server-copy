@@ -448,6 +448,8 @@
                                 @endif
                             @elseif ($redirectRoute == 'nidMake')
                                 <a href="{{ route('user.nid-make.index') }}" class="back-btn">Back</a>
+                            @elseif ($redirectRoute == 'nidAuto')
+                                <a href="{{ route('user.nid-auto.index') }}" class="back-btn">Back</a>
                             @endif
                         </div>
                 </div>

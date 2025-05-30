@@ -209,6 +209,12 @@
 
                 {{-- <li class="menu-category">অটোমেটিক</li> --}}
 
+                @if (auth()->user()->is_admin == 1 || @$moderatorAccess->nid_auto == 1)
+                    <li> <a class="waves-effect waves-dark" href="{{ route('user.nid-auto.index') }}"
+                            aria-expanded="false"><i class="fa-regular fa-id-card"></i><span class="hide-menu">এনআইডি <small class=""><b>Auto</b></small></span></a>
+                    </li>
+                @endif
+
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->nid_make == 1)
                     <li> <a class="waves-effect waves-dark" href="{{ route('user.nid-make.index') }}"
                             aria-expanded="false"><i class="fa-regular fa-id-card"></i><span class="hide-menu">এনআইডি

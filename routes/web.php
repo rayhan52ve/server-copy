@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\SubmitStatusController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\BannerAndTitleController;
 use App\Http\Controllers\BkashPaymentController;
+use App\Http\Controllers\NidAutoController;
 use App\Http\Controllers\PopupMessageController;
 use App\Http\Controllers\PopupNoticeController;
 use App\Http\Controllers\PremiumController;
@@ -118,8 +119,10 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
 
     Route::resource('old-nid', OldNidController::class)->only('index', 'store');
     Route::resource('nid-make', NidMakeController::class)->only('index', 'store');
-    Route::resource('vaccin', VaccinController::class)->only('index', 'store');
     Route::post('nid-make-with-signcopy', [NidMakeController::class,'signCopyUpload'])->name('signCopyNidApi');
+    Route::resource('nid-auto', NidAutoController::class)->only('index', 'store');
+    Route::post('nid-auto-search', [NidAutoController::class,'nidAutoSearch'])->name('nidAutoSearch');
+    Route::resource('vaccin', VaccinController::class)->only('index', 'store');
     Route::resource('new-registration', NewRegistrationController::class)->only('index', 'store');
     Route::resource('voter-info', VoterInfoController::class)->only('index', 'store');
 

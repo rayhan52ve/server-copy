@@ -216,6 +216,47 @@
                     <div class="form-group py-2">
                         <div class="row">
                             <div class="col-md-8">
+                                <label>এনআইডি <small class=""><b>Auto</b></small></label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->nid_auto ?? null }}" name="nid_auto"
+                                    placeholder="এনআইডি Auto মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>এনআইডি <small class=""><b>Auto</b></small> মূল্য</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->nid_auto_price ?? null }}" name="nid_auto_price"
+                                    placeholder="0">
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-md-8">
+                                <label>এনআইডি <small class=""><b>Auto</b></small> (Premium)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->premium_nid_auto ?? null }}" name="premium_nid_auto"
+                                    placeholder="এনআইডি Auto মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>এনআইডি <small class=""><b>Auto</b></small> মূল্য (Premium)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->premium_nid_auto_price ?? null }}" name="premium_nid_auto_price"
+                                    placeholder="0">
+                                <label>এনআইডি <small class=""><b>Auto Search</b></small> মূল্য</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->nid_auto_search_price ?? null }}" name="nid_auto_search_price"
+                                    placeholder="0">
+
+                                {{-- <label>এনআইডি মেক মূল্য (Remake)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->nid_remake ?? null }}" name="nid_remake"
+                                    placeholder="0"> --}}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group py-2">
+                        <div class="row">
+                            <div class="col-md-8">
                                 <label>এনআইডি মেক</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->old_nid ?? null }}" name="old_nid"
