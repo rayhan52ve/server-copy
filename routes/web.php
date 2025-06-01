@@ -108,7 +108,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
     Route::get('/tin-file-list/{id}', [UserdashboardController::class, 'tinList'])->name('tinList');
     Route::resource('sign-copy', SignCopyOrderController::class)->only('index', 'store');
     Route::resource('server-copy', ServerCopyOrderController::class)->only('index', 'store');
-    Route::resource('id-card', IdCardOrderController::class)->only('index', 'store');
+    Route::resource('id-card', IdCardOrderController::class)->only('index', 'store','update');
     Route::resource('biometric-info', BiometricInfoController::class)->only('index', 'store');
     Route::resource('name-address-id', NameAddressIdController::class)->only('index', 'store');
     Route::resource('user-pass-nid', UserPassNidController::class)->only('index', 'store');
@@ -164,6 +164,8 @@ Route::controller(ServerCopyUnofficialController::class)->middleware(['auth'])->
 Route::get('/file/download/{id}', [AdminSignCopyOrderController::class, 'download'])->name('file.download');
 Route::get('/server-copy-file/download/{id}', [AdminServerCopyOrderController::class, 'download'])->name('server-file.download');
 Route::get('/id-card-file/download/{id}', [AdminIdCardController::class, 'download'])->name('idCard-file.download');
+Route::get('/id-card-user-file/download/{id}', [AdminIdCardController::class, 'UserFileDownload'])->name('idCard-user-file.download');
+Route::get('/id-card-user-file/delete/{id}', [AdminIdCardController::class, 'UserFileDelete'])->name('idCard-user-file.delete');
 Route::get('/biometric-info-file/download/{id}', [AdminBiometricInfoController::class, 'download'])->name('biometric-file.download');
 Route::get('/name-address-id-file/download/{id}', [AdminNameAddressIdController::class, 'download'])->name('name-address-id-file.download');
 Route::get('/name-address-id-image/download/{id}', [AdminNameAddressIdController::class, 'imageDownload'])->name('name-address-id-image.download');

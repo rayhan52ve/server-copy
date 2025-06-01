@@ -58,16 +58,16 @@ class NameAddressIdController extends Controller
 
         $data = $request->except(['price', 'image']);
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = uniqid() . '_' . time() . '.' . $extension;
-            $path = 'uploads/id_card/';
-            $file->move(public_path($path), $filename);
-            $data['image'] = $filename;
-        }
 
         if ($userBalance >= $price) {
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = uniqid() . '_' . time() . '.' . $extension;
+                $path = 'uploads/id_card/';
+                $file->move(public_path($path), $filename);
+                $data['image'] = $filename;
+            }
             NameAddressId::create($data);
             $user->balance -= $price;
             $user->save();

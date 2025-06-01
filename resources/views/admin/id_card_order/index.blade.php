@@ -1,5 +1,42 @@
 @extends('admin.master')
 @section('body')
+    <style>
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Adjust opacity as needed */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-container:hover .overlay {
+            opacity: 1;
+        }
+
+        .overlay i {
+            color: white;
+            font-size: 24px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .overlay i:hover {
+            color: lightblue;
+            /* Adjust hover color */
+        }
+    </style>
     <div class="col-lg-12 mt-5">
         <div class="card">
             <div class="card-header">
@@ -20,6 +57,7 @@
                                 <th>ফর্ম/আইডি/ভোটার নাম্বার</th>
                                 <th>স্ট্যাটাস</th>
                                 <th>মন্তব্য</th>
+                                <th>ইউজার ফাইল</th>
                                 <th>ডাউনলোড</th>
                                 <th>অ্যাকশান</th>
                             </tr>
@@ -64,6 +102,26 @@
                                         </form>
                                     </td>
                                     <td>{{ $item->comment ?? null }}</td>
+                                    <td>
+                                        @if ($item->user_file)
+                                            <div class="image-container">
+                                                <img class="image img-thumbnail"
+                                                    src="{{ asset('/uploads/id_card/' . $item->user_file) }}"
+                                                    width="70px" style="min-width:70px" alt="">
+                                                <div class="overlay">
+                                                    <a href="{{ route('idCard-user-file.download', $item->id) }}">
+                                                        <i class="fa fa-download download-icon text-success"
+                                                            title="Download" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a href="{{ route('idCard-user-file.delete', $item->id) }}"
+                                                        class="delete-confirm">
+                                                        <i class="fa fa-trash delete-icon text-danger" title="Delete"
+                                                            aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    </td>
                                     <td>
                                         @if ($item->file)
                                             <a href="{{ route('idCard-file.download', $item->id) }}"
@@ -273,5 +331,30 @@
         function submitForm(itemId) {
             document.getElementById("statusForm" + itemId).submit();
         }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.delete-confirm').forEach(function(element) {
+                element.addEventListener('click', function(e) {
+                    e.preventDefault(); // prevent default link behavior
+                    const url = this.getAttribute('href');
+
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "This file will be permanently deleted.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = url;
+                        }
+                    });
+                });
+            });
+        });
     </script>
 @endsection

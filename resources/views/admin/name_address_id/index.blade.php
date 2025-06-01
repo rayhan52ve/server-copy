@@ -44,7 +44,8 @@
                                     <td><a href="{{ route('name-address-id-image.download', $item->id) }}"> <img
                                                 class="image img-thumbnail"
                                                 src="{{ asset('/uploads/id_card/' . $item->image) }}" width="70px"
-                                                style="min-width:70px" alt=""></a></td>
+                                                style="min-width:70px" alt=""></a>
+                                    </td>
                                     <td>
                                         নাম: {{ $item->name ?? null }} <br>
                                         পিতার নাম: {{ $item->fathers_name ?? null }}<br>

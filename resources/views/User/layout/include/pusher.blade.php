@@ -236,7 +236,7 @@
     channel.bind('notify-delivery-event', function(data) {
         // Convert both IDs to strings for strict comparison
         const dataUserId = String(data.user_id);
-        
+
         if (dataUserId === userId) {
             if (data.message === 'orderReceived') {
                 playNotificationSound();
@@ -261,6 +261,34 @@
                         popup: "animate__animated animate__fadeOutDown animate__faster"
                     }
                 });
+            } else if (data.message === 'fileDeleted') {
+
+                playNotificationSound();
+                Swal.fire({
+                    title: "File Deleted",
+                    text: "অ্যাডমিন আপনার আপলোডকৃত  ফাইলটি রিমুভ করেছেন। অনুগ্রহ করে পুনরায় আপলোড করুন।",
+                    icon: "error",
+                    showCloseButton: true,
+                    backdrop: true,
+                    allowOutsideClick: true,
+                    allowEscapeKey: false,
+                    customClass: {
+                        popup: "custom-swal-popup",
+                        title: "custom-swal-title",
+                        content: "custom-swal-content",
+                        footer: "custom-swal-footer",
+                    },
+                    showClass: {
+                        popup: "animate__animated animate__fadeInUp animate__faster"
+                    },
+                    hideClass: {
+                        popup: "animate__animated animate__fadeOutDown animate__faster"
+                    }
+                }).then(() => {
+                    // Reload the page after the user closes the dialog
+                    location.reload();
+                });
+
             } else if (data.status === 10) {
                 playNotificationSound();
                 document.getElementById('modalMessage').textContent = data.message;
@@ -270,7 +298,7 @@
                 playNotificationSound();
                 toastr.success(data.message, 'Notification');
             }
-        } else if (dataUserId === "0") {  // Compare with string "0"
+        } else if (dataUserId === "0") { // Compare with string "0"
             playNotificationSound();
             document.getElementById('modalNotice').innerHTML = data.message;
             document.getElementById('modalStatus').value = data.status;
@@ -283,26 +311,26 @@
 </script>
 
 @if (isset($replyIsEmpty))
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        playNotificationSound();
-        document.getElementById('modalMessage').textContent = @json($replyIsEmpty->message);
-        const modal = new bootstrap.Modal(document.getElementById('customModal'));
-        modal.show();
-    });
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            playNotificationSound();
+            document.getElementById('modalMessage').textContent = @json($replyIsEmpty->message);
+            const modal = new bootstrap.Modal(document.getElementById('customModal'));
+            modal.show();
+        });
+    </script>
 @endif
 
 @if (isset($popupNotice))
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        playNotificationSound();
-        document.getElementById('modalNotice').innerHTML = @json($popupNotice->message);
-        document.getElementById('modalStatus').value = @json($popupNotice->status);
-        const modal = new bootstrap.Modal(document.getElementById('customModalNotice'));
-        modal.show();
-    });
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            playNotificationSound();
+            document.getElementById('modalNotice').innerHTML = @json($popupNotice->message);
+            document.getElementById('modalStatus').value = @json($popupNotice->status);
+            const modal = new bootstrap.Modal(document.getElementById('customModalNotice'));
+            modal.show();
+        });
+    </script>
 @endif
 
 <script>
@@ -316,7 +344,7 @@
         // AJAX form submission
         $("#noticeForm").on("submit", function(e) {
             e.preventDefault();
-            
+
             $.ajax({
                 url: $(this).attr("action"),
                 type: "POST",

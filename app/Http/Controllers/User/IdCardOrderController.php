@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Events\OrderNotification;
 use App\Models\AdminNotification;
+use App\Models\HideUnhide;
 use App\Models\Message;
 use App\Models\Notice;
 use App\Models\SubmitStatus;
@@ -27,8 +28,9 @@ class IdCardOrderController extends Controller
         $notice = Notice::first();
         $message = Message::first();
         $submitStatus = SubmitStatus::first();
+        $hideUnhide = HideUnhide::first();
         $idCardOrders = IdCardOrder::where('user_id', auth()->user()->id)->get();
-        return view('User.modules.id_card_order.index', compact('idCardOrders', 'notice', 'message', 'submitStatus', 'now'));
+        return view('User.modules.id_card_order.index', compact('idCardOrders', 'notice', 'message', 'submitStatus', 'hideUnhide', 'now'));
     }
 
     /**
@@ -54,8 +56,19 @@ class IdCardOrderController extends Controller
 
         $price = (int)$request->price;
 
+        $data = $request->except(['price', 'user_file']);
+
         if ($userBalance >= $price) {
-            IdCardOrder::create($request->except('price'));
+            if ($request->hasFile('user_file')) {
+                $file = $request->file('user_file');
+                $extension = $file->getClientOriginalExtension();
+                $filename = uniqid() . '_' . time() . '.' . $extension;
+                $path = 'uploads/id_card/';
+                $file->move(public_path($path), $filename);
+                $data['user_file'] = $filename;
+            }
+
+            IdCardOrder::create($data);
             $user->balance -= $price;
             $user->save();
 
@@ -108,9 +121,37 @@ class IdCardOrderController extends Controller
      * @param  \App\Models\IdCardOrder  $idCardOrder
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, IdCardOrder $idCardOrder)
+    public function update(Request $request, $id)
     {
-        //
+        $idCardOrder = IdCardOrder::find($id);
+        // dd($idCardOrder);
+        $user = User::find($idCardOrder->user->id);
+
+        if ($request->hasFile('user_file')) {
+            $file = $request->file('user_file');
+            $extension = $file->getClientOriginalExtension();
+            $filename = uniqid() . '_' . time() . '.' . $extension;
+            $path = 'uploads/id_card/';
+            $file->move(public_path($path), $filename);
+            $data['user_file'] = $filename;
+        }
+        $idCardOrder->user_file = $data['user_file'];
+        $idCardOrder->save();
+
+        //Real Time Notification
+        $message = 'File Uploaded By ' . $user->name;
+
+        $adminNotification = new AdminNotification;
+        $adminNotification->user_id = $user->id;
+        $adminNotification->msg = $message;
+        $adminNotification->save();
+
+        $status = 22;
+        $user_name = '';
+        event(new OrderNotification($message, $status, $user_name));
+
+        Alert::toast("Id Card Ordered Successfully.", 'success');
+        return redirect()->back();
     }
 
     /**

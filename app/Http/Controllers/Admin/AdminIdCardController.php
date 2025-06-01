@@ -143,6 +143,46 @@ class AdminIdCardController extends Controller
         return response()->download(public_path($entity->file));
     }
 
+    public function UserFileDownload($id)
+    {
+        $entity = IdCardOrder::findOrFail($id);
+
+        // Check if the file exists
+        if (!$entity->user_file) {
+            abort(404);
+        }
+
+        // Return the file for download
+        return response()->download(public_path('/uploads/id_card/' . $entity->user_file));
+    }
+
+    public function UserFileDelete($id)
+    {
+        $entity = IdCardOrder::findOrFail($id);
+
+        // Check if the file exists
+        if (!$entity->user_file) {
+            abort(404);
+        }
+
+
+        $destination =  'uploads/id_card/' . $entity->user_file;
+
+        if (File::exists($destination)) {
+            File::delete($destination);
+        }
+        $entity->user_file = null;
+        $entity->save();
+
+        $user_id = $entity->user_id;
+        $message = 'fileDeleted';
+        $status = 0;
+        event(new DeliveryNotification($user_id, $message, $status));
+
+        Alert::toast('Id Card User File Deleted Successfully.', 'success');
+        return redirect()->back();
+    }
+
     public function refund(Request $request, $id)
     {
         $data = IdCardOrder::findOrFail($id);

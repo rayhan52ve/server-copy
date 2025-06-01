@@ -90,6 +90,9 @@
                 localStorage.setItem("pendingNotifications", JSON.stringify(notifications));
                 playNotificationSound(); // Play notification sound
                 toastr.warning(data.message, "Reply from" + " " + data.user_name); // Display notification
+            } else if (data.status === 22) {
+                playNotificationSound(); // Play notification sound
+                toastr.info(data.message, "Notification"); // Display notification
             } else {
                 playNotificationSound(); // Play notification sound
                 toastr.success(data.message, "Notification"); // Display notification

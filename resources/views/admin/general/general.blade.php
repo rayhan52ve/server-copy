@@ -110,6 +110,15 @@
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$hideUnhide->id_card == 1 ? 'checked' : '' }}>
                                                         </div>
+                                                        <div class="form-group d-flex g-1">
+                                                            <input type="hidden" name="show_id_card_file"
+                                                                value="0">
+                                                            <input class="" onclick="submitHideUnhideForm()"
+                                                                value="1" name="show_id_card_file" type="checkbox"
+                                                                id="show_id_card_file"
+                                                                {{ @$hideUnhide->show_id_card_file == 1 ? 'checked' : '' }}>
+                                                            <label for="show_id_card_file" class="px-1">Show File
+                                                        </div>
                                                     </div>
                                                     <div class="form-group py-2">
                                                         আইডি কার্ড <small><b>নাম-ঠিকানা</b></small>
@@ -123,6 +132,7 @@
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$hideUnhide->name_address_id == 1 ? 'checked' : '' }}>
                                                         </div>
+
                                                     </div>
                                                     <div class="form-group py-2">
                                                         বায়োমেট্রিক তথ্য
@@ -204,13 +214,14 @@
 
                                                         </div>
                                                         <div class="form-group d-flex g-1">
-                                                        <input type="hidden" name="user_pass_nid_extra" value="0">
-                                                        <input class="" onclick="submitHideUnhideForm()"
-                                                            value="1" name="user_pass_nid_extra" type="checkbox"
-                                                            id="user_pass_nid_extra"
-                                                            {{ @$hideUnhide->user_pass_nid_extra == 1 ? 'checked' : '' }}>
-                                                        <label for="user_pass_nid_extra"
-                                                            class="px-1">Address Fields</label>
+                                                            <input type="hidden" name="user_pass_nid_extra"
+                                                                value="0">
+                                                            <input class="" onclick="submitHideUnhideForm()"
+                                                                value="1" name="user_pass_nid_extra" type="checkbox"
+                                                                id="user_pass_nid_extra"
+                                                                {{ @$hideUnhide->user_pass_nid_extra == 1 ? 'checked' : '' }}>
+                                                            <label for="user_pass_nid_extra" class="px-1">Address
+                                                                Fields</label>
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">
@@ -406,6 +417,15 @@
                                                                 value="1" name="id_card" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$submitStatus->id_card == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                        <div class="form-group d-flex g-1">
+                                                            <input type="hidden" name="id_card_file"
+                                                                value="0">
+                                                            <input class="" onclick="submitForm()"
+                                                                value="1" name="id_card_file" type="checkbox"
+                                                                id="id_card_file"
+                                                                {{ @$submitStatus->id_card_file == 1 ? 'checked' : '' }}>
+                                                            <label for="id_card_file" class="px-1">File Required
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">

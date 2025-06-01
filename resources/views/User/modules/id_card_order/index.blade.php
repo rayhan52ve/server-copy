@@ -69,15 +69,21 @@
                                     </td>
                                     <td>{{ @$item->admin_comment }}</td>
                                     <td>
+
                                         @if ($item->file)
                                             <a href="{{ route('idCard-file.download', $item->id) }}"
                                                 class="btn btn-success btn-sm"><i class="fa-solid fa-download"></i></a>
+                                        @elseif ($hideUnhide->show_id_card_file == 1 && $item->user_file == null)
+                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal"
+                                                data-target="#fileUpModal{{ $item->id }}">Upload File</button>
                                         @else
                                             <span class="text-danger">File Not Found</span>
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($item->status == 1 || $item->status == 2)
+                                        @if ($hideUnhide->show_id_card_file == 1 && $item->user_file == null)
+                                            ফাইল আপলোড করুন.....
+                                        @elseif ($item->status == 1 || $item->status == 2)
                                             <i class="fa-solid fa-check fa-xl" style="color: #7fdb4d;"></i>
                                         @elseif ($item->status == 0)
                                             অপেক্ষা করুন.....
@@ -86,6 +92,55 @@
                                         @endif
                                     </td>
                                 </tr>
+                                <!-- UserFile UploadModal -->
+                                <div class="modal fade" id="fileUpModal{{ $item->id }}" tabindex="-1" role="dialog"
+                                    aria-labelledby="fileUpModallLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="createModallLabel">ইউজার ফাইল</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                @if (session('message'))
+                                                    <div class="alert alert-success" role="alert">
+                                                        {{ session('message') }}
+                                                    </div>
+                                                @endif
+
+                                                <form class="form-horizontal "
+                                                    action="{{ route('user.id-card.update', $item->id) }}"
+                                                    enctype="multipart/form-data" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="col-md-12">
+                                                        <div
+                                                            class="form-group align-items-center row justify-content-center mx-1">
+                                                            <label class="col-form-label font-weight-bold text-center"><b>ফাইল
+                                                                    আপলোড করুন:
+                                                                    <span class="text-danger">*</span>
+                                                                </b></label>
+                                                            <p class="text-center text-dark font-weight-bold">
+                                                                {{ $message->id_card_file_note ?? '' }}</p>
+                                                            <input type="file" class="form-control" name="user_file"
+                                                                value="{{ old('user_file') }}" required>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-info">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
 
                         </tbody>
@@ -94,8 +149,6 @@
                 </div>
             </div>
         </div>
-
-
 
         <!-- Modal -->
         <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModallLabel"
@@ -148,6 +201,25 @@
                                             placeholder="এনআইডি/ভোটার/ফর্ম নাম্বার" required>
                                     </div>
                                 </div>
+
+                                @if ($hideUnhide->show_id_card_file == 1)
+                                    <div class="col-md-12">
+                                        <div class="form-group align-items-center row justify-content-center mx-1">
+                                            <label class="col-form-label font-weight-bold text-center"><b>ফাইল :
+                                                    @if ($submitStatus->id_card_file == 1)
+                                                        <span class="text-danger">*</span>
+                                                    @endif
+                                                </b></label>
+                                            <p class="text-center text-dark font-weight-bold">
+                                                {{ $message->id_card_file_note ?? '' }}</p>
+                                            <input type="file" class="form-control" name="user_file"
+                                                value="{{ old('user_file') }}"
+                                                {{ $submitStatus->id_card_file == 1 ? 'required' : '' }}>
+                                        </div>
+
+                                    </div>
+                                @endif
+
 
                                 <div class="form-group text-center">
                                     <label>সাইন কপি সম্পর্কে কিছু বলার থাকলে বলুন</label>

@@ -97,6 +97,14 @@
                                     placeholder="0">
                             </div>
                         </div>
+                        <div class="row pt-1">
+                            <div class="col-md-8">
+                                <label>আইডি কার্ড ফাইল নোট</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->id_card_file_note ?? null }}" name="id_card_file_note" placeholder="আইডি কার্ড ফাইল আপলোড নোট">
+                            </div>
+                            
+                        </div>
 
                     </div>
                     <div class="form-group py-2">
