@@ -155,107 +155,114 @@ class NidAutoController extends Controller
             'dob' => 'required|date',
         ]);
 
-        try {
+        // try {
 
 
-            $nid = $request->input('nid');
-            $dob = $request->input('dob');
-            $price = (int) $request->input('search_price');
-            if (auth()->user()->is_admin != 0) {
-                $price = 0;
-            }
-
-            $user = User::find($request->user_id);
-            $userBalance = $user->balance;
-
-            // Check if user has sufficient balance
-            if ($userBalance < $price) {
-                Alert::toast("আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
-                return redirect()->back();
-            }
-
-            // Construct API URL
-            $url = "https://api.foxithub.pro/unofficial/scUpdate/api.php?key=ownx&nid=" . urlencode($nid) . "&dob=" . urlencode($dob);
-
-            // Initialize cURL session
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-            // Execute cURL request
-            $response = curl_exec($ch);
-            if (curl_errno($ch)) {
-                $error_message = curl_error($ch);
-                curl_close($ch);
-                return back()->with('error_message', 'অনুগ্রহ করে আবার চেষ্টা করুন. ' . $error_message);
-            }
-            // dd($response);
-            curl_close($ch);
-
-            // Decode JSON response
-            $apidata = json_decode($response, true);
-            if (!$apidata || !isset($apidata['national']['R1'])) {
-                return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
-            }
-
-            $data['nid_number'] = $apidata['national']['R1'];
-            $data['pin'] = $apidata['national']['R2'];
-            $data['voter_no'] = $apidata['national']['R3'];
-            $data['voterArea'] = $apidata['national']['R4'];
-            $data['birth_place'] = $apidata['national']['R5'];
-
-            $data['name_bn'] = $apidata['personal']['R1'];
-            $data['name_en'] = $apidata['personal']['R2'];
-            $data['birthday'] = $apidata['personal']['R3'];
-            $data['fathers_name'] = $apidata['personal']['R4'];
-            $data['mothers_name'] = $apidata['personal']['R5'];
-            $data['spouse'] = $apidata['personal']['R6'];
-            // $data['occupation'] = $apidata['personal']['R1'];
-
-            $data['gender'] = $apidata['other']['R1'];
-            $data['blood_group'] = $apidata['other']['R2'];
-            $data['religion'] = $apidata['other']['R4'];
-
-            $data['presentAddress'] = $apidata['presentAddress'];
-            $data['permanentAddress'] = $apidata['permanentAddress'];
-
-            $data['nidImage'] = $apidata['photo'];
-
-            // dd($data);
-
-            // Check if the response is valid
-            if ($data['nid_number'] == null) {
-                return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
-            }
-
-
-            // Deduct balance from user and save
-            $user->balance -= $price;
-            $user->save();
-
-            // Process the response if no error
-            return view('User.modules.nid_auto.nid_auto', [
-                'nidImage' => $data['nidImage'] ?? null,
-                // 'signatureImage' => $data['sign'] ?? null,
-                'nid_number' => $data['nid_number'] ?? null,
-                'name_bn' => $data['name_bn'] ?? null,
-                'name_en' => $data['name_en'] ?? null,
-                'pin' => $data['pin'] ?? null,
-                'birthday' => $data['birthday'] ?? null,
-                'birth_place' => $data['birth_place'] ?? null,
-                'fathers_name' => $data['fathers_name'] ?? null,
-                'mothers_name' => $data['mothers_name'] ?? null,
-                'blood_group' => $data['blood_group'] ?? null,
-                'address' => $data['permanentAddress'] ?? null,
-            ]);
-
-
-            // If all APIs fail due to the limit, throw an error
-            return back()->withErrors(['msg' => 'All APIs have reached their daily request limit. Please try again later.']);
-        } catch (\Exception $e) {
-            // Handle any other exceptions and display an error message
-            Alert::toast("Something Went wrong.", 'error');
-            return back()->withErrors(['msg' => 'An error occurred: ' . $e->getMessage()]);
+        $nid = $request->input('nid');
+        $dob = $request->input('dob');
+        $price = (int) $request->input('search_price');
+        if (auth()->user()->is_admin != 0) {
+            $price = 0;
         }
+
+        $user = User::find($request->user_id);
+        $userBalance = $user->balance;
+
+        // Check if user has sufficient balance
+        if ($userBalance < $price) {
+            Alert::toast("আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
+            return redirect()->back();
+        }
+
+        // Construct API URL
+        $url = "https://api.foxithub.pro/unofficial/scUpdate/api.php?key=ownx&nid=" . urlencode($nid) . "&dob=" . urlencode($dob);
+        // dd($url);
+
+        // Initialize cURL session
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // Execute cURL request
+        $response = curl_exec($ch);
+        if (curl_errno($ch)) {
+            $error_message = curl_error($ch);
+            curl_close($ch);
+            return back()->with('error_message', 'অনুগ্রহ করে আবার চেষ্টা করুন. ' . $error_message);
+        }
+        // dd($response);
+        curl_close($ch);
+
+        // Decode JSON response
+        $apidata = json_decode($response, true);
+        // dd($apidata);
+        if (
+            !$apidata ||
+            !isset($apidata['national']['R1']) ||
+            trim($apidata['national']['R1']) === ""
+        ) {
+            return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
+        }
+        dd(2);
+
+        $data['nid_number'] = $apidata['national']['R1'];
+        $data['pin'] = $apidata['national']['R2'];
+        $data['voter_no'] = $apidata['national']['R3'];
+        $data['voterArea'] = $apidata['national']['R4'];
+        $data['birth_place'] = $apidata['national']['R5'];
+
+        $data['name_bn'] = $apidata['personal']['R1'];
+        $data['name_en'] = $apidata['personal']['R2'];
+        $data['birthday'] = $apidata['personal']['R3'];
+        $data['fathers_name'] = $apidata['personal']['R4'];
+        $data['mothers_name'] = $apidata['personal']['R5'];
+        $data['spouse'] = $apidata['personal']['R6'];
+        // $data['occupation'] = $apidata['personal']['R1'];
+
+        $data['gender'] = $apidata['other']['R1'];
+        $data['blood_group'] = $apidata['other']['R2'];
+        $data['religion'] = $apidata['other']['R4'];
+
+        $data['presentAddress'] = $apidata['presentAddress'];
+        $data['permanentAddress'] = $apidata['permanentAddress'];
+
+        $data['nidImage'] = $apidata['photo'];
+
+        // dd($data);
+
+        // Check if the response is valid
+        if ($data['nid_number'] == null) {
+            return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
+        }
+
+
+        // Deduct balance from user and save
+        $user->balance -= $price;
+        $user->save();
+
+        // Process the response if no error
+        return view('User.modules.nid_auto.nid_auto', [
+            'nidImage' => $data['nidImage'] ?? null,
+            // 'signatureImage' => $data['sign'] ?? null,
+            'nid_number' => $data['nid_number'] ?? null,
+            'name_bn' => $data['name_bn'] ?? null,
+            'name_en' => $data['name_en'] ?? null,
+            'pin' => $data['pin'] ?? null,
+            'birthday' => $data['birthday'] ?? null,
+            'birth_place' => $data['birth_place'] ?? null,
+            'fathers_name' => $data['fathers_name'] ?? null,
+            'mothers_name' => $data['mothers_name'] ?? null,
+            'blood_group' => $data['blood_group'] ?? null,
+            'address' => $data['presentAddress'] ?? null,
+        ]);
+
+
+        // If all APIs fail due to the limit, throw an error
+        return back()->withErrors(['msg' => 'All APIs have reached their daily request limit. Please try again later.']);
+        // } catch (\Exception $e) {
+        //     // Handle any other exceptions and display an error message
+        //     Alert::toast("Something Went wrong.", 'error');
+        //     return back()->withErrors(['msg' => 'An error occurred: ' . $e->getMessage()]);
+        // }
     }
 }

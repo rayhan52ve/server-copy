@@ -12,7 +12,7 @@
             auth()->user()->premium == 2 && $now < auth()->user()->premium_end
                 ? $message->premium_nid_auto_price
                 : $message->nid_auto_price;
-                $searchPriceAlert = $message->nid_auto_search_price;
+        $searchPriceAlert = $message->nid_auto_search_price;
     @endphp
     <div class="col-lg-12 mt-5">
         <div class="card p-1" style="border: 2px solid rgb(7, 95, 136); border-radius: 5px;">
@@ -383,8 +383,19 @@
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (Session::has('error_message'))
+        <script>
+            Swal.fire({
+                icon: "error",
+                title: "দুঃখিত...",
+                text: "{{ Session::get('error_message') }}",
+                background: "#000",
+                color: "#fff",
+                iconColor: "#fff"
+            });
+        </script>
+    @endif
     <script>
         $(document).ready(function() {
             $('#searchButton').on('click', function(event) {
@@ -438,5 +449,5 @@
             });
         });
     </script>
-    
+
 @endsection
