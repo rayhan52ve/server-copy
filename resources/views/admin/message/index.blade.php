@@ -234,6 +234,10 @@
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->nid_auto_price ?? null }}" name="nid_auto_price"
                                     placeholder="0">
+                                <label>এনআইডি <small class=""><b>Auto Smart Card</b></small> মূল্য</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->smart_nid_auto_price ?? null }}" name="smart_nid_auto_price"
+                                    placeholder="0">
                             </div>
                         </div>
                         <div class="row pt-1">
@@ -274,6 +278,11 @@
                                 <label>এনআইডি মেক মূল্য</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->old_nid_price ?? null }}" name="old_nid_price"
+                                    placeholder="0">
+                            
+                                <label>এনআইডি মেক মূল্য <small class=""><b>Smart Card</b></small></label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->smart_nid_make_price ?? null }}" name="smart_nid_make_price"
                                     placeholder="0">
                             </div>
                         </div>

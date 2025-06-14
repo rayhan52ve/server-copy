@@ -8,6 +8,12 @@
         $message = \App\Models\Message::first();
         $submitStatus = \App\Models\SubmitStatus::first();
         $now = \Carbon\Carbon::now();
+
+        $normalPrice =
+            auth()->user()->premium == 2 && $now < auth()->user()->premium_end
+                ? $message->premium_old_nid_price
+                : $message->old_nid_price;
+        $smartCardPrice = $message->smart_nid_make_price;
     @endphp
     <div class="col-lg-12 mt-5">
         <div class="card p-1" style="border: 2px solid rgb(7, 95, 136); border-radius: 5px;">
@@ -102,6 +108,26 @@
                     <form id="submit_form" class="form-horizontal mt-5" action="{{ route('user.nid-make.store') }}"
                         enctype="multipart/form-data" method="POST">
                         @csrf
+                        <div class="row justify-content-center mb-5">
+                            <div class="col-md-6">
+                                <div class="field padding-bottom--10 text-center">
+                                    <label for="radioOptions"><strong>Select Nid type:</strong></label> <br>
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group"
+                                        id="nidTypeGroup" data-normal-price="{{ $normalPrice }}"
+                                        data-smart-price="{{ $smartCardPrice }}">
+
+                                        <input type="radio" class="btn-check" name="nid_type" id="option1"
+                                            value="1" checked>
+                                        <label class="btn btn-sm btn-outline-success" for="option1">Normal</label>
+
+                                        <input type="radio" class="btn-check" name="nid_type" id="option2"
+                                            value="2">
+                                        <label class="btn btn-sm btn-outline-success" for="option2">Smart Card</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row">
 
                             <div class="col-md-6">
@@ -213,8 +239,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>নাম(বাংলা)</label>
-                                    <input type="text" class="form-control" name="name_bn" value="{{ $name_bn ?? null }}"
-                                        placeholder="সম্পূর্ণ নাম বাংলায়" required>
+                                    <input type="text" class="form-control" name="name_bn"
+                                        value="{{ $name_bn ?? null }}" placeholder="সম্পূর্ণ নাম বাংলায়" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -318,11 +344,9 @@
                             </div>
 
                             <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                            @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
-                                <input type="hidden" name="price" value="{{ $message->premium_old_nid_price }}">
-                            @else
-                                <input type="hidden" name="price" value="{{ $message->old_nid_price }}">
-                            @endif
+
+                            <input type="hidden" name="price" value="">
+
 
                         </div>
                         <div class="text-center pb-3">
@@ -358,11 +382,57 @@
     <script>
         $(document).ready(function() {
             $('.submit').on('click', function(event) {
-                event.preventDefault(); // Prevent the default form submission triggered by the button click
+                event.preventDefault(); // Prevent default form submission
+
+                // Get selected NID type
+                let selectedValue = $('input[name="nid_type"]:checked').val();
+
+                // Get prices from data attributes
+                let normalPrice = $('#nidTypeGroup').data('normal-price');
+                let smartPrice = $('#nidTypeGroup').data('smart-price');
+
+                // Determine the correct price
+                let selectedPrice = selectedValue === '1' ? normalPrice : smartPrice;
+
+                // Set hidden input value
+                $('input[name="price"]').val(selectedPrice);
 
                 Swal.fire({
                     title: 'এনআইডি',
-                    text: "এই কার্ডটি ডাউনলোড করার জন্য আপনার অ্যাকাউন্ট থেকে {{ $priceAlert }} টাকা কর্তন করা হবে।",
+                    text: `এই কার্ডটি ডাউনলোড করার জন্য আপনার অ্যাকাউন্ট থেকে ${selectedPrice} টাকা কর্তন করা হবে।`,
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'হ্যাঁ, জমা দিন!',
+                    cancelButtonText: 'না, বাতিল করুন!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#submit_form').submit();
+                    }
+                });
+            });
+        });
+    </script>
+
+    {{-- <script>
+        $(document).ready(function() {
+            $('.submit').on('click', function(event) {
+                event.preventDefault(); // Prevent the default form submission triggered by the button click
+
+                // Get selected NID type
+                let selectedValue = $('input[name="nid_type"]:checked').val();
+
+                // Get prices from data attributes
+                let normalPrice = $('#nidTypeGroup').data('normal-price');
+                let smartPrice = $('#nidTypeGroup').data('smart-price');
+
+                // Determine the correct price
+                let selectedPrice = selectedValue === '1' ? normalPrice : smartPrice;
+                
+                Swal.fire({
+                    title: 'এনআইডি',
+                    text: "এই কার্ডটি ডাউনলোড করার জন্য আপনার অ্যাকাউন্ট থেকে  ${selectedPrice} টাকা কর্তন করা হবে।",
                     icon: 'info',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -376,5 +446,5 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 @endsection

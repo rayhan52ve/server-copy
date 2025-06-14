@@ -76,7 +76,11 @@ class NidMakeController extends Controller
             $data = $request->except('price');
             NidMake::create($data);
             $redirectRoute = 'nidMake';
-            return view('pdf.new_nid_pdf', compact('data', 'redirectRoute'));
+            if ($request->nid_type == '1') {
+                return view('pdf.new_nid_pdf', compact('data', 'redirectRoute'));
+            } else {
+                return view('pdf.smart_nid_pdf', compact('data', 'redirectRoute'));
+            }
         } else {
             Alert::toast("আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
             return redirect()->route('user.nid-make.index');
@@ -100,7 +104,11 @@ class NidMakeController extends Controller
             $user->balance -= $price;
             $user->save();
             $redirectRoute = 'userFileList';
-            return view('pdf.new_nid_pdf', compact('data', 'redirectRoute'));
+            if ($data->nid_type == '1') {
+                return view('pdf.new_nid_pdf', compact('data', 'redirectRoute'));
+            } else {
+                return view('pdf.smart_nid_pdf', compact('data', 'redirectRoute'));
+            }
         } else {
             Alert::toast("পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
             return redirect()->back();

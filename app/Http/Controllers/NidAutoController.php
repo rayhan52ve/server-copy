@@ -70,7 +70,11 @@ class NidAutoController extends Controller
             $data = $request->except('price');
             NidMake::create($data);
             $redirectRoute = 'nidAuto';
-            return view('pdf.new_nid_pdf', compact('data', 'redirectRoute'));
+            if ($request->nid_type == '1') {
+                return view('pdf.new_nid_pdf', compact('data', 'redirectRoute'));
+            } else {
+                return view('pdf.smart_nid_pdf', compact('data', 'redirectRoute'));
+            }
         } else {
             Alert::toast("আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
             return redirect()->route('user.nid-auto.index');
@@ -94,7 +98,11 @@ class NidAutoController extends Controller
             $user->balance -= $price;
             $user->save();
             $redirectRoute = 'userFileList';
-            return view('pdf.new_nid_pdf', compact('data', 'redirectRoute'));
+            if ($data->nid_type == '1') {
+                return view('pdf.new_nid_pdf', compact('data', 'redirectRoute'));
+            } else {
+                return view('pdf.smart_nid_pdf', compact('data', 'redirectRoute'));
+            }
         } else {
             Alert::toast("পর্যাপ্ত ব্যালান্স নেই, দয়া করে রিচার্জ করুন।", 'error');
             return redirect()->back();
@@ -203,7 +211,6 @@ class NidAutoController extends Controller
         ) {
             return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
         }
-        dd(2);
 
         $data['nid_number'] = $apidata['national']['R1'];
         $data['pin'] = $apidata['national']['R2'];

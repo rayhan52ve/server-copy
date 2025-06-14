@@ -8,10 +8,21 @@
         $message = \App\Models\Message::first();
         $submitStatus = \App\Models\SubmitStatus::first();
         $now = \Carbon\Carbon::now();
-        $priceAlert =
+        // dd(request()->nid_type);
+        // $priceAlert =
+        //     auth()->user()->premium == 2 && $now < auth()->user()->premium_end
+        //         ? $message->premium_nid_auto_price
+        //         : $message->nid_auto_price;
+        $normalPrice =
             auth()->user()->premium == 2 && $now < auth()->user()->premium_end
                 ? $message->premium_nid_auto_price
                 : $message->nid_auto_price;
+        $smartCardPrice = $message->smart_nid_make_price;
+        if (request()->nid_type == 1) {
+            $priceAlert = $normalPrice;
+        } else {
+            $priceAlert = $smartCardPrice;
+        }
         $searchPriceAlert = $message->nid_auto_search_price;
     @endphp
     <div class="col-lg-12 mt-5">
@@ -78,6 +89,31 @@
                                                                 required>
                                                         </div>
 
+                                                        <div class="row justify-content-center mb-5">
+                                                            <div class="col-md-6">
+                                                                <div class="field padding-bottom--10 text-center">
+                                                                    <label for="radioOptions"><strong>Select Nid
+                                                                            type:</strong></label> <br>
+                                                                    <div class="btn-group" role="group"
+                                                                        aria-label="Basic radio toggle button group"
+                                                                        id="nidTypeGroup"
+                                                                        data-normal-price="{{ $normalPrice }}"
+                                                                        data-smart-price="{{ $smartCardPrice }}">
+
+                                                                        <input type="radio" class="btn-check"
+                                                                            name="nid_type" id="option1" value="1"
+                                                                            checked>
+                                                                        <label class="btn btn-sm btn-outline-success"
+                                                                            for="option1">Normal</label>
+
+                                                                        <input type="radio" class="btn-check"
+                                                                            name="nid_type" id="option2" value="2">
+                                                                        <label class="btn btn-sm btn-outline-success"
+                                                                            for="option2">Smart Card</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
                                                         <input type="hidden" name="user_id"
                                                             value="{{ auth()->user()->id }}">
@@ -193,7 +229,8 @@
                                         </script>
 
                                         @if (@$nidImage)
-                                            <img id="nidImage" src="{{ $nidImage }}" width="100px" alt="NID Image">
+                                            <img id="nidImage" src="{{ $nidImage }}" width="100px"
+                                                alt="NID Image">
                                             <input type="hidden" id="nidImageData" name="nid_image"
                                                 value="{{ $nidImage }}">
                                         @endif
@@ -203,8 +240,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>স্বাক্ষর (ছবি)</label>
-                                        <input type="file" id="sign_image_input" class="form-control" accept="image/*"
-                                            onchange="handleImageUpload(event, 'sign_image')">
+                                        <input type="file" id="sign_image_input" class="form-control"
+                                            accept="image/*" onchange="handleImageUpload(event, 'sign_image')">
                                         <img id="signImagePreview" src="" alt=""
                                             style="margin-top: 10px; width: 200px;">
                                         <!-- This is where the base64-encoded data will go -->
@@ -352,11 +389,9 @@
                                 </div>
 
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
-                                    <input type="hidden" name="price" value="{{ $message->premium_nid_auto_price }}">
-                                @else
-                                    <input type="hidden" name="price" value="{{ $message->nid_auto_price }}">
-                                @endif
+                                <input type="hidden" name="price" value="{{ $priceAlert ?? 0 }}">
+                                <input type="hidden" name="nid_type" value="{{ request()->nid_type }}">
+
 
                             </div>
                             <div class="text-center pb-3">

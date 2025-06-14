@@ -489,6 +489,18 @@
                                                                 {{ @$submitStatus->nid_auto == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
+                                                    {{-- <div class="form-group py-2">
+                                                        এনআইডি <small class=""><b>Auto Smart Card</b></small>
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="smart_nid_auto">
+                                                                {{ @$submitStatus->smart_nid_auto == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="smart_nid_auto" value="0">
+                                                            <input class="form-check-input" onclick="submitForm()"
+                                                                value="1" name="smart_nid_auto" type="checkbox"
+                                                                id="smart_nid_auto"
+                                                                {{ @$submitStatus->smart_nid_auto == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div> --}}
                                                     <div class="form-group py-2">
                                                         এনআইডি মেক
                                                         <div class="form-check form-switch">
@@ -501,6 +513,18 @@
                                                                 {{ @$submitStatus->old_nid == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
+                                                    {{-- <div class="form-group py-2">
+                                                        এনআইডি মেক <small class=""><b>Smart Card</b></small>
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="smart_nid_make">
+                                                                {{ @$submitStatus->smart_nid_make == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="smart_nid_make" value="0">
+                                                            <input class="form-check-input" onclick="submitForm()"
+                                                                value="1" name="smart_nid_make" type="checkbox"
+                                                                id="smart_nid_make"
+                                                                {{ @$submitStatus->smart_nid_make == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div> --}}
                                                     <div class="form-group py-2">
                                                         ইউজার পাসওয়ার্ড সেট <small><b>NID Card</b></small>
                                                         <div class="form-check form-switch">
