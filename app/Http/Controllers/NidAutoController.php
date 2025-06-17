@@ -203,7 +203,6 @@ class NidAutoController extends Controller
 
         // Decode JSON response
         $apidata = json_decode($response, true);
-        // dd($apidata);
         if (
             !$apidata ||
             !isset($apidata['national']['R1']) ||

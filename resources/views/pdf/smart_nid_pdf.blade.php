@@ -8,7 +8,7 @@
      $nameEn = str_replace('.', '', $nameEn);
      $pin = $data['pin'];
      $dob = $data['birthday'];
-     $birthPlace = $data['birth_place'];
+     $birthPlace = $data['birth_place_en'];
      $father = $data['fathers_name'];
      $mother = $data['mothers_name'];
      $gender = strtolower($data['gender'] ?? 'male');
@@ -119,26 +119,61 @@
              left: 1.7px;
          }
      </style>
+    <style>
+        @import url('https://fonts.maateen.me/adorsho-lipi/font.css');
+
+        li {
+            font-family: 'AdorshoLipi', sans-serif !important;
+        }
+
+        .adorsho {
+            font-family: 'AdorshoLipi', sans-serif !important;
+            font-weight: normal !important;
+            text-shadow: 0 0 1px black;        }
+    </style>
  </head>
  <style>
+    /* Corrected @font-face declarations */
+    @font-face {
+        font-family: 'Cambria Math';
+        src: url('{{ asset("smart/font/cambria-math.woff") }}') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'TonnyBanglaMJ';
+        src: url('{{ asset("smart/font/TonnyBanglaMJ-Bold.woff") }}') format('woff');
+        font-weight: bold;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'TonnyBanglaMJ';
+        src: url('{{ asset("smart/font/TonnyBanglaMJ-Regular.woff") }}') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+</style>
+ {{-- <style>
      /* Font install */
      @font-face {
          font-family: 'Cambria Math';
-         src: url('/includes/img/font/cambria-math.woff') format('woff');
+         src: url('/public/smart/font/cambria-math.woff') format('woff');
          font-weight: normal;
          font-style: normal;
      }
 
      @font-face {
          font-family: 'TonnyBanglaMJ';
-         src: url('includes/img/font/TonnyBanglaMJ-Bold.woff') format('woff');
+         src: url('/public/smart/font/TonnyBanglaMJ-Bold.woff') format('woff');
          font-weight: bold;
          font-style: normal;
      }
 
      @font-face {
          font-family: 'TonnyBanglaMJ';
-         src: url('/includes/img/font/TonnyBanglaMJ-Regular.woff') format('woff');
+         src: url('/public/smart/font/TonnyBanglaMJ-Regular.woff') format('woff');
          font-weight: normal;
          font-style: normal;
      }
@@ -154,7 +189,7 @@
      .f_line_icon {
          transform: scaleY(1.1);
      }
- </style>
+ </style> --}}
 
  <body id="design" style="background: white; color: black!important">
 
@@ -165,17 +200,17 @@
          <div class="flex" style="  padding-left:70px;padding-right:70px;">
              <div id="front_side" class="id_side" style="display: inline-block;">
                  <div id="font_text" class="absolute">
-                     <div class="nameBan title  font_family"><?php echo ('নাম'); ?></div>
+                     <div class="nameBan title  font_family adorsho"><?php echo ('নাম'); ?></div>
                      <div class="nameBan main_text font_family"><?php echo $nameBn; ?></div>
                      <div class="nameEn title  ">Name</div>
                      <div class="nameEn main_text "><?php echo $nameEnglish; ?></div>
-                     <div class="fatherName title  font_family"><?php echo ('পিতা'); ?></div>
+                     <div class="fatherName title  font_family adorsho"><?php echo ('পিতা'); ?></div>
                      <div class="fatherName main_text font_family"><?php echo $father; ?></div>
-                     <div class="motherName title  font_family"><?php echo ('মাতা'); ?></div>
+                     <div class="motherName title  font_family adorsho"><?php echo ('মাতা'); ?></div>
                      <div class="motherName main_text font_family"><?php echo $mother; ?></div>
                      <div class="dateOfBirth">
                          <div class="date_title en_title">Date Of Birth</div>
-                         <div class="date_number en_title"><?php echo $dob; ?></div>
+                         <div class="date_number en_title">{{ \Carbon\Carbon::parse($dob)->format('d M Y') }}</div>
                      </div>
                      <div class="nid">
                          <div class="nid_title en_title">NID No.</div>
@@ -224,7 +259,7 @@
                          <span class="second_line_one back_line_one">Place of Birth: <span
                                  class="result_one place_of_birth"><?php echo $birthPlace; ?></span></span>
                          <span class="third_line_one back_line_one">Issue Date: <span
-                                 class="result_one date_of_issue"><?php echo $issueDate; ?></span></span>
+                                 class="result_one date_of_issue">{{ \Carbon\Carbon::parse($issueDate)->format('d M Y') }}</span></span>
                      </div>
                      <div class="back_text">
                          <div class="first_line back_line">

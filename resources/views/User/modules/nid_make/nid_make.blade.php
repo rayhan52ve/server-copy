@@ -108,25 +108,6 @@
                     <form id="submit_form" class="form-horizontal mt-5" action="{{ route('user.nid-make.store') }}"
                         enctype="multipart/form-data" method="POST">
                         @csrf
-                        <div class="row justify-content-center mb-5">
-                            <div class="col-md-6">
-                                <div class="field padding-bottom--10 text-center">
-                                    <label for="radioOptions"><strong>Select Nid type:</strong></label> <br>
-                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group"
-                                        id="nidTypeGroup" data-normal-price="{{ $normalPrice }}"
-                                        data-smart-price="{{ $smartCardPrice }}">
-
-                                        <input type="radio" class="btn-check" name="nid_type" id="option1"
-                                            value="1" checked>
-                                        <label class="btn btn-sm btn-outline-success" for="option1">Normal</label>
-
-                                        <input type="radio" class="btn-check" name="nid_type" id="option2"
-                                            value="2">
-                                        <label class="btn btn-sm btn-outline-success" for="option2">Smart Card</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="row">
 
@@ -239,8 +220,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>নাম(বাংলা)</label>
-                                    <input type="text" class="form-control" name="name_bn"
-                                        value="{{ $name_bn ?? null }}" placeholder="সম্পূর্ণ নাম বাংলায়" required>
+                                    <input type="text" class="form-control" name="name_bn" value="{{ $name_bn ?? null }}"
+                                        placeholder="সম্পূর্ণ নাম বাংলায়" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -292,6 +273,13 @@
                                     <label> জন্মস্থান</label>
                                     <input type="text" class="form-control" name="birth_place"
                                         value="{{ $birth_place ?? null }}" placeholder="জন্মস্থান" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 birthPlaceEn">
+                                <div class="form-group">
+                                    <label> জন্মস্থান (ইংরেজি) <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="birth_place_en"
+                                        placeholder="জন্মস্থান ইংরেজিতে লিখুন" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -349,6 +337,25 @@
 
 
                         </div>
+                        <div class="row justify-content-center mb-3">
+                            <div class="col-md-6">
+                                <div class="field padding-bottom--10 text-center">
+                                    <label for="radioOptions"><strong>Select Nid type:</strong></label> <br>
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group"
+                                        id="nidTypeGroup" data-normal-price="{{ $normalPrice }}"
+                                        data-smart-price="{{ $smartCardPrice }}">
+
+                                        <input type="radio" class="btn-check" name="nid_type" id="option1"
+                                            value="1" checked>
+                                        <label class="btn btn-sm btn-outline-success" for="option1">Normal Card</label>
+
+                                        <input type="radio" class="btn-check" name="nid_type" id="option2"
+                                            value="2">
+                                        <label class="btn btn-sm btn-outline-success" for="option2">Smart Card</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="text-center pb-3">
                             @if ($submitStatus->old_nid == 1)
                                 @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
@@ -384,6 +391,16 @@
             $('.submit').on('click', function(event) {
                 event.preventDefault(); // Prevent default form submission
 
+                // Validate the form first
+                // Only check if input exists
+                const birthPlaceEn = document.querySelector('input[name="birth_place_en"]');
+                if (birthPlaceEn) {
+                    if (!birthPlaceEn.checkValidity()) {
+                        birthPlaceEn.reportValidity();
+                        return;
+                    }
+                }
+
                 // Get selected NID type
                 let selectedValue = $('input[name="nid_type"]:checked').val();
 
@@ -414,37 +431,22 @@
             });
         });
     </script>
-
-    {{-- <script>
+    <script>
         $(document).ready(function() {
-            $('.submit').on('click', function(event) {
-                event.preventDefault(); // Prevent the default form submission triggered by the button click
+            // Initially hide birthPlaceEn div & remove required
+            $('.birthPlaceEn').hide();
+            $('input[name="birth_place_en"]').prop('required', false);
 
-                // Get selected NID type
-                let selectedValue = $('input[name="nid_type"]:checked').val();
-
-                // Get prices from data attributes
-                let normalPrice = $('#nidTypeGroup').data('normal-price');
-                let smartPrice = $('#nidTypeGroup').data('smart-price');
-
-                // Determine the correct price
-                let selectedPrice = selectedValue === '1' ? normalPrice : smartPrice;
-                
-                Swal.fire({
-                    title: 'এনআইডি',
-                    text: "এই কার্ডটি ডাউনলোড করার জন্য আপনার অ্যাকাউন্ট থেকে  ${selectedPrice} টাকা কর্তন করা হবে।",
-                    icon: 'info',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'হ্যাঁ, জমা দিন!',
-                    cancelButtonText: 'না, বাতিল করুন!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('#submit_form').submit(); // Only submit the form if the user confirms
-                    }
-                });
+            // Toggle visibility & required based on radio button
+            $('input[name="nid_type"]').change(function() {
+                if ($(this).val() === '2') {
+                    $('.birthPlaceEn').show();
+                    $('input[name="birth_place_en"]').prop('required', true);
+                } else {
+                    $('.birthPlaceEn').hide();
+                    $('input[name="birth_place_en"]').prop('required', false);
+                }
             });
         });
-    </script> --}}
+    </script>
 @endsection

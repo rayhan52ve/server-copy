@@ -1,8 +1,6 @@
 @extends(auth()->user()->is_admin != 0 ? 'admin.master' : 'User.layout.master')
 
 @section(auth()->user()->is_admin != 0 ? 'body' : 'user')
-
-
     @php
         $notice = \App\Models\Notice::first();
         $message = \App\Models\Message::first();
@@ -90,7 +88,7 @@
                                                         </div>
 
                                                         <div class="row justify-content-center mb-5">
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-7">
                                                                 <div class="field padding-bottom--10 text-center">
                                                                     <label for="radioOptions"><strong>Select Nid
                                                                             type:</strong></label> <br>
@@ -104,7 +102,7 @@
                                                                             name="nid_type" id="option1" value="1"
                                                                             checked>
                                                                         <label class="btn btn-sm btn-outline-success"
-                                                                            for="option1">Normal</label>
+                                                                            for="option1">Normal Card</label>
 
                                                                         <input type="radio" class="btn-check"
                                                                             name="nid_type" id="option2" value="2">
@@ -339,6 +337,16 @@
                                             value="{{ $birth_place ?? null }}" placeholder="জন্মস্থান" required>
                                     </div>
                                 </div>
+                                @if (request()->nid_type == 2)
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label> জন্মস্থান (ইংরেজি) <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" name="birth_place_en"
+                                                value="{{ $birth_place_en ?? null }}"
+                                                placeholder="জন্মস্থান ইংরেজিতে লিখুন" required>
+                                        </div>
+                                    </div>
+                                @endif
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label> জন্ম তারিখ</label>
@@ -467,6 +475,15 @@
             $('.submit').on('click', function(event) {
                 event.preventDefault(); // Prevent the default form submission triggered by the button click
 
+                // Only check if input exists
+                const birthPlaceEn = document.querySelector('input[name="birth_place_en"]');
+                if (birthPlaceEn) {
+                    if (!birthPlaceEn.checkValidity()) {
+                        birthPlaceEn.reportValidity();
+                        return;
+                    }
+                }
+
                 Swal.fire({
                     title: 'এনআইডি',
                     text: "এই কার্ডটি ডাউনলোড করার জন্য আপনার অ্যাকাউন্ট থেকে {{ $priceAlert }} টাকা কর্তন করা হবে।",
@@ -484,5 +501,4 @@
             });
         });
     </script>
-
 @endsection
