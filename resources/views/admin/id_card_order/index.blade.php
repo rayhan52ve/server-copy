@@ -8,33 +8,34 @@
 
         .overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            /* Adjust opacity as needed */
+            top: -10px;
+            /* Adjust this to position above the image */
+            right: -10px;
+            /* Adjust this to position to the right of the image */
             opacity: 0;
             transition: opacity 0.3s ease;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            gap: 5px;
+            /* Space between buttons */
         }
 
         .image-container:hover .overlay {
             opacity: 1;
         }
 
-        .overlay i {
-            color: white;
-            font-size: 24px;
-            margin: 0 10px;
-            cursor: pointer;
+        .overlay a {
+            background-color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
-        .overlay i:hover {
-            color: lightblue;
-            /* Adjust hover color */
+        .overlay a:hover {
+            background-color: #f8f9fa;
         }
     </style>
     <div class="col-lg-12 mt-5">
@@ -107,13 +108,15 @@
                                             <div class="image-container">
                                                 <img class="image img-thumbnail"
                                                     src="{{ asset('/uploads/id_card/' . $item->user_file) }}"
-                                                    width="70px" style="min-width:70px" alt="">
+                                                    style="min-width:110px" alt="">
                                                 <div class="overlay">
-                                                    <a href="{{ route('idCard-user-file.download', $item->id) }}">
+                                                    <a class="btn btn-sm btn-outline-success"
+                                                        href="{{ route('idCard-user-file.download', $item->id) }}">
                                                         <i class="fa fa-download download-icon text-success"
                                                             title="Download" aria-hidden="true"></i>
                                                     </a>
-                                                    <a href="{{ route('idCard-user-file.delete', $item->id) }}"
+                                                    <a class="btn btn-sm btn-outline-danger"
+                                                        href="{{ route('idCard-user-file.delete', $item->id) }}"
                                                         class="delete-confirm">
                                                         <i class="fa fa-trash delete-icon text-danger" title="Delete"
                                                             aria-hidden="true"></i>
