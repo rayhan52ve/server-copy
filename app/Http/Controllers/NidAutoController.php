@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\District;
 use App\Models\NidAuto;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -157,7 +158,7 @@ class NidAutoController extends Controller
 
     public function nidAutoSearch(Request $request)
     {
-        // dd($request->all(),auth()->user()->is_admin );
+
         $request->validate([
             'nid' => 'required|string',
             'dob' => 'required|date',
@@ -240,7 +241,7 @@ class NidAutoController extends Controller
         if ($data['nid_number'] == null) {
             return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
         }
-
+        $data['birth_place_en'] = District::where('bn_name',$data['birth_place'])->first()->name ?? null;
 
         // Deduct balance from user and save
         $user->balance -= $price;
@@ -256,6 +257,7 @@ class NidAutoController extends Controller
             'pin' => $data['pin'] ?? null,
             'birthday' => $data['birthday'] ?? null,
             'birth_place' => $data['birth_place'] ?? null,
+            'birth_place_en' => $data['birth_place_en'] ?? null,
             'fathers_name' => $data['fathers_name'] ?? null,
             'mothers_name' => $data['mothers_name'] ?? null,
             'blood_group' => $data['blood_group'] ?? null,

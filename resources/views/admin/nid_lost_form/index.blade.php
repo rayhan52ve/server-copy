@@ -166,10 +166,10 @@
                                                                         value="{{ $item->user->id ?? null }}">
                                                                     @if ($item->user->premium == 2 && $now < $item->user->premium_end)
                                                                         <input type="hidden" name="price"
-                                                                            value="{{ \App\Models\Message::first()->premium_name_address_id_price ?? null }}">
+                                                                            value="{{ \App\Models\Message::first()->premium_nid_lost_form_price ?? null }}">
                                                                     @else
                                                                         <input type="hidden" name="price"
-                                                                            value="{{ \App\Models\Message::first()->name_address_id_price ?? null }}">
+                                                                            value="{{ \App\Models\Message::first()->nid_lost_form_price ?? null }}">
                                                                     @endif
                                                                     <button type="submit"
                                                                         class="btn btn-success">Refund</button>

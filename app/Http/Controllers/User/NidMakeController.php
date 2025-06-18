@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\District;
 use App\Models\Message;
 use App\Models\NidMake;
 use App\Models\OldNid;
@@ -47,24 +48,24 @@ class NidMakeController extends Controller
         // dd($request->all());
         // $request->validate([
         //     'birth_place_en' => 'required',
-            //     'nid_image' => 'required',
-            //     'sign_image' => 'required',
-            //     'name_bn' => 'required',
-            //     'name_en' => 'required',
-            //     'nid_number' => 'required',
-            //     'pin' => 'required',
-            //     'husband_father' => 'required',
-            //     'fathers_name' => 'required',
-            //     'mothers_name' => 'required',
-            //     'birth_place' => 'required',
-            //     'birthday' => 'required',
-            //     'blood_group' => 'nullable',
-            //     'issue_date' => 'nullable',
-            //     'address' => 'required',
-    //     ],$message=[
-    //         'birth_place_en.required' => 'জন্মস্থান (ইংরেজি) ফিল্ডটি পূরণ করুন।'
-    //     ]
-    // );
+        //     'nid_image' => 'required',
+        //     'sign_image' => 'required',
+        //     'name_bn' => 'required',
+        //     'name_en' => 'required',
+        //     'nid_number' => 'required',
+        //     'pin' => 'required',
+        //     'husband_father' => 'required',
+        //     'fathers_name' => 'required',
+        //     'mothers_name' => 'required',
+        //     'birth_place' => 'required',
+        //     'birthday' => 'required',
+        //     'blood_group' => 'nullable',
+        //     'issue_date' => 'nullable',
+        //     'address' => 'required',
+        //     ],$message=[
+        //         'birth_place_en.required' => 'জন্মস্থান (ইংরেজি) ফিল্ডটি পূরণ করুন।'
+        //     ]
+        // );
 
         $user = User::find($request->user_id);
         $userBalance = $user->balance;
@@ -206,6 +207,9 @@ class NidMakeController extends Controller
                     ->post($api['url']);
 
                 $data = $response->json();
+                // dd($data,$data['birth_place']);
+                $data['birth_place_en'] = District::where('bn_name', $data['birth_place'])->first()->name ?? null;
+
 
                 // Check if the daily limit error exists
                 if (isset($data['error']) && $data['error'] == 'Daily request limit reached') {
@@ -222,6 +226,7 @@ class NidMakeController extends Controller
                     'pin' => $data['pin'] ?? null,
                     'birthday' => $data['birth'] ?? null,
                     'birth_place' => $data['birth_place'] ?? null,
+                    'birth_place_en' => $data['birth_place_en'] ?? null,
                     'fathers_name' => $data['father'] ?? null,
                     'mothers_name' => $data['mother'] ?? null,
                     'blood_group' => $data['blood'] ?? null,
@@ -232,6 +237,7 @@ class NidMakeController extends Controller
             // If all APIs fail due to the limit, throw an error
             return back()->withErrors(['msg' => 'All APIs have reached their daily request limit. Please try again later.']);
         } catch (\Exception $e) {
+            dd($e);
             // Handle any other exceptions and display an error message
             Alert::toast("Something Went wrong.", 'error');
             return back()->withErrors(['msg' => 'An error occurred: ' . $e->getMessage()]);

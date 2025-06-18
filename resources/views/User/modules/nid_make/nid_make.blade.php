@@ -279,7 +279,8 @@
                                 <div class="form-group">
                                     <label> জন্মস্থান (ইংরেজি) <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="birth_place_en"
-                                        placeholder="জন্মস্থান ইংরেজিতে লিখুন" required>
+                                        value="{{ $birth_place_en ?? null }}" placeholder="জন্মস্থান ইংরেজিতে লিখুন"
+                                        required>
                                 </div>
                             </div>
                             <div class="col-md-6">
