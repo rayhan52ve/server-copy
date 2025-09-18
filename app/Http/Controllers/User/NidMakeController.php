@@ -168,6 +168,7 @@ class NidMakeController extends Controller
 
     public function signCopyUpload(Request $request)
     {
+        // dd($request->all());
         // Validate the file input to ensure it's a required file and is of the specified types and size
         // $request->validate([
         //     'pdf_file' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
@@ -208,7 +209,8 @@ class NidMakeController extends Controller
 
                 $data = $response->json();
                 // dd($data,$data['birth_place']);
-                $data['birth_place_en'] = District::where('bn_name', $data['birth_place'])->first()->name ?? null;
+                $birth_place_english = District::where('bn_name', @$data['birth_place'])->first()->name ?? null;
+                $data['birth_place_en'] = strtoupper($birth_place_english) ?? null;
 
 
                 // Check if the daily limit error exists
@@ -237,7 +239,7 @@ class NidMakeController extends Controller
             // If all APIs fail due to the limit, throw an error
             return back()->withErrors(['msg' => 'All APIs have reached their daily request limit. Please try again later.']);
         } catch (\Exception $e) {
-            dd($e);
+            // dd($e);
             // Handle any other exceptions and display an error message
             Alert::toast("Something Went wrong.", 'error');
             return back()->withErrors(['msg' => 'An error occurred: ' . $e->getMessage()]);

@@ -241,7 +241,8 @@ class NidAutoController extends Controller
         if ($data['nid_number'] == null) {
             return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
         }
-        $data['birth_place_en'] = District::where('bn_name',$data['birth_place'])->first()->name ?? null;
+        $birth_place_english = District::where('bn_name',$data['birth_place'])->first()->name ?? null;
+        $data['birth_place_en'] = $birth_place_english ?? null;
 
         // Deduct balance from user and save
         $user->balance -= $price;

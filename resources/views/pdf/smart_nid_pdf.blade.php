@@ -8,7 +8,7 @@
      $nameEn = str_replace('.', '', $nameEn);
      $pin = $data['pin'];
      $dob = $data['birthday'];
-     $birthPlace = $data['birth_place_en'];
+     $birthPlace = strtoupper($data['birth_place_en']);
      $father = $data['fathers_name'];
      $mother = $data['mothers_name'];
      $gender = strtolower($data['gender'] ?? 'male');
@@ -97,7 +97,7 @@
      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
      <meta name="next-head-count" content="3" />
      </style>
-     <link rel="stylesheet" href="{{asset('smart/css/nid_css.css')}}" />
+     <link rel="stylesheet" href="{{asset('smart/css/nid_css.css')}}?v=1.0" />
      <link rel="stylesheet" href="{{asset('smart/css/e521caf613e4ad87.css')}}" data-n-g="" />
      <link rel="stylesheet" href="{{asset('smart/css/card_testss.php')}}" data-n-g="" />
      <link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">

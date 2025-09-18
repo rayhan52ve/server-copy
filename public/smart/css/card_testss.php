@@ -22,7 +22,7 @@ img.user_img {
     position: absolute;
     z-index: 1;
     width: 75px;
-    bottom: 44px;
+    top: 60px;
     left: 19px;
     filter: grayscale(1);
     border-radius: 1px;
