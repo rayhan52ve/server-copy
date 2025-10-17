@@ -12,41 +12,18 @@ class Logo extends Model
     //    save category start
     public static function saveWebsiteLogo($request)
     {
-       
-      
-       if($request->id){
+
+        if ($request->id) {
+
             self::$data = Logo::find($request->id);
-            self::$data->site_name = $request->site_name??null;
+            self::$data->site_name = $request->site_name ?? null;
             if ($request->file('logo_image')) {
-                if (self::$data->logo_image) {
-                    if (file_exists(self::$data->logo_image)) {
-                        unlink(self::$data->logo_image);
-                        self::$data->logo_image = self::saveLogoImage($request);
-                    }
-                } else {
-                    self::$data->logo_image = self::saveLogoImage($request);
+                if (file_exists(self::$data->logo_image)) {
+                    unlink(self::$data->logo_image);
                 }
+                self::$data->logo_image = self::saveLogoImage($request);
             }
-            // if ($request->file('backend_logo_image')) {
-            //     if (self::$data->backend_logo_image) {
-            //         if (file_exists(self::$data->backend_logo_image)) {
-            //             unlink(self::$data->backend_logo_image);
-            //             self::$data->backend_logo_image = self::saveBackendLogoImage($request);
-            //         }
-            //     } else {
-            //         self::$data->backend_logo_image = self::saveBackendLogoImage($request);
-            //     }
-            // }
-            // if ($request->file('footer_logo_image')) {
-            //     if (self::$data->footer_logo_image) {
-            //         if (file_exists(self::$data->footer_logo_image)) {
-            //             unlink(self::$data->footer_logo_image);
-            //             self::$data->footer_logo_image = self::saveFooterLogoImage($request);
-            //         }
-            //     } else {
-            //         self::$data->footer_logo_image = self::saveFooterLogoImage($request);
-            //     }
-            // }
+
             if ($request->file('favicon')) {
                 if (self::$data->favicon) {
                     if (file_exists(self::$data->favicon)) {
@@ -58,18 +35,15 @@ class Logo extends Model
                 }
             }
             self::$data->save();
-        }
-        else{
-//            dd($request->site_name);
+        } else {
             self::$data = new Logo();
-            self::$data->site_name = $request->site_name??null;
+            self::$data->site_name = $request->site_name ?? null;
             self::$data->frontend_logo_image = self::saveLogoImage($request);
             // self::$data->backend_logo_image = self::saveBackendLogoImage($request);
             // self::$data->footer_logo_image = self::saveFooterLogoImage($request);
             self::$data->favicon = self::saveFaviconImage($request);
             self::$data->save();
         }
-
     }
     //save category end
 
@@ -81,7 +55,7 @@ class Logo extends Model
             self::$imageName = 'logo-' . rand() . '.' . self::$image->Extension();
             self::$imageDirectory = 'logo/';
             self::$imageUrl = self::$imageDirectory . self::$imageName;
-            self::$image->move(self::$imageDirectory,self::$imageName);
+            self::$image->move(self::$imageDirectory, self::$imageName);
             return self::$imageUrl;
         }
     }
@@ -93,7 +67,7 @@ class Logo extends Model
             self::$imageName = 'logo-' . rand() . '.' . self::$image->Extension();
             self::$imageDirectory = 'logo/';
             self::$imageUrl = self::$imageDirectory . self::$imageName;
-            self::$image->move(self::$imageDirectory,self::$imageName);
+            self::$image->move(self::$imageDirectory, self::$imageName);
             return self::$imageUrl;
         }
     }
