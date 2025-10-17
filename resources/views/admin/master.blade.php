@@ -69,10 +69,42 @@
         <!-- ============================================================== -->
 
         <!-- Msg button Start -->
-        {{-- <a href="https://wa.me/+8801329497106" class="msg-button bounce" title="Live Chat">
-            <i class="fa-solid fa-comment-dots" style="color: #74C0FC;"></i>
-        </a> --}}
-         <!-- Msg button End -->
+        <!-- Button -->
+        <a href="javascript:void(0);" class="msg-button bounce" title="Save Transaction" data-bs-toggle="modal"
+            data-bs-target="#rechargeModal">
+            <i class="fa-solid fa-dollar-sign" style="color: #e6e2db;padding-top:25%"></i>
+        </a>
+
+        <!-- Modal -->
+        <div class="modal fade" id="rechargeModal" tabindex="-1" aria-labelledby="rechargeModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header py-2">
+                        <h5 class="modal-title" id="rechargeModalLabel">Save Transaction</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="rechargeForm" action="{{route('admin.pre-transaction.store')}}" method="post">
+                            @csrf
+                            <div class="mb-2">
+                                <label class="form-label">Amount</label>
+                                <input type="number" class="form-control form-control-sm" name="amount"
+                                    placeholder="Enter amount">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">Transaction ID</label>
+                                <input type="text" class="form-control form-control-sm" name="trx_id"
+                                    placeholder="Enter TRX ID">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm w-100">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Msg button End -->
 
         <!-- ============================================================== -->
         <!-- footer -->
@@ -89,6 +121,7 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     @include('admin.include.script')
+
     @include('sweetalert::alert')
     {{-- @include('sweetalert::alert') --}}
 

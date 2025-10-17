@@ -116,7 +116,7 @@
                 <label for="">Transaction Id</label>
                 <input type="text" name="transaction_id" placeholder="Enter your Payment Transaction Id" required>
                 <label for="">Recharge Amount</label>
-                <input type="text" name="amount" placeholder="Enter Recharge Amount" required>
+                <input type="number" name="amount" placeholder="Enter Recharge Amount" required>
 
                 <!-- Add the rest of your fields here -->
 
@@ -161,6 +161,7 @@
                                 <th>সিরিয়াল</th>
                                 <th>পেমেন্ট মেথড</th>
                                 <th>পেমেন্ট নাম্বার</th>
+                                <th>ট্রানজেকশন আইডি</th>
                                 <th>পরিমাণ</th>
                                 <th>তারিখ</th>
                                 <th>স্ট্যাটাস</th>
@@ -173,6 +174,7 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->method }}</td>
                                     <td>{{ $item->payment_number }}</td>
+                                    <td>{{ $item->transaction_id }}</td>
                                     <td>{{ $item->amount }} ৳</td>
                                     <td>{{ @$item->created_at->format('d-m-Y, h:i A') }}</td>
                                     <td>

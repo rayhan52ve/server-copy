@@ -18,6 +18,7 @@
                                 <th>ইউজার</th>
                                 <th>পেমেন্ট মেথড</th>
                                 <th>পেমেন্ট নাম্বার</th>
+                                <th>ট্রানজেকশন আইডি</th>
                                 <th>পরিমাণ</th>
                                 <th>তারিখ</th>
                                 <th>স্ট্যাটাস</th>
@@ -31,6 +32,7 @@
                                     <td>{{ @$item->user->email }}</td>
                                     <td>{{ $item->method }}</td>
                                     <td>{{ $item->payment_number }}</td>
+                                    <td>{{ $item->transaction_id }}</td>
                                     <td>{{ $item->amount }} ৳</td>
                                     <td>{{ @$item->created_at->format('d-m-Y, h:i A') }}</td>
                                     <td>

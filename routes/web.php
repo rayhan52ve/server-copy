@@ -279,6 +279,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::get('recharge', [AdminRechargeController::class, 'index'])->name('recharge');
 
     Route::put('/recharge-status/{id}', [AdminRechargeController::class, 'updateRechargeStatus'])->name('rechargeStatus');
+    Route::post('/pre-transaction-store', [AdminRechargeController::class, 'preTrxstore'])->name('pre-transaction.store');
 
     Route::resource('video', VideoController::class);
     Route::post('button-create', [VideoController::class,'buttonStore'])->name('buttonStore');
