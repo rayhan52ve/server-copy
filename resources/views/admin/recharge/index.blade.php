@@ -5,7 +5,10 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between">
                     <h3>Payment History</h3>
-                    <button type="button" class="btn btn-danger" id="clearAllBtn">Clear All</button>
+                    <div>
+                        <a href="{{route('admin.pre-transaction.index')}}" class="btn btn-info" id="">Saved TRX</a>
+                        <button type="button" class="btn btn-danger" id="clearAllBtn">Clear All</button>
+                    </div>
 
                 </div>
             </div>

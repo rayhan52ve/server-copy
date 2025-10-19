@@ -96,7 +96,7 @@ Route::post('/sign-to-server-copy-upload', [SignToServerCopyController::class, '
 |--------------------------------------------------------------------------
 */
 
-Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active'])->group(function () {
+Route::prefix('user')->name('user.')->middleware(['auth', 'is_user', 'is_active'])->group(function () {
 
     Route::get('/home', [UserdashboardController::class, 'userDashboard'])->name('home');
     Route::get('/about/admin', [UserdashboardController::class, 'about_admin'])->name('about_admin');
@@ -108,7 +108,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
     Route::get('/tin-file-list/{id}', [UserdashboardController::class, 'tinList'])->name('tinList');
     Route::resource('sign-copy', SignCopyOrderController::class)->only('index', 'store');
     Route::resource('server-copy', ServerCopyOrderController::class)->only('index', 'store');
-    Route::resource('id-card', IdCardOrderController::class)->only('index', 'store','update');
+    Route::resource('id-card', IdCardOrderController::class)->only('index', 'store', 'update');
     Route::resource('biometric-info', BiometricInfoController::class)->only('index', 'store');
     Route::resource('name-address-id', NameAddressIdController::class)->only('index', 'store');
     Route::resource('user-pass-nid', UserPassNidController::class)->only('index', 'store');
@@ -119,9 +119,9 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
 
     Route::resource('old-nid', OldNidController::class)->only('index', 'store');
     Route::resource('nid-make', NidMakeController::class)->only('index', 'store');
-    Route::post('nid-make-with-signcopy', [NidMakeController::class,'signCopyUpload'])->name('signCopyNidApi');
+    Route::post('nid-make-with-signcopy', [NidMakeController::class, 'signCopyUpload'])->name('signCopyNidApi');
     Route::resource('nid-auto', NidAutoController::class)->only('index', 'store');
-    Route::post('nid-auto-search', [NidAutoController::class,'nidAutoSearch'])->name('nidAutoSearch');
+    Route::post('nid-auto-search', [NidAutoController::class, 'nidAutoSearch'])->name('nidAutoSearch');
     Route::resource('vaccin', VaccinController::class)->only('index', 'store');
     Route::resource('new-registration', NewRegistrationController::class)->only('index', 'store');
     Route::resource('voter-info', VoterInfoController::class)->only('index', 'store');
@@ -134,14 +134,13 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user','is_active']
     Route::get('/user-notification-list', [UserdashboardController::class, 'userNotification'])->name('userNotification');
     Route::get('/clear-notification-list', [UserdashboardController::class, 'clearAllUserNotification'])->name('clearAllUserNotification');
     Route::delete('/delete-notification/{id}', [UserdashboardController::class, 'destroy'])->name('notification.destroy');
-
 });
 
-Route::get('print-saved-nid/{id}', [NidMakeController::class,'printSavedNid'])->name('print.savedNid')->middleware('auth');
-Route::get('print-saved-vaccin/{id}', [VaccinController::class,'printSavedVaccin'])->name('print.savedVaccin')->middleware('auth');
-Route::get('certificate-verify/{token}', [VaccinController::class,'certificate_verify'])->name('certificate_verify')->middleware('auth');
-Route::get('print-saved-birth/{id}', [NewRegistrationController::class,'printSavedBirth'])->name('print.savedBirth')->middleware('auth');
-Route::get('/print-saved-tin/{id}',[SignToServerCopyController::class,'print_saved_tin'])->name('print.print_saved_tin')->middleware('auth');
+Route::get('print-saved-nid/{id}', [NidMakeController::class, 'printSavedNid'])->name('print.savedNid')->middleware('auth');
+Route::get('print-saved-vaccin/{id}', [VaccinController::class, 'printSavedVaccin'])->name('print.savedVaccin')->middleware('auth');
+Route::get('certificate-verify/{token}', [VaccinController::class, 'certificate_verify'])->name('certificate_verify')->middleware('auth');
+Route::get('print-saved-birth/{id}', [NewRegistrationController::class, 'printSavedBirth'])->name('print.savedBirth')->middleware('auth');
+Route::get('/print-saved-tin/{id}', [SignToServerCopyController::class, 'print_saved_tin'])->name('print.print_saved_tin')->middleware('auth');
 
 
 Route::controller(ServerCopyUnofficialController::class)->middleware(['auth'])->group(function () {
@@ -191,7 +190,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::get('/premium-user-list', [ManageUserController::class, 'premiumUser'])->name('premiumUser');
     Route::put('/user-multiple-delete', [ManageUserController::class, 'multipleDelete'])->name('multipleDelete');
     Route::put('/user-multiple-status', [ManageUserController::class, 'multipleStatus'])->name('multipleStatus');
-    Route::post('/user-popup-message', [ManageUserController::class, 'popupMessage'])->name('popupMessage');  
+    Route::post('/user-popup-message', [ManageUserController::class, 'popupMessage'])->name('popupMessage');
 
     Route::resource('sign-copy', AdminSignCopyOrderController::class)->only('index', 'destroy');
     Route::get('sign-copy-completed', [AdminSignCopyOrderController::class, 'completed'])->name('sign-copy.completed');
@@ -234,21 +233,21 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
 
     Route::resource('biometric-type', BiometricTypeController::class)->except('create', 'show', 'edit');
 
-    
+
     Route::resource('name-address-id', AdminNameAddressIdController::class)->only('index', 'destroy');
     Route::get('name-address-id-completed', [AdminNameAddressIdController::class, 'completed'])->name('name-address-id.completed');
     Route::get('name-address-id-disabled', [AdminNameAddressIdController::class, 'disabled'])->name('name-address-id.disabled');
     Route::put('/name-address-id-status/{id}', [AdminNameAddressIdController::class, 'updateStatus'])->name('updateNameAddressId');
     Route::post('/name-address-id-update-handler', [AdminNameAddressIdController::class, 'fileUpload'])->name('name-address-id-file.upload');
     Route::put('/name-address-id-refund/{id}', [AdminNameAddressIdController::class, 'refund'])->name('refund.name-address-id');
-    
+
     Route::resource('lost-nid-form', AdminLostNidFormController::class)->only('index', 'destroy');
     Route::get('lost-nid-form-completed', [AdminLostNidFormController::class, 'completed'])->name('lost-nid-form.completed');
     Route::get('lost-nid-form-disabled', [AdminLostNidFormController::class, 'disabled'])->name('lost-nid-form.disabled');
     Route::put('/lost-nid-form-status/{id}', [AdminLostNidFormController::class, 'updateStatus'])->name('updateNidLostForms');
     Route::post('/lost-nid-form-update-handler', [AdminLostNidFormController::class, 'fileUpload'])->name('lost-nid-form-file.upload');
     Route::put('/lost-nid-form-refund/{id}', [AdminLostNidFormController::class, 'refund'])->name('refund.lost-nid-form');
-    
+
     Route::resource('user-pass-nid', AdminUserpassNidController::class)->only('index', 'destroy');
     Route::get('user-pass-nid-completed', [AdminUserpassNidController::class, 'completed'])->name('user-pass-nid.completed');
     Route::get('user-pass-nid-disabled', [AdminUserpassNidController::class, 'disabled'])->name('user-pass-nid.disabled');
@@ -279,10 +278,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::get('recharge', [AdminRechargeController::class, 'index'])->name('recharge');
 
     Route::put('/recharge-status/{id}', [AdminRechargeController::class, 'updateRechargeStatus'])->name('rechargeStatus');
-    Route::post('/pre-transaction-store', [AdminRechargeController::class, 'preTrxstore'])->name('pre-transaction.store');
-
+    Route::prefix('pre-transaction')->group(function () {
+        Route::get('/', [AdminRechargeController::class, 'preTrxindex'])->name('pre-transaction.index');
+        Route::get('/{id}/edit', [AdminRechargeController::class, 'preTrxedit'])->name('pre-transaction.edit');
+        Route::post('/store', [AdminRechargeController::class, 'preTrxstore'])->name('pre-transaction.store');
+        Route::put('/{id}', [AdminRechargeController::class, 'preTrxupdate'])->name('pre-transaction.update');
+        Route::delete('/{id}', [AdminRechargeController::class, 'preTrxdelete'])->name('pre-transaction.delete');
+    });
     Route::resource('video', VideoController::class);
-    Route::post('button-create', [VideoController::class,'buttonStore'])->name('buttonStore');
+    Route::post('button-create', [VideoController::class, 'buttonStore'])->name('buttonStore');
 
     Route::resource('moderator-access', ModeratorAccessController::class)->middleware('is_admin');
 
@@ -313,8 +317,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::get('/clear-admin-all-permanently', [HomeController::class, 'clearAllPermanently'])->name('clearAllPermanently')->middleware('is_admin');
 
 
-    Route::resource('report',ReportController::class)->middleware('is_admin');
-
+    Route::resource('report', ReportController::class)->middleware('is_admin');
 });
 
 
@@ -364,12 +367,12 @@ Route::get('/user-profile-settings', [GeneralController::class, 'user_profile_se
 Route::post('/update-user-profile', [GeneralController::class, 'user_update_profile'])->name('update.userProfile')->middleware('auth');
 //profile settings end
 
-Route::resource('popup-message',PopupMessageController::class)->middleware('auth');
+Route::resource('popup-message', PopupMessageController::class)->middleware('auth');
 Route::get('/clear-all-popup', [PopupMessageController::class, 'clearAllPopup'])->name('clearAllPopup')->middleware('is_admin');
 
-Route::resource('popup-notice',PopupNoticeController::class)->middleware('auth');
-Route::get('/pop-notice/draft',[PopupNoticeController::class,'draft'])->name('popup-notice.draft')->middleware('auth');
-Route::put('/pop-notice/update-published/{id}',[PopupNoticeController::class,'updatePublished'])->name('popup-notice.updatePublished')->middleware('auth');
+Route::resource('popup-notice', PopupNoticeController::class)->middleware('auth');
+Route::get('/pop-notice/draft', [PopupNoticeController::class, 'draft'])->name('popup-notice.draft')->middleware('auth');
+Route::put('/pop-notice/update-published/{id}', [PopupNoticeController::class, 'updatePublished'])->name('popup-notice.updatePublished')->middleware('auth');
 Route::get('/clear-all-popup-notice', [PopupNoticeController::class, 'clearAllPopup'])->name('clearAllPopupNotice')->middleware('is_admin');
 Route::get('/republish-popup-notice/{id}', [PopupNoticeController::class, 'publish'])->name('notice.publish')->middleware('is_admin');
 // Route::post('/user-popup-notice', [PopupNoticeController::class, 'popupNotice'])->name('popupNotice')->middleware('is_admin');  

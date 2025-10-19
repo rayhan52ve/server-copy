@@ -67,6 +67,14 @@ class AdminRechargeController extends Controller
     }
 
 
+    public function preTrxindex()
+    {
+        $preTransactions = PreTransaction::latest()->get();
+        return view('admin.recharge.pre_transaction', compact('preTransactions'));
+    }
+
+
+
     public function preTrxstore(Request $request)
     {
         // dd($request->all());
@@ -126,6 +134,31 @@ class AdminRechargeController extends Controller
 
 
         Alert::toast("Transaction saved successfully.", 'success');
+        return redirect()->back();
+    }
+
+    public function preTrxupdate(Request $request, $id)
+    {
+        $request->validate([
+            'amount' => 'required|numeric|min:1',
+            'trx_id' => 'required|string|max:255|unique:pre_transactions,trx_id,' . $id,
+        ]);
+
+        $preTransaction = PreTransaction::findOrFail($id);
+        $preTransaction->amount = $request->amount;
+        $preTransaction->trx_id = $request->trx_id;
+        $preTransaction->save();
+
+        Alert::toast("Transaction updated successfully.", 'success');
+        return redirect()->back();
+    }
+
+    public function preTrxdelete($id)
+    {
+        $preTransaction = PreTransaction::findOrFail($id);
+        $preTransaction->delete();
+
+        Alert::toast("Transaction deleted successfully.", 'success');
         return redirect()->back();
     }
 }

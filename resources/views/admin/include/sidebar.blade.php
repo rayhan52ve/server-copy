@@ -284,7 +284,7 @@
                     </li>
                 @endif
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->recharge == 1)
-                    <li> <a class="waves-effect waves-dark" href="{{ route('admin.recharge') }}"
+                    <li class="{{ request()->routeIs('admin.recharge', 'admin.pre-transaction.*') ? 'active' : '' }}"> <a class="waves-effect waves-dark" href="{{ route('admin.recharge') }}"
                             aria-expanded="false"><i class="fa-solid fa-bangladeshi-taka-sign"></i><span
                                 class="hide-menu">রিচার্জ</span></a>
                     </li>
