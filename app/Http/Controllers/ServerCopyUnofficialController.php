@@ -25,6 +25,7 @@ class ServerCopyUnofficialController extends Controller
     // Print NID server copy start
     public function tech_web_print_nid_server_copy(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'nid' => 'required|string',
             'dob' => 'required|date',
@@ -47,7 +48,8 @@ class ServerCopyUnofficialController extends Controller
         }
 
         // Construct API URL
-        $url = "https://api.foxithub.pro/unofficial/scUpdate/api.php?key=ownx&nid=" . urlencode($nid) . "&dob=" . urlencode($dob);
+        $url = "https://apim.sync-ltd.com/getv1.php?api_token=FARDEN100&nid=" .urlencode($nid) . "&dob="  . urlencode($dob);
+        // $url = "https://api.foxithub.pro/unofficial/scUpdate/api.php?key=ownx&nid=" . urlencode($nid) . "&dob=" . urlencode($dob);
 
         // Initialize cURL session
         $ch = curl_init();
@@ -66,37 +68,37 @@ class ServerCopyUnofficialController extends Controller
 
         // Decode JSON response
         $data = json_decode($response, true);
-        if (!$data || !isset($data['national']['R1'])) {
+        // dd($data);
+
+        if (!$data) {
             return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
         }
 
-        $nid_info['nationalId'] = $data['national']['R1'];
-        $nid_info['pin'] = $data['national']['R2'];
-        $nid_info['voter_no'] = $data['national']['R3'];
-        $nid_info['voterArea'] = $data['national']['R4'];
-        $nid_info['birthPlace'] = $data['national']['R5'];
+        // Map API response to $nid_info
+        $nid_info['nationalId']     = $data['nationalId'] ?? null;
+        $nid_info['pin']            = $data['pin'] ?? null;
+        $nid_info['voter_no']       = null; // API দেয়নি
+        $nid_info['voterArea']      = $data['voterArea'] ?? null;
+        $nid_info['birthPlace']     = $data['birthPlace'] ?? null;
 
-        $nid_info['name'] = $data['personal']['R1'];
-        $nid_info['nameEn'] = $data['personal']['R2'];
-        $nid_info['dateOfBirth'] = $data['personal']['R3'];
-        $nid_info['father'] = $data['personal']['R4'];
-        $nid_info['mother'] = $data['personal']['R5'];
-        $nid_info['spouse'] = $data['personal']['R6'];
-        // $nid_info['occupation'] = $data['personal']['R1'];
+        $nid_info['name']           = $data['nameBangla'] ?? null;
+        $nid_info['nameEn']         = $data['nameEnglish'] ?? null;
+        $nid_info['dateOfBirth']    = $data['dateOfBirth'] ?? null;
+        $nid_info['father']         = $data['fatherName'] ?? null;
+        $nid_info['mother']         = $data['motherName'] ?? null;
+        $nid_info['spouse']         = null; // API দেয়নি
 
-        $nid_info['gender'] = $data['other']['R1'];
-        $nid_info['bloodGroup'] = $data['other']['R2'];
-        $nid_info['religion'] = $data['other']['R4'];
+        $nid_info['gender']         = $data['gender'] ?? null;
+        $nid_info['bloodGroup']     = null; // API দেয়নি
+        $nid_info['religion']       = null; // API দেয়নি
 
-        $nid_info['presentAddress'] = $data['presentAddress'];
-        $nid_info['permanentAddress'] = $data['permanentAddress'];
+        $nid_info['presentAddress']   = $data['presentAddress'] ?? null;
+        $nid_info['permanentAddress'] = $data['permanentAddress'] ?? null;
 
-        $nid_info['photo'] = $data['photo'];
+        $nid_info['photo']          = $data['photo'] ?? null;
 
-        // dd($nid_info);
-
-        // Check if the response is valid
-        if ($nid_info['nationalId'] == null) {
+        // Final validation
+        if (empty($nid_info['nationalId'])) {
             return back()->with('error_message', 'NID তথ্য পাওয়া যায়নি।');
         }
 
