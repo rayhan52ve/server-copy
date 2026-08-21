@@ -147,6 +147,19 @@
                                                                 {{ @$hideUnhide->biometric == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
+                                                    <div class="form-group py-2">
+                                                        সিম কল লিস্ট
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$hideUnhide->sim_call_list == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="sim_call_list" value="0">
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="sim_call_list" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$hideUnhide->sim_call_list == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
 
                                                     {{-- <div class="form-group py-2">
                                                         নতুন এনআইডি
@@ -419,11 +432,9 @@
                                                                 {{ @$submitStatus->id_card == 1 ? 'checked' : '' }}>
                                                         </div>
                                                         <div class="form-group d-flex g-1">
-                                                            <input type="hidden" name="id_card_file"
-                                                                value="0">
-                                                            <input class="" onclick="submitForm()"
-                                                                value="1" name="id_card_file" type="checkbox"
-                                                                id="id_card_file"
+                                                            <input type="hidden" name="id_card_file" value="0">
+                                                            <input class="" onclick="submitForm()" value="1"
+                                                                name="id_card_file" type="checkbox" id="id_card_file"
                                                                 {{ @$submitStatus->id_card_file == 1 ? 'checked' : '' }}>
                                                             <label for="id_card_file" class="px-1">File Required
                                                         </div>
@@ -450,6 +461,19 @@
                                                                 value="1" name="biometric" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$submitStatus->biometric == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group py-2">
+                                                        সিম কল লিস্ট
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$submitStatus->sim_call_list == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="sim_call_list" value="0">
+                                                            <input class="form-check-input" onclick="submitForm()"
+                                                                value="1" name="sim_call_list" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$submitStatus->sim_call_list == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
 

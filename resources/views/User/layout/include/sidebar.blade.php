@@ -100,6 +100,12 @@
                                     তথ্য</span></a>
                         </li>
                     @endif
+                    @if ($hideUnhide->sim_call_list == 1)
+                        <li> <a class="waves-effect waves-dark" href="{{ route('user.sim-call-list.index') }}"
+                                aria-expanded="false"><i class="fa-solid fa-phone-volume"></i><span
+                                    class="hide-menu">সিম কল লিস্ট</span></a>
+                        </li>
+                    @endif
 
                     {{-- <li> <a class="waves-effect waves-dark" href="{{ route('user.new-nid.index') }}"
                         aria-expanded="false"><i class="fa-solid fa-id-card"></i><span class="hide-menu">নতুন এনআইডি</span></a>

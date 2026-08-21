@@ -185,8 +185,24 @@
 
                 @if (auth()->user()->is_admin == 1)
                     <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                            aria-expanded="false"><i class="fa-solid fa-phone-volume"></i><span class="hide-menu">সিম
+                                কল লিস্ট</span></a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="{{ route('admin.sim-call-list-type.index') }}">সিম কল টাইপ</a>
+                            </li>
+
+                            <li><a href="{{ route('admin.sim-call-list.index') }}">পেন্ডিং অর্ডার</a></li>
+                            <li><a href="{{ route('admin.sim-call-list.completed') }}">পাওয়া গেছে</a></li>
+                            <li><a href="{{ route('admin.sim-call-list.disabled') }}">পাওয়া যায়নি</a></li>
+                        </ul>
+                    </li>
+                @endif
+
+                @if (auth()->user()->is_admin == 1)
+                    <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"
                             aria-expanded="false"><i class="fa-solid fa-unlock-keyhole"></i><span
-                                class="hide-menu">ইউজার পাসওয়ার্ড সেট <small class="px-4"><b>NID Card</b></small></span></a>
+                                class="hide-menu">ইউজার পাসওয়ার্ড সেট <small class="px-4"><b>NID
+                                        Card</b></small></span></a>
                         <ul aria-expanded="false" class="collapse">
                             <li><a href="{{ route('admin.user-pass-nid.index') }}">পেন্ডিং অর্ডার</a></li>
                             <li><a href="{{ route('admin.user-pass-nid.completed') }}">পাওয়া গেছে</a></li>
@@ -197,8 +213,8 @@
 
                 @if (auth()->user()->is_admin == 1)
                     <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"
-                            aria-expanded="false"><i class="fa-brands fa-wpforms"></i><span
-                                class="hide-menu">এনআইডি সংশোধন <small class="px-4"><b>ফর্ম উত্তোলন</b></small></span></a>
+                            aria-expanded="false"><i class="fa-brands fa-wpforms"></i><span class="hide-menu">এনআইডি
+                                সংশোধন <small class="px-4"><b>ফর্ম উত্তোলন</b></small></span></a>
                         <ul aria-expanded="false" class="collapse">
                             <li><a href="{{ route('admin.lost-nid-form.index') }}">পেন্ডিং অর্ডার</a></li>
                             <li><a href="{{ route('admin.lost-nid-form.completed') }}">পাওয়া গেছে</a></li>
@@ -211,7 +227,8 @@
 
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->nid_auto == 1)
                     <li> <a class="waves-effect waves-dark" href="{{ route('user.nid-auto.index') }}"
-                            aria-expanded="false"><i class="fa-regular fa-id-card"></i><span class="hide-menu">এনআইডি <small class=""><b>Auto</b></small></span></a>
+                            aria-expanded="false"><i class="fa-regular fa-id-card"></i><span class="hide-menu">এনআইডি
+                                <small class=""><b>Auto</b></small></span></a>
                     </li>
                 @endif
 
@@ -284,7 +301,8 @@
                     </li>
                 @endif
                 @if (auth()->user()->is_admin == 1 || @$moderatorAccess->recharge == 1)
-                    <li class="{{ request()->routeIs('admin.recharge', 'admin.pre-transaction.*') ? 'active' : '' }}"> <a class="waves-effect waves-dark" href="{{ route('admin.recharge') }}"
+                    <li class="{{ request()->routeIs('admin.recharge', 'admin.pre-transaction.*') ? 'active' : '' }}">
+                        <a class="waves-effect waves-dark" href="{{ route('admin.recharge') }}"
                             aria-expanded="false"><i class="fa-solid fa-bangladeshi-taka-sign"></i><span
                                 class="hide-menu">রিচার্জ</span></a>
                     </li>

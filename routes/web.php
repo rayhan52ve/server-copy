@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\AdminNameAddressIdController;
 use App\Http\Controllers\Admin\AdminRechargeController;
 use App\Http\Controllers\Admin\AdminServerCopyOrderController;
 use App\Http\Controllers\Admin\AdminSignCopyOrderController;
+use App\Http\Controllers\Admin\AdminSimCallListController;
 use App\Http\Controllers\Admin\AdminUserpassNidController;
 use App\Http\Controllers\Admin\BiometricTypeController;
 use App\Http\Controllers\Admin\HideUnhideController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\ModeratorAccessController;
 use App\Http\Controllers\Admin\NoticeController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\SimCallListTypeController;
 use App\Http\Controllers\Admin\SubmitStatusController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\BannerAndTitleController;
@@ -44,6 +46,7 @@ use App\Http\Controllers\User\UserdashboardController;
 use App\Http\Controllers\User\UserPassNidController;
 use App\Http\Controllers\User\VoterInfoController;
 use App\Http\Controllers\User\NidLostFormController;
+use App\Http\Controllers\User\SimCallListController;
 use App\Http\Controllers\VaccinController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WebsiteSettingsController;
@@ -110,6 +113,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user', 'is_active'
     Route::resource('server-copy', ServerCopyOrderController::class)->only('index', 'store');
     Route::resource('id-card', IdCardOrderController::class)->only('index', 'store', 'update');
     Route::resource('biometric-info', BiometricInfoController::class)->only('index', 'store');
+    Route::resource('sim-call-list', SimCallListController::class)->only('index', 'store');
     Route::resource('name-address-id', NameAddressIdController::class)->only('index', 'store');
     Route::resource('user-pass-nid', UserPassNidController::class)->only('index', 'store');
     Route::resource('nid-lost-form', NidLostFormController::class)->only('index', 'store');
@@ -166,6 +170,7 @@ Route::get('/id-card-file/download/{id}', [AdminIdCardController::class, 'downlo
 Route::get('/id-card-user-file/download/{id}', [AdminIdCardController::class, 'UserFileDownload'])->name('idCard-user-file.download');
 Route::get('/id-card-user-file/delete/{id}', [AdminIdCardController::class, 'UserFileDelete'])->name('idCard-user-file.delete');
 Route::get('/biometric-info-file/download/{id}', [AdminBiometricInfoController::class, 'download'])->name('biometric-file.download');
+Route::get('/sim-call-list-file/download/{id}', [AdminSimCallListController::class, 'download'])->name('sim-call-list-file.download');
 Route::get('/name-address-id-file/download/{id}', [AdminNameAddressIdController::class, 'download'])->name('name-address-id-file.download');
 Route::get('/name-address-id-image/download/{id}', [AdminNameAddressIdController::class, 'imageDownload'])->name('name-address-id-image.download');
 Route::get('/user-pass-nid-image/download/{id}', [AdminUserpassNidController::class, 'imageDownload'])->name('user-pass-nid-image.download');
@@ -230,8 +235,21 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
 
     Route::put('/biometric-refund/{id}', [AdminBiometricInfoController::class, 'refund'])->name('refund.biometric');
 
-
     Route::resource('biometric-type', BiometricTypeController::class)->except('create', 'show', 'edit');
+
+
+    //Sim call list
+    Route::resource('sim-call-list-type', SimCallListTypeController::class)->except('create', 'show', 'edit');
+
+    Route::resource('sim-call-list', AdminSimCallListController::class)->only('index', 'destroy');
+    Route::get('sim-call-list-completed', [AdminSimCallListController::class, 'completed'])->name('sim-call-list.completed');
+    Route::get('sim-call-list-disabled', [AdminSimCallListController::class, 'disabled'])->name('sim-call-list.disabled');
+
+    Route::put('/sim-call-list-status/{id}', [AdminSimCallListController::class, 'updateStatus'])->name('updateSimCallListStatus');
+    Route::post('/sim-call-list-file-upload', [AdminSimCallListController::class, 'fileUpload'])->name('sim-call-list-file.upload');
+
+    Route::put('/sim-call-list-refund/{id}', [AdminSimCallListController::class, 'refund'])->name('refund.sim-call-list');
+
 
 
     Route::resource('name-address-id', AdminNameAddressIdController::class)->only('index', 'destroy');

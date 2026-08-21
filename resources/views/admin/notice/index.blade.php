@@ -41,6 +41,11 @@
                         <input type="text" class="form-control" rows="5" value="{{ $notice->biometric ?? null }}"
                             name="biometric" placeholder="বায়োমেট্রিক তথ্য নোটিশ">
                     </div>
+                    <div class="form-group py-2">
+                        <label>সিম কল লিস্ট</label>
+                        <input type="text" class="form-control" rows="5" value="{{ $notice->sim_call_list ?? null }}"
+                            name="sim_call_list" placeholder="সিম কল লিস্ট নোটিশ">
+                    </div>
                     
                     {{-- <div class="form-group py-2">
                         <label>নতুন এনআইডি</label>
