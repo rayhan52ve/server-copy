@@ -174,6 +174,20 @@
                                                         </div>
                                                     </div>
 
+                                                    <div class="form-group py-2">
+                                                        পাসপোর্ট সার্ভার কপি
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$hideUnhide->passport_server_copy == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="passport_server_copy" value="0">
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="passport_server_copy" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$hideUnhide->passport_server_copy == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+
                                                     {{-- <div class="form-group py-2">
                                                         নতুন এনআইডি
                                                         <div class="form-check form-switch">
@@ -500,6 +514,19 @@
                                                                 value="1" name="bkash_nagad_info" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$submitStatus->bkash_nagad_info == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group py-2">
+                                                        পাসপোর্ট সার্ভার কপি
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$submitStatus->passport_server_copy == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="passport_server_copy" value="0">
+                                                            <input class="form-check-input" onclick="submitForm()"
+                                                                value="1" name="passport_server_copy" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$submitStatus->passport_server_copy == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
 

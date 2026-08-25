@@ -214,6 +214,20 @@
 
                 @if (auth()->user()->is_admin == 1)
                     <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                            aria-expanded="false"><i class="fa-solid fa-passport"></i><span class="hide-menu">পাসপোর্ট সার্ভার কপি</span></a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="{{ route('admin.passport-server-copy-type.index') }}">টাইপ</a>
+                            </li>
+
+                            <li><a href="{{ route('admin.passport-server-copy.index') }}">পেন্ডিং অর্ডার</a></li>
+                            <li><a href="{{ route('admin.passport-server-copy.completed') }}">পাওয়া গেছে</a></li>
+                            <li><a href="{{ route('admin.passport-server-copy.disabled') }}">পাওয়া যায়নি</a></li>
+                        </ul>
+                    </li>
+                @endif
+
+                @if (auth()->user()->is_admin == 1)
+                    <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"
                             aria-expanded="false"><i class="fa-solid fa-unlock-keyhole"></i><span
                                 class="hide-menu">ইউজার পাসওয়ার্ড সেট <small class="px-4"><b>NID
                                         Card</b></small></span></a>

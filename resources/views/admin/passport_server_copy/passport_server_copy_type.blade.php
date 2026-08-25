@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
-                    <h3>বিকাশ/নগদ ইনফো টাইপ</h3>
+                    <h3>পাসপোর্ট সার্ভার কপি টাইপ</h3>
                     <button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#createModal">Create Type</button>
 
                 </div>
@@ -22,7 +22,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($bkashNagadType as $key => $item)
+                            @foreach ($passportServerCopy as $key => $item)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->name ?? null }}</td>
@@ -32,7 +32,7 @@
                                         <button type="button" class="btn brn-sm btn-info m-2" data-toggle="modal"
                                             data-target="#editModal{{ $item->id }}">Edit</button>
 
-                                        <form action="{{ route('admin.bkash-nagad-info-type.destroy', $item->id) }}" method="POST"
+                                        <form action="{{ route('admin.passport-server-copy-type.destroy', $item->id) }}" method="POST"
                                             style="display: inline;">
                                             @csrf
                                             @method('DELETE')
@@ -51,14 +51,14 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="uploadModalLabel">বিকাশ/নগদ ইনফো টাইপ</h5>
+                                                <h5 class="modal-title" id="uploadModalLabel">পাসপোর্ট সার্ভার কপি টাইপ</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="{{ route('admin.bkash-nagad-info-type.update', $item->id) }}"
+                                                <form action="{{ route('admin.passport-server-copy-type.update', $item->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('PUT')
@@ -94,13 +94,13 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="uploadModalLabel">বিকাশ/নগদ ইনফো টাইপ</h5>
+                        <h5 class="modal-title" id="uploadModalLabel">পাসপোর্ট সার্ভার কপি টাইপ</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('admin.bkash-nagad-info-type.store') }}" method="POST">
+                        <form action="{{ route('admin.passport-server-copy-type.store') }}" method="POST">
                             @csrf
                             <div class="form-group col-md-10">
                                 <label for="file" class="form-label">নাম</label>

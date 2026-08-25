@@ -51,6 +51,11 @@
                         <input type="text" class="form-control" rows="5" value="{{ $notice->bkash_nagad_info ?? null }}"
                             name="bkash_nagad_info" placeholder="বিকাশ/নগদ ইনফো নোটিশ">
                     </div>
+                    <div class="form-group py-2">
+                        <label>পাসপোর্ট সার্ভার কপি</label>
+                        <input type="text" class="form-control" rows="5" value="{{ $notice->passport_server_copy ?? null }}"
+                            name="passport_server_copy" placeholder="পাসপোর্ট সার্ভার কপি নোটিশ">
+                    </div>
                     
                     {{-- <div class="form-group py-2">
                         <label>নতুন এনআইডি</label>

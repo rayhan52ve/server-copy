@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
-                    <h3>বিকাশ/নগদ ইনফো</h3>
+                    <h3>পাসপোর্ট সার্ভার কপি</h3>
 
                 </div>
             </div>
@@ -23,15 +23,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($bkashNagad as $key => $item)
+                            @foreach ($passportServerCopy as $key => $item)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->user->email ?? null }}</td>
-                                    <td>{{ $item->BNType?->name }}</td>
+                                    <td>{{ $item->copyType?->name }}</td>
                                     <td>{{ $item->number ?? null }}</td>
                                     <td>
                                         <form id="statusForm{{ $item->id }}"
-                                            action="{{ route('admin.updateBkashNagadInfoStatus', $item->id) }}" method="post">
+                                            action="{{ route('admin.updatePassportServerCopyStatus', $item->id) }}" method="post">
                                             @csrf
                                             @method('PUT')
                                             <select name="status" class="form-control"
@@ -50,7 +50,7 @@
                                     </td>
                                     <td>
                                         @if ($item->file)
-                                            <a href="{{ route('bkash-nagad-info-file.download', $item->id) }}"
+                                            <a href="{{ route('passport-server-copy-file.download', $item->id) }}"
                                                 class="btn btn-success btn-sm"><i class="fa-solid fa-download"></i></a>
                                         @else
                                             <span class="text-danger">File Not Uploaded</span>
@@ -96,7 +96,7 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <!-- Form for refund -->
-                                                            <form action="{{ route('admin.refund.bkash-nagad-info', $item->id) }}"
+                                                            <form action="{{ route('admin.refund.passport-server-copy', $item->id) }}"
                                                                 method="post" class="mb-1">
                                                                 @csrf
                                                                 @method('PUT')
@@ -127,10 +127,10 @@
                                                                         value="{{ $item->user->id ?? null }}">
                                                                     @if ($item->user->premium == 2 && $now < $item->user->premium_end)
                                                                         <input type="hidden" name="price"
-                                                                            value="{{ $item->BNType?->premium_price ?? null }}">
+                                                                            value="{{ $item->copyType?->premium_price ?? null }}">
                                                                     @else
                                                                         <input type="hidden" name="price"
-                                                                            value="{{ $item->BNType?->price ?? null }}">
+                                                                            value="{{ $item->copyType?->price ?? null }}">
                                                                     @endif
                                                                     <button type="submit"
                                                                         class="btn btn-success">Refund</button>
@@ -158,7 +158,7 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <!-- Form for file upload -->
-                                                            <form action="{{ route('admin.bkash-nagad-info-file.upload') }}"
+                                                            <form action="{{ route('admin.passport-server-copy-file.upload') }}"
                                                                 method="POST" enctype="multipart/form-data">
                                                                 @csrf
                                                                 <input type="hidden" name="id"
@@ -182,7 +182,7 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex gap-4 mt-1">
-                                                <form action="{{ route('admin.bkash-nagad-info.destroy', $item->id) }}"
+                                                <form action="{{ route('admin.passport-server-copy.destroy', $item->id) }}"
                                                     method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')

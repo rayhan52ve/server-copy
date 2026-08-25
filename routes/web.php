@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminBkashNagadInfoController;
 use App\Http\Controllers\Admin\AdminIdCardController;
 use App\Http\Controllers\Admin\AdminLostNidFormController;
 use App\Http\Controllers\Admin\AdminNameAddressIdController;
+use App\Http\Controllers\Admin\AdminPassportServerCopyController;
 use App\Http\Controllers\Admin\AdminRechargeController;
 use App\Http\Controllers\Admin\AdminServerCopyOrderController;
 use App\Http\Controllers\Admin\AdminSignCopyOrderController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\ModeratorAccessController;
 use App\Http\Controllers\Admin\NoticeController;
+use App\Http\Controllers\Admin\PassportServerCopyTypeController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SimCallListTypeController;
 use App\Http\Controllers\Admin\SubmitStatusController;
@@ -49,6 +51,7 @@ use App\Http\Controllers\User\UserdashboardController;
 use App\Http\Controllers\User\UserPassNidController;
 use App\Http\Controllers\User\VoterInfoController;
 use App\Http\Controllers\User\NidLostFormController;
+use App\Http\Controllers\User\PassportServerCopyController;
 use App\Http\Controllers\User\SimCallListController;
 use App\Http\Controllers\VaccinController;
 use App\Http\Controllers\VideoController;
@@ -118,6 +121,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user', 'is_active'
     Route::resource('biometric-info', BiometricInfoController::class)->only('index', 'store');
     Route::resource('sim-call-list', SimCallListController::class)->only('index', 'store');
     Route::resource('bkash-nagad-info', BkashNagadInfoController::class)->only('index', 'store');
+    Route::resource('passport-server-copy', PassportServerCopyController::class)->only('index', 'store');
     Route::resource('name-address-id', NameAddressIdController::class)->only('index', 'store');
     Route::resource('user-pass-nid', UserPassNidController::class)->only('index', 'store');
     Route::resource('nid-lost-form', NidLostFormController::class)->only('index', 'store');
@@ -176,6 +180,7 @@ Route::get('/id-card-user-file/delete/{id}', [AdminIdCardController::class, 'Use
 Route::get('/biometric-info-file/download/{id}', [AdminBiometricInfoController::class, 'download'])->name('biometric-file.download');
 Route::get('/sim-call-list-file/download/{id}', [AdminSimCallListController::class, 'download'])->name('sim-call-list-file.download');
 Route::get('/bkash-nagad-info-file/download/{id}', [AdminBkashNagadInfoController::class, 'download'])->name('bkash-nagad-info-file.download');
+Route::get('/passport-server-copy-file/download/{id}', [AdminBkashNagadInfoController::class, 'download'])->name('passport-server-copy-file.download');
 Route::get('/name-address-id-file/download/{id}', [AdminNameAddressIdController::class, 'download'])->name('name-address-id-file.download');
 Route::get('/name-address-id-image/download/{id}', [AdminNameAddressIdController::class, 'imageDownload'])->name('name-address-id-image.download');
 Route::get('/user-pass-nid-image/download/{id}', [AdminUserpassNidController::class, 'imageDownload'])->name('user-pass-nid-image.download');
@@ -266,6 +271,19 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::post('/bkash-nagad-info-file-upload', [AdminBkashNagadInfoController::class, 'fileUpload'])->name('bkash-nagad-info-file.upload');
 
     Route::put('/bkash-nagad-info-refund/{id}', [AdminBkashNagadInfoController::class, 'refund'])->name('refund.bkash-nagad-info');
+
+    
+    //Passpoprt server copy
+    Route::resource('passport-server-copy-type', PassportServerCopyTypeController::class)->except('create', 'show', 'edit');
+
+    Route::resource('passport-server-copy', AdminPassportServerCopyController::class)->only('index', 'destroy');
+    Route::get('passport-server-copy-completed', [AdminPassportServerCopyController::class, 'completed'])->name('passport-server-copy.completed');
+    Route::get('passport-server-copy-disabled', [AdminPassportServerCopyController::class, 'disabled'])->name('passport-server-copy.disabled');
+
+    Route::put('/passport-server-copy-status/{id}', [AdminPassportServerCopyController::class, 'updateStatus'])->name('updatePassportServerCopyStatus');
+    Route::post('/passport-server-copy-file-upload', [AdminPassportServerCopyController::class, 'fileUpload'])->name('passport-server-copy-file.upload');
+
+    Route::put('/passport-server-copy-refund/{id}', [AdminPassportServerCopyController::class, 'refund'])->name('refund.passport-server-copy');
 
 
 

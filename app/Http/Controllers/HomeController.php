@@ -12,6 +12,7 @@ use App\Models\NameAddressId;
 use App\Models\NewRegistration;
 use App\Models\NidLostForm;
 use App\Models\NidMake;
+use App\Models\PassportServerCopy;
 use App\Models\Report;
 use App\Models\ServerCopyOrder;
 use App\Models\ServerCopyUnofficial;
@@ -69,7 +70,8 @@ class HomeController extends Controller
         $nidLostFormCount = NidLostForm::where('status', '0')->count();
         $simCallListCount = SimCallList::where('status', '0')->count();
         $bkashNagadCount = BkashNagad::where('status', '0')->count();
-        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount', 'nameAddressCount', 'birthRegCount', 'userPassCount', 'nidLostFormCount', 'simCallListCount', 'bkashNagadCount'));
+        $passdportServerCopyCount = PassportServerCopy::where('status', '0')->count();
+        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount', 'nameAddressCount', 'birthRegCount', 'userPassCount', 'nidLostFormCount', 'simCallListCount', 'bkashNagadCount', 'passdportServerCopyCount'));
     }
 
 
