@@ -160,6 +160,19 @@
                                                                 {{ @$hideUnhide->sim_call_list == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
+                                                    <div class="form-group py-2">
+                                                        বিকাশ/নগদ ইনফো
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$hideUnhide->bkash_nagad_info == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="bkash_nagad_info" value="0">
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="bkash_nagad_info" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$hideUnhide->bkash_nagad_info == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
 
                                                     {{-- <div class="form-group py-2">
                                                         নতুন এনআইডি
@@ -474,6 +487,19 @@
                                                                 value="1" name="sim_call_list" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$submitStatus->sim_call_list == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group py-2">
+                                                        বিকাশ/নগদ ইনফো
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$submitStatus->bkash_nagad_info == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="bkash_nagad_info" value="0">
+                                                            <input class="form-check-input" onclick="submitForm()"
+                                                                value="1" name="bkash_nagad_info" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$submitStatus->bkash_nagad_info == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
 

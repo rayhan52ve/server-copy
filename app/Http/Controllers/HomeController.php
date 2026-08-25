@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AdminNotification;
 use App\Models\BiometricInfo;
 use App\Models\BirthOrder;
+use App\Models\BkashNagad;
 use App\Models\IdCardOrder;
 use App\Models\Message;
 use App\Models\NameAddressId;
@@ -15,6 +16,7 @@ use App\Models\Report;
 use App\Models\ServerCopyOrder;
 use App\Models\ServerCopyUnofficial;
 use App\Models\SignCopyOrder;
+use App\Models\SimCallList;
 use App\Models\TinCirtificate;
 use App\Models\UserPassNid;
 use App\Models\Vaccin;
@@ -65,13 +67,15 @@ class HomeController extends Controller
         $birthRegCount = BirthOrder::where('status', '0')->count();
         $userPassCount = UserPassNid::where('status', '0')->count();
         $nidLostFormCount = NidLostForm::where('status', '0')->count();
-        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount', 'nameAddressCount', 'birthRegCount','userPassCount','nidLostFormCount'));
+        $simCallListCount = SimCallList::where('status', '0')->count();
+        $bkashNagadCount = BkashNagad::where('status', '0')->count();
+        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount', 'nameAddressCount', 'birthRegCount', 'userPassCount', 'nidLostFormCount', 'simCallListCount', 'bkashNagadCount'));
     }
 
 
     public function serverCopyUnofficialList()
     {
-        $serverCopyUnofficial = ServerCopyUnofficial::where('hide',0)->latest()->get();
+        $serverCopyUnofficial = ServerCopyUnofficial::where('hide', 0)->latest()->get();
         $message = Message::first();
 
         return view('admin.file_list.server_copy_unofficial', compact('serverCopyUnofficial', 'message'));
@@ -86,7 +90,7 @@ class HomeController extends Controller
 
     public function nidList()
     {
-        $nids = NidMake::where('hide',0)->latest()->get();
+        $nids = NidMake::where('hide', 0)->latest()->get();
         $message = Message::first();
 
         return view('admin.file_list.nid', compact('nids', 'message'));
@@ -101,7 +105,7 @@ class HomeController extends Controller
 
     public function birthList()
     {
-        $new_regs = NewRegistration::where('hide',0)->latest()->get();
+        $new_regs = NewRegistration::where('hide', 0)->latest()->get();
         $message = Message::first();
 
         return view('admin.file_list.birth', compact('new_regs', 'message'));
@@ -116,7 +120,7 @@ class HomeController extends Controller
 
     public function vaccineList()
     {
-        $new_regs = Vaccin::where('hide',0)->latest()->get();
+        $new_regs = Vaccin::where('hide', 0)->latest()->get();
         $message = Message::first();
 
         return view('admin.file_list.vaccine', compact('new_regs', 'message'));
@@ -131,7 +135,7 @@ class HomeController extends Controller
 
     public function tinList()
     {
-        $tins = TinCirtificate::where('hide',0)->latest()->get();
+        $tins = TinCirtificate::where('hide', 0)->latest()->get();
         $message = Message::first();
 
         return view('admin.file_list.tin', compact('tins', 'message'));
@@ -184,10 +188,14 @@ class HomeController extends Controller
         BiometricInfo::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
 
         NameAddressId::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
-        
+
         UserPassNid::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
 
         NidLostForm::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
+
+        BkashNagad::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
+
+        SimCallList::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
 
         Alert::toast('Completed orders and associated files cleared.', 'success');
         return redirect()->back();
@@ -247,13 +255,31 @@ class HomeController extends Controller
         }
         BiometricInfo::where('status', '!=', 0)->delete();
 
+        $simCallList = SimCallList::where('status', '!=', 0)->get();
+        foreach ($simCallList as $order) {
+            $filePath = public_path($order->file);
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+        SimCallList::where('status', '!=', 0)->delete();
+
+        $bkashNagad = BkashNagad::where('status', '!=', 0)->get();
+        foreach ($bkashNagad as $order) {
+            $filePath = public_path($order->file);
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+        BkashNagad::where('status', '!=', 0)->delete();
+
         $nameAddressId = NameAddressId::where('status', '!=', 0)->get();
         foreach ($nameAddressId as $order) {
             $filePath = public_path($order->file);
             if (File::exists($filePath)) {
                 File::delete($filePath);
             }
-            $imagePathNAI = public_path('uploads/id_card/' .$order->image);
+            $imagePathNAI = public_path('uploads/id_card/' . $order->image);
             if (File::exists($imagePathNAI)) {
                 File::delete($imagePathNAI);
             }

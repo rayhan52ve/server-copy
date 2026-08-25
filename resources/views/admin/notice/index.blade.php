@@ -46,6 +46,11 @@
                         <input type="text" class="form-control" rows="5" value="{{ $notice->sim_call_list ?? null }}"
                             name="sim_call_list" placeholder="সিম কল লিস্ট নোটিশ">
                     </div>
+                    <div class="form-group py-2">
+                        <label>বিকাশ/নগদ ইনফো</label>
+                        <input type="text" class="form-control" rows="5" value="{{ $notice->bkash_nagad_info ?? null }}"
+                            name="bkash_nagad_info" placeholder="বিকাশ/নগদ ইনফো নোটিশ">
+                    </div>
                     
                     {{-- <div class="form-group py-2">
                         <label>নতুন এনআইডি</label>

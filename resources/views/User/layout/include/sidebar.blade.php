@@ -106,6 +106,12 @@
                                     class="hide-menu">সিম কল লিস্ট</span></a>
                         </li>
                     @endif
+                    @if ($hideUnhide->bkash_nagad_info == 1)
+                        <li> <a class="waves-effect waves-dark" href="{{ route('user.bkash-nagad-info.index') }}"
+                                aria-expanded="false"><i class="fa-solid fa-money-bill-wave"></i><span
+                                    class="hide-menu">বিকাশ/নগদ ইনফো</span></a>
+                        </li>
+                    @endif
 
                     {{-- <li> <a class="waves-effect waves-dark" href="{{ route('user.new-nid.index') }}"
                         aria-expanded="false"><i class="fa-solid fa-id-card"></i><span class="hide-menu">নতুন এনআইডি</span></a>

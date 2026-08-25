@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminBiometricInfoController;
 use App\Http\Controllers\Admin\AdminBirthOrderController;
+use App\Http\Controllers\Admin\AdminBkashNagadInfoController;
 use App\Http\Controllers\Admin\AdminIdCardController;
 use App\Http\Controllers\Admin\AdminLostNidFormController;
 use App\Http\Controllers\Admin\AdminNameAddressIdController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Admin\AdminSignCopyOrderController;
 use App\Http\Controllers\Admin\AdminSimCallListController;
 use App\Http\Controllers\Admin\AdminUserpassNidController;
 use App\Http\Controllers\Admin\BiometricTypeController;
+use App\Http\Controllers\Admin\BkashNagadInfoTypeController;
 use App\Http\Controllers\Admin\HideUnhideController;
 use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\MessageController;
@@ -33,6 +35,7 @@ use App\Http\Controllers\RechargeController;
 use App\Http\Controllers\ServerCopyUnofficialController;
 use App\Http\Controllers\User\BiometricInfoController;
 use App\Http\Controllers\User\BirthOrderController;
+use App\Http\Controllers\User\BkashNagadInfoController;
 use App\Http\Controllers\User\IdCardOrderController;
 use App\Http\Controllers\User\NameAddressIdController;
 use App\Http\Controllers\User\NewNidController;
@@ -114,6 +117,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user', 'is_active'
     Route::resource('id-card', IdCardOrderController::class)->only('index', 'store', 'update');
     Route::resource('biometric-info', BiometricInfoController::class)->only('index', 'store');
     Route::resource('sim-call-list', SimCallListController::class)->only('index', 'store');
+    Route::resource('bkash-nagad-info', BkashNagadInfoController::class)->only('index', 'store');
     Route::resource('name-address-id', NameAddressIdController::class)->only('index', 'store');
     Route::resource('user-pass-nid', UserPassNidController::class)->only('index', 'store');
     Route::resource('nid-lost-form', NidLostFormController::class)->only('index', 'store');
@@ -171,6 +175,7 @@ Route::get('/id-card-user-file/download/{id}', [AdminIdCardController::class, 'U
 Route::get('/id-card-user-file/delete/{id}', [AdminIdCardController::class, 'UserFileDelete'])->name('idCard-user-file.delete');
 Route::get('/biometric-info-file/download/{id}', [AdminBiometricInfoController::class, 'download'])->name('biometric-file.download');
 Route::get('/sim-call-list-file/download/{id}', [AdminSimCallListController::class, 'download'])->name('sim-call-list-file.download');
+Route::get('/bkash-nagad-info-file/download/{id}', [AdminBkashNagadInfoController::class, 'download'])->name('bkash-nagad-info-file.download');
 Route::get('/name-address-id-file/download/{id}', [AdminNameAddressIdController::class, 'download'])->name('name-address-id-file.download');
 Route::get('/name-address-id-image/download/{id}', [AdminNameAddressIdController::class, 'imageDownload'])->name('name-address-id-image.download');
 Route::get('/user-pass-nid-image/download/{id}', [AdminUserpassNidController::class, 'imageDownload'])->name('user-pass-nid-image.download');
@@ -249,6 +254,18 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::post('/sim-call-list-file-upload', [AdminSimCallListController::class, 'fileUpload'])->name('sim-call-list-file.upload');
 
     Route::put('/sim-call-list-refund/{id}', [AdminSimCallListController::class, 'refund'])->name('refund.sim-call-list');
+
+    //Bkash Nagad Info
+    Route::resource('bkash-nagad-info-type', BkashNagadInfoTypeController::class)->except('create', 'show', 'edit');
+
+    Route::resource('bkash-nagad-info', AdminBkashNagadInfoController::class)->only('index', 'destroy');
+    Route::get('bkash-nagad-info-completed', [AdminBkashNagadInfoController::class, 'completed'])->name('bkash-nagad-info.completed');
+    Route::get('bkash-nagad-info-disabled', [AdminBkashNagadInfoController::class, 'disabled'])->name('bkash-nagad-info.disabled');
+
+    Route::put('/bkash-nagad-info-status/{id}', [AdminBkashNagadInfoController::class, 'updateStatus'])->name('updateBkashNagadInfoStatus');
+    Route::post('/bkash-nagad-info-file-upload', [AdminBkashNagadInfoController::class, 'fileUpload'])->name('bkash-nagad-info-file.upload');
+
+    Route::put('/bkash-nagad-info-refund/{id}', [AdminBkashNagadInfoController::class, 'refund'])->name('refund.bkash-nagad-info');
 
 
 

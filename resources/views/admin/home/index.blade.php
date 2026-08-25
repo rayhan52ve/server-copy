@@ -179,6 +179,42 @@
                         </div>
                     </div>
                 @endif
+                @if (auth()->user()->is_admin == 1)
+                    <div class="col-xl-2 col-md-3 col-6 mb-3">
+                        <div class="card text-white mb-4 h-100" style="background-color:rgb(39, 113, 159)">
+                            <div class="card-header">
+                                <h5>Sim Call List</h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <h1>{{ $simCallListCount }}</h1>
+                            </div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <a class="small text-white stretched-link"
+                                    href="{{ route('admin.sim-call-list.index') }}">View Details</a>
+
+                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                @if (auth()->user()->is_admin == 1)
+                    <div class="col-xl-2 col-md-3 col-6 mb-3">
+                        <div class="card text-white mb-4 h-100" style="background-color:rgb(125, 159, 39)">
+                            <div class="card-header">
+                                <h5>Bkash/Nagad Info</h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <h1>{{ $bkashNagadCount }}</h1>
+                            </div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <a class="small text-white stretched-link"
+                                    href="{{ route('admin.bkash-nagad-info.index') }}">View Details</a>
+
+                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
             </div>
         </div>
