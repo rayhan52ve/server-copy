@@ -219,7 +219,7 @@
                     <div class="col-xl-2 col-md-3 col-6 mb-3">
                         <div class="card text-white mb-4 h-100" style="background-color:rgb(159, 39, 39)">
                             <div class="card-header">
-                                <h5>পাসপোর্ট সার্ভার কপি</h5>
+                                <h5>Passport Server Copy</h5>
                             </div>
                             <div class="card-body text-center">
                                 <h1>{{ $passdportServerCopyCount }}</h1>

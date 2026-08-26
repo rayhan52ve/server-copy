@@ -125,7 +125,7 @@
                                                                     </select>
                                                                     <input type="hidden" name="user_id"
                                                                         value="{{ $item->user->id ?? null }}">
-                                                                    @if ($item->user->premium == 2 && $now < $item->user->premium_end)
+                                                                    @if ($item->user?->premium == 2 && $now < $item->user?->premium_end)
                                                                         <input type="hidden" name="price"
                                                                             value="{{ $item->callType?->premium_price ?? null }}">
                                                                     @else

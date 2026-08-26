@@ -112,6 +112,12 @@
                                     class="hide-menu">বিকাশ/নগদ ইনফো</span></a>
                         </li>
                     @endif
+                    @if ($hideUnhide->bkash_nagad_info == 1)
+                        <li> <a class="waves-effect waves-dark" href="{{ route('user.passport-server-copy.index') }}"
+                                aria-expanded="false"><i class="fa-solid fa-passport"></i><span
+                                    class="hide-menu">পাসপোর্ট সার্ভার কপি</span></a>
+                        </li>
+                    @endif
 
                     {{-- <li> <a class="waves-effect waves-dark" href="{{ route('user.new-nid.index') }}"
                         aria-expanded="false"><i class="fa-solid fa-id-card"></i><span class="hide-menu">নতুন এনআইডি</span></a>

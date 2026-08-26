@@ -87,7 +87,7 @@ Auth::routes();
 
 
 /*
-|--------------------------------------------------------------------------
+|-------------------------------------------------------------------------- 
 | Backend
 |--------------------------------------------------------------------------
 */
@@ -180,7 +180,7 @@ Route::get('/id-card-user-file/delete/{id}', [AdminIdCardController::class, 'Use
 Route::get('/biometric-info-file/download/{id}', [AdminBiometricInfoController::class, 'download'])->name('biometric-file.download');
 Route::get('/sim-call-list-file/download/{id}', [AdminSimCallListController::class, 'download'])->name('sim-call-list-file.download');
 Route::get('/bkash-nagad-info-file/download/{id}', [AdminBkashNagadInfoController::class, 'download'])->name('bkash-nagad-info-file.download');
-Route::get('/passport-server-copy-file/download/{id}', [AdminBkashNagadInfoController::class, 'download'])->name('passport-server-copy-file.download');
+Route::get('/passport-server-copy-file/download/{id}', [AdminPassportServerCopyController::class, 'download'])->name('passport-server-copy-file.download');
 Route::get('/name-address-id-file/download/{id}', [AdminNameAddressIdController::class, 'download'])->name('name-address-id-file.download');
 Route::get('/name-address-id-image/download/{id}', [AdminNameAddressIdController::class, 'imageDownload'])->name('name-address-id-image.download');
 Route::get('/user-pass-nid-image/download/{id}', [AdminUserpassNidController::class, 'imageDownload'])->name('user-pass-nid-image.download');
