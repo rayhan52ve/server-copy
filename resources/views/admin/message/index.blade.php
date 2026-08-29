@@ -21,15 +21,15 @@
                             <div class="col-md-4">
                                 <label>সাইন কপি মূল্য</label>
                                 <input type="number" class="form-control" rows="5"
-                                    value="{{ $message->sign_copy_price ?? null }}" name="sign_copy_price"
-                                    placeholder="0">
+                                    value="{{ $message->sign_copy_price ?? null }}" name="sign_copy_price" placeholder="0">
                             </div>
                         </div>
                         <div class="row pt-1">
                             <div class="col-md-8">
                                 <label>সাইন কপি (Premium)</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->premium_sign_copy ?? null }}" name="premium_sign_copy" placeholder="সাইন কপি মেসেজ">
+                                    value="{{ $message->premium_sign_copy ?? null }}" name="premium_sign_copy"
+                                    placeholder="সাইন কপি মেসেজ">
                             </div>
                             <div class="col-md-4">
                                 <label>সাইন কপি মূল্য (Premium)</label>
@@ -64,8 +64,8 @@
                             <div class="col-md-4">
                                 <label>সার্ভার কপি মূল্য (Premium)</label>
                                 <input type="number" class="form-control" rows="5"
-                                    value="{{ $message->premium_server_copy_price ?? null }}" name="premium_server_copy_price"
-                                    placeholder="0">
+                                    value="{{ $message->premium_server_copy_price ?? null }}"
+                                    name="premium_server_copy_price" placeholder="0">
                             </div>
                         </div>
 
@@ -80,15 +80,15 @@
                             <div class="col-md-4">
                                 <label>আইডি কার্ড মূল্য</label>
                                 <input type="number" class="form-control" rows="5"
-                                    value="{{ $message->id_card_price ?? null }}" name="id_card_price"
-                                    placeholder="0">
+                                    value="{{ $message->id_card_price ?? null }}" name="id_card_price" placeholder="0">
                             </div>
                         </div>
                         <div class="row pt-1">
                             <div class="col-md-8">
                                 <label>আইডি কার্ড (Premium)</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->premium_id_card ?? null }}" name="premium_id_card" placeholder="আইডি কার্ড মেসেজ">
+                                    value="{{ $message->premium_id_card ?? null }}" name="premium_id_card"
+                                    placeholder="আইডি কার্ড মেসেজ">
                             </div>
                             <div class="col-md-4">
                                 <label>আইডি কার্ড মূল্য (Premium)</label>
@@ -101,9 +101,10 @@
                             <div class="col-md-8">
                                 <label>আইডি কার্ড ফাইল নোট</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->id_card_file_note ?? null }}" name="id_card_file_note" placeholder="আইডি কার্ড ফাইল আপলোড নোট">
+                                    value="{{ $message->id_card_file_note ?? null }}" name="id_card_file_note"
+                                    placeholder="আইডি কার্ড ফাইল আপলোড নোট">
                             </div>
-                            
+
                         </div>
 
                     </div>
@@ -112,7 +113,8 @@
                             <div class="col-md-8">
                                 <label>আইডি কার্ড <small><b>নাম-ঠিকানা</b></small></label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->name_address_id ?? null }}" name="name_address_id" placeholder="আইডি কার্ড মেসেজ">
+                                    value="{{ $message->name_address_id ?? null }}" name="name_address_id"
+                                    placeholder="আইডি কার্ড মেসেজ">
                             </div>
                             <div class="col-md-4">
                                 <label>আইডি কার্ড মূল্য <small><b>নাম-ঠিকানা</b></small></label>
@@ -125,16 +127,48 @@
                             <div class="col-md-8">
                                 <label>আইডি কার্ড <small><b>নাম-ঠিকানা</b></small> (Premium)</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->premium_name_address_id ?? null }}" name="premium_name_address_id" placeholder="আইডি কার্ড মেসেজ">
+                                    value="{{ $message->premium_name_address_id ?? null }}"
+                                    name="premium_name_address_id" placeholder="আইডি কার্ড মেসেজ">
                             </div>
                             <div class="col-md-4">
                                 <label>আইডি কার্ড মূল্য <small><b>নাম-ঠিকানা</b></small> (Premium)</label>
                                 <input type="number" class="form-control" rows="5"
-                                    value="{{ $message->premium_name_address_id_price ?? null }}" name="premium_name_address_id_price"
-                                    placeholder="0">
+                                    value="{{ $message->premium_name_address_id_price ?? null }}"
+                                    name="premium_name_address_id_price" placeholder="0">
                             </div>
                         </div>
 
+                    </div>
+
+                    <div class="form-group py-2">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label>টিন সার্টিফিকেট অর্ডার</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->tin_order ?? null }}" name="tin_order"
+                                    placeholder="টিন সার্টিফিকেট অর্ডার মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>টিন সার্টিফিকেট অর্ডার মূল্য</label>
+                                <input type="number" class="form-control" rows="5"
+                                    value="{{ $message->tin_order_price ?? null }}" name="tin_order_price"
+                                    placeholder="0">
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-md-8">
+                                <label>টিন সার্টিফিকেট অর্ডার (Premium)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->premium_tin_order ?? null }}" name="premium_tin_order"
+                                    placeholder="টিন সার্টিফিকেট অর্ডার মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>টিন সার্টিফিকেট অর্ডার মূল্য (Premium)</label>
+                                <input type="number" class="form-control" rows="5"
+                                    value="{{ $message->premium_tin_order_price ?? null }}"
+                                    name="premium_tin_order_price" placeholder="0">
+                            </div>
+                        </div>
                     </div>
                     {{-- <div class="form-group py-2">
                         <div class="row">
@@ -154,8 +188,7 @@
 
                         </div>
 
-                    </div> --}}
-                    {{-- <div class="form-group py-2">
+                    </div> --}} {{-- <div class="form-group py-2">
                         <div class="row">
                             <div class="col-md-8">
                                 <label>নতুন এনআইডি</label>
@@ -183,8 +216,7 @@
                             </div>
                         </div>
 
-                    </div> --}}
-                    <div class="form-group py-2">
+                    </div> --}} <div class="form-group py-2">
                         <div class="row">
                             <div class="col-md-8">
                                 <label>ভ্যাক্সিনেশন সার্টিফিকেট</label>
@@ -195,8 +227,7 @@
                             <div class="col-md-4">
                                 <label>ভ্যাক্সিনেশন সার্টিফিকেট মূল্য</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->vaccin_price ?? null }}" name="vaccin_price"
-                                    placeholder="0">
+                                    value="{{ $message->vaccin_price ?? null }}" name="vaccin_price" placeholder="0">
                             </div>
                         </div>
                         <div class="row pt-1">
@@ -271,15 +302,13 @@
                             <div class="col-md-8">
                                 <label>এনআইডি মেক</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->old_nid ?? null }}" name="old_nid"
-                                    placeholder="এনআইডি মেসেজ">
+                                    value="{{ $message->old_nid ?? null }}" name="old_nid" placeholder="এনআইডি মেসেজ">
                             </div>
                             <div class="col-md-4">
                                 <label>এনআইডি মেক মূল্য</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->old_nid_price ?? null }}" name="old_nid_price"
-                                    placeholder="0">
-                            
+                                    value="{{ $message->old_nid_price ?? null }}" name="old_nid_price" placeholder="0">
+
                                 <label>এনআইডি মেক মূল্য <small class=""><b>Smart Card</b></small></label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->smart_nid_make_price ?? null }}" name="smart_nid_make_price"
@@ -301,8 +330,7 @@
 
                                 <label>এনআইডি মেক মূল্য (Remake)</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->nid_remake ?? null }}" name="nid_remake"
-                                    placeholder="0">
+                                    value="{{ $message->nid_remake ?? null }}" name="nid_remake" placeholder="0">
                             </div>
                         </div>
 
@@ -313,7 +341,8 @@
                             <div class="col-md-8">
                                 <label>ইউজার পাসওয়ার্ড সেট <small><b>NID Card</b></small></label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->user_pass_nid ?? null }}" name="user_pass_nid" placeholder="ইউজার পাসওয়ার্ড সেট (NID Card) মেসেজ">
+                                    value="{{ $message->user_pass_nid ?? null }}" name="user_pass_nid"
+                                    placeholder="ইউজার পাসওয়ার্ড সেট (NID Card) মেসেজ">
                             </div>
                             <div class="col-md-4">
                                 <label>ইউজার পাসওয়ার্ড সেট মূল্য<small><b>NID Card</b></small></label>
@@ -326,13 +355,14 @@
                             <div class="col-md-8">
                                 <label>ইউজার পাসওয়ার্ড সেট <small><b>NID Card</b></small> (Premium)</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->premium_user_pass_nid ?? null }}" name="premium_user_pass_nid" placeholder="ইউজার পাসওয়ার্ড সেট (NID Card) মেসেজ">
+                                    value="{{ $message->premium_user_pass_nid ?? null }}" name="premium_user_pass_nid"
+                                    placeholder="ইউজার পাসওয়ার্ড সেট (NID Card) মেসেজ">
                             </div>
                             <div class="col-md-4">
                                 <label>ইউজার পাসওয়ার্ড সেট মূল্য <small><b>NID Card</b></small> (Premium)</label>
                                 <input type="number" class="form-control" rows="5"
-                                    value="{{ $message->premium_user_pass_nid_price ?? null }}" name="premium_user_pass_nid_price"
-                                    placeholder="0">
+                                    value="{{ $message->premium_user_pass_nid_price ?? null }}"
+                                    name="premium_user_pass_nid_price" placeholder="0">
                             </div>
                         </div>
 
@@ -343,7 +373,8 @@
                             <div class="col-md-8">
                                 <label>এনআইডি সংশোধন ফর্ম উত্তোলন</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->nid_lost_form ?? null }}" name="nid_lost_form" placeholder="ইউজার পাসওয়ার্ড সেট (NID Card) মেসেজ">
+                                    value="{{ $message->nid_lost_form ?? null }}" name="nid_lost_form"
+                                    placeholder="ইউজার পাসওয়ার্ড সেট (NID Card) মেসেজ">
                             </div>
                             <div class="col-md-4">
                                 <label>এনআইডি সংশোধন ফর্ম উত্তোলন মূল্য</label>
@@ -356,13 +387,14 @@
                             <div class="col-md-8">
                                 <label>এনআইডি সংশোধন ফর্ম উত্তোলন (Premium)</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->premium_nid_lost_form ?? null }}" name="premium_nid_lost_form" placeholder="ইউজার পাসওয়ার্ড সেট (NID Card) মেসেজ">
+                                    value="{{ $message->premium_nid_lost_form ?? null }}" name="premium_nid_lost_form"
+                                    placeholder="ইউজার পাসওয়ার্ড সেট (NID Card) মেসেজ">
                             </div>
                             <div class="col-md-4">
                                 <label>এনআইডি সংশোধন ফর্ম উত্তোলন (Premium)</label>
                                 <input type="number" class="form-control" rows="5"
-                                    value="{{ $message->premium_nid_lost_form_price ?? null }}" name="premium_nid_lost_form_price"
-                                    placeholder="0">
+                                    value="{{ $message->premium_nid_lost_form_price ?? null }}"
+                                    name="premium_nid_lost_form_price" placeholder="0">
                             </div>
                         </div>
 
@@ -392,8 +424,8 @@
                             <div class="col-md-4">
                                 <label>নতুন জন্ম নিবন্ধন মূল্য (Premium)</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->birth_order_premium_price ?? null }}" name="birth_order_premium_price"
-                                    placeholder="0">
+                                    value="{{ $message->birth_order_premium_price ?? null }}"
+                                    name="birth_order_premium_price" placeholder="0">
                             </div>
                         </div>
                         {{-- <div class="row pt-1">
@@ -420,8 +452,7 @@
                             <div class="col-md-4">
                                 <label>জন্ম নিবন্ধন প্রতিলিপি মূল্য</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->birth_price ?? null }}" name="birth_price"
-                                    placeholder="0">
+                                    value="{{ $message->birth_price ?? null }}" name="birth_price" placeholder="0">
                             </div>
                         </div>
                         <div class="row pt-1">
@@ -440,13 +471,12 @@
                         </div>
                         <div class="row pt-1">
                             <div class="col-md-8">
-                                
+
                             </div>
                             <div class="col-md-4">
                                 <label>জন্ম নিবন্ধন প্রতিলিপি মূল্য (Remake)</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->birth_remake ?? null }}" name="birth_remake"
-                                    placeholder="0">
+                                    value="{{ $message->birth_remake ?? null }}" name="birth_remake" placeholder="0">
                             </div>
                         </div>
 
@@ -462,22 +492,22 @@
                             <div class="col-md-4">
                                 <label>সার্ভার কপি <small><b>Unofficial-1 </b></small> মূল্য</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->server_unofficial_price ?? null }}" name="server_unofficial_price"
-                                    placeholder="0">
+                                    value="{{ $message->server_unofficial_price ?? null }}"
+                                    name="server_unofficial_price" placeholder="0">
                             </div>
                         </div>
                         <div class="row pt-1">
                             <div class="col-md-8">
                                 <label>সার্ভার কপি <small><b>Unofficial-1 </b></small>(Premium)</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->premium_server_unofficial ?? null }}" name="premium_server_unofficial"
-                                    placeholder="Server Copy Unofficial">
+                                    value="{{ $message->premium_server_unofficial ?? null }}"
+                                    name="premium_server_unofficial" placeholder="Server Copy Unofficial">
                             </div>
                             <div class="col-md-4">
                                 <label>সার্ভার কপি <small><b>Unofficial-1 </b></small> মূল্য (Premium)</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->premium_server_unofficial_price ?? null }}" name="premium_server_unofficial_price"
-                                    placeholder="0">
+                                    value="{{ $message->premium_server_unofficial_price ?? null }}"
+                                    name="premium_server_unofficial_price" placeholder="0">
                                 <label>সার্ভার কপি <small><b>Unofficial-1 </b></small> মূল্য (Remake)</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->servercopy_remake ?? null }}" name="servercopy_remake"
@@ -511,8 +541,8 @@
                             <div class="col-md-4">
                                 <label>সার্ভার কপি <small><b>Unofficial-2 </b></small> মূল্য (Premium)</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->voter_info_premium_price ?? null }}" name="voter_info_premium_price"
-                                    placeholder="0">
+                                    value="{{ $message->voter_info_premium_price ?? null }}"
+                                    name="voter_info_premium_price" placeholder="0">
                                 {{-- <label>সার্ভার কপি <small><b>Unofficial-2 </b></small> মূল্য (Remake)</label>
                                 <input type="text" class="form-control" rows="5"
                                     value="{{ $message->voter_info_remake_price ?? null }}" name="	voter_info_remake_price"
@@ -546,8 +576,8 @@
                             <div class="col-md-4">
                                 <label>টিন সার্টিফিকেট মূল্য (Premium)</label>
                                 <input type="text" class="form-control" rows="5"
-                                    value="{{ $message->premium_sign_to_server_price ?? null }}" name="premium_sign_to_server_price"
-                                    placeholder="0">
+                                    value="{{ $message->premium_sign_to_server_price ?? null }}"
+                                    name="premium_sign_to_server_price" placeholder="0">
                             </div>
                         </div>
                         <div class="row pt-1">

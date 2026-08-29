@@ -56,6 +56,12 @@
                         <input type="text" class="form-control" rows="5" value="{{ $notice->passport_server_copy ?? null }}"
                             name="passport_server_copy" placeholder="পাসপোর্ট সার্ভার কপি নোটিশ">
                     </div>
+
+                    <div class="form-group py-2">
+                        <label>টিন সার্টিফিকেট অর্ডার</label>
+                        <input type="text" class="form-control" rows="5" value="{{ $notice->tin_order ?? null }}"
+                            name="tin_order" placeholder="টিন সার্টিফিকেট অর্ডার নোটিশ">
+                    </div>
                     
                     {{-- <div class="form-group py-2">
                         <label>নতুন এনআইডি</label>

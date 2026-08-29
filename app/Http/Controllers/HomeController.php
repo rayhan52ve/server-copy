@@ -19,6 +19,7 @@ use App\Models\ServerCopyUnofficial;
 use App\Models\SignCopyOrder;
 use App\Models\SimCallList;
 use App\Models\TinCirtificate;
+use App\Models\TinOrder;
 use App\Models\UserPassNid;
 use App\Models\Vaccin;
 use Carbon\Carbon;
@@ -71,7 +72,8 @@ class HomeController extends Controller
         $simCallListCount = SimCallList::where('status', '0')->count();
         $bkashNagadCount = BkashNagad::where('status', '0')->count();
         $passdportServerCopyCount = PassportServerCopy::where('status', '0')->count();
-        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount', 'nameAddressCount', 'birthRegCount', 'userPassCount', 'nidLostFormCount', 'simCallListCount', 'bkashNagadCount', 'passdportServerCopyCount'));
+        $tinOrderCount = TinOrder::where('status', '0')->count();
+        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount', 'nameAddressCount', 'birthRegCount', 'userPassCount', 'nidLostFormCount', 'simCallListCount', 'bkashNagadCount', 'passdportServerCopyCount', 'tinOrderCount'));
     }
 
 
@@ -201,6 +203,8 @@ class HomeController extends Controller
 
         PassportServerCopy::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
 
+        TinOrder::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
+
         Alert::toast('Completed orders and associated files cleared.', 'success');
         return redirect()->back();
     }
@@ -285,6 +289,15 @@ class HomeController extends Controller
             }
         }
         PassportServerCopy::where('status', '!=', 0)->delete();
+
+        $tinOrder = TinOrder::where('status', '!=', 0)->get();
+        foreach ($tinOrder as $order) {
+            $filePath = public_path($order->file);
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+        TinOrder::where('status', '!=', 0)->delete();
 
         $nameAddressId = NameAddressId::where('status', '!=', 0)->get();
         foreach ($nameAddressId as $order) {

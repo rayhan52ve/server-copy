@@ -93,6 +93,14 @@
                                     class="hide-menu">আইডি কার্ড <small><b>নাম-ঠিকানা</b></small></span></a>
                         </li>
                     @endif
+
+                    @if ($hideUnhide->tin_order == 1)
+                        <li> <a class="waves-effect waves-dark" href="{{ route('user.tin-order.index') }}"
+                                aria-expanded="false"><i class="fa-solid fa-file-import"></i><span
+                                    class="hide-menu">টিন সার্টিফিকেট অর্ডার</span></a>
+                        </li>
+                    @endif
+
                     @if ($hideUnhide->biometric == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.biometric-info.index') }}"
                                 aria-expanded="false"><i class="fa-solid fa-fingerprint"></i><span
@@ -148,13 +156,14 @@
                     @if ($hideUnhide->user_pass_nid == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.user-pass-nid.index') }}"
                                 aria-expanded="false"><i class="fa-solid fa-unlock-keyhole"></i><span
-                                    class="hide-menu">ইউজার পাসওয়ার্ড সেট <small class="px-4"><b>NID Card</b></small></span></a>
+                                    class="hide-menu">ইউজার পাসওয়ার্ড সেট <small class="px-4"><b>NID
+                                            Card</b></small></span></a>
                         </li>
                     @endif
                     @if ($hideUnhide->nid_lost_form == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.nid-lost-form.index') }}"
-                                aria-expanded="false"><i class="fa-brands fa-wpforms"></i><span
-                                    class="hide-menu">এনআইডি সংশোধন <small class="px-4">ফর্ম উত্তোলন</small></span></a>
+                                aria-expanded="false"><i class="fa-brands fa-wpforms"></i><span class="hide-menu">এনআইডি
+                                    সংশোধন <small class="px-4">ফর্ম উত্তোলন</small></span></a>
                         </li>
                     @endif
                     @if ($hideUnhide->birth_order == 1)
@@ -196,7 +205,8 @@
                     @endif
                     @if ($hideUnhide->sign_to_server == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.sign-to-server.index') }}"
-                                aria-expanded="false"><i class="fa-solid fa-file-import"></i><span class="hide-menu">টিন
+                                aria-expanded="false"><i class="fa-solid fa-file-import"></i><span
+                                    class="hide-menu">টিন
                                     সার্টিফিকেট</span></a>
                         </li>
                     @endif
@@ -204,8 +214,8 @@
                         aria-expanded="false"><i class="fa-solid fa-file-shield"></i><span class="hide-menu">সুরক্ষা ক্লোন</span></a>
                 </li> --}}
 
-                    <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
-                                class="fa-solid fa-file"></i><span class="hide-menu">ফাইল
+                    <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                            aria-expanded="false"><i class="fa-solid fa-file"></i><span class="hide-menu">ফাইল
                                 লিস্ট</span></a>
                         <ul aria-expanded="false" class="collapse">
 
@@ -213,7 +223,8 @@
                                     <small><b>Unofficial</b></small></a>
                             </li>
                             <li><a href="{{ route('user.nidList', auth()->user()->id) }}">এনআইডি লিস্ট</a></li>
-                            <li><a href="{{ route('user.birthList', auth()->user()->id) }}">জন্ম নিবন্ধন লিস্ট</a></li>
+                            <li><a href="{{ route('user.birthList', auth()->user()->id) }}">জন্ম নিবন্ধন লিস্ট</a>
+                            </li>
                             <li><a href="{{ route('user.tinList', auth()->user()->id) }}">টিন সার্টিফিকেট লিস্ট</a>
                             <li><a href="{{ route('user.vaccineList', auth()->user()->id) }}">ভ্যাক্সিনেশন লিস্ট</a>
                             </li>

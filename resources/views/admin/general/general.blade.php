@@ -188,6 +188,20 @@
                                                         </div>
                                                     </div>
 
+                                                    <div class="form-group py-2">
+                                                        টিন সার্টিফিকেট অর্ডার
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$hideUnhide->tin_order == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="tin_order" value="0">
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="tin_order" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$hideUnhide->tin_order == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+
                                                     {{-- <div class="form-group py-2">
                                                         নতুন এনআইডি
                                                         <div class="form-check form-switch">
@@ -527,6 +541,19 @@
                                                                 value="1" name="passport_server_copy" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$submitStatus->passport_server_copy == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group py-2">
+                                                        টিন সার্টিফিকেট অর্ডার 
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$submitStatus->tin_order == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="tin_order" value="0">
+                                                            <input class="form-check-input" onclick="submitForm()"
+                                                                value="1" name="tin_order" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$submitStatus->tin_order == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
 

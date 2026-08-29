@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\AdminRechargeController;
 use App\Http\Controllers\Admin\AdminServerCopyOrderController;
 use App\Http\Controllers\Admin\AdminSignCopyOrderController;
 use App\Http\Controllers\Admin\AdminSimCallListController;
+use App\Http\Controllers\Admin\AdminTinOrderController;
 use App\Http\Controllers\Admin\AdminUserpassNidController;
 use App\Http\Controllers\Admin\BiometricTypeController;
 use App\Http\Controllers\Admin\BkashNagadInfoTypeController;
@@ -53,6 +54,7 @@ use App\Http\Controllers\User\VoterInfoController;
 use App\Http\Controllers\User\NidLostFormController;
 use App\Http\Controllers\User\PassportServerCopyController;
 use App\Http\Controllers\User\SimCallListController;
+use App\Http\Controllers\User\TinOrderController;
 use App\Http\Controllers\VaccinController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WebsiteSettingsController;
@@ -117,6 +119,7 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user', 'is_active'
     Route::get('/tin-file-list/{id}', [UserdashboardController::class, 'tinList'])->name('tinList');
     Route::resource('sign-copy', SignCopyOrderController::class)->only('index', 'store');
     Route::resource('server-copy', ServerCopyOrderController::class)->only('index', 'store');
+    Route::resource('tin-order', TinOrderController::class)->only('index', 'store');
     Route::resource('id-card', IdCardOrderController::class)->only('index', 'store', 'update');
     Route::resource('biometric-info', BiometricInfoController::class)->only('index', 'store');
     Route::resource('sim-call-list', SimCallListController::class)->only('index', 'store');
@@ -174,6 +177,7 @@ Route::controller(ServerCopyUnofficialController::class)->middleware(['auth'])->
 //file upload and download
 Route::get('/file/download/{id}', [AdminSignCopyOrderController::class, 'download'])->name('file.download');
 Route::get('/server-copy-file/download/{id}', [AdminServerCopyOrderController::class, 'download'])->name('server-file.download');
+Route::get('/tin-order-file/download/{id}', [AdminTinOrderController::class, 'download'])->name('tin-order-file.download');
 Route::get('/id-card-file/download/{id}', [AdminIdCardController::class, 'download'])->name('idCard-file.download');
 Route::get('/id-card-user-file/download/{id}', [AdminIdCardController::class, 'UserFileDownload'])->name('idCard-user-file.download');
 Route::get('/id-card-user-file/delete/{id}', [AdminIdCardController::class, 'UserFileDelete'])->name('idCard-user-file.delete');
@@ -224,6 +228,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::post('/server-copy-file-upload', [AdminServerCopyOrderController::class, 'fileUpload'])->name('server-file.upload');
 
     Route::put('/server-copy-refund/{id}', [AdminServerCopyOrderController::class, 'refund'])->name('refund.serverCopy');
+
+    //Tin Order
+    Route::resource('tin-order', AdminTinOrderController::class)->only('index', 'destroy');
+    Route::get('tin-order-completed', [AdminTinOrderController::class, 'completed'])->name('tin-order.completed');
+    Route::get('tin-order-disabled', [AdminTinOrderController::class, 'disabled'])->name('tin-order.disabled');
+    Route::put('/tin-order-status/{id}', [AdminTinOrderController::class, 'updateStatus'])->name('updateTinOrderStatus');
+    Route::post('/tin-order-file-upload', [AdminTinOrderController::class, 'fileUpload'])->name('tin-order-file.upload');
+    Route::put('/tin-order-refund/{id}', [AdminTinOrderController::class, 'refund'])->name('refund.tinOrder');
 
 
     Route::resource('id-card', AdminIdCardController::class)->only('index', 'destroy');
