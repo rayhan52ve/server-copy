@@ -62,6 +62,18 @@
                         <input type="text" class="form-control" rows="5" value="{{ $notice->tin_order ?? null }}"
                             name="tin_order" placeholder="টিন সার্টিফিকেট অর্ডার নোটিশ">
                     </div>
+
+                    <div class="form-group py-2">
+                        <label>এন.আইডি টু অল নাম্বার</label>
+                        <input type="text" class="form-control" rows="5" value="{{ $notice->nid_to_allnumber ?? null }}"
+                            name="nid_to_allnumber" placeholder="এন.আইডি টু অল নাম্বার নোটিশ">
+                    </div>
+
+                    <div class="form-group py-2">
+                        <label>নাম্বার টু লোকেশন</label>
+                        <input type="text" class="form-control" rows="5" value="{{ $notice->number_to_location ?? null }}"
+                            name="number_to_location" placeholder="নাম্বার টু লোকেশন নোটিশ">
+                    </div>
                     
                     {{-- <div class="form-group py-2">
                         <label>নতুন এনআইডি</label>

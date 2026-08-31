@@ -126,6 +126,20 @@
                                     class="hide-menu">পাসপোর্ট সার্ভার কপি</span></a>
                         </li>
                     @endif
+                    
+                    @if ($hideUnhide->nid_to_allnumber == 1)
+                        <li> <a class="waves-effect waves-dark" href="{{ route('user.nid-to-allnumber.index') }}"
+                                aria-expanded="false"><i class="fa-solid fa-id-card"></i><span
+                                    class="hide-menu">এন.আইডি টু অল নাম্বার</span></a>
+                        </li>
+                    @endif
+
+                    @if ($hideUnhide->number_to_location == 1)
+                        <li> <a class="waves-effect waves-dark" href="{{ route('user.number-to-location.index') }}"
+                                aria-expanded="false"><i class="fa-solid fa-location-dot"></i><span
+                                    class="hide-menu">নাম্বার টু লোকেশন</span></a>
+                        </li>
+                    @endif
 
                     {{-- <li> <a class="waves-effect waves-dark" href="{{ route('user.new-nid.index') }}"
                         aria-expanded="false"><i class="fa-solid fa-id-card"></i><span class="hide-menu">নতুন এনআইডি</span></a>

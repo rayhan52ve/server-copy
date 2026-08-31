@@ -170,6 +170,70 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="form-group py-2">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label>এন.আইডি টু অল নাম্বার</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->nid_to_allnumber ?? null }}" name="nid_to_allnumber"
+                                    placeholder="এন.আইডি টু অল নাম্বার মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>এন.আইডি টু অল নাম্বার মূল্য</label>
+                                <input type="number" class="form-control" rows="5"
+                                    value="{{ $message->nid_to_allnumber_price ?? null }}" name="nid_to_allnumber_price"
+                                    placeholder="0">
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-md-8">
+                                <label>এন.আইডি টু অল নাম্বার (Premium)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->premium_nid_to_allnumber ?? null }}"
+                                    name="premium_nid_to_allnumber" placeholder="এন.আইডি টু অল নাম্বার মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>এন.আইডি টু অল নাম্বার মূল্য (Premium)</label>
+                                <input type="number" class="form-control" rows="5"
+                                    value="{{ $message->premium_nid_to_allnumber_price ?? null }}"
+                                    name="premium_nid_to_allnumber_price" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group py-2">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label>নাম্বার টু লোকেশন</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->number_to_location ?? null }}" name="number_to_location"
+                                    placeholder="নাম্বার টু লোকেশন মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>নাম্বার টু লোকেশন মূল্য</label>
+                                <input type="number" class="form-control" rows="5"
+                                    value="{{ $message->number_to_location_price ?? null }}"
+                                    name="number_to_location_price" placeholder="0">
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-md-8">
+                                <label>নাম্বার টু লোকেশন (Premium)</label>
+                                <input type="text" class="form-control" rows="5"
+                                    value="{{ $message->premium_number_to_location ?? null }}"
+                                    name="premium_number_to_location" placeholder="নাম্বার টু লোকেশন মেসেজ">
+                            </div>
+                            <div class="col-md-4">
+                                <label>নাম্বার টু লোকেশন মূল্য (Premium)</label>
+                                <input type="number" class="form-control" rows="5"
+                                    value="{{ $message->premium_number_to_location_price ?? null }}"
+                                    name="premium_number_to_location_price" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
                     {{-- <div class="form-group py-2">
                         <div class="row">
                             <div class="col-md-8">

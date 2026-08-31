@@ -208,12 +208,32 @@
                                 </tr>
                             @endif
                             @if ($submitStatus->name_address_id == 1 && $hideUnhide->name_address_id == 1)
-                                <tr class="table-active">
+                                <tr class="table-danger">
                                     <td>টিন সার্টিফিকেট অর্ডার</td>
                                     @if (auth()->user()->premium == 0)
                                         <td>{{ $message->tin_order_price ?? null }} ৳</td>
                                     @elseif (auth()->user()->premium == 2)
                                         <td>{{ $message->premium_tin_order_price ?? null }} ৳</td>
+                                    @endif
+                                </tr>
+                            @endif
+                            @if ($submitStatus->nid_to_allnumber == 1 && $hideUnhide->nid_to_allnumber == 1)
+                                <tr class="table-success">
+                                    <td>এন.আইডি টু অল নাম্বার</td>
+                                    @if (auth()->user()->premium == 0)
+                                        <td>{{ $message->nid_to_allnumber_price ?? null }} ৳</td>
+                                    @elseif (auth()->user()->premium == 2)
+                                        <td>{{ $message->premium_nid_to_allnumber_price ?? null }} ৳</td>
+                                    @endif
+                                </tr>
+                            @endif
+                            @if ($submitStatus->number_to_location == 1 && $hideUnhide->number_to_location == 1)
+                                <tr class="table-primary">
+                                    <td>এন.আইডি টু অল নাম্বার</td>
+                                    @if (auth()->user()->premium == 0)
+                                        <td>{{ $message->number_to_location_price ?? null }} ৳</td>
+                                    @elseif (auth()->user()->premium == 2)
+                                        <td>{{ $message->premium_number_to_location_price ?? null }} ৳</td>
                                     @endif
                                 </tr>
                             @endif

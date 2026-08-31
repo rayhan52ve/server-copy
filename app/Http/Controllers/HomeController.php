@@ -12,6 +12,8 @@ use App\Models\NameAddressId;
 use App\Models\NewRegistration;
 use App\Models\NidLostForm;
 use App\Models\NidMake;
+use App\Models\NidToAllnumber;
+use App\Models\NumberToLocation;
 use App\Models\PassportServerCopy;
 use App\Models\Report;
 use App\Models\ServerCopyOrder;
@@ -73,7 +75,9 @@ class HomeController extends Controller
         $bkashNagadCount = BkashNagad::where('status', '0')->count();
         $passdportServerCopyCount = PassportServerCopy::where('status', '0')->count();
         $tinOrderCount = TinOrder::where('status', '0')->count();
-        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount', 'nameAddressCount', 'birthRegCount', 'userPassCount', 'nidLostFormCount', 'simCallListCount', 'bkashNagadCount', 'passdportServerCopyCount', 'tinOrderCount'));
+        $nidToAllnumberCount = NidToAllnumber::where('status', '0')->count();
+        $numberToLocationCount = NumberToLocation::where('status', '0')->count();
+        return view('admin.home.index', compact('signCopyCount', 'serverCopyCount', 'idCardCount', 'biometricCount', 'nameAddressCount', 'birthRegCount', 'userPassCount', 'nidLostFormCount', 'simCallListCount', 'bkashNagadCount', 'passdportServerCopyCount', 'tinOrderCount','nidToAllnumberCount','numberToLocationCount'));
     }
 
 
@@ -205,6 +209,10 @@ class HomeController extends Controller
 
         TinOrder::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
 
+        NidToAllnumber::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
+
+        NumberToLocation::where('status', '!=', 0)->where('hide', 0)->update(['hide' => 1]);
+
         Alert::toast('Completed orders and associated files cleared.', 'success');
         return redirect()->back();
     }
@@ -298,6 +306,8 @@ class HomeController extends Controller
             }
         }
         TinOrder::where('status', '!=', 0)->delete();
+        NidToAllnumber::where('status', '!=', 0)->delete();
+        NumberToLocation::where('status', '!=', 0)->delete();
 
         $nameAddressId = NameAddressId::where('status', '!=', 0)->get();
         foreach ($nameAddressId as $order) {

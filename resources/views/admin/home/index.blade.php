@@ -251,6 +251,42 @@
                         </div>
                     </div>
                 @endif
+                @if (auth()->user()->is_admin == 1)
+                    <div class="col-xl-2 col-md-3 col-6 mb-3">
+                        <div class="card text-white mb-4 h-100" style="background-color:rgba(22, 148, 99, 0.842)">
+                            <div class="card-header">
+                                <h5>Nid To All Number</h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <h1>{{ $nidToAllnumberCount }}</h1>
+                            </div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <a class="small text-white stretched-link"
+                                    href="{{ route('admin.nid-to-allnumber.index') }}">View Details</a>
+
+                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                @if (auth()->user()->is_admin == 1)
+                    <div class="col-xl-2 col-md-3 col-6 mb-3">
+                        <div class="card text-white mb-4 h-100" style="background-color:rgba(93, 42, 131, 0.842)">
+                            <div class="card-header">
+                                <h5>Number To Location</h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <h1>{{ $numberToLocationCount }}</h1>
+                            </div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <a class="small text-white stretched-link"
+                                    href="{{ route('admin.number-to-location.index') }}">View Details</a>
+
+                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
             </div>
         </div>

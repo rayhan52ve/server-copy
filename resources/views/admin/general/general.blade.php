@@ -202,6 +202,34 @@
                                                         </div>
                                                     </div>
 
+                                                    <div class="form-group py-2">
+                                                        এন.আইডি টু অল নাম্বার
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$hideUnhide->nid_to_allnumber == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="nid_to_allnumber" value="0">
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="nid_to_allnumber" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$hideUnhide->nid_to_allnumber == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group py-2">
+                                                        নাম্বার টু লোকেশন
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$hideUnhide->number_to_location == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="number_to_location" value="0">
+                                                            <input class="form-check-input"
+                                                                onclick="submitHideUnhideForm()" value="1"
+                                                                name="number_to_location" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$hideUnhide->number_to_location == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+
                                                     {{-- <div class="form-group py-2">
                                                         নতুন এনআইডি
                                                         <div class="form-check form-switch">
@@ -554,6 +582,32 @@
                                                                 value="1" name="tin_order" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$submitStatus->tin_order == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group py-2">
+                                                        এন. আইডি টু অল নাম্বার 
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$submitStatus->nid_to_allnumber == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="nid_to_allnumber" value="0">
+                                                            <input class="form-check-input" onclick="submitForm()"
+                                                                value="1" name="nid_to_allnumber" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$submitStatus->nid_to_allnumber == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group py-2">
+                                                        নাম্বার টু লোকেশন 
+                                                        <div class="form-check form-switch">
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked2">
+                                                                {{ @$submitStatus->number_to_location == 1 ? 'ON' : 'OFF' }}</label>
+                                                            <input type="hidden" name="number_to_location" value="0">
+                                                            <input class="form-check-input" onclick="submitForm()"
+                                                                value="1" name="number_to_location" type="checkbox"
+                                                                id="flexSwitchCheckChecked2"
+                                                                {{ @$submitStatus->number_to_location == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
 

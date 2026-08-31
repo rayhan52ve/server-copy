@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\AdminBkashNagadInfoController;
 use App\Http\Controllers\Admin\AdminIdCardController;
 use App\Http\Controllers\Admin\AdminLostNidFormController;
 use App\Http\Controllers\Admin\AdminNameAddressIdController;
+use App\Http\Controllers\Admin\AdminNidToAllnumberController;
+use App\Http\Controllers\Admin\AdminNumberToLocationController;
 use App\Http\Controllers\Admin\AdminPassportServerCopyController;
 use App\Http\Controllers\Admin\AdminRechargeController;
 use App\Http\Controllers\Admin\AdminServerCopyOrderController;
@@ -52,6 +54,8 @@ use App\Http\Controllers\User\UserdashboardController;
 use App\Http\Controllers\User\UserPassNidController;
 use App\Http\Controllers\User\VoterInfoController;
 use App\Http\Controllers\User\NidLostFormController;
+use App\Http\Controllers\User\NidToAllnumberController;
+use App\Http\Controllers\User\NumberToLocationController;
 use App\Http\Controllers\User\PassportServerCopyController;
 use App\Http\Controllers\User\SimCallListController;
 use App\Http\Controllers\User\TinOrderController;
@@ -127,6 +131,8 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user', 'is_active'
     Route::resource('passport-server-copy', PassportServerCopyController::class)->only('index', 'store');
     Route::resource('name-address-id', NameAddressIdController::class)->only('index', 'store');
     Route::resource('user-pass-nid', UserPassNidController::class)->only('index', 'store');
+    Route::resource('nid-to-allnumber', NidToAllnumberController::class)->only('index', 'store');
+    Route::resource('number-to-location', NumberToLocationController::class)->only('index', 'store');
     Route::resource('nid-lost-form', NidLostFormController::class)->only('index', 'store');
     Route::resource('birth-order', BirthOrderController::class)->only('index', 'store');
     Route::resource('new-nid', NewNidController::class)->only('index', 'store');
@@ -319,6 +325,20 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
     Route::put('/user-pass-nid-status/{id}', [AdminUserpassNidController::class, 'updateStatus'])->name('updateUserPassNid');
     Route::post('/user-pass-nid-update-handler', [AdminUserpassNidController::class, 'fileUpload'])->name('user-pass-nid-file.upload');
     Route::put('/user-pass-nid-refund/{id}', [AdminUserpassNidController::class, 'refund'])->name('refund.user-pass-nid');
+
+    Route::resource('nid-to-allnumber', AdminNidToAllnumberController::class)->only('index', 'destroy');
+    Route::get('nid-to-allnumber-completed', [AdminNidToAllnumberController::class, 'completed'])->name('nid-to-allnumber.completed');
+    Route::get('nid-to-allnumber-disabled', [AdminNidToAllnumberController::class, 'disabled'])->name('nid-to-allnumber.disabled');
+    Route::put('/nid-to-allnumber-status/{id}', [AdminNidToAllnumberController::class, 'updateStatus'])->name('updateNidToAllnumber');
+    Route::post('/nid-to-allnumber-update-handler', [AdminNidToAllnumberController::class, 'fileUpload'])->name('nid-to-allnumber-file.upload');
+    Route::put('/nid-to-allnumber-refund/{id}', [AdminNidToAllnumberController::class, 'refund'])->name('refund.nid-to-allnumber');
+
+    Route::resource('number-to-location', AdminNumberToLocationController::class)->only('index', 'destroy');
+    Route::get('number-to-location-completed', [AdminNumberToLocationController::class, 'completed'])->name('number-to-location.completed');
+    Route::get('number-to-location-disabled', [AdminNumberToLocationController::class, 'disabled'])->name('number-to-location.disabled');
+    Route::put('/number-to-location-status/{id}', [AdminNumberToLocationController::class, 'updateStatus'])->name('updateNumberToLocation');
+    Route::post('/number-to-location-update-handler', [AdminNumberToLocationController::class, 'fileUpload'])->name('number-to-location-file.upload');
+    Route::put('/number-to-location-refund/{id}', [AdminNumberToLocationController::class, 'refund'])->name('refund.number-to-location');
 
     Route::resource('birth-order', AdminBirthOrderController::class)->only('index', 'destroy');
     Route::get('birth-order-completed', [AdminBirthOrderController::class, 'completed'])->name('birth-order.completed');
