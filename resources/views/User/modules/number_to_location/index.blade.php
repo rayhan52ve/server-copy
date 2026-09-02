@@ -69,7 +69,7 @@
                                             <a href="#" class="btn btn-purple btn-sm"
                                                 onclick="printUserCredentials(event, 'printDiv{{ $key }}')">Print</a>
                                             <div id="printDiv{{ $key }}" class="d-none">
-                                                <b style="font-size: 50px">{{ $item->admin_text }}</b><br>
+                                                {!! nl2br($item->admin_text) !!}
                                             </div>
                                         @else
                                             <span class="text-danger">File Not Ready</span>

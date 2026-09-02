@@ -77,7 +77,7 @@
                                             <a href="#" class="btn btn-purple btn-sm"
                                                 onclick="printUserCredentials(event, 'printDiv{{ $key }}')">Print</a>
                                             <div id="printDiv{{ $key }}" class="d-none">
-                                                <b style="font-size: 50px">{{ $item->admin_text }}</b><br>
+                                                {!! nl2br($item->admin_text) !!}
                                             </div>
                                         @else
                                             <span class="text-danger">File Not Uploaded</span>
@@ -95,7 +95,7 @@
                                                     var textToCopy = "Nid To All Number\n";
 
                                                     textToCopy += "Nid:" + nid + "\n";
-                                                    textToCopy += "Pin:" + pin + "\n"; 
+                                                    textToCopy += "Pin:" + pin + "\n";
 
                                                     navigator.clipboard.writeText(textToCopy).then(function() {
                                                         alert("Row copied to clipboard!");
@@ -191,19 +191,18 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <!-- Form for file upload -->
-                                                            <form action="{{ route('admin.nid-to-allnumber-file.upload') }}"
+                                                            <form
+                                                                action="{{ route('admin.nid-to-allnumber-file.upload') }}"
                                                                 method="POST" enctype="multipart/form-data">
                                                                 @csrf
-                                                                <div class="col-md-12">
+                                                                <div class="col-md-10">
                                                                     <input type="hidden" name="id"
                                                                         value="{{ $item->id }}">
-                                                                    <div class="form-group col-md-10">
                                                                         <label for="userId"
-                                                                            class="form-label col-2">Admin Text:</label>
-                                                                        <input type="text" class="form-control col-10"
-                                                                            id="admin_text" name="admin_text" required>
-                                                                    </div>
-                                                    
+                                                                            class="form-label">Admin Text:</label>
+                                                                        <textarea name="admin_text" class="form-control" id="" cols="30" rows="10" required></textarea>
+
+
 
                                                                 </div>
                                                                 <button type="submit"

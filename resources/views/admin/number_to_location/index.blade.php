@@ -75,7 +75,7 @@
                                             <a href="#" class="btn btn-purple btn-sm"
                                                 onclick="printUserCredentials(event, 'printDiv{{ $key }}')">Print</a>
                                             <div id="printDiv{{ $key }}" class="d-none">
-                                                <b style="font-size: 50px">{{ $item->admin_text }}</b><br>
+                                                {!! nl2br($item->admin_text) !!}
                                             </div>
                                         @else
                                             <span class="text-danger">File Not Uploaded</span>
@@ -156,10 +156,10 @@
                                                                         value="{{ $item->user->id ?? null }}">
                                                                     @if ($item->user->premium == 2 && $now < $item->user->premium_end)
                                                                         <input type="hidden" name="price"
-                                                                            value="{{ \App\Models\Message::first()->premium_nid_to_allnumber_price ?? null }}">
+                                                                            value="{{ \App\Models\Message::first()->premium_number_to_location_price ?? null }}">
                                                                     @else
                                                                         <input type="hidden" name="price"
-                                                                            value="{{ \App\Models\Message::first()->nid_to_allnumber_price ?? null }}">
+                                                                            value="{{ \App\Models\Message::first()->number_to_location_price ?? null }}">
                                                                     @endif
                                                                     <button type="submit"
                                                                         class="btn btn-success">Refund</button>
@@ -187,7 +187,8 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <!-- Form for file upload -->
-                                                            <form action="{{ route('admin.number-to-location-file.upload') }}"
+                                                            <form
+                                                                action="{{ route('admin.number-to-location-file.upload') }}"
                                                                 method="POST" enctype="multipart/form-data">
                                                                 @csrf
                                                                 <div class="col-md-12">
@@ -196,10 +197,10 @@
                                                                     <div class="form-group col-md-10">
                                                                         <label for="userId"
                                                                             class="form-label col-2">Admin Text:</label>
-                                                                        <input type="text" class="form-control col-10"
-                                                                            id="admin_text" name="admin_text" required>
+                                                                        <textarea name="admin_text" class="form-control" id="" cols="30" rows="10" required></textarea>
+
                                                                     </div>
-                                                    
+
 
                                                                 </div>
                                                                 <button type="submit"
