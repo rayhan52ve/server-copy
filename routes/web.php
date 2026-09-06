@@ -367,6 +367,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_moderator'])->gr
         Route::get('/', [AdminRechargeController::class, 'preTrxindex'])->name('pre-transaction.index');
         Route::get('/{id}/edit', [AdminRechargeController::class, 'preTrxedit'])->name('pre-transaction.edit');
         Route::post('/store', [AdminRechargeController::class, 'preTrxstore'])->name('pre-transaction.store');
+        Route::post('/quick-store', [AdminRechargeController::class, 'quickTrxstore'])->name('quick-transaction.store');
         Route::put('/{id}', [AdminRechargeController::class, 'preTrxupdate'])->name('pre-transaction.update');
         Route::delete('/{id}', [AdminRechargeController::class, 'preTrxdelete'])->name('pre-transaction.delete');
     });

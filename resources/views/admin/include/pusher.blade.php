@@ -3,6 +3,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 
+@php
+    $pendingRecharge = \App\Models\Recharge::where('status', 0)->latest()->first();
+@endphp
+
 
 <audio id="notificationAudio" src="{{ asset('notification_sound/notification-sound.wav') }}"></audio>
 
@@ -59,6 +63,25 @@
         });
     }
 
+
+    // Function to show recharge modal with data
+    function showRechargeModal(user_name, payment_number, amount, transactionId) {
+        if (user_name) {
+            document.getElementById('modalUserName').textContent = user_name;
+        }
+        if (payment_number) {
+            document.getElementById('modalPaymentNumber').textContent = payment_number;
+        }
+        if (amount) {
+            document.getElementById('modalAmount').value = amount;
+        }
+        if (transactionId) {
+            document.getElementById('modalTrxId').value = transactionId;
+        }
+        const modal = new bootstrap.Modal(document.getElementById('popRechargeModal'));
+        modal.show();
+    }
+
     // Check for stored notifications when the page loads
     window.onload = function() {
         displayStoredNotifications();
@@ -93,6 +116,11 @@
             } else if (data.status === 22) {
                 playNotificationSound(); // Play notification sound
                 toastr.info(data.message, "Notification"); // Display notification
+            } else if (data.status === 99) {
+                playNotificationSound(); // Play notification sound
+                toastr.success(data.message, "Recharge Notification"); // Display toast notification
+
+                showRechargeModal(data.user_name, data.payment_number, data.amount, data.transaction_id);
             } else {
                 playNotificationSound(); // Play notification sound
                 toastr.success(data.message, "Notification"); // Display notification
@@ -102,3 +130,54 @@
         }
     });
 </script>
+
+@if (isset($pendingRecharge))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            showRechargeModal(
+                @json($pendingRecharge->user?->email),
+                @json($pendingRecharge->payment_number),
+                @json($pendingRecharge->amount),
+                @json($pendingRecharge->transaction_id)
+            );
+        });
+    </script>
+@endif
+
+<!-- Modal -->
+<div class="modal fade" id="popRechargeModal" tabindex="-1" aria-labelledby="popRechargeModalLabel"
+    data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header py-2">
+                <h5 class="modal-title" id="popRechargeModalLabel">Save Transaction</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="my-4">
+                    <strong>Email: <span id="modalUserName"></span></strong><br>
+                    <strong>Payment Number: <span id="modalPaymentNumber"></span></strong>
+                </div>
+                <form id="rechargeForm" action="{{ route('admin.quick-transaction.store') }}" method="post">
+                    @csrf
+                    <div class="mb-2">
+                        <label class="form-label">Amount</label>
+                        <input type="number" class="form-control form-control-sm" name="amount" id="modalAmount"
+                            placeholder="Enter amount">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Transaction ID</label>
+                        <input type="text" class="form-control form-control-sm" name="trx_id" id="modalTrxId"
+                            readonly placeholder="Enter TRX ID">
+                    </div>
+                    <div class="d-flex gap-2 p-2">
+                        <button type="submit" name="status" value="1"
+                            class="btn btn-success flex-fill">Accept</button>
+                        <button type="submit" name="status" value="2"
+                            class="btn btn-danger flex-fill">Decline</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

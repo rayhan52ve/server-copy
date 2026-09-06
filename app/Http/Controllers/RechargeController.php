@@ -103,9 +103,12 @@ class RechargeController extends Controller
         $adminNotification->msg = $message;
         $adminNotification->save();
 
-        $status = 0;
-        $user_name = '';
-        event(new OrderNotification($message, $status, $user_name));
+        $status = 99;
+        $user_name = $user->email;
+        $payment_number = $request->payment_number;
+        $transaction_id = $request->transaction_id;
+        $amount = $request->amount;
+        event(new OrderNotification($message, $status, $user_name, $transaction_id, $amount, $payment_number));
 
         Alert::toast("Recharge Request submitted Successfully.", 'success');
         return redirect()->back();

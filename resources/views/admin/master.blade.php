@@ -76,7 +76,8 @@
         </a>
 
         <!-- Modal -->
-        <div class="modal fade" id="rechargeModal" tabindex="-1" aria-labelledby="rechargeModalLabel"
+        <div class="modal fade" id="rechargeModal" tabindex="-1" aria-labelledby="rechargeModalLabel" data-bs-backdrop="static"
+            data-bs-keyboard="false"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-sm">
                 <div class="modal-content">
