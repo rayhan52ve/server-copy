@@ -18,7 +18,6 @@ class BkashNagad extends Model
         return $this->belongsTo(BkashNagadType::class, 'type', 'id');
     }
 
-
     public function user()
     {
         return $this->belongsTo(User::class);
