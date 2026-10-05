@@ -50,6 +50,10 @@ class RechargeController extends Controller
             'amount' => 'required|numeric|min:1',
             'transaction_id' => 'required|string|max:255|unique:recharges,transaction_id',
             'photo' => 'required_if:recharge_screenshot,1|nullable|image|mimes:jpg,jpeg,png,webp',
+        ], [
+            'photo.required_if' => 'Please upload your payment screenshot.',
+            'photo.image' => 'The payment screenshot must be an image.',
+            'photo.mimes' => 'The payment screenshot must be a JPG, JPEG, PNG, or WEBP file.',
         ]);
 
         // If validation fails
