@@ -179,7 +179,8 @@
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->passport_server_copy == 1 ? 'ON' : 'OFF' }}</label>
-                                                            <input type="hidden" name="passport_server_copy" value="0">
+                                                            <input type="hidden" name="passport_server_copy"
+                                                                value="0">
                                                             <input class="form-check-input"
                                                                 onclick="submitHideUnhideForm()" value="1"
                                                                 name="passport_server_copy" type="checkbox"
@@ -221,7 +222,8 @@
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$hideUnhide->number_to_location == 1 ? 'ON' : 'OFF' }}</label>
-                                                            <input type="hidden" name="number_to_location" value="0">
+                                                            <input type="hidden" name="number_to_location"
+                                                                value="0">
                                                             <input class="form-check-input"
                                                                 onclick="submitHideUnhideForm()" value="1"
                                                                 name="number_to_location" type="checkbox"
@@ -564,16 +566,17 @@
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$submitStatus->passport_server_copy == 1 ? 'ON' : 'OFF' }}</label>
-                                                            <input type="hidden" name="passport_server_copy" value="0">
+                                                            <input type="hidden" name="passport_server_copy"
+                                                                value="0">
                                                             <input class="form-check-input" onclick="submitForm()"
-                                                                value="1" name="passport_server_copy" type="checkbox"
-                                                                id="flexSwitchCheckChecked2"
+                                                                value="1" name="passport_server_copy"
+                                                                type="checkbox" id="flexSwitchCheckChecked2"
                                                                 {{ @$submitStatus->passport_server_copy == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group py-2">
-                                                        টিন সার্টিফিকেট অর্ডার 
+                                                        টিন সার্টিফিকেট অর্ডার
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$submitStatus->tin_order == 1 ? 'ON' : 'OFF' }}</label>
@@ -586,7 +589,7 @@
                                                     </div>
 
                                                     <div class="form-group py-2">
-                                                        এন. আইডি টু অল নাম্বার 
+                                                        এন. আইডি টু অল নাম্বার
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$submitStatus->nid_to_allnumber == 1 ? 'ON' : 'OFF' }}</label>
@@ -599,11 +602,12 @@
                                                     </div>
 
                                                     <div class="form-group py-2">
-                                                        নাম্বার টু লোকেশন 
+                                                        নাম্বার টু লোকেশন
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
                                                                 {{ @$submitStatus->number_to_location == 1 ? 'ON' : 'OFF' }}</label>
-                                                            <input type="hidden" name="number_to_location" value="0">
+                                                            <input type="hidden" name="number_to_location"
+                                                                value="0">
                                                             <input class="form-check-input" onclick="submitForm()"
                                                                 value="1" name="number_to_location" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
@@ -802,6 +806,16 @@
                                                                 value="1" name="recharge" type="checkbox"
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$submitStatus->recharge == 1 ? 'checked' : '' }}>
+                                                        </div>
+                                                        <div class="form-group d-flex g-1">
+                                                            <input type="hidden" name="recharge_screenshot"
+                                                                value="0">
+                                                            <input class="" onclick="submitForm()" value="1"
+                                                                name="recharge_screenshot" type="checkbox"
+                                                                id="recharge_screenshot"
+                                                                {{ @$submitStatus->recharge_screenshot == 1 ? 'checked' : '' }}>
+                                                            <label for="recharge_screenshot" class="px-1">Screenshot
+                                                                Required</label>
                                                         </div>
                                                     </div>
                                                     <div class="form-group py-2">

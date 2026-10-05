@@ -45,11 +45,11 @@ class RechargeController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        // dd($request->recharge_screenshot);
         $validator = Validator::make($request->all(), [
             'amount' => 'required|numeric|min:1',
             'transaction_id' => 'required|string|max:255|unique:recharges,transaction_id',
-            'photo' => 'required|image|mimes:jpg,jpeg,png,webp',
+            'photo' => 'required_if:recharge_screenshot,1|nullable|image|mimes:jpg,jpeg,png,webp',
         ]);
 
         // If validation fails

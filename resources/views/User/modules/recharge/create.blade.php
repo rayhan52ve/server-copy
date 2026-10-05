@@ -86,6 +86,136 @@
             background-color: #005f6b;
         }
     </style>
+    <style>
+        .screenshot-upload {
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            padding: 14px;
+            background: #fafbfc;
+        }
+
+        .screenshot-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .screenshot-title>i {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            background: #e8f5e9;
+            color: #28a745;
+            font-size: 18px;
+        }
+
+        .screenshot-title strong {
+            display: block;
+            font-size: 14px;
+        }
+
+        .screenshot-title small {
+            display: block;
+            color: #777;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        .upload-box {
+            border: 2px dashed #cfd5db;
+            border-radius: 7px;
+            background: #fff;
+            transition: 0.2s;
+        }
+
+        .upload-box:hover {
+            border-color: #28a745;
+            background: #f8fff9;
+        }
+
+        .upload-box input[type="file"] {
+            display: none;
+        }
+
+
+
+        .upload-content {
+            min-height: 190px;
+            padding: 25px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .upload-icon {
+            font-size: 32px;
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+
+        .upload-content strong {
+            font-size: 15px;
+            color: #222;
+            margin-bottom: 6px;
+        }
+
+        .upload-description {
+            display: block;
+            max-width: 500px;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #777;
+            margin: auto;
+        }
+
+        .upload-content small {
+            display: block;
+            margin-top: 6px;
+            color: #999;
+            font-size: 11px;
+        }
+
+        .choose-btn {
+            display: inline-flex !important;
+            align-items: center;
+            gap: 5px;
+            margin-top: 12px !important;
+            padding: 7px 14px;
+            border-radius: 5px;
+            background: #28a745;
+            color: #fff !important;
+            font-size: 12px !important;
+        }
+
+        .preview-container {
+            display: none;
+            margin-top: 12px;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .preview-container img {
+            max-width: 220px;
+            max-height: 180px;
+            border-radius: 5px;
+        }
+
+        .preview-info {
+            margin-top: 7px;
+            font-size: 12px;
+            color: #28a745;
+        }
+    </style>
     <div class="col-lg-12 mt-5">
         <div class="card p-1" style="border: 2px solid rgb(7, 95, 136); border-radius: 5px;">
             <marquee behavior="" direction="">
@@ -100,48 +230,100 @@
         <h5>বিকাশ {{ @$weblinks->bkash_type }}: {{ @$weblinks->bkash }}</h5>
         <h5>নগদ {{ @$weblinks->nagad_type }}: {{ @$weblinks->nagad }}</h5>
 
-        <!-- Form -->
         <form id="submit_form" action="{{ route('user.recharge.store') }}" method="post" class="form-container"
             enctype="multipart/form-data">
             @csrf
+
             <div class="form-group">
-                <div class="form-group">
-                    <label for="sex">Paymet Method:</label>
-                    <select id="method" name="method" required>
-                        <option value="Bkash">Bkash</option>
-                        <option value="Nagad">Nagad</option>
-                    </select>
-                </div>
-                <label for="payment_number">Payment Number</label>
-                <input type="text" name="payment_number" placeholder="Enter your Payment Number" required>
-                <label for="transaction_id" class="mt-1">Transaction Id</label>
-                <input type="text" name="transaction_id" placeholder="Enter your Payment Transaction Id" required>
-                <label for="" class="mt-1">Recharge Amount</label>
-                <input type="number" class="mt-1" name="amount" placeholder="Enter Recharge Amount" required>
 
-                <div class="col-md-4 col-8">
-                    <label for="photo" class="mt-1">Upload Document (Screenshot)</label>
-                    <input type="file" name="photo" id="photo" accept="image/*" class="form-control">
+                <!-- Payment Method -->
+                <label for="method">Payment Method</label>
+                <select id="method" name="method" required>
+                    <option value="Bkash">Bkash</option>
+                    <option value="Nagad">Nagad</option>
+                </select>
 
-                    <div class="mt-2">
-                        <img id="photoPreview" src="" alt="Photo Preview"
-                            style="display:none; max-width:200px; max-height:200px; border-radius:5px;">
+                <!-- Payment Number -->
+                <label for="payment_number" class="mt-2">Payment Number</label>
+                <input type="text" name="payment_number" placeholder="Enter your payment number" required>
+
+                <!-- Transaction ID -->
+                <label for="transaction_id" class="mt-2">Transaction ID</label>
+                <input type="text" name="transaction_id" placeholder="Enter your payment transaction ID" required>
+
+                <!-- Amount -->
+                <label for="amount" class="mt-2">Recharge Amount</label>
+                <input type="number" name="amount" placeholder="Enter recharge amount" required>
+
+                @if ($submitStatus->recharge_screenshot == 1)
+                    <input type="hidden" name="recharge_screenshot" value="1">
+                    <!-- Payment Screenshot -->
+                    <div class="screenshot-upload mt-3">
+
+                        <div class="screenshot-title">
+                            <i class="fa-solid fa-receipt"></i>
+                            <div>
+                                <strong>Payment Screenshot</strong>
+                                <small>Upload proof of your payment</small>
+                            </div>
+                        </div>
+
+                        <div class="upload-box">
+                            <input type="file" name="photo" id="photo" accept="image/*" required>
+
+                            <label for="photo" class="upload-content">
+                                <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+
+                                <strong>Upload Payment Screenshot</strong>
+
+                                <span class="upload-description">
+                                    Take a screenshot after completing your
+                                    Bkash/Nagad payment and upload it here.
+                                </span>
+
+                                <small>JPG, JPEG, PNG or WEBP</small>
+
+                                <span class="choose-btn">
+                                    <i class="fa-solid fa-image"></i>
+                                    Choose Screenshot
+                                </span>
+                            </label>
+                        </div>
+
+                        <!-- Preview -->
+                        <div id="previewContainer" class="preview-container">
+                            <img id="photoPreview" src="" alt="Payment Screenshot">
+
+                            <div class="preview-info">
+                                <i class="fa-solid fa-circle-check"></i>
+                                Screenshot selected successfully
+                            </div>
+                        </div>
+
                     </div>
-                </div>
-                <!-- Add the rest of your fields here -->
+                @endif
+
 
 
                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+
                 <div class="text-center py-3">
                     @if ($submitStatus->recharge == 0)
-                        <h6 class="text-danger">ফর্ম সাবমিট বন্ধ আছে। পরবর্তীতে চেষ্টা করুন।</h6>
+                        <h6 class="text-danger">
+                            ফর্ম সাবমিট বন্ধ আছে। পরবর্তীতে চেষ্টা করুন।
+                        </h6>
                     @endif
                 </div>
-                <!-- Submit Button -->
+
+                <!-- Submit -->
                 <div class="form-group mt-2">
                     <button class="submit btn btn-success form-control" type="button"
-                        {{ $submitStatus->recharge == 1 ? '' : 'disabled' }}>Submit</button>
+                        {{ $submitStatus->recharge == 1 ? '' : 'disabled' }}>
+                        Submit
+                    </button>
                 </div>
+
+            </div>
         </form>
     </div>
 
@@ -247,15 +429,17 @@
 
                 reader.onload = function(e) {
                     $('#photoPreview')
-                        .attr('src', e.target.result)
-                        .show();
+                        .attr('src', e.target.result);
+
+                    $('#previewContainer').show();
                 };
 
                 reader.readAsDataURL(file);
             } else {
                 $('#photoPreview')
-                    .attr('src', '')
-                    .hide();
+                    .attr('src', '');
+
+                $('#previewContainer').hide();
             }
         });
     </script>
