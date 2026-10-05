@@ -135,11 +135,11 @@
                         <input type="text" class="form-control" rows="5" value="{{ $notice->recharge ?? null }}"
                             name="recharge" placeholder="">
                     </div>
-                    <div class="form-group py-2">
+                    {{-- <div class="form-group py-2">
                         <label>অটো রিচার্জ(Bkash) </label>
                         <input type="text" class="form-control" rows="5" value="{{ $notice->recharge_bkash ?? null }}"
                             name="recharge_bkash" placeholder="">
-                    </div>
+                    </div> --}}
                     <div class="form-group py-2">
                         <label>অ্যাকাউন্ট অ্যাকটিভেশন</label>
                         <input type="text" class="form-control" rows="5" value="{{ $notice->active_status ?? null }}"

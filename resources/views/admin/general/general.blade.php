@@ -438,7 +438,7 @@
                                                                 {{ @$hideUnhide->recharge == 1 ? 'checked' : '' }}>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group py-2">
+                                                    {{-- <div class="form-group py-2">
                                                         অটো রিচার্জ(Bkash)
                                                         <div class="form-check form-switch">
                                                             <label class="form-check-label" for="flexSwitchCheckChecked2">
@@ -450,7 +450,7 @@
                                                                 id="flexSwitchCheckChecked2"
                                                                 {{ @$hideUnhide->recharge_bkash == 1 ? 'checked' : '' }}>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </form>
 
                                                 <script>

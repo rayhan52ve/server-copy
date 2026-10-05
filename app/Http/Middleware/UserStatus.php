@@ -28,7 +28,7 @@ class UserStatus
             }
             $amount = Message::first()->active_status_price;
             Alert::toast("আপনার অ্যাকাউন্টটি সচল করতে দয়াকরে $amount ৳ রিচার্জ করুন!", 'info');
-            return redirect('/bkash/payment');
+            return redirect('/user-profile-settings');
         } else {
             return $next($request);
         }

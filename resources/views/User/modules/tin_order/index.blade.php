@@ -46,7 +46,7 @@
                             @foreach ($tinOrders as $key => $item)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->type=='tin' ? 'টিন':'এন.আইডি' }}</td>
+                                    <td>{{ $item->type == 'tin' ? 'টিন' : 'এন.আইডি' }}</td>
                                     <td>{{ $item->number ?? null }}</td>
                                     <td>
                                         @if ($item->status == 0)
@@ -123,7 +123,8 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group text-center">
-                                        <label class="form-label">এন.আইডি/টিন নাম্বার অপশন<span class="text-danger">*</span></label>
+                                        <label class="form-label">এন.আইডি/টিন নাম্বার অপশন<span
+                                                class="text-danger">*</span></label>
                                         <select class="form-control" name="type" required>
                                             <option value="" selected disabled>Select</option>
                                             <option value="nid">এন.আইডি</option>
@@ -136,8 +137,7 @@
                                     <div class="form-group text-center">
                                         <label>এন.আইডি/টিন নাম্বারঃ <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="number"
-                                            value="{{ old('number') }}"
-                                            placeholder="এন.আইডি/টিন নাম্বার লিখুন" required>
+                                            value="{{ old('number') }}" placeholder="এন.আইডি/টিন নাম্বার লিখুন" required>
                                     </div>
                                 </div>
 
@@ -147,13 +147,23 @@
                                     <input type="hidden" name="price"
                                         value="{{ $message->premium_tin_order_price ?? null }}">
                                 @else
-                                    <input type="hidden" name="price"
-                                        value="{{ $message->tin_order_price ?? null }}">
+                                    <input type="hidden" name="price" value="{{ $message->tin_order_price ?? null }}">
                                 @endif
 
 
                             </div>
 
+                            <div class="form-group text-center mt-2">
+                                @if ($submitStatus->tin_order == 1)
+                                    @if (auth()->user()->premium == 2 && $now < auth()->user()->premium_end)
+                                        <h6 class="text-danger">{{ $message->premium_tin_order }}</h6>
+                                    @else
+                                        <h6 class="text-danger">{{ $message->tin_order }}</h6>
+                                    @endif
+                                @else
+                                    <h6 class="text-danger">ফর্ম সাবমিট বন্ধ আছে। পরবর্তীতে চেষ্টা করুন।</h6>
+                                @endif
+                            </div>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

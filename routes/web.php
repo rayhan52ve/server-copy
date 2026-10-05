@@ -466,24 +466,24 @@ Route::get('/republish-popup-notice/{id}', [PopupNoticeController::class, 'publi
 
 
 
-Route::group(['middleware' => ['auth']], function () {
+// Route::group(['middleware' => ['auth']], function () {
 
-    // Payment Routes for bKash
-    Route::get('/bkash/payment', [BkashPaymentController::class, 'index'])->name('bkash.index');
-    Route::post('/bkash/get-token', [BkashPaymentController::class, 'getToken'])->name('bkash.get-token');
-    Route::post('/bkash/create-payment', [BkashPaymentController::class, 'create_payment'])->name('bkash.create-payment');
-    Route::post('/bkash/execute-payment', [BkashPaymentController::class, 'execute'])->name('bkash.execute-payment');
-    Route::get('/bkash/query-payment', [BkashPaymentController::class, 'query'])->name('bkash.query-payment');
-    Route::post('/bkash/success', [BkashPaymentController::class, 'success'])->name('bkash.success');
+//     // Payment Routes for bKash
+//     Route::get('/bkash/payment', [BkashPaymentController::class, 'index'])->name('bkash.index');
+//     Route::post('/bkash/get-token', [BkashPaymentController::class, 'getToken'])->name('bkash.get-token');
+//     Route::post('/bkash/create-payment', [BkashPaymentController::class, 'create_payment'])->name('bkash.create-payment');
+//     Route::post('/bkash/execute-payment', [BkashPaymentController::class, 'execute'])->name('bkash.execute-payment');
+//     Route::get('/bkash/query-payment', [BkashPaymentController::class, 'query'])->name('bkash.query-payment');
+//     Route::post('/bkash/success', [BkashPaymentController::class, 'success'])->name('bkash.success');
 
-    // Refund Routes for bKash
-    // Route::get('/bkash/refund', [BkashPaymentController::class, 'refundPage'])->name('bkash.refund');
-    // Route::post('/bkash/refund', [BkashPaymentController::class, 'refund'])->name('bkash.refund');
+//     // Refund Routes for bKash
+//     // Route::get('/bkash/refund', [BkashPaymentController::class, 'refundPage'])->name('bkash.refund');
+//     // Route::post('/bkash/refund', [BkashPaymentController::class, 'refund'])->name('bkash.refund');
 
-    // Callback Route for bKash
-    Route::match(['get', 'post'], '/bkash/callback', [BkashPaymentController::class, 'callback'])->name('bkash.callback');
+//     // Callback Route for bKash
+//     Route::match(['get', 'post'], '/bkash/callback', [BkashPaymentController::class, 'callback'])->name('bkash.callback');
 
-    // Success and Failure routes
-    Route::view('/bkash/success', 'User.modules.bkash_msg.success')->name('bkash.success');
-    // Route::view('/bkash/fail', 'frontend.bkash.fail')->name('bkash.fail');
-});
+//     // Success and Failure routes
+//     Route::view('/bkash/success', 'User.modules.bkash_msg.success')->name('bkash.success');
+//     // Route::view('/bkash/fail', 'frontend.bkash.fail')->name('bkash.fail');
+// });

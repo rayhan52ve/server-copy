@@ -656,7 +656,7 @@
                         </div>
 
                     </div>
-                    <div class="form-group py-2">
+                    {{-- <div class="form-group py-2">
                         <div class="row">
                             <div class="col-md-8">
                                 <label>সর্বনিম্ন রিচার্জ মূল্য(Bkash)</label>
@@ -672,7 +672,7 @@
                             </div>
                         </div>
 
-                    </div>
+                    </div> --}}
 
                     <div class="form-group py-2">
                         <div class="row">

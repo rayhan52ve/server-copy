@@ -258,12 +258,12 @@
                                     class="hide-menu">রিচার্জ</span></a>
                         </li>
                     @endif
-                    @if ($hideUnhide->recharge_bkash == 1)
+                    {{-- @if ($hideUnhide->recharge_bkash == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('bkash.index') }}"
                                 aria-expanded="false"><i class="fa-solid fa-bangladeshi-taka-sign"></i><span
                                     class="hide-menu">রিচার্জ</span></a>
                         </li>
-                    @endif
+                    @endif --}}
                     @if ($hideUnhide->admin == 1)
                         <li> <a class="waves-effect waves-dark" href="{{ route('user.about_admin') }}"
                                 aria-expanded="false"><i class="fa-solid fa-user"></i><span
@@ -293,12 +293,12 @@
                     </a>
                 </li>
 
-                @if (auth()->user()->status == 0 && $submitStatus->active_status == 1)
+                {{-- @if (auth()->user()->status == 0 && $submitStatus->active_status == 1)
                     <li> <a class="waves-effect waves-dark" href="{{ route('bkash.index') }}"
                             aria-expanded="false"><i class="fa-solid fa-play"></i><span class="hide-menu">অ্যাকটিভেট
                                 অ্যাকাউন্ট</span></a>
                     </li>
-                @endif
+                @endif --}}
                 <li> <a class="waves-effect waves-dark" href="#"
                         onclick="event.preventDefault(); document.getElementById('logoutForm').submit()"
                         aria-expanded="false"><i class="fa-solid fa-right-from-bracket"></i><span
