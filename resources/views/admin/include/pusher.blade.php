@@ -3,6 +3,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+
 @php
     $pendingRecharge = \App\Models\Recharge::where('status', 0)->latest()->first();
 @endphp
@@ -65,7 +69,7 @@
 
 
     // Function to show recharge modal with data
-    function showRechargeModal(user_name, payment_number, amount, transactionId) {
+    function showRechargeModal(user_name, payment_number, amount, transactionId, photo) {
         if (user_name) {
             document.getElementById('modalUserName').textContent = user_name;
         }
@@ -77,6 +81,18 @@
         }
         if (transactionId) {
             document.getElementById('modalTrxId').value = transactionId;
+        }
+        if (photo) {
+            const photoUrl = '/' + photo;
+
+            $('#modalPhoto')
+                .attr('src', photoUrl);
+
+            $('#modalPhotoLink')
+                .attr('href', photoUrl)
+                .show();
+        } else {
+            $('#modalPhotoLink').hide();
         }
         const modal = new bootstrap.Modal(document.getElementById('popRechargeModal'));
         modal.show();
@@ -120,7 +136,7 @@
                 playNotificationSound(); // Play notification sound
                 toastr.success(data.message, "Recharge Notification"); // Display toast notification
 
-                showRechargeModal(data.user_name, data.payment_number, data.amount, data.transaction_id);
+                showRechargeModal(data.user_name, data.payment_number, data.amount, data.transaction_id, data.photo);
             } else {
                 playNotificationSound(); // Play notification sound
                 toastr.success(data.message, "Notification"); // Display notification
@@ -138,7 +154,8 @@
                 @json($pendingRecharge->user?->email),
                 @json($pendingRecharge->payment_number),
                 @json($pendingRecharge->amount),
-                @json($pendingRecharge->transaction_id)
+                @json($pendingRecharge->transaction_id),
+                @json($pendingRecharge->photo)
             );
         });
     </script>
@@ -157,6 +174,15 @@
                 <div class="my-4">
                     <strong>Email: <span id="modalUserName"></span></strong><br>
                     <strong>Payment Number: <span id="modalPaymentNumber"></span></strong>
+
+                    <div class="mt-3 text-center">
+                        <a id="modalPhotoLink" href="" data-lightbox="payment-screenshot"
+                            data-title="Payment Screenshot" style="display:none;">
+
+                            <img id="modalPhoto" src="" alt="Payment Screenshot"
+                                class="img-fluid rounded border" style="max-height:300px; cursor:pointer;">
+                        </a>
+                    </div>
                 </div>
                 <form id="rechargeForm" action="{{ route('admin.quick-transaction.store') }}" method="post">
                     @csrf

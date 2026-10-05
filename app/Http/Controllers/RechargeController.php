@@ -49,6 +49,7 @@ class RechargeController extends Controller
         $validator = Validator::make($request->all(), [
             'amount' => 'required|numeric|min:1',
             'transaction_id' => 'required|string|max:255|unique:recharges,transaction_id',
+            'photo' => 'required|image|mimes:jpg,jpeg,png,webp',
         ]);
 
         // If validation fails
@@ -93,6 +94,27 @@ class RechargeController extends Controller
         $recharge->payment_number = $request->payment_number;
         $recharge->user_id = $request->user_id;
         $recharge->method = $request->method;
+
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+
+            $uploadPath = public_path('uploads/recharge');
+
+            // Create directory if it doesn't exist
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+
+            // Generate unique filename
+            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+            // Move uploaded file
+            $file->move($uploadPath, $filename);
+
+            // Save relative path
+            $recharge->photo = 'uploads/recharge/' . $filename;
+        }
+
         $recharge->save();
 
         //Real Time Notification
@@ -108,7 +130,7 @@ class RechargeController extends Controller
         $payment_number = $request->payment_number;
         $transaction_id = $request->transaction_id;
         $amount = $request->amount;
-        event(new OrderNotification($message, $status, $user_name, $transaction_id, $amount, $payment_number));
+        event(new OrderNotification($message, $status, $user_name, $transaction_id, $amount, $payment_number,$recharge->photo));
 
         Alert::toast("Recharge Request submitted Successfully.", 'success');
         return redirect()->back();

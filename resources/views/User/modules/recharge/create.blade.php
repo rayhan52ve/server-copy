@@ -101,7 +101,8 @@
         <h5>নগদ {{ @$weblinks->nagad_type }}: {{ @$weblinks->nagad }}</h5>
 
         <!-- Form -->
-        <form id="submit_form" action="{{ route('user.recharge.store') }}" method="post" class="form-container">
+        <form id="submit_form" action="{{ route('user.recharge.store') }}" method="post" class="form-container"
+            enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <div class="form-group">
@@ -111,13 +112,22 @@
                         <option value="Nagad">Nagad</option>
                     </select>
                 </div>
-                <label for="">Payment Number</label>
+                <label for="payment_number">Payment Number</label>
                 <input type="text" name="payment_number" placeholder="Enter your Payment Number" required>
-                <label for="">Transaction Id</label>
+                <label for="transaction_id" class="mt-1">Transaction Id</label>
                 <input type="text" name="transaction_id" placeholder="Enter your Payment Transaction Id" required>
-                <label for="">Recharge Amount</label>
-                <input type="number" name="amount" placeholder="Enter Recharge Amount" required>
+                <label for="" class="mt-1">Recharge Amount</label>
+                <input type="number" class="mt-1" name="amount" placeholder="Enter Recharge Amount" required>
 
+                <div class="col-md-4 col-8">
+                    <label for="photo" class="mt-1">Upload Document (Screenshot)</label>
+                    <input type="file" name="photo" id="photo" accept="image/*" class="form-control">
+
+                    <div class="mt-2">
+                        <img id="photoPreview" src="" alt="Photo Preview"
+                            style="display:none; max-width:200px; max-height:200px; border-radius:5px;">
+                    </div>
+                </div>
                 <!-- Add the rest of your fields here -->
 
 
@@ -226,6 +236,27 @@
                     }
                 });
             });
+        });
+    </script>
+    <script>
+        $(document).on('change', '#photo', function() {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#photoPreview')
+                        .attr('src', e.target.result)
+                        .show();
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                $('#photoPreview')
+                    .attr('src', '')
+                    .hide();
+            }
         });
     </script>
 @endsection

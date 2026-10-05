@@ -6,7 +6,7 @@
                 <div class="d-flex justify-content-between">
                     <h3>Payment History</h3>
                     <div>
-                        <a href="{{route('admin.pre-transaction.index')}}" class="btn btn-info" id="">Saved TRX</a>
+                        <a href="{{ route('admin.pre-transaction.index') }}" class="btn btn-info" id="">Saved TRX</a>
                         <button type="button" class="btn btn-danger" id="clearAllBtn">Clear All</button>
                     </div>
 
@@ -48,6 +48,12 @@
                                         @endif
                                     </td>
                                     <td>
+                                        @if ($item->photo)
+                                            <a href="{{ asset($item->photo) }}" download class="btn btn-sm btn-info"
+                                                title="Download Screenshot">
+                                                <i class="fa-solid fa-download"></i>
+                                            </a>
+                                        @endif
                                         @if ($item->status == 1)
                                             <i class="fa-solid fa-check fa-xl" style="color: #7fdb4d;"></i>
                                         @elseif ($item->status == 0)

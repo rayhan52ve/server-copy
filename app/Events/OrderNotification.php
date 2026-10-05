@@ -20,13 +20,14 @@ class OrderNotification implements ShouldBroadcast
     public $transaction_id;
     public $amount;
     public $payment_number;
+    public $photo;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message,$status,$user_name, $transaction_id = null, $amount = null, $payment_number = null)
+    public function __construct($message,$status,$user_name, $transaction_id = null, $amount = null, $payment_number = null, $photo = null)
     {
         $this->message = $message;
         $this->status = $status;
@@ -34,6 +35,7 @@ class OrderNotification implements ShouldBroadcast
         $this->transaction_id = $transaction_id;  
         $this->amount = $amount;  
         $this->payment_number = $payment_number;  
+        $this->photo = $photo;  
     }
 
     /**
@@ -60,6 +62,7 @@ class OrderNotification implements ShouldBroadcast
             'transaction_id' => $this->transaction_id,
             'amount' => $this->amount,
             'payment_number' => $this->payment_number,
+            'photo' => $this->photo,
         ];
     }
 }
