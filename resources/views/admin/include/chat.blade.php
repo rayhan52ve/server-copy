@@ -740,7 +740,7 @@
         width: auto;
         max-width: none;
 
-        height: calc(100vh - 100px);
+        height: calc(90vh - 90px);
         max-height: none;
 
         border-radius: 12px;
