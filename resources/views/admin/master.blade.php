@@ -127,6 +127,7 @@
     {{-- @include('sweetalert::alert') --}}
 
     @include('admin.include.pusher')
+    @include('admin.include.chat')
 
 </body>
 

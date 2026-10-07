@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\SubmitStatusController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\BannerAndTitleController;
 use App\Http\Controllers\BkashPaymentController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\NidAutoController;
 use App\Http\Controllers\PopupMessageController;
 use App\Http\Controllers\PopupNoticeController;
@@ -155,6 +156,16 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user', 'is_active'
     Route::get('/user-notification-list', [UserdashboardController::class, 'userNotification'])->name('userNotification');
     Route::get('/clear-notification-list', [UserdashboardController::class, 'clearAllUserNotification'])->name('clearAllUserNotification');
     Route::delete('/delete-notification/{id}', [UserdashboardController::class, 'destroy'])->name('notification.destroy');
+});
+
+// User chat
+Route::prefix('user')->name('user.')->middleware(['auth', 'is_user'])->group(function () {
+    Route::post('/chat/send', [ChatController::class, 'send'])->name('chat.send');
+});
+
+// Admin chat
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_admin'])->group(function () {
+    Route::post('/chat/send', [ChatController::class, 'adminSend'])->name('chat.send');
 });
 
 Route::get('print-saved-nid/{id}', [NidMakeController::class, 'printSavedNid'])->name('print.savedNid')->middleware('auth');

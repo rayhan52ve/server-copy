@@ -294,6 +294,9 @@
                 document.getElementById('modalMessage').textContent = data.message;
                 const modal = new bootstrap.Modal(document.getElementById('customModal'));
                 modal.show();
+            } else if (data.status === 100) {
+                //chat message
+                playNotificationSound();
             } else {
                 playNotificationSound();
                 toastr.success(data.message, 'Notification');

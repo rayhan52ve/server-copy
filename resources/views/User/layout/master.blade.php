@@ -95,6 +95,7 @@
     @include('User.layout.include.script')
     @include('sweetalert::alert')
     @include('User.layout.include.pusher')
+    @include('User.layout.include.chat')
 
     <!--Start of Tawk.to Script-->
     {{-- <script type="text/javascript">
