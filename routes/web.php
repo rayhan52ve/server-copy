@@ -161,11 +161,13 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'is_user', 'is_active'
 // User chat
 Route::prefix('user')->name('user.')->middleware(['auth', 'is_user'])->group(function () {
     Route::post('/chat/send', [ChatController::class, 'send'])->name('chat.send');
+    Route::get('/chat/history',  [ChatController::class, 'history'])->name('chat.history');
 });
 
 // Admin chat
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_admin'])->group(function () {
     Route::post('/chat/send', [ChatController::class, 'adminSend'])->name('chat.send');
+    Route::get('/chat/history',  [ChatController::class, 'adminHistory'])->name('chat.history');
 });
 
 Route::get('print-saved-nid/{id}', [NidMakeController::class, 'printSavedNid'])->name('print.savedNid')->middleware('auth');

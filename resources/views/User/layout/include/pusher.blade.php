@@ -313,7 +313,7 @@
     });
 </script>
 
-@if (isset($replyIsEmpty))
+{{-- @if (isset($replyIsEmpty))
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             playNotificationSound();
@@ -322,7 +322,7 @@
             modal.show();
         });
     </script>
-@endif
+@endif --}}
 
 @if (isset($popupNotice))
     <script>

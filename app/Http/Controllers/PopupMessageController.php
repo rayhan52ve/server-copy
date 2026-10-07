@@ -70,15 +70,15 @@ class PopupMessageController extends Controller
      * @param  \App\Models\PopupMessage  $popupMessage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         // dd($request->all(),$id);
-        $popupMessage = PopupMessage::where('user_id',$id)->where('reply',null)->latest()->first();
+        $popupMessage = PopupMessage::where('user_id', $id)->where('reply', null)->latest()->first();
         $popupMessage->update($request->all());
         $message = $request->reply;
         $status = 15;
         $user_name = auth()->user()->name;
-        event(new OrderNotification($message,$status,$user_name));
+        event(new OrderNotification($message, $status, $user_name));
         Alert::toast('Reply Sent to Admin.', 'success');
         return redirect()->back();
     }
@@ -91,15 +91,34 @@ class PopupMessageController extends Controller
      */
     public function destroy(PopupMessage $popupMessage)
     {
+        // ✅ Delete the file if it exists
+        if ($popupMessage->file) {
+            $fullPath = public_path($popupMessage->file);
+            if (file_exists($fullPath) && is_file($fullPath)) {
+                @unlink($fullPath);
+            }
+        }
+
         $popupMessage->delete();
+
         Alert::toast('Message Deleted.', 'success');
         return redirect()->back();
     }
 
-    
     public function clearAllPopup()
     {
+        // ✅ Delete all files first, then truncate
+        $messages = PopupMessage::whereNotNull('file')->get(['file']);
+
+        foreach ($messages as $m) {
+            $fullPath = public_path($m->file);
+            if ($fullPath && file_exists($fullPath) && is_file($fullPath)) {
+                @unlink($fullPath);
+            }
+        }
+
         PopupMessage::truncate();
+
         Alert::toast("All Popup Message Cleared Successfully.", 'success');
         return redirect()->back();
     }

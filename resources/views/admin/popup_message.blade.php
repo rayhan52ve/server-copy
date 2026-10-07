@@ -47,9 +47,9 @@
                                             <td>{{ $item->created_at != $item->updated_at ? $item->updated_at->format('d-m-y h:i A') : 'Not Replied Yet' }}
 
                                             <td>
-                                                <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                                                {{-- <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                                 data-bs-target="#popupMessageModal{{ $item->id }}"><i
-                                                        class="fa-regular fa-comment"></i></button>
+                                                        class="fa-regular fa-comment"></i></button> --}}
                                                 <form action="{{ route('popup-message.destroy', $item->id) }}"
                                                     class="mt-1" method="POST" style="display: inline;">
                                                     @csrf
