@@ -77,10 +77,12 @@ class AdminRechargeController extends Controller
 
     public function preTrxstore(Request $request)
     {
+        // dd($request->all());
         // Validate input
         $validator = Validator::make($request->all(), [
+            'email'  => 'required|email|exists:users,email',
             'amount' => 'required|numeric|min:1',
-            'trx_id' => 'required|string|max:255|unique:pre_transactions,trx_id',
+            'trx_id' => 'nullable|string|max:255|unique:pre_transactions,trx_id',
         ]);
 
         // If validation fails
@@ -90,6 +92,7 @@ class AdminRechargeController extends Controller
             return redirect()->back()->withInput();
         }
 
+        $userByEmail = User::where('email', $request->email)->first();
         $hasRechargeTrx = Recharge::where('transaction_id', $request->trx_id)->where('status', 0)->first();
         $transaction = new PreTransaction();
 
@@ -120,13 +123,34 @@ class AdminRechargeController extends Controller
 
             $transaction->status = 1; // default status
 
+        } elseif (isset($userByEmail)) {
+            $userByEmail->balance += $request->amount;
+            $userByEmail->save();
+
+            //report
+            $todaysReport = Report::whereDate('created_at', Carbon::today())->first();
+            if ($todaysReport) {
+                $todaysReport->manual_recharge += $request->amount;
+                $todaysReport->income = $todaysReport->manual_recharge + $todaysReport->auto_recharge;
+                $todaysReport->profit = $todaysReport->income - $todaysReport->expense;
+                $todaysReport->save();
+            } else {
+                Report::create([
+                    'manual_recharge' => $request->amount,
+                    'income' => $request->amount,
+                    'profit' => $request->amount,
+                ]);
+            }
+
+            $transaction->status = 1; // default status
+
         } else {
             $transaction->status = 0; // default status
         }
 
         // Create new PreTransaction record
         $transaction->amount = $request->amount;
-        $transaction->trx_id = $request->trx_id;
+        $transaction->trx_id = $request->trx_id ?? 0;
         $transaction->user_id = auth()->id(); // optional, if transactions belong to users
         $transaction->save();
 

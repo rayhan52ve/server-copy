@@ -89,6 +89,11 @@
                         <form id="rechargeForm" action="{{route('admin.pre-transaction.store')}}" method="post">
                             @csrf
                             <div class="mb-2">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control form-control-sm" name="email"
+                                    placeholder="Enter user email" required>
+                            </div>
+                            <div class="mb-2">
                                 <label class="form-label">Amount</label>
                                 <input type="number" class="form-control form-control-sm" name="amount"
                                     placeholder="Enter amount">
